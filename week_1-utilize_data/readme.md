@@ -474,7 +474,7 @@ expression:
 double averageTemperature = highTemperatures[0] + highTemperatures[1]
                             + highTemperatures[2] + highTemperatures[3]
                             + highTemperatures[4]
-averageTemperature =/ 5;
+averageTemperature /= 5;
 ```
 
 For the values we used, the output should be:
