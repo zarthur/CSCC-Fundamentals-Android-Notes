@@ -1,8 +1,5 @@
 # Week 1 - Utilize Data
 
-## Useful Links
-[Github Desktop Client](https://desktop.github.com/)
-
 ## Corresponding Text
 *Learn Java for Android Development*, pp. 1-11, 37-70
 
