@@ -157,8 +157,9 @@ int[] dailyHighs;
 ```
 
 In this example, we declared a one-dimensional array of integers.  We can
-declare multi-dimensional arrays using the bracket notation.  For example,
-a two-dimensional array of floats could be declared like this:
+declare multi-dimensional arrays (arrays where each element is also an array)
+using the bracket notation.  For example, a two-dimensional array of floats
+could be declared like this:
 
 ```
 float lowsAndHighs[][];
@@ -256,7 +257,7 @@ As we continue exploring Java, we'll discuss other operators.
 
 | Operator            | Symbol                 | Description                                                                                                                                   |
 |:--------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
-| Array index         | `[]`                   | Given *varialbe[index]*, where *index* is an integer, return or store the value in *variable's* storage at index                              |
+| Array index         | `[]`                   | Given *variable[index]*, where *index* is an integer, return or store the value in *variable's* storage at index                              |
 | Assignment          | `=`                    | Given *variable = operand*, store *operand* in *variable*                                                                                     |
 | Compound Assignment | `+=`, `-=`, `*=`, `/=` | Given *variable operator operand*, perform the operation using the existing value of *variable* and *operand*, store the result in *variable* |
 | Equality            | `==`                   | Given *operand1 == operand2*, compare both operands, return *true* or *false* depending on the comparison                                     |
@@ -346,7 +347,11 @@ public class Main {
         System.out.println(tomorrowLowTemperature);
 
         //Comparison
+        //compare two numeric values; if the values are the same, isHigh will be true
+        //if the values are different, isHigh will be false
         boolean isHigh = currentTemperature == highTemperature;
+
+        //compare the content of two strings
         boolean isColumbus = cityName == "Columbus";
         System.out.println(isHigh);
         System.out.println(isColumbus);
@@ -404,5 +409,95 @@ The output is:
 100
 ```
 
+With the assignment operator, the value on the right-hand side will be
+evaluated before the value is stored in the variable on the left-hand side.
+Pay special attention to the value that is being calculated on the right-hand
+side and the type of the variable on the left-hand side.
 
-### Exercise
+Consider the following:
+
+```
+int sum = 2 + 3;
+```
+
+First,  the values *2* and *3* are added and their sum, *5*, is stored in the
+variable *sum*.  Since *2* and *3* are integers, we expect their sum to be an
+integer.
+
+What happens in the following?
+
+```int quotient = 10 / 4```
+
+The value of quotient is *2*.  If you were to divide 10 by 4 by hand, you would
+see that the quotient is 2.5.  Since the left hand side is an integer and 2.5
+is not an integer, the value is truncated and the integer *2* is stored in
+*quotient*.
+
+### Exercises
+**Write a program that stores a city name as a string, the city's zip code as an
+integer, and the high temperature for the next five days in an array.  The
+program should calculate the average high temperature for the next five days
+and store the value in a variable.  Finally, the program should display the
+city name, the zip code, and the average high temperature.**
+
+The average of a collection of values is the sum of all the values divided by
+the number of values.
+
+```
+package com.myname;
+
+public class Main {
+    public static void main(String[] args) {
+        String city = "Columbus";
+        int zipCode = 43215;
+        int[] highTemperatures = {32, 25, 27, 40, 45};
+
+        double averageTemperature = highTemperatures[0];
+        averageTemperature += highTemperatures[1];
+        averageTemperature += highTemperatures[2];
+        averageTemperature += highTemperatures[3];
+        averageTemperature += highTemperatures[4];
+
+        averageTemperature /= 5;
+
+        System.out.println("City: " + city);
+        System.out.println("Zip Code: " + zipCode );
+        System.out.println("Average High Temperature " + averageTemperature);
+    }
+}
+```
+
+An alternative way to compute the average is by using a more complex compound
+expression:
+
+```
+double averageTemperature = highTemperatures[0] + highTemperatures[1]
+                            + highTemperatures[2] + highTemperatures[3]
+                            + highTemperatures[4]
+averageTemperature =/ 5;
+```
+
+For the values we used, the output should be:
+
+```
+City: Columbus
+Zip Code: 43215
+Average High Temperature 33.8
+Average High Temperature 33.0
+```
+
+#### Problem
+**Notice we used the double type for the average; division of integers doesn't
+always result in an integer.  What happens when we divide the sum of the array
+elements by *5* in the same expression?**
+
+The sum of several integers is an integer.  As written, *5* is also an integer.
+When we divide an integer by an integer, Java will return an integer - possibly
+truncating the average value.  To see this with the code above, replace the
+calculation of *averageTemperature* with the following.
+
+```
+double averageTemperature = (highTemperatures[0] + highTemperatures[1]
+                            + highTemperatures[2] + highTemperatures[3]
+                            + highTemperatures[4]) / 5;
+```
