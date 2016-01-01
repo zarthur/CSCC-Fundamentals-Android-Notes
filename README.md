@@ -20,6 +20,3 @@ following the links below.
 - [Week 14 - JSON and Objects](week_14/readme.md)
 - [Week 15 - HTTP and Networking](week_15/readme.md)
 
-## Other Information
-This content is licensed with the MIT License; more information can be found
-[here](LICENSE).
