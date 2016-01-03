@@ -13,7 +13,9 @@ https://www.jetbrains.com/idea/download.
 Starting IntelliJ for the first time, you will be presented with the welcome
 screen.  From here, you can create a new project.
 
+<p style="text-align:center">
 ![IntelliJ Welcome Screen](images/intellij_start.png)
+</p>
 
 When creating a new Java project, be sure that Java is selected for the project
 software development kit (SDK). If no SDK is selected, click the **New...**
@@ -21,7 +23,9 @@ button and IntelliJ should find the SDK automatically. If no SDK is available
 the Java development kit (JDK) can be downloaded from Oracle's website:
 http://www.oracle.com/technetwork/java/javase/downloads/index.html.
 
+<p style="text-align:center">
 ![IntelliJ New Project](images/new_project.png)
+</p>
 
 For your first projects, you won't need any additional libraries or frameworks,
 so you can continue by clicking **Next**.
@@ -34,12 +38,16 @@ the base package (we'll talk about packages in more detail later). For now,
 your base package name should be something like *com.myname.week_1*. I've
 chosen the following for my first project:
 
+<p style="text-align:center">
 ![IntelliJ Project Details](images/new_project_details.png)
+</p>
 
 After clicking **Finish**, you should see the project layout on the left and
 an editor on the right.
 
+<p style="text-align:center">
 ![IntelliJ Editor](images/editor.png)
+</p>
 
 We can write Java code in the editor and run our programs from the IntelliJ IDE
 itself.  We can check that everything is working by entering the following code
@@ -59,7 +67,9 @@ Now you should be able to run the code by pressing the Run/Play button in the
 upper right corner.  If everything is working, you should see a new pane appear
 in the IntelliJ window with `Hello, World!`.
 
+<p style="text-align:center">
 ![Hello, World!](images/hello_world.png)
+</p>
 
 For now, most of our programs will start very much like this program and we'll
 eventually talk about the various parts.  One thing to note before we continue
@@ -478,12 +488,16 @@ be prompted to enter your Github credentials and an IntelliJ password.
 You will be prompted to enter a repository name, a remote name, and a
 description; leave the remote name set to *origin*.  
 
+<p style="text-align:center">
 ![Create a new repository](images/new_repo.png)
+</p>
 
 After clicking **Share**, you will be prompted to select the files to add.
 For now, we can add the default set of files.
 
+<p style="text-align:center">
 ![Commit files](images/initial_commit.png)
+</p>
 
 Once you have committed your files to the local repository, you can push the
 changes to the remote repository on GitHub by selecting **VCS -> Git -> Push**
