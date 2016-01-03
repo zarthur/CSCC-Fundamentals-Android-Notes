@@ -491,7 +491,7 @@ from the menus. When you modify, add, or remove files in the future, you can
 use the commit menu option; this combines steps of adding files to staging and
 committing them to the local repository.
 
-## Exercises
+## Exercise
 **Write a program that stores a city name as a string, the city's zip code as an
 integer, and the high temperature for the next five days in an array.  The
 program should calculate the average high temperature for the next five days
