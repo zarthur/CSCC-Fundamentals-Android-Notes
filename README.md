@@ -1,4 +1,4 @@
-# CSCC-Java-for-Android
+# CSCC-Fundamentals-Android-Notes
 Lecture notes and supporting material for the Programming Fundamentals for
 Android course at Columbus State Community College.
 
@@ -19,4 +19,3 @@ following the links below.
 - [Week 13 - Concurrency and Threading](week_13/readme.md)
 - [Week 14 - JSON and Objects](week_14/readme.md)
 - [Week 15 - HTTP and Networking](week_15/readme.md)
-

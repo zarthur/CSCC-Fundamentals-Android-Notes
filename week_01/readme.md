@@ -3,7 +3,7 @@
 ## Corresponding Text
 *Learn Java for Android Development*, pp. 1-11, 37-70
 
-## Getting Started - IntelliJ IDEA Java IDE
+## IntelliJ IDEA Java IDE
 IntelliJ IDEA Community Edition is a free integrated development environment
 (IDE) providing useful features for Java programming.
 
@@ -30,8 +30,9 @@ To start, we'll rely on the command line app template. Make sure **Create
 project from template** is selected and click **Next**.
 
 Now, you can give the project a title, choose where it will be saved, and name
-the base package (we'll talk about packages in more detail later).  I've chosen
-the following for my first project:
+the base package (we'll talk about packages in more detail later). For now,
+your base package name should be something like *com.myname.week_1*. I've
+chosen the following for my first project:
 
 ![IntelliJ Project Details](images/new_project_details.png)
 
@@ -42,10 +43,10 @@ an editor on the right.
 
 We can write Java code in the editor and run our programs from the IntelliJ IDE
 itself.  We can check that everything is working by entering the following code
-in the editor.  Make sure you replace `package com.myname` with what you
+in the editor.  Make sure you replace `package com.myname.week_1` with what you
 named your package.
 
-    package com.myname;
+    package com.myname.week_1;
 
     public class Main {
 
@@ -107,7 +108,7 @@ memory and the address of that location is stored in the variable.
 ### Creating variables and storing values
 Recall that variables are named storage locations for data. Storing data and
 accessing it later is important in nearly all computer programs.  In Java,
-a variable name can be any collection of letters, digits, "_", or "$",
+a variable name can be any collection of letters, digits, "\_", or "$",
 beginning as long as it doesn't begin with a digit.  Typically, variable names
 begin with a letter and describe the value being stored.
 
@@ -177,7 +178,7 @@ The following is a syntactically valid Java program consisting only of
 variable declarations:
 
 ```
-package com.myname;
+package com.myname.week_1;
 
 public class Main {
     public static void main(String[] args) {
@@ -269,7 +270,7 @@ example, comments are preceded by two forward slashes, `//`.  We're also using
 `System.out.println()`; remember that this lets us print values to the console.
 
 ```
-package com.myname;
+package com.myname.week_1;
 
 public class Main {
     public static void main(String[] args) {
@@ -324,7 +325,7 @@ corresponding to the characters.
 Lets looks at some more examples of operators.
 
 ```
-package com.myname;
+package com.myname.week_1;
 
 public class Main {
     public static void main(String[] args) {
@@ -379,7 +380,7 @@ Finally, let's look at the array index operator.  For this example, we'll
 initialize an array with some values using braces.
 
 ```
-package com.myname;
+package com.myname.week_1;
 
 public class Main {
     public static void main(String[] args) {
@@ -426,14 +427,71 @@ integer.
 
 What happens in the following?
 
-```int quotient = 10 / 4```
+```
+int quotient = 10 / 4
+```
 
 The value of quotient is *2*.  If you were to divide 10 by 4 by hand, you would
 see that the quotient is 2.5.  Since the left hand side is an integer and 2.5
 is not an integer, the value is truncated and the integer *2* is stored in
 *quotient*.
 
-### Exercises
+## Using GitHub
+For this class, we'll use GitHub to save and share our work.
+
+### Git and GitHub
+GitHub is built on Git, a version control system allowing you to keep track of
+changes to your code at various points in time as snapshots.  When working with
+Git on your computer, there are three distinct stages in which data resides:
+the working directory, the staging area, and the local repository.  The working
+directory is a where data you are modifying exists; the working directory
+consists of the files that you will make changes to as you develop your
+programs. The staging area stores information about what data will be part of
+the next snapshot you store. The repository is a store of all the snapshots
+you've taken; you can use the repository to compare different snapshots and
+even revert your data to the state it was in a previous snapshot.
+
+A basic Git workflow consists of making changes to files in the working
+directory, adding them to a new snapshot in the staging area, and committing
+the snapshot to the repository. All this can take place on your own computer.
+Git is also able to easily update a repository on another computer based on
+changes you've made on your computer.  GitHub can be used to host a remote
+repository and we can push changes from our local repository to a GitHub
+repository. Similarly, you can pull changes from a remote repository to your
+local repository and into your working directory.  
+
+For a better overview of how Git works, try this Git tutorial:
+https://try.github.io
+
+If you don't have a GitHub account, go to https://github.com and create one.
+For the work in this class, you can create one repository for each exercise or
+one repository for all the excercises; one repository for all the exercises
+will probably be more manageable. We'll work with creating repositories from
+within IntelliJ IDEA.
+
+### Working with GitHub in IntelliJ IDEA
+With our existing project, we can create a new repository by selecting
+**View -> Import into Version Control -> Share Project on Github** from
+the menu bar. If this is the first time using GitHub with IntelliJ, you will
+be prompted to enter your Github credentials and an IntelliJ password.
+
+You will be prompted to enter a repository name, a remote name, and a
+description; leave the remote name set to *origin*.  
+
+![Create a new repository](images/new_repo.png)
+
+After clicking **Share**, you will be prompted to select the files to add.
+For now, we can add the default set of files.
+
+![Commit files](images/initial_commit.png)
+
+Once you have committed your files to the local repository, you can push the
+changes to the remote repository on GitHub by selecting **VCS -> Git -> Push**
+from the menus. When you modify, add, or remove files in the future, you can
+use the commit menu option; this combines steps of adding files to staging and
+committing them to the local repository.
+
+## Exercises
 **Write a program that stores a city name as a string, the city's zip code as an
 integer, and the high temperature for the next five days in an array.  The
 program should calculate the average high temperature for the next five days
@@ -443,61 +501,18 @@ city name, the zip code, and the average high temperature.**
 The average of a collection of values is the sum of all the values divided by
 the number of values.
 
-```
-package com.myname;
-
-public class Main {
-    public static void main(String[] args) {
-        String city = "Columbus";
-        int zipCode = 43215;
-        int[] highTemperatures = {32, 25, 27, 40, 45};
-
-        double averageTemperature = highTemperatures[0];
-        averageTemperature += highTemperatures[1];
-        averageTemperature += highTemperatures[2];
-        averageTemperature += highTemperatures[3];
-        averageTemperature += highTemperatures[4];
-
-        averageTemperature /= 5;
-
-        System.out.println("City: " + city);
-        System.out.println("Zip Code: " + zipCode );
-        System.out.println("Average High Temperature " + averageTemperature);
-    }
-}
-```
-
-An alternative way to compute the average is by using a more complex compound
-expression:
-
-```
-double averageTemperature = highTemperatures[0] + highTemperatures[1]
-                            + highTemperatures[2] + highTemperatures[3]
-                            + highTemperatures[4]
-averageTemperature /= 5;
-```
-
-For the values we used, the output should be:
+For example, if the city is Columbus; the zip code is 43215; and the high
+temperatures for the next five days are 32, 25, 27, 40, and 45, the output of
+the program might be:
 
 ```
 City: Columbus
 Zip Code: 43215
 Average High Temperature 33.8
-Average High Temperature 33.0
 ```
 
-#### Problem
-**Notice we used the double type for the average; division of integers doesn't
-always result in an integer.  What happens when we divide the sum of the array
-elements by *5* in the same expression?**
+When computing the average high temperature, was the value stored as an
+integer value or a floating-point value? What happens to the computed average
+with either data type?
 
-The sum of several integers is an integer.  As written, *5* is also an integer.
-When we divide an integer by an integer, Java will return an integer - possibly
-truncating the average value.  To see this with the code above, replace the
-calculation of *averageTemperature* with the following.
-
-```
-double averageTemperature = (highTemperatures[0] + highTemperatures[1]
-                            + highTemperatures[2] + highTemperatures[3]
-                            + highTemperatures[4]) / 5;
-```
+Be sure to commit your code and push it to GitHub.
