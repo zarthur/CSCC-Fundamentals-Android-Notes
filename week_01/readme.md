@@ -495,7 +495,7 @@ be prompted to enter your Github credentials and an IntelliJ password.
 You will be prompted to enter a repository name, a remote name, and a
 description; leave the remote name set to *origin*.
 
-<img src="images/new_repo.png" alt="Create a new repository" style="display: block; margin-left: auto; margin-right: auto" />
+![Create a new repository](images/new_repo.png)
 
 After clicking **Share**, you will be prompted to select the files to add.
 For now, we can add the default set of files.
