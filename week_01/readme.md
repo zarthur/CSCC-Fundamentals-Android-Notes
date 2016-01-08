@@ -249,11 +249,11 @@ As we continue exploring Java, we'll discuss other operators.
 
 | Operator            | Symbol                     | Description                                                                                                                                                                                                    |
 |:--------------------|:---------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Array index         | `[]`                       | Given *variable[index]*, where *index* is an integer, return or store the value in *variable's* storage at index                                                                                               |
-| Assignment          | `=`                        | Given *variable = operand*, store *operand* in *variable*                                                                                                                                                      |
-| Compound Assignment | `+=`, `-=`, `*=`, `/=`     | Given *variable operator operand*, perform the operation using the existing value of *variable* and *operand*, store the result in *variable*                                                                  |
-| Comparison          | `==`, `<`, '<=', '>', `>=` | Given *operand1 operator operand2*, compare both operands, return *true* or *false* depending on the comparison; includes equality, less than, less than or equal to, greater than, greater than or equal to | |
-| Object Creation     | `new`                      | Given *new identifier[integer size]*, allocate a one-dimensional array of values with type *identifier*                                                                                                        |
+| Array index         | `[]`                       | Given `variable[index]`, where *index* is an integer, return or store the value in *variable's* storage at index                                                                                               |
+| Assignment          | `=`                        | Given `variable = operand`, store *operand* in *variable*                                                                                                                                                      |
+| Compound Assignment | `+=`, `-=`, `*=`, `/=`     | Given `variable operator operand`, perform the operation using the existing value of *variable* and *operand*, store the result in *variable*                                                                  |
+| Comparison          | `==`, `<`, `<=`, `>`, `>=` | Given `operand1 operator operand2`, compare both operands, return *true* or *false* depending on the comparison; includes equality, less than, less than or equal to, greater than, greater than or equal to | |
+| Object Creation     | `new`                      | Given `new identifier[integer size]`, allocate a one-dimensional array of values with type *identifier*                                                                                                        |
 
 Here's Java code that demonstrates some of these operators. This code contains
 comments. Comments are not evaluated and serve to document code. In this
