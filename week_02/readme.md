@@ -225,7 +225,7 @@ public class Main {
 ```
 
 This program will produce no output.  The *System.out.println()* statement will
-only be executed if the Boolean expression *currentTemperature > warmThreshold*
+only be executed if the Boolean expression `currentTemperature > warmThreshold`
 evaluates to true. In this case, since *currentTemperature* is not greater
 than *warmThreshold*, the Boolean expression evaluates to false and the
 *System.out.println()* statement is not executed.  Let's change the current
@@ -252,7 +252,7 @@ It's warm outside!
 ```
 
 When we changed *currentTemperature* to a value greater than *warmThreshold*,
-the Boolean expression *currentTemperature > warmThreshold* evaluated to true
+the Boolean expression `currentTemperature > warmThreshold` evaluated to true
 and the statement
 
 In the previous examples, we only had one statement to execute when the Boolean
@@ -310,8 +310,8 @@ public class Main {
 }
 ```
 
-In this example, we used combined two Boolean expressions, *highTemperature >
-warmThreshold* and *precipitationProbabily > precipitationThreshold* using
+In this example, we used combined two Boolean expressions, `highTemperature >
+warmThreshold` and `precipitationProbabily > precipitationThreshold` using
 the conditional AND operator.  Notice, we can also split the Boolean expression
 across multiple lines, if necessary.
 
@@ -445,10 +445,10 @@ public class Main {
 ```
 
 Let's examine how this might be a better solution.  Using the value assigned to
-*currentTemperature*, 65, the *currentTemperature < coldThreshold* will
+*currentTemperature*, 65, the `currentTemperature < coldThreshold` will
 evaluate to false, so the program will go to the else statement - another
 if-else statement.  The program will now evaluate the Boolean expression
-*currentTemperature > hotThreshold*.  Since the expression evaluates to false,
+`currentTemperature > hotThreshold`.  Since the expression evaluates to false,
 the else statement will be executed.  Notice that we don't need the third
 boolean expression from the prior example because if neither of the first two
 expressions are true, the third must be true.  When *currentTemperature* is 65,
