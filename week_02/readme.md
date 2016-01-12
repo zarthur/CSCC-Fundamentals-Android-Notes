@@ -722,8 +722,8 @@ each iteration of the loop, we increase the index/loop-control variable by 1.
 
 There is another type of for loop that we can use to iterate over elements
 in an array and similar structures.  This type of for loop is commonly known
-as a for-each loop.  Here's the previous example rewritten to use a for-each
-loop:
+as a **for-each loop**.  Here's the previous example rewritten to use a
+for-each loop:
 
 ```
 public class Main {
