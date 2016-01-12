@@ -576,10 +576,181 @@ Notice that every statement that is part of the matching case and those cases
 that occur after the matching case are executed.  
 
 ## Loops
-### For Statement
-### For-Each Statement
-### While Statement
-### Do-While Statement
+Often, there's a need to repeatedly execute a statement multiple times; this
+repeated execution is called a **loop**.  Java provides several kinds of loop
+statements.
+
+### For and For-Each Statements
+The **for statement** lets us loop over a statement a specific number of times
+or indefinitely; it has the following syntax:
+
+```
+for ([initialize]; [test]; [update])
+    statement
+```
+
+The statement consists of the reserved word *for* followed by a header enclosed
+in parentheses and the statement to execute.  The header consists of three
+optional parts: *initialize*, *test*, and *update*; the semicolon separating
+each part is required regardless of whether the part is present or not. The
+*initialize* part consists of a comma-separated list of declarations or
+assignments.  Some, if not all, of the variables in the initialize part are
+**loop-control variables**, that is, they are used to control the duration of
+the loop.
+
+The *test* part is a Boolean expression that is also used to determine the
+duration of the loop; often the *test* will make use of loop-control variables.
+The loop will continue to execute as long as the Boolean expression evaluates
+to true.
+
+The *update* section consists of a comma-separated list of expressions that are
+evaluated after each execution of a loop.  These expressions are often used to
+modify the value of the loop-control variables.
+
+Let's look at a simple example:
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        for (int i=0; i<10; i++) {
+            System.out.println("My favorite number is " + i + "!");
+        }
+    }
+}
+```
+
+The output of this example is:
+
+```
+My favorite number is 0!
+My favorite number is 1!
+My favorite number is 2!
+My favorite number is 3!
+My favorite number is 4!
+My favorite number is 5!
+My favorite number is 6!
+My favorite number is 7!
+My favorite number is 8!
+My favorite number is 9!
+```
+
+Let's examine what happened.  We have a for loop that executes a
+`System.out.println()` statement through each iteration of the loop.  In this
+for loop, the initialize section is simply the statement `int i=0`, which
+initializes a new integer-valued variable to 0.  The variable *i* is a
+loop-control variable in this case.  The test section consists of the Boolean
+expression `i<10` which mean the loop will continue to run as long as the
+loop-control variable has a value less than ten.  Finally, the update section
+is `i++`, which mean that the value of *i* will be incremented through each
+iteration of the loop.  From the output, we can see that the value of *i* start
+at 0 (as indicated by the initialize section), increments each time through the
+loop (as indicated by the update section), and continues to increase as long
+as the value is less than 10 (as indicated by the test section).
+
+Remember, each of the sections is optional.  Consider this example:
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        int i = 0;
+        for (; i<=10;) {
+            System.out.println(i + "*" + i + " = " + i*i);
+            i++;
+        }
+    }
+}
+```
+
+The output is:
+
+```
+0*0 = 0
+1*1 = 1
+2*2 = 4
+3*3 = 9
+4*4 = 16
+5*5 = 25
+6*6 = 36
+7*7 = 49
+8*8 = 64
+9*9 = 81
+10*10 = 100
+```
+
+In this example, we did not specify an initial section or an update section
+in the for statement.  We Initialized the loop-control variable before the for
+statement and part of the statement executed through each iteration of the loop
+updated the control variable.
+
+Here's another example:
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        String[] words = {"hello", "how", "are", "you"};
+        for (int i=0; i<words.length; i++) {
+            System.out.println(words[i]);
+        }
+    }
+}
+```
+
+The output is:
+
+```
+hello
+how
+are
+you
+```
+
+This example makes use of the *length* property of arrays, which is an integer
+indicating the number of elements contained in a given array.  We start with
+an array of strings, *words*, and use a for loop to display each work.  Since
+arrays in Java are zero-indexed (the first element is indexed by the number
+zero and not one), we initialize our loop-control variable to 0 and use it
+to access array elements.  Our test is `i<words.length` because we can't access
+elements beyond the length of the array and because the last element's position
+in the array is given by *length - 1* (since the array is zero-indexed).  After
+each iteration of the loop, we increase the index/loop-control variable by 1.
+
+There is another type of for loop that we can use to iterate over elements
+in an array and similar structures.  This type of for loop is commonly known
+as a for-each loop.  Here's the previous example rewritten to use a for-each
+loop:
+
+```
+public class Main {
+    public static void main(String[] args) {
+        String[] words = {"hello", "how", "are", "you"};
+        for (String word: words) {
+            System.out.println(word);
+        }
+    }
+}
+```
+
+The for-each loop has this syntax:
+
+```
+for (item: collection)
+    statement
+```
+
+*Collection* is some structure with elements of some type, for example, an
+array. *Item* is a variable of the same type as the elements of *collection*;
+item is initially the first element of *collection* and is updated to be the
+next element of through each iteration of the loop. The loop terminates when
+there are no more *elements* remaining in *collection* to be assigned to
+*item*.
+
+### While and Do-While Statements
 
 ## Break and Continue Statements
 ### Break and Labeled Break Statements
