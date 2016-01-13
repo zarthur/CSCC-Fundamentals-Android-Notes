@@ -751,6 +751,147 @@ there are no more *elements* remaining in *collection* to be assigned to
 *item*.
 
 ### While and Do-While Statements
+The **while statement** repeatedly executes another statement as long as a
+Boolean expression evaluates to true.  The syntax of the while statement is
+
+```
+while (Boolean expression)
+    statement
+```
+
+The statement begins with the reserved word *while* followed by a Boolean
+expression in parentheses and the statement to be executed repeatedly.  
+
+Let's look at an example.
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        int i = 0;
+        while (i < 10) {
+            System.out.println(i);
+            i += 2;
+        }
+    }
+}
+```
+
+The output is:
+
+```
+0
+2
+4
+6
+8
+```
+
+We began by initializing an integer, *i*, to 0.  Next we construct a while loop
+that will repeatedly execute as long as its Boolean expression, `i<10`,
+evaluates to true.  Each time through the loop, we display the value of *i* and
+then increase its value by two.  Eventually, the value in *i* becomes 10 and
+the loop stops.
+
+Notice that we could have written this with a for statement:
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        for (int i=0; i<10; ) {
+            System.out.println(i);
+            i += 2;
+        }
+    }
+}
+```
+
+In general, while statements can be written as for statements and vice versa.
+Usually, we use for loops when we know how many iterations of the loop will be
+done ahead of time and while loops when we don't necessarily know this.
+
+In Java, there is also the **do-while statement** which will always execute its
+statement at least once.  Its syntax is
+
+```
+do
+    statement
+while (Boolean expression);
+```
+
+The do-while loop will always execute the statement before evaluating the
+boolean expression; it will continue to execute the statement as long as the
+Boolean expression is true.
+
+Here's an example:
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        int i=100;
+        do {
+            System.out.println(i);
+            i += 2;
+        }
+        while (i<10);
+    }
+}
+```
+
+The output of this program is `100`.  Note that there is output even though
+the Boolean expression evaluates to false.  Again, the do-while loop will
+execute the statement before evaluating the Boolean expression.  Do-while loops
+are useful if we want to guarantee at least one execution of the statement
+inside the loop but are generally less readable than while loops.
+
+The book gives examples of reading user input.  Because of how Java is executed
+in the IDE, these examples will not work as written. Specifically,
+`System.in.read()` and `System.in.readline()` will not work as expected.  We
+can read user input into strings using the following code:
+
+```
+java.util.Scanner scanner = new java.util.Scanner(System.in);
+String input = scanner.next();
+```
+
+Let's look at an example similar to one in the book using this code.
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        String input = "";
+        while (!input.equals("C") && !input.equals("c"))
+        {
+            System.out.println("Enter C or c to continue.");
+            input = scanner.next();
+        }
+    }
+}
+```
+
+This program will repeat the text `Enter C or c to continue` as long as the
+user enters something other than *C* or *c* and presses enter or return.  There
+are two things to notice about the code that we'll discuss in depth later.  
+First, the line `java.util.Scanner scanner = new java.util.Scanner(System.in);`
+is outside the while loop.  For now, think of this line as creating a new 
+scanner used to look for input; we can reuse the same scanner over and over
+again rather than make a new one every time through the loop.  This saves us
+some time while the program is running.  
+
+The second thing to note is that when we compare strings, we typically cannot
+simply use the `==` operator.  The `==` will work to compare the values of
+primitive types. Recall that String is a reference type and that it stores a
+memory address to the location of its value. The `==` operators compares these
+memory addresses for reference types and we have to use `.equals`.  We will
+discuss this further later.
 
 ## Break and Continue Statements
 ### Break and Labeled Break Statements
