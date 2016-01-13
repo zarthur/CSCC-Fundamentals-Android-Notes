@@ -881,17 +881,17 @@ This program will repeat the text `Enter C or c to continue` as long as the
 user enters something other than *C* or *c* and presses enter or return.  There
 are two things to notice about the code that we'll discuss in depth later.  
 First, the line `java.util.Scanner scanner = new java.util.Scanner(System.in);`
-is outside the while loop.  For now, think of this line as creating a new 
+is outside the while loop.  For now, think of this line as creating a new
 scanner used to look for input; we can reuse the same scanner over and over
 again rather than make a new one every time through the loop.  This saves us
 some time while the program is running.  
 
 The second thing to note is that when we compare strings, we typically cannot
-simply use the `==` operator.  The `==` will work to compare the values of
-primitive types. Recall that String is a reference type and that it stores a
-memory address to the location of its value. The `==` operators compares these
-memory addresses for reference types and we have to use `.equals`.  We will
-discuss this further later.
+simply use the `==` operator.  The `==` operator will work to compare the
+values of primitive types. Recall that String is a reference type and that it
+stores a memory address to the location of its value. The `==` operator
+compares these memory addresses for reference types and we have to use
+`.equals`.  We will discuss this further later.
 
 ## Break and Continue Statements
 ### Break and Labeled Break Statements
