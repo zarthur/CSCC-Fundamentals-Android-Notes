@@ -614,7 +614,7 @@ package com.myname.week_2;
 
 public class Main {
     public static void main(String[] args) {
-        for (int i=0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.println("My favorite number is " + i + "!");
         }
     }
@@ -657,7 +657,7 @@ package com.myname.week_2;
 public class Main {
     public static void main(String[] args) {
         int i = 0;
-        for (; i<=10;) {
+        for (; i <= 10;) {
             System.out.println(i + "*" + i + " = " + i*i);
             i++;
         }
@@ -694,7 +694,7 @@ package com.myname.week_2;
 public class Main {
     public static void main(String[] args) {
         String[] words = {"hello", "how", "are", "you"};
-        for (int i=0; i<words.length; i++) {
+        for (int i = 0; i < words.length; i++) {
             System.out.println(words[i]);
         }
     }
@@ -801,7 +801,7 @@ package com.myname.week_2;
 
 public class Main {
     public static void main(String[] args) {
-        for (int i=0; i<10; ) {
+        for (int i = 0; i < 10; ) {
             System.out.println(i);
             i += 2;
         }
@@ -833,7 +833,7 @@ package com.myname.week_2;
 
 public class Main {
     public static void main(String[] args) {
-        int i=100;
+        int i = 100;
         do {
             System.out.println(i);
             i += 2;
@@ -894,7 +894,211 @@ compares these memory addresses for reference types and we have to use
 `.equals`.  We will discuss this further later.
 
 ## Break and Continue Statements
+Sometimes its useful to stop a loop's execution or to skip the execution of
+a statement and move on to the next iteration of a loop.  The break and continue
+statements allow us to do these things.
+
 ### Break and Labeled Break Statements
-### Continue and Labeled Continue Statements
+The **break statement** terminates execution of a loop or evaluation of a
+switch statement (as we saw saw earlier) and transfers execution to the first
+statement following the loop or switch statement.
+
+A common scenario in which you might use a break statement is when searching
+for a specific value.  As a simple example, suppose we have an array of
+integers and want to display the first negative integer in the array.
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] integers = {1,2,3,4,-1,-2, 10};
+        Boolean foundNegative = false;
+
+        for (int i = 0; i < integers.length; i++) {
+            if (integers[i] < 0) {
+                System.out.println("Negative found: " + integers[i]);
+                foundNegative = true;
+                break;
+            }
+        }
+
+        if (!foundNegative) {
+            System.out.println("No negative found.");
+        }
+    }
+}
+```
+
+Here, we have an array of integers that contain both positive and negative
+values.  We can use a for loop to examine each element in the array and
+determine whether it's positive or negative.  Since we are only interested
+in finding the first negative, we can terminate the search once a negative is
+found - there's no point in continuing to examine the array elements.  To do
+this, we use the break statement as part of the set of statements to execute
+when a negative is found.  In this example, we also use a Boolean variable to
+keep track of whether we found a negative or not; this allows us to indicate
+that no negatives were found if the array contained only non-negative values.
+
+The break statement allows us to easily stop execution of a single loop.  
+Sometimes, we'd like to terminate the execution of multiple, nested loops. As
+an example, let's look at another example in which we search for values.  
+
+Suppose we wanted to know if there are two positive integers whose product is
+a third number.  One way we can do this is by picking the first number from
+a range of values, picking the second number from a range, and comparing
+their product.  Once we find two numbers whose product is the third number, we
+can stop our search.  It's possible to do this using multiple break statements
+but it's much simpler to use labeled break statements.  A **labeled break
+statement** transfers execution to the first statement after a loop that has
+been prefixed by a label.  A **label** is an identifier followed by a colon.
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        int product = 1679;
+        Boolean numbersFound = false;
+
+        outside:
+        for (int first = 1; first < 100; first++)
+            for (int second = 1; second < 100; second++) {
+                if (first * second == product) {
+                    System.out.println(first + " * " + second + " = " + product);
+                    numbersFound = true;
+                    break outside;
+                }
+            }
+
+        if (!numbersFound) {
+            System.out.println("No numbers found.");
+        }
+    }
+}
+```
+
+Here we have two for loops, one nested inside the other.  If we find the two
+numbers whose product is the desired value, we want to stop execution of both
+loops.  We do this by first placing the label `outside:` before the outer for
+loop and then by using `break outside;` when we want to stop execution of the
+loops.  If we had only used `break;`, only execution of the inner for loop
+would have stopped.  After `break outside;` is executed, the first statement
+after the loop prefixed by the label is executed; in this case, the if
+statement.
+
+
+### Continue Statements
+The **continue statement** skips the remainder of a loops current iteration,
+re-evaluates the loop's Boolean expression, and performs the next iteration
+if the boolean expression is true or terminates the loop.
+
+As an example, suppose we had two arrays: one containing the names of cities
+and another with the current temperature of each city.  The arrays are ordered
+such that the first temperature corresponds to the first city, the second
+temperature corresponds to the second city, and so on.  Suppose we only want
+to display the names of cities with negative temperatures.
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        String[] cityNames = {"Columbus", "Cleveland", "Cincinnati", "Dayton"};
+        int[] currentTemperatures = {-10, -20, 5, -1};
+        System.out.println("Cities with negative temperatures:");
+
+        for (int i = 0; i < cityNames.length; i++) {
+            if (currentTemperatures[i] >= 0) {
+                continue;
+            }
+            System.out.println(cityNames[i]);
+        }
+    }
+}
+```
+
+Here we use a for loop to iterate through both arrays.  If the current
+temperature is greater than or equal to zero, we use the continue statement to
+move on to the next iteration of the loop (or stop if there are no more loop
+iterations).  In this case, we could have changed the Boolean expression in
+the if statement to achieve the same results but there are often situations
+where it's more convenient to use continue statements.  
+
+Sometimes, its desirable skip the remaining iteration of multiple, nested
+loops. The **labeled continue** statement skips the remaining iteration of one or
+more nested loops and transfers execution to the labeled loop.
+
+For example, suppose we wanted to print only the positive differences of two
+numbers when the two numbers are each between 1 and 10.  Before we look at
+the code to do this, let's think about how we might do this by hand.
+
+| First Number | Second Number | Difference   | Outcome                                                                                |
+|:-------------|:--------------|:-------------|:---------------------------------------------------------------------------------------|
+| 1            | 1             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
+| 2            | 1             | Positive     | Display this and move on to the next value for the second number                       |
+| 2            | 2             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
+| 3            | 1             | Positive     | Display this and move on to the next value for the second number                       |
+| 3            | 2             | Positive     | Display this and move on to the next value for the second number                       |
+| 3            | 3             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
+| 4            | 1             | Positive     | Display this and move on to the next value for the second number                       |
+
+And so on.
+
+Notice that in the way we're increasing the first and second numbers, when a
+difference is not positive, we don't have to consider the difference between
+the first number and other values of the second number.  Once we saw that 3-3
+is not positive, we didn't need to consider 3-4, 3-5, 3-6, and so on.
+
+Now let's look at how we might write a program to do this.
+
+```
+package com.myname.week_2;
+
+public class Main {
+    public static void main(String[] args) {
+        outer:
+        for (int first = 1; first <= 10; first++)
+            for (int second = 1; second <= 10; second++) {
+                int difference = first - second;
+                if (difference <= 0)
+                    continue outer;
+                System.out.println(first + " - " + second + " = " + difference);
+            }
+    }
+}
+```
+
+Here we use nested for loops: the outer loop determines the value of *first*
+and the inner loop determines the value of *second*.  For each iteration of the
+inner loop, we calculate the difference between first and second.  If the
+difference is less than or equal to zero, we're not interested in it and we
+no that the difference between the value of *first* and the remaining values
+of *second* will also not be positive so we can skip them.  We skip the
+remaining values by using the labeled continue statement `continue outer`.  
+Since `outer:` is applied to to the outer loop, we move on to the next
+iteration of the outer loop or stop if there are no more iterations.
+
+Here's there's a real advantage to using a labeled continue statement rather
+than changing the Boolean expression in the if statement.  If we had used
+
+```
+if (difference > 0) {
+    System.out.println(first + " - " + second + " = " + difference);
+}
+```
+
+to print positive difference, we would have checked all possible differences
+between first and second values rather than skipping values when we knew
+we could.  For example, we were able to skip 3-4, 3-5, 3-6, and so on because
+we used a labeled continue statement when the difference was 3-3.  Without
+the labeled continue statement, we would have evaluated the `difference > 0`
+Boolean expression for 3-4, 3-5, 3-6, and so on.
 
 ## Exercise
+Suppose the high temperature (in degrees fahrenheit) for each of next week's
+days are 45, 29, 10, 22, 41, 28, and 33 and the probability of precipitation
+for each of the next five days is 95%, 60%, 25%, 5%, 0%, 75%, and 90%.  Write
+a program using a loop that displays the day of the week if that day's
+high temperature is less than or equal to 32 and the probability of
+precipitation is greater than 50% (meaning it's likely to snow).
