@@ -15,7 +15,7 @@ Rather than creating a new IntelliJ project and GitHub repository for each
 week's work, we can add to our existing project and repository.  To add a
 folder for this week's work, right-click on the **src** folder and select
 **New** and **Package** from the context menu. Name the package something
-similar to *com.myname.week_2*, replacing *myname* with your name.
+similar to *com.myname.week_02*, replacing *myname* with your name.
 
 Now that we have a new folder for this week's work, we'll need to create a file
 where we can write code. Right-click on the newly created week_2 folder and
@@ -38,7 +38,7 @@ Our new file just needs one more thing for us to work with.  We need to add a
 `main` method to the code so it looks similar to this:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -48,7 +48,7 @@ public class Main {
 }
 ```
 
-To run our week_2 code, we can right-click on *Main* in the *com.myname.week_2*
+To run our week_2 code, we can right-click on *Main* in the *com.myname.week_02*
 package and select *Run Main.main()*.
 
 ![Run week_2 code](images/run_week_2.png)
@@ -69,7 +69,7 @@ replacing it's name with something like *Week 1*.
 We can create a new configuration by clicking the plus icon in the upper left
 corner of the window and selecting *Application*. Let's name this configuration
 *Week 2*. We also have to specify the main class and working directory.  The
-main class is *com.myname.week_2.Main*, with *myname* replaced with your name.
+main class is *com.myname.week_02.Main*, with *myname* replaced with your name.
 The working directory can be copied and pasted from the *Week 1* configuration.
 The configuration should now look similar to this:
 
@@ -105,7 +105,7 @@ always examine the second operand.
 Let's look at a simple example.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -160,7 +160,7 @@ logical inclusive OR in this case.
 Let's look at an example of where the conditional and logical operators differ.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -211,7 +211,7 @@ Here, *statement* will only be executed if *Boolean expression* evaluates to
 true.  Here's an example:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -261,7 +261,7 @@ like to evaluate.  We can do this by grouping statements together using
 braces, `{` and `}`.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -291,7 +291,7 @@ some value and the there's no chance of rain.  Our boolean expression can be
 a compound expression consisting of boolean expressions.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -335,7 +335,7 @@ Building on a previous example, we can output text if a condition is true and
 output alternate text if the condition is false.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -366,7 +366,7 @@ on one line.
 We can use the conditional operator to rewrite the previous example.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -387,7 +387,7 @@ values?
 We could do write separate if statements like this:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -419,7 +419,7 @@ One alternative to multiple if statements is to chain if-else statements like
 this:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -459,7 +459,7 @@ We can also write the previous example in the following form, which might be
 easier to read:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -510,7 +510,7 @@ executed if none of the prior cases match the *selector expression*.
 The following is an example using the switch statement:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -543,7 +543,7 @@ from." is displayed.
 What happens if we remove the break statements?
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -610,7 +610,7 @@ modify the value of the loop-control variables.
 Let's look at a simple example:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -652,7 +652,7 @@ as the value is less than 10 (as indicated by the test section).
 Remember, each of the sections is optional.  Consider this example:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -689,7 +689,7 @@ updated the control variable.
 Here's another example:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -765,7 +765,7 @@ expression in parentheses and the statement to be executed repeatedly.
 Let's look at an example.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -797,7 +797,7 @@ the loop stops.
 Notice that we could have written this with a for statement:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -829,7 +829,7 @@ Boolean expression is true.
 Here's an example:
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -862,7 +862,7 @@ String input = scanner.next();
 Let's look at an example similar to one in the book using this code.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -908,7 +908,7 @@ for a specific value.  As a simple example, suppose we have an array of
 integers and want to display the first negative integer in the array.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -954,7 +954,7 @@ statement** transfers execution to the first statement after a loop that has
 been prefixed by a label.  A **label** is an identifier followed by a colon.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -1000,7 +1000,7 @@ temperature corresponds to the second city, and so on.  Suppose we only want
 to display the names of cities with negative temperatures.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {
@@ -1053,7 +1053,7 @@ is not positive, we didn't need to consider 3-4, 3-5, 3-6, and so on.
 Now let's look at how we might write a program to do this.
 
 ```
-package com.myname.week_2;
+package com.myname.week_02;
 
 public class Main {
     public static void main(String[] args) {

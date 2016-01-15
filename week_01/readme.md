@@ -31,7 +31,7 @@ project from template** is selected and click **Next**.
 
 Now, we can give the project a title, choose where it will be saved, and name
 the base package (we'll talk about packages in more detail later). For now,
-the base package name should be something like *com.myname.week_1*. I've
+the base package name should be something like *com.myname.week_01*. I've
 chosen the following for my first project:
 
 ![IntelliJ Project Details](images/new_project_details.png)
@@ -43,10 +43,10 @@ an editor on the right.
 
 We can write Java code in the editor and run our programs from the IntelliJ IDE
 itself. We can check that everything is working by entering the following code
-in the editor. Make sure you replace `package com.myname.week_1` with what you
+in the editor. Make sure you replace `package com.myname.week_01` with what you
 named your package.
 
-    package com.myname.week_1;
+    package com.myname.week_01;
 
     public class Main {
 
@@ -169,7 +169,7 @@ The following is a syntactically valid Java program consisting only of
 variable declarations:
 
 ```
-package com.myname.week_1;
+package com.myname.week_01;
 
 public class Main {
     public static void main(String[] args) {
@@ -261,7 +261,7 @@ example, comments are preceded by two forward slashes, `//`. We're also using
 `System.out.println()`; remember that this lets us print values to the console.
 
 ```
-package com.myname.week_1;
+package com.myname.week_01;
 
 public class Main {
     public static void main(String[] args) {
@@ -316,7 +316,7 @@ corresponding to the characters.
 Lets looks at some more examples of operators.
 
 ```
-package com.myname.week_1;
+package com.myname.week_01;
 
 public class Main {
     public static void main(String[] args) {
@@ -373,7 +373,7 @@ Finally, let's look at the array index operator. For this example, we'll
 initialize an array with some values using braces.
 
 ```
-package com.myname.week_1;
+package com.myname.week_01;
 
 public class Main {
     public static void main(String[] args) {
@@ -411,7 +411,7 @@ example, we can set the length of an array of strings using a variable with
 an integer value and then assign values to each element in the array.
 
 ```
-package com.myname.week_1;
+package com.myname.week_01;
 
 public class Main {
     public static void main(String[] args) {
