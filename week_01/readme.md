@@ -46,15 +46,16 @@ itself. We can check that everything is working by entering the following code
 in the editor. Make sure you replace `package com.myname.week_01` with what you
 named your package.
 
-    package com.myname.week_01;
+```java
+package com.myname.week_01;
 
-    public class Main {
+public class Main {
 
-        public static void main(String[] args) {
-            System.out.println("Hello, World!");
-        }
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
     }
-
+}
+```
 Now we should be able to run the code by pressing the Run/Play button in the
 upper right corner. If everything is working, we should see a new pane appear
 in the IntelliJ window with the `Hello, World!` text.
@@ -115,7 +116,7 @@ Variables must be declared before they can be used. To declare a variable, we
 must specify at least the variables data type and it's name. The following are
 examples of variables being declared.
 
-```
+```java
 float temperature;
 int zipCode;
 boolean isRaining;
@@ -131,7 +132,7 @@ each declaration with a semicolon (;).
 Suppose we wanted to declare several variables of the same type. We could
 write something like this:
 
-```
+```java
 float temperature;
 float humidity;
 float pressure;
@@ -141,7 +142,7 @@ With Java, however, we can declare multiple variables of the same type at once.
 Rather than write three separate lines, we can declare our three variables on
 one line like this:
 
-```
+```java
 float temperature, humidity, pressure;
 ```
 
@@ -152,7 +153,7 @@ locations in memory. The individual values of an array are called
 **elements**. Brackets, `[` and `]`, are used to declare arrays. For example,
 we can declare an array of integers:
 
-```
+```java
 int[] dailyHighs;
 ```
 
@@ -161,14 +162,14 @@ we can place the brackets next to the type or the variable.
 Typically, we'll see the brackets placed next to the type unless multiple
 variables are being declared like this:
 
-```
+```java
 float currentTemperature, forecastHighs[], forecastLows[];
 ```
 
 The following is a syntactically valid Java program consisting only of
 variable declarations:
 
-```
+```java
 package com.myname.week_01;
 
 public class Main {
@@ -260,7 +261,7 @@ comments. Comments are not evaluated and serve to document code. In this
 example, comments are preceded by two forward slashes, `//`. We're also using
 `System.out.println()`; remember that this lets us print values to the console.
 
-```
+```java
 package com.myname.week_01;
 
 public class Main {
@@ -315,7 +316,7 @@ corresponding to the characters.
 
 Lets looks at some more examples of operators.
 
-```
+```java
 package com.myname.week_01;
 
 public class Main {
@@ -372,7 +373,7 @@ operand variable on the right-hand side.
 Finally, let's look at the array index operator. For this example, we'll
 initialize an array with some values using braces.
 
-```
+```java
 package com.myname.week_01;
 
 public class Main {
@@ -410,7 +411,7 @@ variable to specify the length?  We can use the *new* operator to do this. For
 example, we can set the length of an array of strings using a variable with
 an integer value and then assign values to each element in the array.
 
-```
+```java
 package com.myname.week_01;
 
 public class Main {
@@ -438,7 +439,7 @@ side and the type of the variable on the left-hand side.
 
 Consider the following:
 
-```
+```java
 int sum = 2 + 3;
 ```
 
@@ -448,7 +449,7 @@ integer.
 
 What happens in the following?
 
-```
+```java
 int quotient = 10 / 4
 ```
 

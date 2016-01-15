@@ -37,7 +37,7 @@ presenting a warning in the future.
 Our new file just needs one more thing for us to work with.  We need to add a
 `main` method to the code so it looks similar to this:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -104,7 +104,7 @@ always examine the second operand.
 
 Let's look at a simple example.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -159,7 +159,7 @@ logical inclusive OR in this case.
 
 Let's look at an example of where the conditional and logical operators differ.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -210,7 +210,7 @@ if (Boolean expression)
 Here, *statement* will only be executed if *Boolean expression* evaluates to
 true.  Here's an example:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -231,8 +231,8 @@ than *warmThreshold*, the Boolean expression evaluates to false and the
 *System.out.println()* statement is not executed.  Let's change the current
 temperature and see what happens.
 
-```
-package com.arthurneuman.week_2;
+```java
+package com.myname.week_2;
 
 public class Main {
     public static void main(String[] args) {
@@ -260,7 +260,7 @@ expression evaluated to true. Often, there's more than one statement that we'd
 like to evaluate.  We can do this by grouping statements together using
 braces, `{` and `}`.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -290,7 +290,7 @@ Suppose we wanted to print a message if the day's high temperature is above
 some value and the there's no chance of rain.  Our boolean expression can be
 a compound expression consisting of boolean expressions.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -334,7 +334,7 @@ If *Boolean expression* evaluates to true, *statement1* will be executed; if
 Building on a previous example, we can output text if a condition is true and
 output alternate text if the condition is false.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -365,7 +365,7 @@ on one line.
 
 We can use the conditional operator to rewrite the previous example.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -386,7 +386,7 @@ values?
 
 We could do write separate if statements like this:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -418,7 +418,7 @@ avoid any unnecessary statement evaluations.
 One alternative to multiple if statements is to chain if-else statements like
 this:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -458,7 +458,7 @@ we only had to evaluate two boolean expressions rather than three.  What if
 We can also write the previous example in the following form, which might be
 easier to read:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -509,7 +509,7 @@ executed if none of the prior cases match the *selector expression*.
 
 The following is an example using the switch statement:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -542,7 +542,7 @@ from." is displayed.
 
 What happens if we remove the break statements?
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -609,7 +609,7 @@ modify the value of the loop-control variables.
 
 Let's look at a simple example:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -651,7 +651,7 @@ as the value is less than 10 (as indicated by the test section).
 
 Remember, each of the sections is optional.  Consider this example:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -688,7 +688,7 @@ updated the control variable.
 
 Here's another example:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -725,7 +725,7 @@ in an array and similar structures.  This type of for loop is commonly known
 as a **for-each loop**.  Here's the previous example rewritten to use a
 for-each loop:
 
-```
+```java
 public class Main {
     public static void main(String[] args) {
         String[] words = {"hello", "how", "are", "you"};
@@ -764,7 +764,7 @@ expression in parentheses and the statement to be executed repeatedly.
 
 Let's look at an example.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -796,7 +796,7 @@ the loop stops.
 
 Notice that we could have written this with a for statement:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -828,7 +828,7 @@ Boolean expression is true.
 
 Here's an example:
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -854,14 +854,14 @@ in the IDE, these examples will not work as written. Specifically,
 `System.in.read()` and `System.in.readline()` will not work as expected.  We
 can read user input into strings using the following code:
 
-```
+```java
 java.util.Scanner scanner = new java.util.Scanner(System.in);
 String input = scanner.next();
 ```
 
 Let's look at an example similar to one in the book using this code.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -907,7 +907,7 @@ A common scenario in which you might use a break statement is when searching
 for a specific value.  As a simple example, suppose we have an array of
 integers and want to display the first negative integer in the array.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -953,7 +953,7 @@ but it's much simpler to use labeled break statements.  A **labeled break
 statement** transfers execution to the first statement after a loop that has
 been prefixed by a label.  A **label** is an identifier followed by a colon.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -999,7 +999,7 @@ such that the first temperature corresponds to the first city, the second
 temperature corresponds to the second city, and so on.  Suppose we only want
 to display the names of cities with negative temperatures.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -1052,7 +1052,7 @@ is not positive, we didn't need to consider 3-4, 3-5, 3-6, and so on.
 
 Now let's look at how we might write a program to do this.
 
-```
+```java
 package com.myname.week_02;
 
 public class Main {
@@ -1082,7 +1082,7 @@ iteration of the outer loop or stop if there are no more iterations.
 Here's there's a real advantage to using a labeled continue statement rather
 than changing the Boolean expression in the if statement.  If we had used
 
-```
+```java
 if (difference > 0) {
     System.out.println(first + " - " + second + " = " + difference);
 }

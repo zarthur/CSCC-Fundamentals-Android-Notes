@@ -23,7 +23,7 @@ refer to class methods.
 Before we start working with methods, let's look at the following code and
 think of how we can improve it:
 
-```
+```java
 package com.myname.week_03;
 
 public class Main {
@@ -66,7 +66,7 @@ Here, we're converting some low and high temperatures for four days from
 Celsius to Fahrenheit.  One way to improve this code is by using what we know
 about loop statements.  For example, we can use a for loop.
 
-```
+```java
 package com.myname.week_03;
 
 public class Main {
@@ -122,7 +122,7 @@ of statements within a method, *statements_to_execute*, are known as the
 Let's look at how we can move the conversion of Celsius to Fahrenheit to a
 method.  We're going to change the output of our program for now.
 
-```
+```java
 package com.myname.week_03;
 
 public class Main {
