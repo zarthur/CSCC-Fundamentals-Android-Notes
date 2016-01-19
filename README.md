@@ -19,3 +19,7 @@ following the links below.
 - [Week 13 - Concurrency and Threading](week_13/readme.md)
 - [Week 14 - JSON and Objects](week_14/readme.md)
 - [Week 15 - HTTP and Networking](week_15/readme.md)
+
+## Projects
+Descriptions of the projects assigned in class and links to supporting files
+can be found [here](projects/readme.md)
