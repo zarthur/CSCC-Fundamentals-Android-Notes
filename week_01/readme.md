@@ -297,6 +297,7 @@ public class Main {
 ```
 
 If we run this program, the output should be:
+
 ```
 Addition
 118
@@ -355,6 +356,7 @@ public class Main {
 ```
 
 The output should be:
+
 ```
 0.85
 0.275
@@ -395,6 +397,7 @@ public class Main {
 ```
 
 The output is:
+
 ```
 50
 60
@@ -428,6 +431,7 @@ public class Main {
 ```
 
 The output is:
+
 ```
 dog
 ```

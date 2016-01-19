@@ -851,12 +851,12 @@ inside the loop but are generally less readable than while loops.
 
 The book gives examples of reading user input.  Because of how Java is executed
 in the IDE, these examples will not work as written. Specifically,
-`System.in.read()` and `System.in.readline()` will not work as expected.  We
-can read user input into strings using the following code:
+`System.in.read()` will not work as expected.  We can read user input into
+strings using the following code:
 
 ```java
 java.util.Scanner scanner = new java.util.Scanner(System.in);
-String input = scanner.next();
+String input = scanner.nextLine();
 ```
 
 Let's look at an example similar to one in the book using this code.
@@ -871,7 +871,7 @@ public class Main {
         while (!input.equals("C") && !input.equals("c"))
         {
             System.out.println("Enter C or c to continue.");
-            input = scanner.next();
+            input = scanner.nextline();
         }
     }
 }
@@ -1094,6 +1094,109 @@ we could.  For example, we were able to skip 3-4, 3-5, 3-6, and so on because
 we used a labeled continue statement when the difference was 3-3.  Without
 the labeled continue statement, we would have evaluated the `difference > 0`
 Boolean expression for 3-4, 3-5, 3-6, and so on.
+
+## Scope
+A variable's **scope** is where, in code, that variable exists and is
+accessible. All variables aren't accessible from any part of a program.
+
+For example, consider this simple code that _will not run_:
+
+```java
+package com.myname.week_02;
+
+public class Main {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 10; i++){
+            System.out.println(i);
+        }
+        System.out.println(i);
+    }
+}
+```
+
+The reason that this program will not run is that the variable *i* used in
+the last `System.out.prinln(i);` is not defined; IntelliJ will indicate that
+java cannot find the symbol if you try to run this code.  The reason that *i*
+is not defined is that it was declared as part of the for loop and its scope
+is the for loop, that is, it only exists and is accessible from within the for
+loop.
+
+One situation where you might run into problems related to scope is with the
+switch statement.  For example, this code _will not run_:
+
+```java
+package com.myname.week_02;
+
+public class Main {
+    public static void main(String[] args) {
+        String choice = "a";
+        switch (choice) {
+            case "a":
+                int result = 10;
+                break;
+            case "b":
+                int result = 20;
+                break;
+            default:
+                int result = 0;
+        }
+    }
+}
+```
+
+The problem is that the scope within a switch statement includes all its cases.
+So, once we initialize the variable *result* in the first case, we do not need
+to declare it again in the remaining cases as it is already in scope.  There
+are two ways to fix this code: we can initialize *result* once or we can create
+nested scopes for each case using braces.  Using the first method, we'd have
+the following code:
+
+```java
+package com.myname.week_02;
+
+public class Main {
+    public static void main(String[] args) {
+        String choice = "a";
+        switch (choice) {
+            case "a":
+                int result = 10;
+                break;
+            case "b":
+                result = 20;
+                break;
+            default:
+                result = 0;
+        }
+    }
+}
+```
+
+Using nested scopes, we'd have:
+
+```java
+package com.myname.week_02;
+
+public class Main {
+    public static void main(String[] args) {
+        String choice = "a";
+        switch (choice) {
+            case "a": {
+                int result = 10;
+                break;
+            }
+            case "b": {
+                int result = 20;
+                break;
+            }
+            default: {
+                int result = 0;
+            }
+        }
+    }
+}
+```
+
+Note that even with nested scopes, we still need break statements.
 
 ## Exercise
 Suppose the high temperature (in degrees fahrenheit) for each of next week's

@@ -150,6 +150,8 @@ public class Main {
 ### Returning from a Method
 ### Method Overloading
 
+## String/Integer Methods
+
 ## Access Control
 
 ## Enumerations
