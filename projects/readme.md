@@ -30,7 +30,7 @@ the task.  The program should loop until the user chooses to exit.
 The program should include methods dedicated to adding, removing, and updating
 tasks.
 
-An runnable version of the program is available [here](files/Project1.jar). One
+A runnable version of the program is available [here](files/Project1.jar). One
 way to run this program is by downloading the file and running
 
 ```
