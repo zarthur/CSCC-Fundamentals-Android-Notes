@@ -98,7 +98,7 @@ made a mistake or what to change the calculation.  If the calculation was
 written a single time, we'd only have to make the change in one place rather
 than in multiple places.  But how can we do this?  We can use methods.
 
-The syntax for declaring a method is:
+The syntax for declaring a method (specifically, a class method) is:
 
 ```
 static return_type name(parameter_list) {
@@ -145,6 +145,23 @@ public class Main {
     }
 }
 ```
+
+We've created a method with the header
+`static void celsiusToFahrenheit(double celsiusValue)`, where `void` indicates
+that the method will not return a value, `celsiusToFahrenheit` is the method's
+name, and `double celsiusValue` is the method's only parameter. The method's
+name and parameters, `celsiusToFahrenheit(double celsiusValue)`, are the
+method's signature.  The body of the method consists of the calculation to
+convert a Celsius temperature to Fahrenheit and a statement to display both the
+Celsius and Fahrenheit values.  In the `main` method, we call, or make use of
+the `celsiusToFahrenheit` method twice per iteration of the for loop, once to
+convert a low temperature and again to convert a high temperature.  Notice the
+syntax used to call the method: the methods name followed by parentheses
+containing any values that take the place of the method's parameters.  Here,
+instead of doing the temperature conversion in multiple places, we've been able
+to write it once; if we ever need to change, it we only have to change it in
+one place.  We've also captured the temperature-conversion behavior in the
+method.
 
 ### Passing Arguments to Methods
 ### Returning from a Method
