@@ -11,11 +11,12 @@ folder.
 
 ![IntelliJ after last week's work](images/starting.png)
 
-Rather than creating a new IntelliJ project and GitHub repository for each
-week's work, we can add to our existing project and repository.  To add a
-folder for this week's work, right-click on the **src** folder and select
-**New** and **Package** from the context menu. Name the package something
-similar to *com.myname.week_02*, replacing *myname* with your name.
+Typically, we would create a new project when we start new work but rather than
+creating a new IntelliJ project and GitHub repository for each week's work, we
+will add to our existing project and repository.  To add a folder for this 
+week's work, right-click on the **src** folder and select **New** and
+**Package** from the context menu. Name the package something similar to
+*com.myname.week_02*, replacing *myname* with your name.
 
 Now that we have a new folder for this week's work, we'll need to create a file
 where we can write code. Right-click on the newly created week_2 folder and
