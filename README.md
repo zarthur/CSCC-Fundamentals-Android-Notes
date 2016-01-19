@@ -22,4 +22,4 @@ following the links below.
 
 ## Projects
 Descriptions of the projects assigned in class and links to supporting files
-can be found [here](projects/readme.md)
+can be found [here](projects/readme.md).
