@@ -153,17 +153,77 @@ name, and `double celsiusValue` is the method's only parameter. The method's
 name and parameters, `celsiusToFahrenheit(double celsiusValue)`, are the
 method's signature.  The body of the method consists of the calculation to
 convert a Celsius temperature to Fahrenheit and a statement to display both the
-Celsius and Fahrenheit values.  In the `main` method, we call, or make use of
-the `celsiusToFahrenheit` method twice per iteration of the for loop, once to
+Celsius and Fahrenheit values.  In the *main* method, we call, or make use of
+the *celsiusToFahrenheit* method twice per iteration of the for loop, once to
 convert a low temperature and again to convert a high temperature.  Notice the
-syntax used to call the method: the methods name followed by parentheses
-containing any values that take the place of the method's parameters.  Here,
-instead of doing the temperature conversion in multiple places, we've been able
-to write it once; if we ever need to change, it we only have to change it in
-one place.  We've also captured the temperature-conversion behavior in the
-method.
+syntax used to call or invoke the method: the methods name followed by
+parentheses containing any values that take the place of the method's
+parameters.  Here, instead of doing the temperature conversion in multiple
+places, we've been able to write it once; if we ever need to change, it we only
+have to change it in one place.  We've also captured the temperature-conversion
+behavior in the method.
+
+It's important to note that the program begins execution in the *main* method.
 
 ### Passing Arguments to Methods
+In the previous example, our *celsiusToFahrenheit* method took one argument,
+*celsiusValue*.  A method can take zero or more arguments which are specified
+within parentheses in the method header.  In the method header, a parameters
+type and its name within the method are specified.  The scope of the parameter
+names is limited to the method body, that is, they generally cannot be used
+outside the method.  In the previous example, the scope of *celsiusValue* was
+limited to the *celsiusToFahrenheit* method so an attempt to use it outside the
+method would have resulted in an error.  Similarly, variables declared within
+a method body have a scoped limited to the method.  The variable
+*fahrenheitValue*, is only accessible from within the method.
+
+Arguments are passed to functions in a style known as pass-by-value.  
+**Pass-by-value** passes the value of a variable to the method.  In the case
+of primitive types, the value associated with the  variable is passed to the
+method. In the case of reference variables, the value associated with the
+variable is a memory location, so that location is passed to the variable.
+Let's look at an example of why this distinction is important.
+
+```java
+package com.myname.week_03;
+
+public class Main {
+    static void methodExample(int integerValue, int[] integerArray) {
+        integerValue += 1000;
+        integerArray[0] = -integerArray[0];
+    }
+
+    public static void main(String[] args) {
+        int anInteger = 10;
+        int anIntegerArray[] = {10, 20};
+
+        System.out.println("Initial integer: " + anInteger);
+        System.out.println("The first element of an integer array: " + anIntegerArray[0]);
+
+        methodExample(anInteger, anIntegerArray);
+
+        System.out.println("Integer after method call: " + anInteger);
+        System.out.println("First element after method call: " + anIntegerArray[0]);
+    }
+}
+```
+
+If we follow the program's execution starting in *main*, we see that we start
+with two variables: *anInteger*, an integer, and *anIntegerArray*, an array of
+integers. Recall that the *int* type is a primitive type so it's value is the
+associated integer assigned to it. Arrays are reference types so the value
+stored in the variable is actually a location in memory where the array's
+values are stored. When we call the *methodExample* method, the values of the
+parameters, *anInteger* and *anIntegerArray*, are passed to the
+method - the values are copied and made available to the method. Because
+*anInteger* is a primitive data type, the copied value *10* is associated with
+the variable *integerValue* in the method body. A change to *integerValue*
+doesn't affect *anInteger*. The variable *anIntegerArray*, is different.  It's
+value is a memory location of the integer values that constitute the array.  
+Because *integerArray* and *anIntegerArray* both have values that correspond to
+the same memory location, changes to *anIntegerArray* within the method will
+affect the *integerArray* variable outside the method.  
+
 ### Returning from a Method
 ### Method Overloading
 
