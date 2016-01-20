@@ -207,6 +207,14 @@ public class Main {
     }
 }
 ```
+The output of this program is:
+
+```
+Initial integer: 10
+The first element of an integer array: 10
+Integer after method call: 10
+First element after method call: -10
+```
 
 If we follow the program's execution starting in *main*, we see that we start
 with two variables: *anInteger*, an integer, and *anIntegerArray*, an array of
@@ -223,6 +231,7 @@ value is a memory location of the integer values that constitute the array.
 Because *integerArray* and *anIntegerArray* both have values that correspond to
 the same memory location, changes to *anIntegerArray* within the method will
 affect the *integerArray* variable outside the method.  
+
 
 ### Returning from a Method
 ### Method Overloading
