@@ -84,8 +84,8 @@ will discuss later. The eight primitive data types are
   32 bits of memory
 - **long**: an integer value between -9,223,372,036,854,775,808 and
   9,223,372,036,854,775,807, uses 64 bits of memory
-- **float**: a 32 bit value used to represent numbers with fractional parts
-- **double**: a 64 bit value used to represent numbers with fractional parts
+- **float**: a 32-bit value used to represent numbers with fractional parts
+- **double**: a 64-bit value used to represent numbers with fractional parts
 
 It is important to note that floats and doubles are floating point data types.
 While floating point values are useful for representing numbers with fractional
@@ -99,11 +99,11 @@ user-defined type, String, that we'll use now but explore further later. The
 
 User-defined types are also known as reference types. A variable with a
 **reference type** stores a reference, a memory address, to the location in
-memory that stores the value of the type. A primitive type stores the value
-directly. For example, if *3* is assigned to a variable of type *int*, the
-variable stores *3*. However, if the string *hello* is stored in a variable
-of type *String*, the string *hello* is stored somewhere in the computer's
-memory and the address of that location is stored in the variable.
+memory that stores the value associated with the variable. A primitive type
+stores the value directly. For example, if *3* is assigned to a variable of
+type *int*, the variable stores *3*. However, if the string *hello* is stored
+in a variable of type *String*, the string *hello* is stored somewhere in the
+computer's memory and the address of that location is stored in the variable.
 
 ### Creating variables and storing values
 Recall that variables are named storage locations for data. Storing data and
