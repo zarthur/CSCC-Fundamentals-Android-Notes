@@ -39,6 +39,7 @@ java -jar Project1.jar
 
 from a command prompt or terminal.
 
+Be sure to commit your code and push it to GitHub.
 
 
 ## Project 2
