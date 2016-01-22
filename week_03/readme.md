@@ -232,12 +232,169 @@ Because *integerArray* and *anIntegerArray* both have values that correspond to
 the same memory location, changes to *anIntegerArray* within the method will
 affect the *integerArray* variable outside the method.  
 
+While strings are reference types, they are immutable in Java. So, they don't
+exhibit the same behavior as arrays.
 
 ### Returning from a Method
+In a previous example, our method signature header was
+`static void celsiusToFahrenheit`.  Recall that `void` specified the return
+type of the method.  In addition to being able to pass values into a method, we
+can also have the method produce a value to the method's caller. This is done
+using the `return` statement.  In addition to using the return statement, we
+must also specify the appropriate return type when defining the method.  Let's
+look at an example that includes a temperature conversion method that returns
+the calculated value.
+
+```Java
+package com.myname.week_03;
+
+public class Main {
+    static double celsiusToFahrenheit(double celsiusValue) {
+        double fahrenheitValue = 9/5 * celsiusValue + 32;
+        return fahrenheitValue;
+    }
+
+    public static void main(String[] args) {
+        double[] celsiusLowTemperatures = {0.0, -2.4, 7.7, 14.1};
+        double[] celsiusHighTemperatures = {9.3, 8.3, 16.8, 26.3};
+
+
+        for (int i = 0; i < celsiusLowTemperatures.length; i++) {
+            double fahrenheitLowTemperature;
+            double fahrenheitHighTemperature;
+            fahrenheitLowTemperature = celsiusToFahrenheit(celsiusLowTemperatures[i]);
+            fahrenheitHighTemperature = celsiusToFahrenheit(celsiusHighTemperatures[i]);
+            System.out.println("The low will be " + fahrenheitLowTemperature
+                    + " and the high will be " + fahrenheitHighTemperature + ".");
+        }
+    }
+}
+```
+
+In this example, the method not only calculates the Fahrenheit value but also
+returns that value.  This allows us to use the value outside the method.  
+Notice that the method header now has the word `double` where `void` appered in
+previous methods.  This indicates that the method will return a value and the
+data type of that value will be `double`.  The `return` statement can also be
+used to control the flow of execution within a method.
+
+```Java
+package com.myname.week_03;
+
+public class Main {
+    static String willSnow(double temperature, double probabilityPrecipitation) {
+        if (temperature <= 32 && probabilityPrecipitation > 0.5) {
+            return "likely";
+        }
+        return "unlikely";
+    }
+
+    public static void main(String[] args) {
+        double[] temperatures = {28, 31, 46, 37};
+        double[] probabilities = {.3, .9, .4, .7};
+
+        for (int i = 0; i < temperatures.length; i++) {
+            String snowy = willSnow(temperatures[i], probabilities[i]);
+            System.out.println("When the temperature is " + temperatures[i]
+                    + " and the probability of precipitation is "
+                    + probabilities[i] + ", it is " + snowy + " to snow.");
+
+        }
+    }
+}
+```
+
+The return statement can also be used for flow control when the method's return
+type is `void`.  This is done by simply using `return;` with no value.
+
 ### Method Overloading
+Java allows us to define methods with the same names but with different
+parameter lists.  This allows us to use the same name for a collection of
+methods that exhibit the same behavior but use different types of data.  
 
-## String/Integer Methods
+```java
+package com.myname.week_03;
 
-## Access Control
+public class Main {
+    static int add(int a, int b) {
+        System.out.println("add(int, int) called");
+        return a + b;
+    }
+
+    static int add(int a, int b, int c) {
+        System.out.println("add(int, int, int) called");
+        return a + b + c;
+    }
+
+    static double add(double a, double b) {
+        System.out.println("add(double, double) called");
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Adding two integers: 2, 3");
+        int firstSum = add(2, 3);
+        System.out.println(firstSum);
+
+        System.out.println("Adding three integers: 2, 3, 4");
+        int secondSum = add(2, 3, 4);
+        System.out.println(secondSum);
+
+        System.out.println("Adding two doubles: 2.0, 4.5");
+        double thirdSum = add(2.0, 4.5);
+        System.out.println(thirdSum);
+
+    }
+}
+```
+
+The ouput is:
+
+```
+Adding two integers: 2, 3
+add(int, int) called
+5
+Adding three integers: 2, 3, 4
+add(int, int, int) called
+9
+Adding two doubles: 2.0, 4.5
+add(double, double) called
+6.5
+```
+
+In this example, we created three methods that did something similar: added
+numeric values.  Each was different in types or number of parameters they took.
+Recall that the method signature is given by a method's name and the number,
+type, and order of the method's parameters.  When defining methods, the
+method's signature must be unique.  There are additional factors that affect
+this but we will discuss them later.  For example, the following is not
+valid:
+
+```
+package com.myname.week_03;
+
+public class Main {
+    static int add(int a, int b) {
+        return a + b;
+    }
+
+    static long add(int a, int b) {
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        int firstSum = add(2, 3);
+        long secondSum = add(2, 3);
+    }
+}
+```
+
+Even though they have different reutrn types, the two `add` methods above have
+the same method signatures.
+
+## Some methods in the standard library
+We've used System.out.println()...
+
+Integer.parseInt()...
 
 ## Enumerations
