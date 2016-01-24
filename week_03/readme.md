@@ -1,7 +1,7 @@
 # Week 3 - Introduction to Methods and Enumerations
 
 ## Corresponding Text
-*Learn Java for Android Development*, pp. 107-124, 273-280
+*Learn Java for Android Development*, pp. 107-124, 275-276
 
 ## Methods
 As our programs become more complex, it becomes import to divide and organize
@@ -370,7 +370,7 @@ method's signature must be unique.  There are additional factors that affect
 this but we will discuss them later.  For example, the following is not
 valid:
 
-```
+```java
 package com.myname.week_03;
 
 public class Main {
@@ -392,9 +392,81 @@ public class Main {
 Even though they have different reutrn types, the two `add` methods above have
 the same method signatures.
 
-## Some methods in the standard library
-We've used System.out.println()...
+## The Java Standard Library
+We've used System.out.println() to display output in the console.  `println()`
+is an example of a method available for our use from the standard library.  The
+standard library is a collection of features including methods that are
+included with Java for convenience.  As we continue to explore Java, we'll
+make extensive use of the standard library.
 
-Integer.parseInt()...
+Another method that might be of interest to us is one that allows us to convert
+strings to integers.  
+
+```Java
+package com.myname.week_03;
+
+public class Main {
+       public static void main(String[] args) {
+            String userInput = "1234";
+            int intValue = Integer.parseInt(userInput);
+            System.out.println(intValue + 4321);
+
+    }
+}
+```
+
+The method `Integer.parseInt()` takes a string parameter and returns an int.  
+Be careful when using methods that converts from one type to another as errors
+can occur.  We will talk about handling these errors later.
 
 ## Enumerations
+Sometimes it's convenient to specify a set of related values as possible
+values. An **enmeration** is a data type consisting of a set of named values of
+the type.  The syntax for creating an enumeration in Java is:
+
+```java
+enum name { value1, value2, ..., valueN};
+```
+
+where *name* is the name of the enumeration and each of *value1* through
+*valueN* are the possible values associated with the enumeration.  
+
+```java
+package com.myname.week_03;
+
+public class Main {
+    enum DIRECTION { NORTH, WEST, EAST, SOUTH};
+
+    static void describeWind(DIRECTION windDirection) {
+        switch (windDirection) {
+            case NORTH:
+                System.out.println("The wind is blowing from the north.");
+                break;
+            case WEST:
+                System.out.println("The wind is blowing from the west.");
+                break;
+            case EAST:
+                System.out.println("The wind is blowing from the east.");
+                break;
+            case SOUTH:
+                System.out.println("The wind is blowing from the south.");
+                break;
+        }
+    }
+    public static void main(String[] args) {
+        DIRECTION measuredWindDirection = DIRECTION.EAST;
+        describeWind(measuredWindDirection);
+    }
+}
+```
+
+In this example, we define an enumration of possible wind directions: north,
+west, east, and south.  We also have a method that displays information about
+the wind depending on the arguement's value.  We use a switch statement that
+works with the enumeration's possible values.  While we could have acheived the
+same effect using strings or integers with each direction corresponding to a
+direction, the enumeration makes our code more readable and maintainable.  
+Because we've used an enumeration, we know precisely what values are possible
+for variables like *measuredWindDirection*.
+
+## Exercise
