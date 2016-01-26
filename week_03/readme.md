@@ -273,10 +273,10 @@ public class Main {
 
 In this example, the method not only calculates the Fahrenheit value but also
 returns that value.  This allows us to use the value outside the method.  
-Notice that the method header now has the word `double` where `void` appered in
-previous methods.  This indicates that the method will return a value and the
-data type of that value will be `double`.  The `return` statement can also be
-used to control the flow of execution within a method.
+Notice that the method header now has the word `double` where `void` appeared
+in previous methods.  This indicates that the method will return a value and
+the data type of that value will be `double`.  The `return` statement can also
+be used to control the flow of execution within a method.
 
 ```Java
 package com.myname.week_03;
@@ -348,7 +348,7 @@ public class Main {
 }
 ```
 
-The ouput is:
+The output is:
 
 ```
 Adding two integers: 2, 3
@@ -389,7 +389,7 @@ public class Main {
 }
 ```
 
-Even though they have different reutrn types, the two `add` methods above have
+Even though they have different return types, the two `add` methods above have
 the same method signatures.
 
 ## The Java Standard Library
@@ -460,10 +460,10 @@ public class Main {
 }
 ```
 
-In this example, we define an enumration of possible wind directions: north,
+In this example, we define an enumeration of possible wind directions: north,
 west, east, and south.  We also have a method that displays information about
-the wind depending on the arguement's value.  We use a switch statement that
-works with the enumeration's possible values.  While we could have acheived the
+the wind depending on the argument's value.  We use a switch statement that
+works with the enumeration's possible values.  While we could have achieved the
 same effect using strings or integers with each direction corresponding to a
 direction, the enumeration makes our code more readable and maintainable.  
 Because we've used an enumeration, we know precisely what values are possible
