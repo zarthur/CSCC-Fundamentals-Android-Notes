@@ -13,10 +13,17 @@ folder.
 
 Typically, we would create a new project when we start new work but rather than
 creating a new IntelliJ project and GitHub repository for each week's work, we
-will add to our existing project and repository.  To add a folder for this 
-week's work, right-click on the **src** folder and select **New** and
-**Package** from the context menu. Name the package something similar to
-*com.myname.week_02*, replacing *myname* with your name.
+will add to our existing project and repository.  To add a folder for this
+week's work, right-click on the top-level directory select **New** and
+**Module** from the context menu. This will be a Java module without any
+special libraries. Let's name the new module *week_01* folder and move our code
+from last week into the new module by dragging and dropping the package folder
+from the old *src* folder to the new *src* folder.  We can now delete the old
+*src* folder. Next, we can create a new module by right-clicking on our project
+folder and selecting **New** and **Module**.  Once we have the new module,
+right-click on it's *src* folder and select **New** and **Package** from the
+context menu. Name the package something similar to *com.myname.week_02*,
+replacing *myname* with your name.
 
 Now that we have a new folder for this week's work, we'll need to create a file
 where we can write code. Right-click on the newly created week_2 folder and
@@ -62,10 +69,10 @@ select *Edit Configurations*.
 
 The Run/Debug Configurations window will appear.
 
-![Configurations](images/configurations.png)
-
 Let's rename the existing *Main* configuration by selecting it on the left, and
-replacing it's name with something like *Week 1*.
+replacing it's name with something like *Week 1*. You will also have to
+update the "Use classpath of module" field to point to the new module we
+created for the old code.
 
 We can create a new configuration by clicking the plus icon in the upper left
 corner of the window and selecting *Application*. Let's name this configuration
@@ -74,7 +81,7 @@ main class is *com.myname.week_02.Main*, with *myname* replaced with your name.
 The working directory can be copied and pasted from the *Week 1* configuration.
 The configuration should now look similar to this:
 
-![Week 2 Configuration](images/week_2_config.png)
+![Week 2 Configuration](images/configurations.png)
 
 Click "Ok" and you should see that *Week 2* is now selected in the drop down
 box in the toolbar; pressing the play/run button now will run the code in the
@@ -354,15 +361,13 @@ public class Main {
 }
 ```
 
-Depending on the values of *currentTemperature* and *warmThreshold*, this code
-will display either `It's warm outside!` or `It's cold outside!`.
-
-Java's single ternary operator, allows us to write simple if-else statements
-on one line.
-
-| Operator    | Symbol | Description                                                                                                                                                                                                                            |
-|:------------|:-------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Conditional | `?:`   | Given `operand1 ? operand2 : operand3` where *operand1* is of Boolean type and *operand2* and *operand3* are of the same type, return *operand2* if *operand1* evaluates to *true* or *operand3* if *operand1* evaluates to *false*  | |
+Depending on the values of *currentTemperature* and *warmThreshold*, thi| will display either `It's warm outside!` or `It's cold outsid | Java's single ternary operator, allows us to write simple if-else stat | on one l | Operator | Symbol | Description                                                                                                                                                                                             |
+|:--------------------------------------------------------------|:-----------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Conditional                                                   | `?:`                                                                   | Given `operand1 ? operand2 : operand3` where *operand1* is of Boolean type and *operand2* and *operand3* are of the same type, return *operand2* if *operand1* evaluates to *true* or *operand3* if *operand1* evaluates to *false*  | |
+| *                                                             |                                                                        |                                                                                                                                                                                                                                        |
+| *                                                             |                                                                        |                                                                                                                                                                                                                                        |
+| *                                                             |                                                                        |                                                                                                                                                                                                                                        |
+*  | |
 
 We can use the conditional operator to rewrite the previous example.
 
@@ -1028,21 +1033,21 @@ where it's more convenient to use continue statements.
 
 Sometimes, its desirable skip the remaining iteration of multiple, nested
 loops. The **labeled continue** statement skips the remaining iteration of one or
-more nested loops and transfers execution to the labeled loop.
+more nested loops and transfers execution to the lab| For example, suppose we wanted to print only the positive differe | numbers when the two numbers are each between 1 and 10.  Before | the code to do this, let's think about how we might do this b | First Number | Second Number | Difference   | Outcome                                  |
+|:------------------------------------------------------------------|:----------------------------------------------------------------|:--------------------------------------------------------------|:---------------------------------------------------------------------------------------|
+| 1                                                                 | 1                                                               | Not Positive                                                  | Don't display this and move on to the next value for both the first and second numbers |
+| 2                                                                 | 1                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
+| 2                                                                 | 2                                                               | Not Positive                                                  | Don't display this and move on to the next value for both the first and second numbers |
+| 3                                                                 | 1                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
+| 3                                                                 | 2                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
+| 3                                                                 | 3                                                               | Not Positive                                                  | Don't display this and move on to the next value for both the first and second numbers |
+| 4                                                                 | 1                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
+|                                                                   |                                                                 |                                                               |                                                                                        |
+|                                                                   |                                                                 |                                                               |                                                                                        |
 
-For example, suppose we wanted to print only the positive differences of two
-numbers when the two numbers are each between 1 and 10.  Before we look at
-the code to do this, let's think about how we might do this by hand.
+          |
 
-| First Number | Second Number | Difference   | Outcome                                                                                |
-|:-------------|:--------------|:-------------|:---------------------------------------------------------------------------------------|
-| 1            | 1             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
-| 2            | 1             | Positive     | Display this and move on to the next value for the second number                       |
-| 2            | 2             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
-| 3            | 1             | Positive     | Display this and move on to the next value for the second number                       |
-| 3            | 2             | Positive     | Display this and move on to the next value for the second number                       |
-| 3            | 3             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
-| 4            | 1             | Positive     | Display this and move on to the next value for the second number                       |
+        |
 
 And so on.
 
