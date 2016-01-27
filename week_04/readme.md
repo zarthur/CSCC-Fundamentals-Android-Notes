@@ -44,13 +44,16 @@ any files ending in `.iml` are not selected - these files are unique to your
 installation of IntelliJ and will cause conflicts if you share them in a
 repository that is used for collaboration.
 
-If there are no Java files in the repository, create a new folder to store
+If there are no Java files in the repository, create a new module to store
 source code.  To do this, right-click on the top-level repository folder and
-select *New* followed by *Directory*.  The new directory should have a name
-like *src*.  After creating the directory, right-click the new directory and
-select *Mark Directory As* and *Sources Root*.  This indicates to IntelliJ that
-our source code will be stored in this folder.  In the repository directory,
-create another directory named something like *out* to store our output files.
+select *New* followed by *Module*.  The new module should have a name
+describing what it does. You should next be prompted to setup the module and
+select the SDK. After creating the module, you should see a subfolder named
+*src*.  Right-click the *src* directory and select *Mark Directory As* and
+*Sources Root*.  This indicates to IntelliJ that our source code will be stored
+in this folder.  In the repository directory, create another directory named
+something like *out* to store our output files.  Mark this directory as
+*excluded*.
 
 Next, we can create a new package by right-clicking on the source directory we
 created and selecting *New* and *Package*.  Give the new package a name like
@@ -149,7 +152,70 @@ together on a project.
 
 ## Exploring String
 
+## Introduction to Classes, Instances, and Interfaces
+You might have read or heard that Java is an object-oriented programming
+language.  What does it mean to be object-oriented?  Basically, it means that
+the code we write in Java makes use of objects.  An **object** is a data
+structure that contains related data attributes and code for acting on those
+attributes. We can say that this is a combination of *state*, the attributes,
+and *behavior*, the code that acts on the state.  We saw an example of an
+attribute when we used the `.length` property of an array.  The code that
+represents behavior and acts on attributes is represented by methods. So far,
+we've primarily worked with class methods but objects can have another type of
+method know as instance methods. **Instance methods** are collections of code
+that can alter the attributes of an object.
+
+Objects are instances of classes. A **class** specifies the structure of objects
+created from it by naming the attributes and defining the code that comprise
+the methods.  Objects are created from classes using the *new* operator.  
+
+In addition to classes, Java also has interfaces. An **interface** can be used
+to specify attributes and the signatures of methods.  We can't create objects
+directly from interfaces but we can use classes to *implement* the interface.
+If a class implements an interface, we know that the class will have the
+attributes and fields specified by the interface.  
+
+We'll discuss classes and interfaces in more detail in later lectures.
+
+As an example of some of these concepts, let's look at the following code:
+
+```java
+package com.myname.week_04;
+
+public class Main {
+    public static void main(String[] args) {
+        String testString = new String("Hello");
+        testString.concat(", World!");
+        System.out.println("After concat method: " + testString);
+
+        Boolean hasHello = testString.contains("Hello");
+        System.out.println("'Hello' in string: " + hasHello);
+
+        System.out.println("Length: " + testString.length());
+    }
+}
+```
+
+The output is:
+
+```
+After concat method:Hello
+'Hello' in string: true
+Length: 5
+```
+ 
 ## Lists
+Before we look at lists, we should be aware of the *Collection* interface.  The
+collection interface
+
+A **list** is an ordered collection of elements.  Lists are described by the
+*List* interface. We'll discuss interfaces in more detail later but for now,
+it's important to know that an interface tells us what methods we might be able
+to use when something *implements* the interface.  List itself implements the
+*Collection* interface.  
+
+Something implementing the Collection interface will have these methods
+availalbe.  
 ### ArrayList
 ### LinkedList
 
