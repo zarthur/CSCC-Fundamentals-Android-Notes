@@ -202,7 +202,7 @@ operand in a conditional OR expression was *true*, the second operand was not
 evaluated.  Both operands are always evaluated when using logical operators.
 
 ## Decision Statements
-Decision statements can be used to chose between two or more sets of
+Decision statements can be used to choose between two or more sets of
 statements based on the evaluation of a Boolean expression.
 
 ### If and If-Else Statements
@@ -361,13 +361,14 @@ public class Main {
 }
 ```
 
-Depending on the values of *currentTemperature* and *warmThreshold*, thi| will display either `It's warm outside!` or `It's cold outsid | Java's single ternary operator, allows us to write simple if-else stat | on one l | Operator | Symbol | Description                                                                                                                                                                                             |
-|:--------------------------------------------------------------|:-----------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Conditional                                                   | `?:`                                                                   | Given `operand1 ? operand2 : operand3` where *operand1* is of Boolean type and *operand2* and *operand3* are of the same type, return *operand2* if *operand1* evaluates to *true* or *operand3* if *operand1* evaluates to *false*  | |
-| *                                                             |                                                                        |                                                                                                                                                                                                                                        |
-| *                                                             |                                                                        |                                                                                                                                                                                                                                        |
-| *                                                             |                                                                        |                                                                                                                                                                                                                                        |
-*  | |
+Depending on the values of *currentTemperature* and *warmThreshold*, this will display either `It's warm outside!` or `It's cold outside!`
+
+Java's single ternary operator, allows us to write simple if-else statements on
+one line.
+
+| Operator | Symbol | Description|
+|--|--|--|
+| Conditional | `?:`| Given `operand1 ? operand2 : operand3` where *operand1* is of Boolean type and *operand2* and *operand3* are of the same type, return *operand2* if *operand1* evaluates to *true* or *operand3* if *operand1* evaluates to *false* |
 
 We can use the conditional operator to rewrite the previous example.
 
@@ -995,9 +996,9 @@ statement.
 
 
 ### Continue Statements
-The **continue statement** skips the remainder of a loops current iteration,
+The **continue statement** skips the remainder of a loop's current iteration,
 re-evaluates the loop's Boolean expression, and performs the next iteration
-if the boolean expression is true or terminates the loop.
+if the Boolean expression is true or terminates the loop.
 
 As an example, suppose we had two arrays: one containing the names of cities
 and another with the current temperature of each city.  The arrays are ordered
@@ -1031,23 +1032,22 @@ iterations).  In this case, we could have changed the Boolean expression in
 the if statement to achieve the same results but there are often situations
 where it's more convenient to use continue statements.  
 
-Sometimes, its desirable skip the remaining iteration of multiple, nested
-loops. The **labeled continue** statement skips the remaining iteration of one or
-more nested loops and transfers execution to the lab| For example, suppose we wanted to print only the positive differe | numbers when the two numbers are each between 1 and 10.  Before | the code to do this, let's think about how we might do this b | First Number | Second Number | Difference   | Outcome                                  |
-|:------------------------------------------------------------------|:----------------------------------------------------------------|:--------------------------------------------------------------|:---------------------------------------------------------------------------------------|
-| 1                                                                 | 1                                                               | Not Positive                                                  | Don't display this and move on to the next value for both the first and second numbers |
-| 2                                                                 | 1                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
-| 2                                                                 | 2                                                               | Not Positive                                                  | Don't display this and move on to the next value for both the first and second numbers |
-| 3                                                                 | 1                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
-| 3                                                                 | 2                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
-| 3                                                                 | 3                                                               | Not Positive                                                  | Don't display this and move on to the next value for both the first and second numbers |
-| 4                                                                 | 1                                                               | Positive                                                      | Display this and move on to the next value for the second number                       |
-|                                                                   |                                                                 |                                                               |                                                                                        |
-|                                                                   |                                                                 |                                                               |                                                                                        |
+Sometimes, its desirable skip the remaining iteration of multiple loops. The
+**labeled continue** statement skips the remaining iterations of one or more
+nested loops and transfers execution to the loop prefixed with a label. For
+example, suppose we wanted to print only the positive differences of two
+numbers when the two numbers are each between 1 and 10.  Before we write the
+code to do this, let's think about how we might do this by hand.
 
-          |
-
-        |
+| First Number | Second Number | Difference   | Outcome                                                                                |
+|:-------------|:--------------|:-------------|:---------------------------------------------------------------------------------------|
+| 1            | 1             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
+| 2            | 1             | Positive     | Display this and move on to the next value for the second number                       |
+| 2            | 2             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
+| 3            | 1             | Positive     | Display this and move on to the next value for the second number                       |
+| 3            | 2             | Positive     | Display this and move on to the next value for the second number                       |
+| 3            | 3             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
+| 4            | 1             | Positive     | Display this and move on to the next value for the second number                       |
 
 And so on.
 
@@ -1205,7 +1205,7 @@ public class Main {
 Note that even with nested scopes, we still need break statements.
 
 ## Exercise
-Suppose the high temperature (in degrees fahrenheit) for each of next week's
+Suppose the high temperature (in degrees Fahrenheit) for each of next week's
 days are 45, 29, 10, 22, 41, 28, and 33 and the probability of precipitation
 for each of the next five days is 95%, 60%, 25%, 5%, 0%, 75%, and 90%.  Write
 a program using a loop that displays the day of the week if that day's
