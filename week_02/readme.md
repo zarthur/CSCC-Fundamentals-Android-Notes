@@ -119,7 +119,7 @@ public class Main {
     public static void main(String[] args) {
         //There are four possible combinations of two Boolean values
         //The four combinations with conditional AND
-        Boolean result = true && true;
+        boolean result = true && true;
         System.out.println("true && true: " + result);
 
         result = true && false;
@@ -295,8 +295,8 @@ It's warm outside!
 ```
 
 Suppose we wanted to print a message if the day's high temperature is above
-some value and the there's no chance of rain.  Our boolean expression can be
-a compound expression consisting of boolean expressions.
+some value and the there's no chance of rain.  Our Boolean expression can be
+a compound expression consisting of Boolean expressions.
 
 ```java
 package com.myname.week_02;
@@ -457,10 +457,10 @@ evaluate to false, so the program will go to the else statement - another
 if-else statement.  The program will now evaluate the Boolean expression
 `currentTemperature > hotThreshold`.  Since the expression evaluates to false,
 the else statement will be executed.  Notice that we don't need the third
-boolean expression from the prior example because if neither of the first two
+Boolean expression from the prior example because if neither of the first two
 expressions are true, the third must be true.  When *currentTemperature* is 65,
-we only had to evaluate two boolean expressions rather than three.  What if
-*currentTemperature* is 30?  Only one boolean expression has to be evaluated.
+we only had to evaluate two Boolean expressions rather than three.  What if
+*currentTemperature* is 30?  Only one Boolean expression has to be evaluated.
 
 We can also write the previous example in the following form, which might be
 easier to read:
@@ -920,7 +920,7 @@ package com.myname.week_02;
 public class Main {
     public static void main(String[] args) {
         int[] integers = {1,2,3,4,-1,-2, 10};
-        Boolean foundNegative = false;
+        boolean foundNegative = false;
 
         for (int i = 0; i < integers.length; i++) {
             if (integers[i] < 0) {
