@@ -1,7 +1,7 @@
 # Week 4 - Collection Types
 
 ## Corresponding Text
-*Learn Java for Android Development*, pp. 305-318, 411-425, 448-456
+*Learn Java for Android Development*, pp. 305-318, 404-425, 448-456
 
 ## Collaborating using GitHub
 In addition to providing a publically-accessible place to host our
@@ -144,14 +144,6 @@ the pull request by clicking *Merge pull request*.
 You and people you work with can repeat variations of this process to work
 together on a project.
 
-## Primitive Type Wrappers
-### Boolean
-### Character
-### Float and Double
-### Integer, Long, Short, and Byte
-
-## Exploring String
-
 ## Introduction to Classes, Instances, and Interfaces
 You might have read or heard that Java is an object-oriented programming
 language.  What does it mean to be object-oriented?  Basically, it means that
@@ -167,7 +159,8 @@ that can alter the attributes of an object.
 
 Objects are instances of classes. A **class** specifies the structure of objects
 created from it by naming the attributes and defining the code that comprise
-the methods.  Objects are created from classes using the *new* operator.  
+the methods.  Objects or instances are created from classes using the *new*
+operator.  
 
 In addition to classes, Java also has interfaces. An **interface** can be used
 to specify attributes and the signatures of methods.  We can't create objects
@@ -188,7 +181,7 @@ public class Main {
         testString.concat(", World!");
         System.out.println("After concat method: " + testString);
 
-        Boolean hasHello = testString.contains("Hello");
+        boolean hasHello = testString.contains("Hello");
         System.out.println("'Hello' in string: " + hasHello);
 
         System.out.println("Length: " + testString.length());
@@ -203,21 +196,169 @@ After concat method:Hello
 'Hello' in string: true
 Length: 5
 ```
- 
-## Lists
-Before we look at lists, we should be aware of the *Collection* interface.  The
-collection interface
 
+### Collection interface
+One of the things we'll be looking at is alternate ways of storing collections
+of elements other than arrays.  One of these ways is by using lists.  Before we
+look at lists, we should be aware of the *Collection* interface.  The
+Collection interface specifies certain methods. Something implementing the
+Collection interface will have the following methods
+available.  There are additional methods but we'll focus on a subset.  
+
+| Method Signature           | Description                                                                                                                                                 |
+|:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| boolean add(E e)           | Add an element, *e* of type *E* to the collection; returns true if the element is added and false otherwise                                                 |
+| void clear()               | Remove all elements from the collection                                                                                                                     |
+| boolean contains(Object o) | Returns true if the element *o* is present in the collection and false otherwise                                                                            |
+| boolean isEmpty()          | Returns true when the collection has no elements and false otherwise                                                                                        |
+| boolean remove(Object o)   | Removes the element identified as *o* from the collection; returns true if the element is removed and false otherwise                                       |
+| int size()                 | Returns the number of elements in the collection or java.lang.Integer.MAX_VALUE if there are more elements than the the largest value represented by an int |
+| Object[] toArray()         | Returns an array containing all the elements stored in the collection                                                                                       |
+
+Another important thing to note is that you cannot store primitive-type-based
+values in objects implementing Collection.  So, what if we want to create a
+collections of values with primitive types?  We have to use primitive type
+wrappers.
+
+### Primitive Type Wrappers
+**Primitive Type Wrappers** are classes that provide a way of representing
+primative-type-based values using reference types.  The primitive type based
+wrappers are:
+
+- Boolean
+- Character
+- Float and Double
+- Byte, Short, Integer, and Long
+
+They can be used by creating instances with the *new* operator and specifying a
+value using either a literal or variable.  
+
+For example:
+
+```java
+package com.myname.week_04;
+
+public class Main {
+    public static void main(String[] args) {
+        int number = 10;
+        char letter = 'A';
+
+        Integer wrappedInt = new Integer(number);
+        Character wrappedChar = new Character(letter);
+
+    }
+}
+```
+
+This creates two objects, *wrappedInt* and *wrappedChar*, that represent an
+integer value and character value, respectively, but use reference types rather
+than primitive types.  
+
+Another feature of primitive type wrappers is that they have various convenient
+attributes and methods.  For example:
+
+```java
+package com.myname.week_04;
+
+public class Main {
+    public static void main(String[] args) {
+        char letter = 'A';
+        System.out.println("isAlphabetic: " + Character.isAlphabetic(letter));
+        System.out.println("isLowerCase: " + Character.isLowerCase(letter));
+
+        System.out.println("MAX_VALUE: " + Integer.MAX_VALUE);
+    }
+}
+```
+
+
+## Introduction to Packages
+A **package** is a unique namespace that can contain classes and sub-packages.  
+Packages allow us to organize our code in meaningful ways similar to how
+folders and subfolders let us organize files in general on a computer.  In the
+code we've written so far, we've started each Java class file with a `package`
+statement and sorted our project into modules and packages.  
+
+We can gain access to classes from other packages by writing out the full name
+of the package and the class such as `java.util.Scanner` in this example:
+
+```java
+package com.myname.week_04;
+
+public class Main {
+
+    public static String getUserInput(){
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static void main(String[] args) {
+        String input = getUserInput();
+        System.out.println("The input was: " + input);
+    }
+}
+```
+
+Or we could use an import statement to avoid having to type `java.util`
+repeatedly.
+
+```java
+package com.myname.week_04;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static String getUserInput(){
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static void main(String[] args) {
+        String input = getUserInput();
+        System.out.println("The input was: " + input);
+    }
+}
+```
+
+As we use lists, sets, and maps, we'll make use of import statements to avoid
+repetition.
+
+## Lists
 A **list** is an ordered collection of elements.  Lists are described by the
 *List* interface. We'll discuss interfaces in more detail later but for now,
 it's important to know that an interface tells us what methods we might be able
-to use when something *implements* the interface.  List itself implements the
-*Collection* interface.  
+to use when something *implements* the interface.  List itself extends the
+*Collection* interface, adding new methods. Some of these are:
 
-Something implementing the Collection interface will have these methods
-availalbe.  
+| Method                    | Description                                                                                          |
+|:--------------------------|:-----------------------------------------------------------------------------------------------------|
+| void add(int index, E e)  | Insert element *e* into the list at position *index* and shift elements to the right as necessary    |
+| E get(int index)          | Returns the element of type *E* stored at position *index*                                           |
+| int indexOf(Object o)     | Returns the index of the first occurrence of element *o* in the list                                 |
+| int lastIndexOf(Object o) | Returns the index of the last occurrence of element *o* in the list                                  |
+| E remove(int index)       | Remove and return the element at *index* in the list                                                 |
+| E set(int index, E e)     | Replace the element at position *index* in the list with element *e* and return the previous element |
+
+List itself is only an interface so we can't create instances of List. We can
+however, create instances of *ArrayList* and *LinkedList*, which both implement
+the list interface.
+
 ### ArrayList
+The **ArrayList** class provides an implementation of the List interface based
+on arrays. Because of this, access to elements is fast but updates are
+relatively slow.
+
+Program to an interface, not an implementation.
+
 ### LinkedList
+The **LinkedList** provides an implementation based on linked nodes.  A *node*
+is a data structure that includes a value and possibly the memory location of
+another node. In a LinkedList, the first node will have a value and the
+location of the next node. With this structure, it's relatively fast to add or
+remove elements (the memory locations just need to be updated) but accessing
+an element is slow because each node that precedes the element has to be
+examined.
 
 ## Sets
 ### TreeSet
