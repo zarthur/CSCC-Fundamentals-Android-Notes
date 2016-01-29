@@ -905,7 +905,7 @@ Sometimes its useful to stop a loop's execution or to skip the execution of
 a statement and move on to the next iteration of a loop.  The break and continue
 statements allow us to do these things.
 
-### Break and Labeled Break Statements
+### Break Statements
 The **break statement** terminates execution of a loop or evaluation of a
 switch statement (as we saw saw earlier) and transfers execution to the first
 statement following the loop or switch statement.
@@ -947,54 +947,6 @@ when a negative is found.  In this example, we also use a Boolean variable to
 keep track of whether we found a negative or not; this allows us to indicate
 that no negatives were found if the array contained only non-negative values.
 
-The break statement allows us to easily stop execution of a single loop.  
-Sometimes, we'd like to terminate the execution of multiple, nested loops. As
-an example, let's look at another example in which we search for values.  
-
-Suppose we wanted to know if there are two positive integers whose product is
-a third number.  One way we can do this is by picking the first number from
-a range of values, picking the second number from a range, and comparing
-their product.  Once we find two numbers whose product is the third number, we
-can stop our search.  It's possible to do this using multiple break statements
-but it's much simpler to use labeled break statements.  A **labeled break
-statement** transfers execution to the first statement after a loop that has
-been prefixed by a label.  A **label** is an identifier followed by a colon.
-
-```java
-package com.myname.week_02;
-
-public class Main {
-    public static void main(String[] args) {
-        int product = 1679;
-        Boolean numbersFound = false;
-
-        outside:
-        for (int first = 1; first < 100; first++)
-            for (int second = 1; second < 100; second++) {
-                if (first * second == product) {
-                    System.out.println(first + " * " + second + " = " + product);
-                    numbersFound = true;
-                    break outside;
-                }
-            }
-
-        if (!numbersFound) {
-            System.out.println("No numbers found.");
-        }
-    }
-}
-```
-
-Here we have two for loops, one nested inside the other.  If we find the two
-numbers whose product is the desired value, we want to stop execution of both
-loops.  We do this by first placing the label `outside:` before the outer for
-loop and then by using `break outside;` when we want to stop execution of the
-loops.  If we had only used `break;`, only execution of the inner for loop
-would have stopped.  After `break outside;` is executed, the first statement
-after the loop prefixed by the label is executed; in this case, the if
-statement.
-
-
 ### Continue Statements
 The **continue statement** skips the remainder of a loop's current iteration,
 re-evaluates the loop's Boolean expression, and performs the next iteration
@@ -1031,75 +983,6 @@ move on to the next iteration of the loop (or stop if there are no more loop
 iterations).  In this case, we could have changed the Boolean expression in
 the if statement to achieve the same results but there are often situations
 where it's more convenient to use continue statements.  
-
-Sometimes, its desirable skip the remaining iteration of multiple loops. The
-**labeled continue** statement skips the remaining iterations of one or more
-nested loops and transfers execution to the loop prefixed with a label. For
-example, suppose we wanted to print only the positive differences of two
-numbers when the two numbers are each between 1 and 10.  Before we write the
-code to do this, let's think about how we might do this by hand.
-
-| First Number | Second Number | Difference   | Outcome                                                                                |
-|:-------------|:--------------|:-------------|:---------------------------------------------------------------------------------------|
-| 1            | 1             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
-| 2            | 1             | Positive     | Display this and move on to the next value for the second number                       |
-| 2            | 2             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
-| 3            | 1             | Positive     | Display this and move on to the next value for the second number                       |
-| 3            | 2             | Positive     | Display this and move on to the next value for the second number                       |
-| 3            | 3             | Not Positive | Don't display this and move on to the next value for both the first and second numbers |
-| 4            | 1             | Positive     | Display this and move on to the next value for the second number                       |
-
-And so on.
-
-Notice that in the way we're increasing the first and second numbers, when a
-difference is not positive, we don't have to consider the difference between
-the first number and other values of the second number.  Once we saw that 3-3
-is not positive, we didn't need to consider 3-4, 3-5, 3-6, and so on.
-
-Now let's look at how we might write a program to do this.
-
-```java
-package com.myname.week_02;
-
-public class Main {
-    public static void main(String[] args) {
-        outer:
-        for (int first = 1; first <= 10; first++)
-            for (int second = 1; second <= 10; second++) {
-                int difference = first - second;
-                if (difference <= 0)
-                    continue outer;
-                System.out.println(first + " - " + second + " = " + difference);
-            }
-    }
-}
-```
-
-Here we use nested for loops: the outer loop determines the value of *first*
-and the inner loop determines the value of *second*.  For each iteration of the
-inner loop, we calculate the difference between first and second.  If the
-difference is less than or equal to zero, we're not interested in it and we
-no that the difference between the value of *first* and the remaining values
-of *second* will also not be positive so we can skip them.  We skip the
-remaining values by using the labeled continue statement `continue outer`.  
-Since `outer:` is applied to to the outer loop, we move on to the next
-iteration of the outer loop or stop if there are no more iterations.
-
-Here's there's a real advantage to using a labeled continue statement rather
-than changing the Boolean expression in the if statement.  If we had used
-
-```java
-if (difference > 0) {
-    System.out.println(first + " - " + second + " = " + difference);
-}
-```
-
-to print positive difference, we would have checked all possible differences
-between first and second values rather than skipping values when we knew
-we could.  For example, we were able to skip 3-4, 3-5, 3-6, and so on because
-we used a labeled continue statement when the difference was 3-3.  Without
-the labeled continue statement, we would have evaluated the `difference > 0`
-Boolean expression for 3-4, 3-5, 3-6, and so on.
 
 ## Scope
 A variable's **scope** is where, in code, that variable exists and is
