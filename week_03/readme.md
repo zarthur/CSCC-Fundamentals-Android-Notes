@@ -254,29 +254,35 @@ public class Main {
         return fahrenheitValue;
     }
 
+    static void displayTemperatures(double[] celsiusLows, double[] celsiusHighs) {
+        for (int i = 0; i < celsiusLowTemperatures.length; i++) {
+            double fahrenheitLow;
+            double fahrenheitHigh;
+            fahrenheitLow = celsiusToFahrenheit(celsiusLows[i]);
+            fahrenheitHigh = celsiusToFahrenheit(celsiusHighs[i]);
+            System.out.println("The low will be " + fahrenheitLow
+                    + " and the high will be " + fahrenheitHigh + ".");
+        }
+
+    }
+
     public static void main(String[] args) {
         double[] celsiusLowTemperatures = {0.0, -2.4, 7.7, 14.1};
         double[] celsiusHighTemperatures = {9.3, 8.3, 16.8, 26.3};
-
-
-        for (int i = 0; i < celsiusLowTemperatures.length; i++) {
-            double fahrenheitLowTemperature;
-            double fahrenheitHighTemperature;
-            fahrenheitLowTemperature = celsiusToFahrenheit(celsiusLowTemperatures[i]);
-            fahrenheitHighTemperature = celsiusToFahrenheit(celsiusHighTemperatures[i]);
-            System.out.println("The low will be " + fahrenheitLowTemperature
-                    + " and the high will be " + fahrenheitHighTemperature + ".");
-        }
+        displayTemperatures(celsiusLowTemperature, celsiusHighTemperature);
     }
 }
 ```
 
-In this example, the method not only calculates the Fahrenheit value but also
-returns that value.  This allows us to use the value outside the method.  
-Notice that the method header now has the word `double` where `void` appeared
-in previous methods.  This indicates that the method will return a value and
-the data type of that value will be `double`.  The `return` statement can also
-be used to control the flow of execution within a method.
+In this example, the method to convert units not only calculates the Fahrenheit
+value but also returns that value.  This allows us to use the value outside the
+method.  Notice that the method header now has the word `double` where `void`
+appeared in previous methods.  This indicates that the method will return a
+value and the data type of that value will be `double`.  The `return` statement
+can also be used to control the flow of execution within a method.  This
+example also demonstrates that we can call methods from other methods besides
+the main() method.  Typically, the main() method will only have what is
+necessary to start the program.
 
 ```Java
 package com.myname.week_03;
@@ -289,17 +295,21 @@ public class Main {
         return "unlikely";
     }
 
+    public static void displayLikelihood(double[] temps, double[] precipitation) {
+        for (int i = 0; i < temps.length; i++) {
+            String snowy = willSnow(temps[i], precipitation[i]);
+            System.out.println("When the temperature is " + temps[i]
+                    + " and the probability of precipitation is "
+                    + precipitation[i] + ", it is " + snowy + " to snow.");
+
+        }
+    }
+
     public static void main(String[] args) {
         double[] temperatures = {28, 31, 46, 37};
         double[] probabilities = {.3, .9, .4, .7};
 
-        for (int i = 0; i < temperatures.length; i++) {
-            String snowy = willSnow(temperatures[i], probabilities[i]);
-            System.out.println("When the temperature is " + temperatures[i]
-                    + " and the probability of precipitation is "
-                    + probabilities[i] + ", it is " + snowy + " to snow.");
-
-        }
+        displayLikelihood(temperatures, probabilities);
     }
 }
 ```
