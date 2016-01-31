@@ -514,13 +514,25 @@ methods.  Because the List interface specifies the methods we need to use, we
 can use List instead of ArrayList or LinkedList.
 
 ## Sets
+A set is a collection that contains no duplicate elements.  Specifically, a set
+contains no pair of elements *e1* and *e2* such that *e1.equals(e2)* is true.
+Like Lists, Sets extend the Collection interface and is an interface itself.
+
 ### TreeSet
+A TreeSet stores elements based on a tree structure with each element linked to
+others.  This results in elements being stored in a sorted order but accessing
+the elements can be slow compared to non-sorted sets.
+
+
+
 ### HashSet
-### Sorted Sets
+A HashSet stores elements based on a HashMap (which we'll look at soon) and
+uses an elements hash code (the value returned by the hashCode() method) to
+determine if an element is in the set or not.  While there is no guarantee
+about order, using a HashSet is typically faster than using as TreeSet.
 
 ## Maps
 ### TreeMap
 ### HashMap
-### Sorted Maps
 
 ## Exercise
