@@ -349,7 +349,46 @@ The **ArrayList** class provides an implementation of the List interface based
 on arrays. Because of this, access to elements is fast but updates are
 relatively slow.
 
-Program to an interface, not an implementation.
+```java
+package com.myname.week_04;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<String> cities = new ArrayList<String>();
+        cities.add("Columbus");
+        cities.add("New York");
+        cities.add("Tokyo");
+
+        //Use Collection.contains()
+        System.out.println("Cleveland in list: " + cities.contains("Cleveland"));
+
+        //Use Collection.size()
+        System.out.println("Number of cities: " + cities.size());
+
+        //Use List.add() to add a city after Columbus
+        cities.add(1, "Cleveland");
+
+        //Use List.remove() to remove New York
+        cities.remove(2);
+
+        //display all cities
+        for (String city: cities) {
+            System.out.println(city);
+        }
+
+
+    }
+}
+```
+
+In this example, we created a new ArrayList and used some of the methods
+available to us.  Notice that a key difference between a list and an array is
+that we are able to easily add new elements and increase the size of the list.
 
 ### LinkedList
 The **LinkedList** provides an implementation based on linked nodes.  A *node*
@@ -359,6 +398,120 @@ location of the next node. With this structure, it's relatively fast to add or
 remove elements (the memory locations just need to be updated) but accessing
 an element is slow because each node that precedes the element has to be
 examined.
+
+An example of using a LinkedList is very similar to one for an ArrayList:
+
+```Java
+package com.myname.week_04;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<String> cities = new LinkedList<String>();
+        cities.add("Columbus");
+        cities.add("New York");
+        cities.add("Tokyo");
+
+        //Use Collection.contains()
+        System.out.println("Cleveland in list: " + cities.contains("Cleveland"));
+
+        //Use Collection.size()
+        System.out.println("Number of cities: " + cities.size());
+
+        //Use List.add() to add a city after Columbus
+        cities.add(1, "Cleveland");
+
+        //Use List.remove() to remove New York
+        cities.remove(2);
+
+        //display all cities
+        for (String city: cities) {
+            System.out.println(city);
+        }
+
+
+    }
+}
+```
+
+When reading about the object-oriented design paradigm and interfaces, you
+might encounter the following phrase: "Program to an interface, not an
+implementation."  This means when declaring a variable or defining a method,
+its often more convenient to use the name of the most basic interface that
+supports your needs as the data type then the class of the instance you might
+be creating or passing to a method.
+
+Consider this example that allows us to see that adding to an ArrayList is
+slower than adding to a LinkedList but iterating through an ArrayList is faster.
+
+```Java
+package com.myname.week_02;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Main {
+    static List<Integer> addEntries(int number, List<Integer> list){
+        for (int i = 0; i < number; i++)
+            list.add(i);
+        return list;
+    }
+
+    static long benchmarkAddList(int entries, List<Integer> testList) {
+        long startTime = System.currentTimeMillis();
+        addEntries(entries, testList);
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
+    }
+
+    static long benchmarkIterateList(int entries, List<Integer> testList) {
+        addEntries(entries, testList);
+        long startTime = System.currentTimeMillis();
+        long sum = 0;
+        for (int entry: testList) {
+            sum += entry;
+        }
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
+    }
+
+
+    static void benchmark() {
+        int testEntries = 10000000;  //10 million
+        List<Integer> arrayList = new ArrayList<>();
+        List<Integer> linkedList = new LinkedList<>();
+
+        long arrayAddTime = benchmarkAddList(testEntries, arrayList);
+        long linkedAddTime = benchmarkAddList(testEntries, linkedList);
+
+        arrayList = new ArrayList<>();
+        linkedList = new LinkedList<>();
+
+        long arrayIterateTime = benchmarkIterateList(testEntries, arrayList);
+        long linkedIterateTime = benchmarkIterateList(testEntries, linkedList);
+
+        System.out.println("Time (ms) to add to ArrayList: " + arrayAddTime);
+        System.out.println("Time (ms) to add to LinkedList: " + linkedAddTime);
+        System.out.println("Time (ms) to iterate ArrayList: " + arrayIterateTime);
+        System.out.println("Time (ms) to iterate LinkedList: " + linkedIterateTime);
+
+    }
+    public static void main(String[] args) {
+        benchmark();
+    }
+}
+```
+
+Notice that the *addEntries(), benchmarkAddList(), and benchmarkIterateList()*
+methods take parameters of the List type and not ArrayList or LinkedList. If
+the methods had used ArrayList or LinkedList, we would have needed separate
+methods.  Because the List interface specifies the methods we need to use, we
+can use List instead of ArrayList or LinkedList.
 
 ## Sets
 ### TreeSet
