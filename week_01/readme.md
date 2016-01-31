@@ -495,7 +495,7 @@ within IntelliJ IDEA.
 
 ### Working with GitHub in IntelliJ IDEA
 With our existing project, we can create a new repository by selecting
-**View -> Import into Version Control -> Share Project on Github** from
+**VCS -> Import into Version Control -> Share Project on Github** from
 the menu bar. If this is the first time using GitHub with IntelliJ, you will
 be prompted to enter your Github credentials and an IntelliJ password.
 
