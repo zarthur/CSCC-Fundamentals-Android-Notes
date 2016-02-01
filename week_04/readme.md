@@ -523,7 +523,28 @@ A TreeSet stores elements based on a tree structure with each element linked to
 others.  This results in elements being stored in a sorted order but accessing
 the elements can be slow compared to non-sorted sets.
 
+```Java
+package com.myname.week_04;
 
+import java.util.TreeSet;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        TreeSet<String> cities = new TreeSet<>();
+        cities.add("Dayton");
+        cities.add("Columbus");
+        cities.add("Cleveland");
+        cities.add("Columbus");
+
+        for (String city: cities) {
+            System.out.println(city);
+        }
+
+    }
+}
+```
 
 ### HashSet
 A HashSet stores elements based on a HashMap (which we'll look at soon) and
@@ -531,8 +552,175 @@ uses an elements hash code (the value returned by the hashCode() method) to
 determine if an element is in the set or not.  While there is no guarantee
 about order, using a HashSet is typically faster than using as TreeSet.
 
+```java
+package com.myname.week_02;
+
+import java.util.HashSet;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        HashSet<String> cities = new HashSet<>();
+        cities.add("Dayton");
+        cities.add("Columbus");
+        cities.add("Cleveland");
+        cities.add("Columbus");
+
+        for (String city: cities) {
+            System.out.println(city);
+        }
+
+    }
+}
+```
+
+Compare the output from the example using a TreeSet with this example. The
+elements of the TreeSet is guaranteed to be in order; the elements of a HashSet
+may or may not be in order.
+
+
 ## Maps
+A **Map** is a group of key/value pairs where each key is unique and
+corresponds to at most one value.  Maps are declared using `Map<K,V>` where *K*
+is the type of the keys and *V* is the type of the values.  The Map interface
+includes the following methods:
+
+|Method |Description|
+|--|--|
+|void clear() | Removes all entries from the map. |
+|boolean containsKey(Object key) | Returns true when the map contains an entry for the specified *key* and false otherwise.|
+|boolean containsValue(Object value) | Returns true when the map maps one or more keys to *value*.|
+|V get(Object key) | Return the value to which *key* is mapped or null if the map doesn't contain the key.|
+|Set<K> keySet() | returns a Set view of the keys contained in the map.  Because this is a view, changes made to the map are reflected in the set and vice versa. |
+|V put(K key, V value) | Associates *value* with *key* in the map.  If the map previously contained a value for *key*, the value is replaced and the old value is returned.|
+|V remove(Object key) | Removes the entry for *key* from the map and returns the associated value if the map contained an entry for *key*.|
+|int size() | Returns the number of entries in the map. |
+|Collection<V> values() | Returns a Collection view of the values contained in the map. |
+
 ### TreeMap
+A **TreeMap** is a map implementation based on a tree structure.  As a result,
+the entries are stored in sorted order based on keys.  Accessing entries is
+somewhat slower than other map implementations.
+
+```java
+package com.myname.week_04;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class Main {
+    static void displayTemperatures(Map<String, Integer[]> tempMap) {
+        for (String key: tempMap.keySet()) {
+            Integer[] temps = tempMap.get(key);
+            System.out.println("City: " + key
+                    + ", Low: " + temps[0]
+                    + ", High: " + temps[1]);
+        }
+    }
+
+    static Map<String, Integer[]> assignTemperatures(String[] cities,
+                                                     int[] lowTemps,
+                                                     int[] highTemps) {
+        Map<String, Integer[]> temperatures = new TreeMap<>();
+        for (int i = 0; i < cities.length; i++) {
+            Integer[] tempArray = {lowTemps[i], highTemps[i]};
+            temperatures.put(cities[i], tempArray);
+        }
+        return temperatures;
+    }
+
+    public static void main(String[] args) {
+        String[] cityNames = {"Columbus", "New York", "Houston", "Columbus"};
+        int[] lowTemps = {-10, -5, 50, 0};
+        int[] highTemps = {20, 40, 65, 15};
+
+        Map<String, Integer[]> temperatures = assignTemperatures(cityNames,
+                lowTemps, highTemps);
+
+        displayTemperatures(temperatures);
+
+    }
+}
+```
+
+In this example, we created a TreeMap to pair city names with an array of
+temperatures.  Notice that we used *Columbus* for a key twice and the original
+values for temperatures was replaced by the values the second time we used
+*Columbus*.
+
 ### HashMap
+A **HashMap** provides a map implementation based on on a hash table data
+structure.  A simple hash table has slots for storing various values.  The
+slot in which a value will be stored is determined by the hash code of the
+corresponding key.  A hash code is an integer value mapped to from the key
+value using a hash function.  In Java, the default hash code is determined by
+the `.hashCode()` method.  A HashMap makes no guarantee about order. Let's look
+at a modified version of the previous example.
+
+```Java
+package com.myname.week_04;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    static void displayHashCodes(Map<String, Integer[]> tempMap) {
+        for (String key: tempMap.keySet()) {
+            System.out.println("Key: " + key + ", Hash: " + key.hashCode());
+        }
+    }
+
+
+    static void displayTemperatures(Map<String, Integer[]> tempMap) {
+        for (String key: tempMap.keySet()) {
+            Integer[] temps = tempMap.get(key);
+            System.out.println("City: " + key
+                    + ", Low: " + temps[0]
+                    + ", High: " + temps[1]);
+        }
+    }
+
+    static Map<String, Integer[]> assignTemperatures(String[] cities,
+                                                     int[] lowTemps,
+                                                     int[] highTemps) {
+        Map<String, Integer[]> temperatures = new HashMap<>();
+        for (int i = 0; i < cities.length; i++) {
+            Integer[] tempArray = {lowTemps[i], highTemps[i]};
+            temperatures.put(cities[i], tempArray);
+        }
+        return temperatures;
+    }
+
+    public static void main(String[] args) {
+        String[] cityNames = {"Columbus", "New York", "Houston", "Columbus"};
+        int[] lowTemps = {-10, -5, 50, 0};
+        int[] highTemps = {20, 40, 65, 15};
+
+        Map<String, Integer[]> temperatures = assignTemperatures(cityNames,
+                lowTemps, highTemps);
+
+        displayTemperatures(temperatures);
+        displayHashCodes(temperatures);
+
+    }
+}
+```
+
+This example also prints the hash code of each key.  Besides this change,
+notice that we only had to make a change in one place to use a HashMap instead
+of a TreeMap.  This is the convenience of programming to implementations.
 
 ## Exercise
+Write a program that first prompts the user to enter a list of city names, one
+at a time until the user specifies "END".  Next, the program should prompt the
+user to enter the average daily temperature for each of the next five days for
+each city. The program should store the user's cities and temperature data in
+one data structure.  Next, calculate the five-day average for each city.  
+Finally, display a message containing the city's name and the average for each city.
+
+The code to prompt the user for input, to calculate the five-day average, and
+to display the results should be in separate methods.
+
+Hint: You can use `String.split(" ")` to split a string into an array of
+strings based on where spaces occur in the original string.  
