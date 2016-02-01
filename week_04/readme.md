@@ -586,17 +586,18 @@ corresponds to at most one value.  Maps are declared using `Map<K,V>` where *K*
 is the type of the keys and *V* is the type of the values.  The Map interface
 includes the following methods:
 
-|Method |Description|
-|--|--|
-|void clear() | Removes all entries from the map. |
-|boolean containsKey(Object key) | Returns true when the map contains an entry for the specified *key* and false otherwise.|
-|boolean containsValue(Object value) | Returns true when the map maps one or more keys to *value*.|
-|V get(Object key) | Return the value to which *key* is mapped or null if the map doesn't contain the key.|
-|Set<K> keySet() | returns a Set view of the keys contained in the map.  Because this is a view, changes made to the map are reflected in the set and vice versa. |
-|V put(K key, V value) | Associates *value* with *key* in the map.  If the map previously contained a value for *key*, the value is replaced and the old value is returned.|
-|V remove(Object key) | Removes the entry for *key* from the map and returns the associated value if the map contained an entry for *key*.|
-|int size() | Returns the number of entries in the map. |
-|Collection<V> values() | Returns a Collection view of the values contained in the map. |
+| Method                              | Description                                                                                                                                        |
+|:------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| void clear()                        | Removes all entries from the map.                                                                                                                  |
+| boolean containsKey(Object key)     | Returns true when the map contains an entry for the specified *key* and false otherwise.                                                           |
+| boolean containsValue(Object value) | Returns true when the map maps one or more keys to *value*.                                                                                        |
+| V get(Object key)                   | Return the value to which *key* is mapped or null if the map doesn't contain the key.                                                              |
+| Set<K> keySet()                     | returns a Set view of the keys contained in the map.  Because this is a view, changes made to the map are reflected in the set and vice versa.     |
+| V put(K key, V value)               | Associates *value* with *key* in the map.  If the map previously contained a value for *key*, the value is replaced and the old value is returned. |
+| V remove(Object key)                | Removes the entry for *key* from the map and returns the associated value if the map contained an entry for *key*.                                 |
+| int size()                          | Returns the number of entries in the map.                                                                                                          |
+| Collection<V> values()              | Returns a Collection view of the values contained in the map.                                                                                      |
+
 
 ### TreeMap
 A **TreeMap** is a map implementation based on a tree structure.  As a result,
