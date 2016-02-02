@@ -480,3 +480,8 @@ Because we've used an enumeration, we know precisely what values are possible
 for variables like *measuredWindDirection*.
 
 ## Exercise
+Write a program that prompts a user to enter a temperature in Fahrenheit,
+converts it to Celsius, and displays the Celsius temperature.  Separate the code
+that collects user input, the code that converts temperatures, and the code that
+displays the output into different methods.  The program should repeat until the
+user enters a value less that -460 (approximately absolute zero).
