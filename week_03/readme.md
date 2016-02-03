@@ -10,8 +10,8 @@ steps by executing similar sets of statements, we might want to be able to
 group those steps together and write them only once rather than writing them
 over and over again.  Often we can do this sort of grouping using looping
 statements. Another way to group parts of our code is by behavior.
-**Behaviors** refer to some sequence of code that performs a certain task.  
-In addition to this week's discussion, we'll talk more about behaviors when we
+**Behaviors** refer to some sequence of code that performs a certain task.  In
+addition to this week's discussion, we'll talk more about behaviors when we
 discuss classes and objects.  
 
 Java represents behavior using methods.  **Methods** are named blocks of code.
@@ -112,7 +112,7 @@ the return type is a primitive type, a reference type, or `void` when the
 method does not return a value.  After the return type, the methods name is
 specified.  Following the name and enclosed in parentheses is a list of
 parameters, *parameter_list* that lists the kinds of of data items that are
-passed to the method.  We'll talk about each of the these parts in more detail
+passed to the method.  We'll talk about each of these parts in more detail
 soon.  A method's name and the number, types, and order of its parameters are
 known as the method's **signature**.  The reserved word *static*, the return
 type, and the method's signature are known as the **method header**; the set
@@ -168,7 +168,7 @@ It's important to note that the program begins execution in the *main* method.
 ### Passing Arguments to Methods
 In the previous example, our *celsiusToFahrenheit* method took one argument,
 *celsiusValue*.  A method can take zero or more arguments which are specified
-within parentheses in the method header.  In the method header, a parameters
+within parentheses in the method header.  In the method header, a parameter's
 type and its name within the method are specified.  The scope of the parameter
 names is limited to the method body, that is, they generally cannot be used
 outside the method.  In the previous example, the scope of *celsiusValue* was
@@ -177,9 +177,9 @@ method would have resulted in an error.  Similarly, variables declared within
 a method body have a scoped limited to the method.  The variable
 *fahrenheitValue*, is only accessible from within the method.
 
-Arguments are passed to functions in a style known as pass-by-value.  
-**Pass-by-value** passes the value of a variable to the method.  In the case
-of primitive types, the value associated with the  variable is passed to the
+Arguments are passed to functions in a style known as pass-by-value.  **Pass-by
+-value** passes the value of a variable to the method.  In the case
+of primitive types, the value associated with the variable is passed to the
 method. In the case of reference variables, the value associated with the
 variable is a memory location, so that location is passed to the variable.
 Let's look at an example of why this distinction is important.
@@ -431,11 +431,11 @@ can occur.  We will talk about handling these errors later.
 
 ## Enumerations
 Sometimes it's convenient to specify a set of related values as possible
-values. An **enmeration** is a data type consisting of a set of named values of
-the type.  The syntax for creating an enumeration in Java is:
+values. An **enumeration** is a data type consisting of a set of named values
+of the type.  The syntax for creating an enumeration in Java is:
 
 ```java
-enum name { value1, value2, ..., valueN};
+enum name {value1, value2, ..., valueN};
 ```
 
 where *name* is the name of the enumeration and each of *value1* through
@@ -445,7 +445,7 @@ where *name* is the name of the enumeration and each of *value1* through
 package com.myname.week_03;
 
 public class Main {
-    enum DIRECTION { NORTH, WEST, EAST, SOUTH};
+    enum DIRECTION {NORTH, WEST, EAST, SOUTH};
 
     static void describeWind(DIRECTION windDirection) {
         switch (windDirection) {
@@ -481,7 +481,8 @@ for variables like *measuredWindDirection*.
 
 ## Exercise
 Write a program that prompts a user to enter a temperature in Fahrenheit,
-converts it to Celsius, and displays the Celsius temperature.  Separate the code
-that collects user input, the code that converts temperatures, and the code that
-displays the output into different methods.  The program should repeat until the
-user enters a value less that -460 (approximately absolute zero).
+converts it to Celsius, and displays the Celsius temperature.  Separate the 
+code that collects user input, the code that converts temperatures, and the
+code that displays the output into different methods.  The program should
+repeat until the user enters a value less that -460 (approximately absolute
+zero).
