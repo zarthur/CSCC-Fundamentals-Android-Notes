@@ -86,8 +86,8 @@ package com.myname.week_05;
 class WeatherData {
     WeatherData(String city, double temperature, double humidity) {
         System.out.println("WeatherData city: " + city);
-        System.out.println("WeatherData temperature " + temperature);
-        System.out.println("WeatherData humidity " + humidity);
+        System.out.println("WeatherData temperature: " + temperature);
+        System.out.println("WeatherData humidity: " + humidity);
     }
 }
 
@@ -102,8 +102,8 @@ If you run this program, the output should be:
 
 ```
 WeatherData city: Columbus
-WeatherData temperature 50.0
-WeatherData humidity 72.0
+WeatherData temperature: 50.0
+WeatherData humidity: 72.0
 ```
 
 We've added a constructor to our WeatherData class.  After indicating that
@@ -142,8 +142,8 @@ class WeatherData {
 
     WeatherData(String city, double temperature, double humidity) {
         System.out.println("WeatherData city: " + city);
-        System.out.println("WeatherData temperature " + temperature);
-        System.out.println("WeatherData humidity " + humidity);
+        System.out.println("WeatherData temperature: " + temperature);
+        System.out.println("WeatherData humidity: " + humidity);
     }
 }
 
