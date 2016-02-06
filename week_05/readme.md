@@ -69,7 +69,7 @@ class right now besides its name.
 ### Constructing Objects
 Often when we create an instance of a class, there is some code that we'd like
 to execute to do things like set an instance's state.  One way we can do this
-is by using a constructor.  A class's constructor is used to allocate
+is by using a constructor.  A class's constructor is a method used to allocate
 memory for an object when the *new* operator is used to create an instance.  
 Once memory is allocated, the constructor is called (or invoked) to initialize
 the object.  Once execution of the constructor is complete, the new operator
@@ -161,11 +161,93 @@ class: one that behaves like the default constructor, one that takes only
 a string parameter, and one that takes a string and two doubles.  Constructors,
 like other methods, must have unique signatures.
 
-
 ### Encapsulation
-#### Class fields and methods
+Previously, we described classes as combining related state information
+(attributes) with behaviors that make use of or modify that state information.
+Combining state information with related behaviors in one data structure is
+known as **encapsulation**.  Encapsulation is also sometimes used to describe
+restrictions on access to behaviors and state information to avoid misuse or
+interference.  We'll begin by looking at how we define behaviors and state
+information and then look at restricting access to these items.  
 
-#### Instance fields and methods
+#### Fields
+A class field stores an attributed that associated with a class.  A class field
+is shared by all objects created by the class (using the new operator).  If one
+object modifies a class field, another object created from the same class will
+"see" the new value.
+
+Within a class declaration, a class field is declared using the following
+syntax:
+
+```
+static type_name variable_name [ = expression ] ;
+```
+
+A class field is specified using the reserved word *static* followed by the
+data type of the field, the name of the field, and an initial value, which is
+optional.  If no initial value is specified, the field is initialized to 0,
+0.0, false, null, etc, depending on the. field's type.
+
+In our WeatherData class, we can add class fields for values that we would want
+to share with all objects created from the class.  
+
+We can effectively make a class field a constant by using the reserved word
+*final*.  This will prevent changes to the field.  A convention is to write
+variable names with all capital letters when they represent constants.
+
+```Java
+package com.myname.week_05;
+
+class WeatherData {
+    final static String TEMP_UNIT = "F";
+    final static String HUMIDITY_UNIT = "%";
+    final static String PRECIPITATION_UNIT = "%";
+
+    static int counter = 0;
+
+    WeatherData(String city, double temperature, double humidity,
+                double precipitation) {
+        counter++;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Counter: " + WeatherData.counter);
+
+        WeatherData columbus = new WeatherData("Columbus", 50, 75, 30);
+        System.out.println("Counter: " + WeatherData.counter);
+
+        WeatherData cleveland = new WeatherData("Cleveland", 45, 70, 30);
+        System.out.println("Counter: " + WeatherData.counter);
+
+        System.out.println("Counter: " + columbus.counter);
+        System.out.println("Counter: " + cleveland.counter);
+    }
+}
+```
+
+In this example, we've added four fields *TEMP_UNIT*, *HUMIDITY_UNIT*,
+*PRECIPITATION_UNIT*, and *counter*.  The first three are marked final so
+they will act like constants.  If you run this example, the output should be:
+
+```
+Counter: 0
+Counter: 1
+Counter: 2
+Counter: 2
+Counter: 2
+```
+
+Notice that the value of constructor increases each time a WeatherData object
+is created.  This is consistent with the code in the constructor.  Each
+WeatherData object also has access to the updated value.  While we were able
+to use the objects we created in main() to access the counter class field
+(`cleveland.counter` and `columbus.counter`), we typically use the class
+name to access the field (`WeatherData.counter`).
+
+Instance or object fields...
+#### Methods
 
 ### Access Control
 
