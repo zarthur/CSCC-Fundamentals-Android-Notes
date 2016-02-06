@@ -202,6 +202,7 @@ class WeatherData {
     final static String TEMP_UNIT = "F";
     final static String HUMIDITY_UNIT = "%";
     final static String PRECIPITATION_UNIT = "%";
+    final static int FREEZING_TEMP = 32;
 
     static int counter = 0;
 
@@ -227,9 +228,10 @@ public class Main {
 }
 ```
 
-In this example, we've added four fields *TEMP_UNIT*, *HUMIDITY_UNIT*,
-*PRECIPITATION_UNIT*, and *counter*.  The first three are marked final so
-they will act like constants.  If you run this example, the output should be:
+In this example, we've added five fields *TEMP_UNIT*, *HUMIDITY_UNIT*,
+*PRECIPITATION_UNIT*, *FREEZING_TEMP*, and *counter*.  The first four are
+marked final so they will act like constants.  If you run this example, the
+output should be:
 
 ```
 Counter: 0
