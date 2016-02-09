@@ -477,9 +477,7 @@ of the instance fields *temperature* and *precipitation*.  The
 *displayWeatherReport* makes use of class fields, instance fields, and another
 instance method.  The output of the program is:
 
-```
-The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.
-```
+```The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.```
 
 ### Access Control
 
