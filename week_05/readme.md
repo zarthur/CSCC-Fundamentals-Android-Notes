@@ -185,7 +185,8 @@ static type_name variable_name [ = expression ] ;
 
 A class field is specified using the reserved word *static* followed by the
 data type of the field, the name of the field, and an initial value, which is
-optional.  If no initial value is specified, the field is initialized to 0,
+optional.  If a value is specified, we call the value the class field
+initializer. If no initial value is specified, the field is initialized to 0,
 0.0, false, null, etc, depending on the. field's type.
 
 In our WeatherData class, we can add class fields for values that we would want
@@ -248,8 +249,235 @@ to use the objects we created in main() to access the counter class field
 (`cleveland.counter` and `columbus.counter`), we typically use the class
 name to access the field (`WeatherData.counter`).
 
-Instance or object fields...
+An **instance field** stores an attribute associated with an object where each
+instance of a class maintains a separate value. The syntax for the declaration
+is:
+
+```
+type_name variable_name [ = expression ];
+
+Here, *type_name* is the data type of the instance field, *variable_name* is
+the name of the field, and *expression* is the optional value to set the field
+to.  If an initial value is specified by *expression*, we call the value the
+*instance field initializer*.  If not initial value is specified, the value
+will be set to default value, depending on the type, when an instance is
+created.  Notice that the primary difference between an instance field and a
+class field is that a class field requires the use of the reserved word
+*static*.
+
+Let's add some instance fields to our WeatherData class.
+
+```Java
+package com.myname.week_05;
+
+class WeatherData {
+    final static String TEMP_UNIT = "F";
+    final static String HUMIDITY_UNIT = "%";
+    final static String PRECIPITATION_UNIT = "%";
+    final static int FREEZING_TEMP = 32;
+
+    String cityName;
+    double temperature;
+    double humidity;
+    double precipitation;
+
+    WeatherData(String city, double temperature, double humidity,
+                double precipitation) {
+        cityName = city;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.precipitation = precipitation;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        WeatherData columbus = new WeatherData("Columbus", 50, 75, 30);
+        System.out.println("City name: " + columbus.cityName);
+        System.out.println("Temperature: " + columbus.temperature + WeatherData.TEMP_UNIT);
+        System.out.println("Humidity: " + columbus.humidity + WeatherData.HUMIDITY_UNIT);
+        System.out.println("Chance of precipitation: " + columbus.precipitation
+                + WeatherData.PRECIPITATION_UNIT);
+    }
+}
+```
+
+If we run this program, the output is:
+
+```
+City name: Columbus
+Temperature: 50.0F
+Humidity: 75.0%
+Chance of precipitation: 30.0%
+```
+
+After declaring and initializing the class fields, we declared four instance
+methods: *cityName*, *temperature*, *humidity*, and *precipitation*.  In the
+constructor, we assign values to these fields using the values passed to the
+constructor.  Notice the use of *this* when the field name was the same
+as the parameter name.  *this* is a reference to the current instance and
+allows us to be explicit when accessing the instance field.  If we had written
+`temperature = temperature` instead of `this.temperature = temperature`, Java
+would assume that we were reassigning the value of the parameter *temperature*
+to itself.  So, we have to be explicit and use *this*.
+
 #### Methods
+We've explored class methods in an earlier lecture.  Recall that methods can be
+used to represent behavior.  Behavior associated with a class can be written
+as class methods.  Class methods, like class fields, can be accessed using the
+class's name and without creating an instance.  While class methods can
+access and modify class fields, the cannot access or modify instance fields.  
+
+Recall that class methods have the following syntax:
+
+```
+static return_type name(parameter_list) {
+    //statements to execute
+}
+```
+where *return_type* is the data type of any value returned by the method
+(*void* if no value is returned), *name* is the method's name, and
+*parameter_list* is a list of comma-separated types and names for values
+passed to the method.  Class methods require the reserved word *static* be
+a part of their method headers.  
+
+Let's add some class methods to our WeatherData class.
+
+```java
+package com.myname.week_05;
+
+class WeatherData {
+    final static String TEMP_UNIT = "F";
+    final static String HUMIDITY_UNIT = "%";
+    final static String PRECIPITATION_UNIT = "%";
+    final static int FREEZING_TEMP = 32;
+
+    String cityName;
+    double temperature;
+    double humidity;
+    double precipitation;
+
+    WeatherData(String city, double temperature, double humidity,
+                double precipitation) {
+        cityName = city;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.precipitation = precipitation;
+    }
+
+    static double tempFtoC(double fahrenheit) {
+        return 5.0 / 9 * (fahrenheit - 32);
+    }
+
+    static double tempCtoF(double celsius) {
+        return 9.0 / 5 * celsius + 32;
+    }
+
+    static void displayFreezeTemp() {
+        System.out.println(FREEZING_TEMP + TEMP_UNIT);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(WeatherData.tempCtoF(100));
+        System.out.println(WeatherData.tempFtoC(32));
+       WeatherData.displayFreezeTemp();
+    }
+}
+```
+
+We've added three class methods: *tempFtoC*, *tempCtoF*, and
+*displayFreezeTemp*.  Notice that none of these class methods access or modify
+instance fields but *displayFreezeTemp* does access two class fields.  Also,
+when we access class fields from within the class, we can drop the class name
+as long as what we are trying to access is unambiguous; if it is ambiguous, we
+have to use the class name like `WeatherData.FREEZING_TEMP`.
+
+An **instance method** represents a behavior associated with an object and
+can access/modify an object's instance fields.  
+
+The syntax for declaring an instance method is:
+
+```
+return_type name(parameter_list) {
+    //statements to execute
+}
+```
+
+Like a class method, the method's signature is given by the method's name and
+the number, order, and types of the the parameters in *parameter_list*.  Class
+and instance methods must be unique to their classes based on their signatures.
+
+Let's add some instance methods to our program:
+
+```java
+package com.myname.week_05;
+
+class WeatherData {
+    final static String TEMP_UNIT = "F";
+    final static String HUMIDITY_UNIT = "%";
+    final static String PRECIPITATION_UNIT = "%";
+    final static int FREEZING_TEMP = 32;
+
+    String cityName;
+    double temperature;
+    double humidity;
+    double precipitation;
+
+    WeatherData(String city, double temperature, double humidity,
+                double precipitation) {
+        cityName = city;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.precipitation = precipitation;
+    }
+
+    static double tempFtoC(double fahrenheit) {
+        return 5.0 / 9 * (fahrenheit - 32);
+    }
+
+    static double tempCtoF(double celsius) {
+        return 9.0 / 5 * celsius + 32;
+    }
+
+    static void displayFreezeTemp() {
+        System.out.println(FREEZING_TEMP + TEMP_UNIT);
+    }
+
+    boolean willSnow() {
+        return (temperature <= FREEZING_TEMP) && precipitation >= 50;
+    }
+
+    void displayWeatherReport() {
+        String temp = temperature + TEMP_UNIT;
+        String humid = humidity + HUMIDITY_UNIT;
+        String precip = precipitation + PRECIPITATION_UNIT;
+        String snowLikely = willSnow() ? "likely" : "unlikely";
+
+        System.out.println("The current temperature in " + cityName + " is " + temp
+                + ". The current relative humidity is: " + humid
+                + ". The current chance of precipitation is " + precip
+                + ". It is " + snowLikely + " to snow.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        WeatherData columbus = new WeatherData("Columbus", 30, 60, 75);
+        columbus.displayWeatherReport();
+    }
+}
+```
+
+We've added two instance methods: *willSnow* and *displayWeatherReport*.  The
+*willSnow* instance method returns a boolean value that depends on the value
+of the instance fields *temperature* and *precipitation*.  The
+*displayWeatherReport* makes use of class fields, instance fields, and another
+instance method.  The ouput of the program is:
+
+```The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.```
+
 
 ### Access Control
 
