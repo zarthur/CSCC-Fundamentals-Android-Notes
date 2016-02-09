@@ -255,6 +255,7 @@ is:
 
 ```
 type_name variable_name [ = expression ];
+```
 
 Here, *type_name* is the data type of the instance field, *variable_name* is
 the name of the field, and *expression* is the optional value to set the field
@@ -474,10 +475,11 @@ We've added two instance methods: *willSnow* and *displayWeatherReport*.  The
 *willSnow* instance method returns a boolean value that depends on the value
 of the instance fields *temperature* and *precipitation*.  The
 *displayWeatherReport* makes use of class fields, instance fields, and another
-instance method.  The ouput of the program is:
+instance method.  The output of the program is:
 
-```The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.```
-
+```
+The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.
+```
 
 ### Access Control
 
