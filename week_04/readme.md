@@ -151,26 +151,27 @@ together on a project.
 ## Introduction to Classes, Instances, and Interfaces
 You might have read or heard that Java is an object-oriented programming
 language.  What does it mean to be object-oriented?  Basically, it means that
-the code we write in Java makes use of objects.  An **object** is a data
-structure that contains related data attributes and code for acting on those
-attributes. We can say that this is a combination of *state*, the attributes,
+the code we write in Java makes use of objects created from classes.  A
+**class** specifies a data structure containing related data attributes and
+code for acting on these attributes. An **object** is a specific instance of a
+class created using the *new* operator. A class specifies the general structure
+and objects allow us to specify specific values, unique to the object, and
+perform actions based on or to those values.
+
+Often, we describe a class as a combination of *state*, the attributes,
 and *behavior*, the code that acts on the state.  We saw an example of an
 attribute when we used the `.length` property of an array.  The code that
-represents behavior and acts on attributes is represented by methods. So far,
+represents behavior and acts on attributes are represented by methods. So far,
 we've primarily worked with class methods but objects can have another type of
 method know as instance methods. **Instance methods** are collections of code
 that can alter the attributes of an object.
 
-Objects are instances of classes. A **class** specifies the structure of objects
-created from it by naming the attributes and defining the code that comprise
-the methods.  Objects or instances are created from classes using the *new*
-operator.  
-
 In addition to classes, Java also has interfaces. An **interface** can be used
-to specify attributes and the signatures of methods.  We can't create objects
-directly from interfaces but we can use classes to *implement* the interface.
-If a class implements an interface, we know that the class will have the
-attributes and fields specified by the interface.  
+to specify what attributes and methods an object will have.  We can't create
+objects directly from interfaces but we can use classes to *implement* the
+interface. If a class implements an interface, we know that we will be able to
+use the attributes and fields specified by the interface with the class and
+objects created from it.  
 
 We'll discuss classes and interfaces in more detail in later lectures.
 
