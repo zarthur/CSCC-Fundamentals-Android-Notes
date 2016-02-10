@@ -477,10 +477,296 @@ of the instance fields *temperature* and *precipitation*.  The
 *displayWeatherReport* makes use of class fields, instance fields, and another
 instance method.  The output of the program is:
 
-```The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.```
+`The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.`
 
 ### Access Control
+A class exposes an *interface*, constructors, methods, and fields that can be
+accessed from outside the class.  An interface acts like a contract between a
+class and other objects that might communicate with it or instances of it.  The
+contract is such that the class won't change the methods and fields that
+other things depend on.  A class also provides an *implementation* that
+consists of code that supports the interface including helper methods that
+assist exposed methods but probably should be publically-accessible themselves.
+Hiding the implementation details makes it easier to make changes to code - we
+only have to make sure that the interface remains the same to avoid breaking
+code that uses our classes but we are free to make modifications to the
+implementation.
+
+Java provided four levels of control for methods and fields: *public*,
+*protected*, *private*, and *package-private*. We can indicate that a method
+or field is *public*, *protected*, or *private* by prefixing the declaration
+with `public`, `protected`, or `private`.
+
+A field, method, or constructor that is declared **public** is accessible from
+anywhere.  Classes can also be declared public and public classes must be
+declared in files whose names match the classes' names.
+
+A **protected** field or method is accessible from all classes in the same
+package as the the field's or method's class as well as any subclasses of the
+class.
+
+A **private** field or method cannot be accessed from outside the class in
+which it is declared.
+
+If no access control is specified, the method, field, or class is
+**package-private**, meaning that it is only accessible to classes within the
+same package.
+
+Often, instance fields are declared *private* and special methods known as
+*getters* and *setters* are defined for accessing or modifying their values.  
+Usually, class fields are declared *public* but can be made private to hide
+unnecessary details.  
+
+Let's declare the access control levels of our fields and methods in
+WeatherData.
+
+```java
+package com.myname.week_05;
+
+class WeatherData {
+    // class fields
+    private final static String TEMP_UNIT = "F";
+    private final static String HUMIDITY_UNIT = "%";
+    private final static String PRECIPITATION_UNIT = "%";
+    final static int FREEZING_TEMP = 32;
+
+    // instance fields
+    private String cityName;
+    private double temperature;
+    private double humidity;
+    private double precipitation;
+
+    // constructor
+    public WeatherData(String city, double temperature, double humidity,
+                       double precipitation) {
+        cityName = city;
+        this.humidity = humidity;
+        this.precipitation = precipitation;
+        setTemperature(temperature);
+    }
+
+    // class methods
+    public static double tempFtoC(double fahrenheit) {
+        return 5.0 / 9 * (fahrenheit - 32);
+    }
+
+    public static double tempCtoF(double celsius) {
+        return 9.0 / 5 * celsius + 32;
+    }
+
+    // instance methods
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+
+    private boolean willSnow() {
+        return (temperature <= FREEZING_TEMP) && precipitation >= 50;
+    }
+
+    public void displayWeatherReport() {
+        String temp = temperature + TEMP_UNIT;
+        String humid = humidity + HUMIDITY_UNIT;
+        String precip = precipitation + PRECIPITATION_UNIT;
+        String snowLikely = willSnow() ? "likely" : "unlikely";
+
+        System.out.println("The current temperature in " + cityName + " is " + temp
+                + ". The current relative humidity is: " + humid
+                + ". The current chance of precipitation is " + precip
+                + ". It is " + snowLikely + " to snow.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        WeatherData columbus = new WeatherData("Columbus", 30, 60, 75);
+        columbus.displayWeatherReport();
+    }
+}
+```
+
+We've made a number of changes but the output should be the same as before.  
+First, we marked the class fields specifying units as *private*. The constant
+representing the freezing temperature was marked *public*. All the instance
+methods were marked *private* We made both the constructor and the class
+methods that provide temperature conversion functionality public - any class
+should be able to access them.  We created a `getter` for the city name and a
+`setter` for the temperature and marked them public; this allows other classes
+to indirectly access the city name and indirectly set the temperature - we'll
+see why this could be important in the next example.  We decided that
+`willSnow()` is a helper method and shouldn't be available to other classes, so
+we marked it as *private*.  The `displayWeatherReport()` method should be
+accessible to other classes, so we marked it *public*.  
+
+What if we wanted to perform a check on the value the specified for the
+temperature and make sure it was greater than a minimal value?  This is one
+reason to use *setters* and to prevent access directly to the instance field.
+
+```Java
+package com.myname.week_05;
+
+class WeatherData {
+    // class fields
+    private final static String TEMP_UNIT = "F";
+    private final static String HUMIDITY_UNIT = "%";
+    private final static String PRECIPITATION_UNIT = "%";
+    final static int FREEZING_TEMP = 32;
+
+    // instance fields
+    private String cityName;
+    private double temperature;
+    private double humidity;
+    private double precipitation;
+
+    // constructor
+    public WeatherData(String city, double temperature, double humidity,
+                       double precipitation) {
+        cityName = city;
+        this.humidity = humidity;
+        this.precipitation = precipitation;
+        setTemperature(temperature);
+    }
+
+    // class methods
+    public static double tempFtoC(double fahrenheit) {
+        return 5.0 / 9 * (fahrenheit - 32);
+    }
+
+    public static double tempCtoF(double celsius) {
+        return 9.0 / 5 * celsius + 32;
+    }
+
+    // instance methods
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature < -461 ? -461 : temperature;
+    }
+
+
+    private boolean willSnow() {
+        return (temperature <= FREEZING_TEMP) && precipitation >= 50;
+    }
+
+    public void displayWeatherReport() {
+        String temp = temperature + TEMP_UNIT;
+        String humid = humidity + HUMIDITY_UNIT;
+        String precip = precipitation + PRECIPITATION_UNIT;
+        String snowLikely = willSnow() ? "likely" : "unlikely";
+
+        System.out.println("The current temperature in " + cityName + " is " + temp
+                + ". The current relative humidity is: " + humid
+                + ". The current chance of precipitation is " + precip
+                + ". It is " + snowLikely + " to snow.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        WeatherData columbus = new WeatherData("Columbus", 30, 60, 75);
+        columbus.displayWeatherReport();
+    }
+}
+```
+
+Here, we modified the `setTemperature()` *setter* method to check if the
+temperature was less than -461.  If it is, the temperature field is set to -461
+otherwise the field is set to whatever value was specified.
 
 ### Initializers
+Classes and instances need to be initialized before they are used.  We've
+looked at initializing fields and one way of initializing instances: using
+constructors to set fields values or execute code. Java also provides class and
+instance initializers.
+
+A **class initializer** is a block of code, prefixed by the reserved word
+*static*, written in the class body.  A class initializer can be used to
+include complex code that initiates class fields.
+
+```Java
+package com.myname.week_05;
+
+class ExampleClass {
+    static int counter;
+
+    static {
+        counter += 1;
+        System.out.println("Inside Initializer: Counter = " + counter);
+    }
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(ExampleClass.counter);
+    }
+}
+```
+
+Here, we declare a class field and then specify some statements that make use
+of the field; this code is the class initializer.  The class initializer is
+executed when the class is loaded into memory.  
+
+Similar to a class initializer, we can also define instance initializers.  
+*Instance initializers* are blocks of code in the class body executed when a
+new instance is created.
+
+```Java
+package com.myname.week_05;
+
+class ExampleClass {
+    int counter;
+
+    {
+        counter += 1;
+        System.out.println("Inside Initializer: Counter = " + counter);
+    }
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ExampleClass example = new ExampleClass();
+    }
+}
+```
+
+Notice this is very similar to the last example.  We've removed the *static*
+prefix on the field and the initializer making them an instance field and
+an instance initializer, respectively.  
+
+While you might encounter a need for a class initializer, you should usually
+avoid using instance initializers when a constructor can be used. The use
+of instance initializers instead of constructors often detract from code
+readability.  
 
 ## Garbage Collection
+When we create objects, we use the *new* operator.  As part of the process
+of creating a new object, the *new* operator allocates space in memory to store
+the object.  But how do we free memory when we no longer need the object?  If
+memory weren't freed, we could eventually run out of available memory and the
+program would stop.  While some languages require that objects be explicitly
+removed from memory, Java takes care of this for us.  
+
+Java provides a **garbage collector** that occasionally runs, checks for
+unreferenced objects (or objects with references to each other but nothing else
+referencing them), and frees the memory for any such objects it finds.  An
+**unfreferenced object** is an object that cannot be accessed from anywhere
+else in the program. For example, `WeatherData columbus = new WeatherData();`
+represents a referenced object because the new WeatherData object is accessible
+using the `columbus` variable.  However, once `columbus` goes out of scope
+or we assign a new value to it, the object might not be accessible from
+anywhere else and is an unreferenced object.  Similarly, `new WeatherData()`
+is an unreferenced object: the new object is not stored and not accessible.
+While we don't have to worry about explicitly freeing memory, we should be
+aware of references that exist to objects - especially if it appears that our
+program is utilizing more memory than we expect.
+
+
+## Exercise
