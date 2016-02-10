@@ -15,6 +15,10 @@ are ultimately merged into another branch that consists of the code that is
 used for the release or final version of the software.  A third method of
 collaboration is to use GitHub's *fork* and *pull request* features.
 
+See [GitHub's documentation on forks](https://help.github.com/articles/fork-a-repo/)
+and [GitHub's documentation on pull requests](https://help.github.com/articles/using-pull-requests/)
+for details beyond what is presented here.
+
 ### Forks
 A **fork** of a repository is simply a copy. When you fork someone else's
 repository you are simply creating a copy of that repository in your own
@@ -718,7 +722,8 @@ at a time until the user specifies "END".  Next, the program should prompt the
 user to enter the average daily temperature for each of the next five days for
 each city. The program should store the user's cities and temperature data in
 one data structure.  Next, calculate the five-day average for each city.  
-Finally, display a message containing the city's name and the average for each city.
+Finally, display a message containing the city's name and the average for each
+city.
 
 The code to prompt the user for input, to calculate the five-day average, and
 to display the results should be in separate methods.
