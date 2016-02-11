@@ -155,7 +155,7 @@ the code we write in Java makes use of objects created from classes.  A
 **class** specifies a data structure containing related data attributes and
 code for acting on these attributes. An **object** is a specific instance of a
 class created using the *new* operator. A class specifies the general structure
-and objects allow us to specify specific values, unique to the object, and
+and objects allow us to use specific values, unique to the object, and
 perform actions based on or to those values.
 
 Often, we describe a class as a combination of *state*, the attributes,
@@ -202,7 +202,7 @@ After concat method:Hello
 Length: 5
 ```
 
-### Collection interface
+### Collection Interface
 One of the things we'll be looking at is alternate ways of storing collections
 of elements other than arrays.  One of these ways is by using lists.  Before we
 look at lists, we should be aware of the *Collection* interface.  The
@@ -304,7 +304,7 @@ public class Main {
 }
 ```
 
-Or we could use an import statement to avoid having to type `java.util`
+Or we could use an `import` statement to avoid having to type `java.util`
 repeatedly.
 
 ```java
@@ -446,9 +446,9 @@ public class Main {
 When reading about the object-oriented design paradigm and interfaces, you
 might encounter the following phrase: "Program to an interface, not an
 implementation."  This means when declaring a variable or defining a method,
-its often more convenient to use the name of the most basic interface that
-supports your needs as the data type then the class of the instance you might
-be creating or passing to a method.
+its often more convenient to use the name of the most basic class or interface
+that supports your needs as the data type than the class of the instance you
+might be creating or passing to a method.
 
 Consider this example that allows us to see that adding to an ArrayList is
 slower than adding to a LinkedList but iterating through an ArrayList is faster.
@@ -662,7 +662,8 @@ slot in which a value will be stored is determined by the hash code of the
 corresponding key.  A hash code is an integer value mapped to from the key
 value using a hash function.  In Java, the default hash code is determined by
 the `.hashCode()` method.  A HashMap makes no guarantee about order. Let's look
-at a modified version of the previous example.
+at a modified version of the previous example. In general, a HashMap performs
+better than a TreeMap with regard to accessing elements.
 
 ```Java
 package com.myname.week_04;
