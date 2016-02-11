@@ -183,7 +183,7 @@ package com.myname.week_04;
 public class Main {
     public static void main(String[] args) {
         String testString = new String("Hello");
-        testString.concat(", World!");
+        testString = testString.concat(", World!");
         System.out.println("After concat method: " + testString);
 
         boolean hasHello = testString.contains("Hello");
@@ -197,9 +197,9 @@ public class Main {
 The output is:
 
 ```
-After concat method:Hello
+After concat method: Hello, World!
 'Hello' in string: true
-Length: 5
+Length: 13
 ```
 
 ### Collection Interface
