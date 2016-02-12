@@ -716,7 +716,7 @@ public class Main {
 
 This example also prints the hash code of each key.  Besides this change,
 notice that we only had to make a change in one place to use a HashMap instead
-of a TreeMap.  This is the convenience of programming to implementations.
+of a TreeMap.  This is the convenience of programming to interfaces.
 
 ## Exercise
 Write a program that first prompts the user to enter a list of city names, one
