@@ -757,7 +757,7 @@ removed from memory, Java takes care of this for us.
 Java provides a **garbage collector** that occasionally runs, checks for
 unreferenced objects (or objects with references to each other but nothing else
 referencing them), and frees the memory for any such objects it finds.  An
-**unfreferenced object** is an object that cannot be accessed from anywhere
+**unreferenced object** is an object that cannot be accessed from anywhere
 else in the program. For example, `WeatherData columbus = new WeatherData();`
 represents a referenced object because the new WeatherData object is accessible
 using the `columbus` variable.  However, once `columbus` goes out of scope
@@ -770,3 +770,8 @@ program is utilizing more memory than we expect.
 
 
 ## Exercise
+Create a class that represents contact information for a person.  The class
+should store the person's name, their phone number, and their email address.  
+Create a second class that represents an address book (a collection of contact
+information for many people) that includes methods for adding new contact 
+information and for searching the existing collection of contacts.
