@@ -260,7 +260,7 @@ type_name variable_name [ = expression ];
 Here, *type_name* is the data type of the instance field, *variable_name* is
 the name of the field, and *expression* is the optional value to set the field
 to.  If an initial value is specified by *expression*, we call the value the
-*instance field initializer*.  If not initial value is specified, the value
+*instance field initializer*.  If no initial value is specified, the value
 will be set to default value, depending on the type, when an instance is
 created.  Notice that the primary difference between an instance field and a
 class field is that a class field requires the use of the reserved word
@@ -486,13 +486,13 @@ class and other objects that might communicate with it or instances of it.  The
 contract is such that the class won't change the methods and fields that
 other things depend on.  A class also provides an *implementation* that
 consists of code that supports the interface including helper methods that
-assist exposed methods but probably should be publically-accessible themselves.
+assist exposed methods but probably should be publicly accessible themselves.
 Hiding the implementation details makes it easier to make changes to code - we
 only have to make sure that the interface remains the same to avoid breaking
 code that uses our classes but we are free to make modifications to the
 implementation.
 
-Java provided four levels of control for methods and fields: *public*,
+Java provides four levels of control for methods and fields: *public*,
 *protected*, *private*, and *package-private*. We can indicate that a method
 or field is *public*, *protected*, or *private* by prefixing the declaration
 with `public`, `protected`, or `private`.
@@ -771,7 +771,12 @@ program is utilizing more memory than we expect.
 
 ## Exercise
 Create a class that represents contact information for a person.  The class
-should store the person's name, their phone number, and their email address.  
+should store the person's name and their email address.  
+
 Create a second class that represents an address book (a collection of contact
-information for many people) that includes methods for adding new contact 
-information and for searching the existing collection of contacts.
+information for many people) that includes methods for adding new contact
+information and for searching the existing collection for a contacts email
+address when the name is specified.
+
+The program should create instances of the classes and demonstrate the
+functionality.
