@@ -447,7 +447,7 @@ class WeatherData {
     }
 
     boolean willSnow() {
-        return (temperature <= FREEZING_TEMP) && precipitation >= 50;
+        return (temperature <= FREEZING_TEMP) && (precipitation >= 50);
     }
 
     void displayWeatherReport() {
@@ -565,7 +565,7 @@ class WeatherData {
 
 
     private boolean willSnow() {
-        return (temperature <= FREEZING_TEMP) && precipitation >= 50;
+        return (temperature <= FREEZING_TEMP) && (precipitation >= 50);
     }
 
     public void displayWeatherReport() {
@@ -651,7 +651,7 @@ class WeatherData {
 
 
     private boolean willSnow() {
-        return (temperature <= FREEZING_TEMP) && precipitation >= 50;
+        return (temperature <= FREEZING_TEMP) && (precipitation >= 50);
     }
 
     public void displayWeatherReport() {
