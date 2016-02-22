@@ -124,6 +124,20 @@ the `Main.main()` method on line 20 in our code.
 This information will help us deal with the exception.
 
 ### Checked vs Runtime Exceptions
+In Java, exceptions can belong to one of two categories: checked and unchecked.
+A **checked exception** is an exception from which it is possible for the
+program to recover and for which the programmer must provide a workaround.
+The compiler checks all code and ensures that checked exceptions are handled.
+Exception and it's subclasses except RuntimeException and it's subclasses
+represent checked exceptions.
+
+An **unchecked** or **runtime exception** is an exception that doesn't need
+to be handled.  Runtime exceptions often represent a coding mistake.  
+Rather than writing code to handle these exceptions caused by mistakes, one
+should instead fix the coding mistake.  This was the design philosophy behind
+the decision to implement both checked and unchecked exceptions in Java.  
+Often, however, you will see code for handling unchecked exceptions such
+as NumberFormatException which we encountered earlier.
 
 ### Custom Exception Classes
 
