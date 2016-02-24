@@ -86,15 +86,15 @@ subclasses, and inheritance later in the course.
 For now, let's look at the method's available to instances of the `Throwable`
 class.
 
-|Method | Description |
-|--|--|
-|Throwable() | Constructor with null detail message and cause.|
-|Throwable(String message) | Constructor with specified message and null cause. |
-|Throwable(Throwable cause) | Constructor with null message and specified cause. |
-|Throwable(String message, Throwable cause) | Constructor with specified message and cause |
-|Throwable getCause() | Return the cause of the throwable. |
-|String getMessage() | Return the message of the throwable. |
-|StackTraceElement[] getStackTrace() | Return stack trace information. |
+| Method                                     | Description                                        |
+|:-------------------------------------------|:---------------------------------------------------|
+| Throwable()                                | Constructor with null detail message and cause.    |
+| Throwable(String message)                  | Constructor with specified message and null cause. |
+| Throwable(Throwable cause)                 | Constructor with null message and specified cause. |
+| Throwable(String message, Throwable cause) | Constructor with specified message and cause       |
+| Throwable getCause()                       | Return the cause of the throwable.                 |
+| String getMessage()                        | Return the message of the throwable.               |
+| StackTraceElement[] getStackTrace()        | Return stack trace information.                    |
 
 In our example of user input, an exception occurs when we call
 `Integer.parseInt()`.  The exception is created and thrown from within the
