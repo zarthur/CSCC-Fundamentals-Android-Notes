@@ -378,5 +378,79 @@ to the method that called UserInput.promptInt() for code to handle the
 exception.
 
 ## Cleanup
+In some cases, there might be code we'd like to run before execution leaves
+a method because of a thrown exception.  Java provides the ability to execute
+such code using a *finally block*.  The **finally block** consists of the
+reserved word `finally` followed by code to be executed after a try block
+regardless of whether or not an exception occurred.  If a catch block is
+specified, the code in the catch block will be executed before the finally
+block.  If no catch block is specified, the code in the finally block will be
+executed before the exception is thrown and execution leaves the method.  
+You'll often see finally blocks when consuming data from outside the program,
+from files for example. In these cases, we have to open a resource to access
+the data and should close them when we are finished using them regardless of
+whether an exception occurs or not; the code to close the resource appears in
+a finally block.  We'll look at examples of this later in the course.  But, to
+demonstrate a finally block, consider this example:
+
+```java
+package com.myname.week_06;
+
+import java.util.Scanner;
+
+class UserInput {
+    Scanner scanner = new Scanner(System.in);
+
+    public int promptInt(String message) {
+        System.out.println(message);
+        String userInput = scanner.nextLine();
+
+        int userInt = 0;
+        boolean isInt = false;
+        while (!isInt) {
+            try {
+                userInt = Integer.parseInt(userInput);
+                isInt = true;
+            }
+            catch (NumberFormatException e) {
+                System.out.println(userInput + " is not a valid integer. " + message);
+                userInput = scanner.nextLine();
+            }
+            finally {
+                System.out.println("This line is always executed.");
+            }
+        }
+
+        return userInt;
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        UserInput input = new UserInput();
+        int aNumber = input.promptInt("Enter an integer.");
+        System.out.println("Twice your number is " + aNumber * 2);
+    }
+}
+```
+
+In this example, we have a finally block that simply displays some text.  
+Regardless of whether the user enters valid input or not, the text will be
+displayed.  Note that when you run this program and enter an invalid integer,
+the finally block will not immediately execute because the catch block is
+waiting for user input.  After user input is supplied and the catch block has
+no more code for execution, the finally block is executed.
+
 
 ## Exercise
+Write a class that can be used to collect user input and has three methods:
+
+- public String promptString(String message)
+- public int promptInt(String message)
+- public double promptDouble(String message)
+
+Each of these methods should prompt the user for input using the specified
+message and return the a String, int, or double, depending on the method.  The
+methods should catch any exceptions due to bad input and continue to prompt the
+user for input until valid input is supplied.
