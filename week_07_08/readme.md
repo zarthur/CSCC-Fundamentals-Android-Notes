@@ -860,7 +860,7 @@ the *Contact* type. Casting a variable means converting its type.  To cast a
 variable, we specify the desired type in parentheses.  If the variable can't be
 cast, we would encounter a runtime exception so it's important that we check
 that *obj* is an instance of *Contact* before casting it.  In this example,
-we see that *bob* and *bob2* do not have reference equality but are "equal" 
+we see that *bob* and *bob2* do not have reference equality but are "equal"
 based on how we defined the equals() method.
 
 
@@ -875,8 +875,20 @@ For this reason, this type of copy is known as a *shallow copy*.
 ### Composition
 
 ## Polymorphism
+
+
 ### Upcasting and Late Binding
 
 ### Downcasting  
 
 ### Covariant Return Types
+
+## Exercises
+1. Write a program that includes a class representing contact information for
+a person including their name and email address.  This class should include
+a method for displaying the contact's name and email address.  The program
+should also include a class for business contacts that extends the contact
+class and stores the contact's phone number.  The business contact class
+should override the base class's method that displays the name and email
+address so that it displays the phone number in addition to the name and email
+address. Create instances of both classes to demonstrate functionality.
