@@ -548,16 +548,329 @@ Notice that in the ThunderStorm constructor, we call the superclass's
 constructor using super(); this allows us to reuse Storm's constructor to
 set latitude, longitude, speed, and direction.
 
+We can also use super to access other methods in the base class from within the
+derived class.  Suppose we want ThunderStorm to provide it's own display method
+that includes code to display information about lightning strikes (like the
+displayLightningStrikes() method) but still displays the same information as
+display() currently does.
 
-super()
-overriding
-override annotation
+We can do this by *overriding* the base class's implementation and replacing it
+it with an implementation tailored to the derived class.  We can use *super*
+from within the derived class to access the base class's methods.
+
+```java
+package com.myname.week_07_08;
+
+enum Direction {NORTH, SOUTH, EAST, WEST};
+
+class Storm {
+    private double latitude;
+    private double longitude;
+    private double speed;
+    private Direction direction;
+
+    Storm(){
+    }
+
+    Storm(double latitude, double longitude, double speed, Direction direction) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.speed = speed;
+        this.direction = direction;
+    }
+
+
+    //region getters and setters - this allows us to use IntelliJ code folding to hide a region of code
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+    //endregion
+
+    public void display() {
+        System.out.println("The storm is currently located at ("
+                + latitude + ", " + longitude + ") moving "
+                + speed + "MPH " + direction + ".");
+    }
+}
+
+class ThunderStorm extends Storm {
+    private int numberOfLightningStrikes;
+
+    ThunderStorm(double latitude, double longitude, double speed, Direction direction, int numberOfLightningStrikes) {
+        super(latitude, longitude, speed, direction);
+        this.numberOfLightningStrikes = numberOfLightningStrikes;
+    }
+
+    public int getNumberOfLightningStrikes() {
+        return numberOfLightningStrikes;
+    }
+
+    public void setNumberOfLightningStrikes(int numberOfLightningStrikes) {
+        this.numberOfLightningStrikes = numberOfLightningStrikes;
+    }
+
+    public void display() {
+        super.display();
+        String message;
+        if (numberOfLightningStrikes == 1) {
+            message = "There has been 1 lightning strike";
+        }
+        else {
+            message = "There have been " + numberOfLightningStrikes + " lightning strikes";
+        }
+        message += " for the storm at (" + getLatitude() + ", " + getLongitude() + ").";
+        System.out.println(message);
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        ThunderStorm thunderStorm = new ThunderStorm(-39.970456, -82.988770, 5, Direction.EAST, 10);
+
+        thunderStorm.display();
+    }
+}
+```
+
+We've replaced displayLightningStrikes() in the ThunderStorm class with
+display().  ThunderStorm.display() overrides Storm.display() but can still make
+use of it by calling super.display().
+
+It's important to note the difference between method overloading and method
+overriding.  Overriding replaces functionality inherited by the base class and
+overloading adds functionality.  To make it clear when we are overriding a
+method as opposed to overloading a base class's method, we can prefix the
+method with the `@Override` annotation.  Annotations are a form of metadata,
+providing information about the program itself without affecting the program.  
+If we apply the `@Override` annotation to an overloaded method, the complier
+will report an error.  Below is an example with both overriding and
+overloading.
+
+```java
+package com.myname.week_07_08;
+
+enum Direction {NORTH, SOUTH, EAST, WEST};
+
+class Storm {
+    private double latitude;
+    private double longitude;
+    private double speed;
+    private Direction direction;
+
+    Storm(){
+    }
+
+    Storm(double latitude, double longitude, double speed, Direction direction) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.speed = speed;
+        this.direction = direction;
+    }
+
+
+    //region getters and setters - this allows us to use IntelliJ code folding to hide a region of code
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+    //endregion
+
+    public void display() {
+        System.out.println("The storm is currently located at ("
+                + latitude + ", " + longitude + ") moving "
+                + speed + "MPH " + direction + ".");
+    }
+}
+
+class ThunderStorm extends Storm {
+    private int numberOfLightningStrikes;
+
+    ThunderStorm(double latitude, double longitude, double speed, Direction direction, int numberOfLightningStrikes) {
+        super(latitude, longitude, speed, direction);
+        this.numberOfLightningStrikes = numberOfLightningStrikes;
+    }
+
+    public int getNumberOfLightningStrikes() {
+        return numberOfLightningStrikes;
+    }
+
+    public void setNumberOfLightningStrikes(int numberOfLightningStrikes) {
+        this.numberOfLightningStrikes = numberOfLightningStrikes;
+    }
+
+    @Override
+    public void display() {
+        super.display();
+        String message;
+        if (numberOfLightningStrikes == 1) {
+            message = "There has been 1 lightning strike";
+        }
+        else {
+            message = "There have been " + numberOfLightningStrikes + " lightning strikes";
+        }
+        message += " for the storm at (" + getLatitude() + ", " + getLongitude() + ").";
+        System.out.println(message);
+    }
+
+    public void display(String message){
+        display();
+        System.out.println(message);
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        ThunderStorm thunderStorm = new ThunderStorm(-39.970456, -82.988770, 5, Direction.EAST, 10);
+
+        thunderStorm.display("Hello");
+    }
+}
+```
 
 ### The Object Class
+In Java, a class that doesn't explicitly extend another class extends the
+Object class.  Object is the ultimate superclass because it serves as the
+ancestor of every other class and doesn't extend any other class itself.  
+Object provides a set of methods that all classes inherit.  Some of these
+methods are listed below.
 
-### Equality
+| Method                     | Description                                            |
+|:---------------------------|:-------------------------------------------------------|
+| Object clone()             | Create and return a shallow copy of the current object |
+| boolean equals(Object obj) | Determine if the current object is equal to *obj*      |
+| void finalize()            | Finalize the current object                            |
+| String toString()          | Return a string representation of the current object   |
 
-### Finalization
+The `==` and `!=` operators compare two primitive values for equality or
+inequality.  With reference types, these operators check if objects refer to
+the same object.  Two objects are equal in this sense if they occupy the same
+location in memory. This is known as an **identity check** and two objects that
+are equal based on an identity check are said to have reference equality.  
+Often, this type of equality is not what we mean when we say two things are
+equal.  For example, if we have a class that represents contact information
+with name and email fields, we might say that two contacts are "equal" if
+the name and email fields are the same.  The equals() method in the Object
+class compares references, so we need to override the method if we want to
+compare objects' fields.  
+
+Consider the following example:
+
+```java
+package com.myname.week_07_08;
+
+class Contact {
+    public String name;
+    public String email;
+
+    Contact(String name, String email){
+        this.name = name;
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Contact)) {
+            return false;
+        }
+        Contact other = (Contact) obj;
+        return this.name.equals(other.name) && this.email.equals(other.email);
+    }
+
+}
+
+
+public class Main {
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Contact bob = new Contact("bob", "bob@bob.com");
+        Contact bob2 = new Contact("bob", "bob@bob.com");
+
+        System.out.println("Reference equality: " + (bob == bob2));
+        System.out.println("Equals method: " + bob.equals(bob2));
+    }
+}
+```
+
+In the *Object* class, the equals() method depends on reference equality.  We'd
+like to say that two contacts are the same if their names and email addresses
+are the same, so we have to override the method.  Because the equals() method
+takes an *Object* as a parameter as its defined in the *Object* class, our
+implementation has to take an *Object* as well.  The first thing we do in our
+method is to check if *obj* is an instance of the *Contact* class; if it is
+not, then we know it's not equal to the *Contact* instance we're comparing it
+to.  If *obj* is a *Contact* instance, we have to convert it from a general
+*Object* type to our class's type, *Contact*.  To do this, we **cast** *obj* to
+the *Contact* type. Casting a variable means converting its type.  To cast a
+variable, we specify the desired type in parentheses.  If the variable can't be
+cast, we would encounter a runtime exception so it's important that we check
+that *obj* is an instance of *Contact* before casting it.  In this example,
+we see that *bob* and *bob2* do not have reference equality but are "equal" 
+based on how we defined the equals() method.
+
+
+The *clone()* method duplicates an object without using a constructor.  The
+clone method copies the original object's fields to the new object.  For fields
+with primitive types, the values will be copied.  For fields with reference
+types, the references are copied and not the values at the reference locations.
+For this reason, this type of copy is known as a *shallow copy*.  
+
+
 
 ### Composition
 
