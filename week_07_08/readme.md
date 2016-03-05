@@ -798,17 +798,18 @@ methods are listed below.
 | void finalize()            | Finalize the current object                            |
 | String toString()          | Return a string representation of the current object   |
 
-The `==` and `!=` operators compare two primitive values for equality or
-inequality.  With reference types, these operators check if objects refer to
-the same object.  Two objects are equal in this sense if they occupy the same
-location in memory. This is known as an **identity check** and two objects that
-are equal based on an identity check are said to have reference equality.  
-Often, this type of equality is not what we mean when we say two things are
-equal.  For example, if we have a class that represents contact information
-with name and email fields, we might say that two contacts are "equal" if
-the name and email fields are the same.  The equals() method in the Object
-class compares references, so we need to override the method if we want to
-compare objects' fields.  
+Let's look at the euals() method; the online Java documentation has more
+information about the other methods. The `==` and `!=` operators compare two
+primitive values for equality or inequality.  With reference types, these
+operators check if objects refer to the same object.  Two objects are equal in
+this sense if they occupy the same location in memory. This is known as an
+**identity check** and two objects that are equal based on an identity check
+are said to have reference equality. Often, this type of equality is not what
+we mean when we say two things are equal.  For example, if we have a class that
+represents contact information with name and email fields, we might say that
+two contacts are "equal" if the name and email fields are the same.  The
+equals() method in the Object class compares references, so we need to override
+the method if we want to compare objects' fields.  
 
 Consider the following example:
 
@@ -863,16 +864,161 @@ that *obj* is an instance of *Contact* before casting it.  In this example,
 we see that *bob* and *bob2* do not have reference equality but are "equal"
 based on how we defined the equals() method.
 
-
-The *clone()* method duplicates an object without using a constructor.  The
-clone method copies the original object's fields to the new object.  For fields
-with primitive types, the values will be copied.  For fields with reference
-types, the references are copied and not the values at the reference locations.
-For this reason, this type of copy is known as a *shallow copy*.  
-
-
-
 ### Composition
+Implementation inheritance and the ability to reuse code can be very convenient
+but there can be disadvantages to it.  Implementation inheritance breaks
+implementation inheritance: a subclass relies on implementation details in the
+base class and if the base implementation changes, the subclass could stop
+functioning as expected.  While this isn't likely to be a problem when we
+control the code for both the base class and derived class, we'll often find
+it useful to inherit from code that we don't control such as a class in a
+third party library.  Changes to the base class can have unexpected effects on
+the derived class.  
+
+As an example, suppose a third-party library has a contact class similar to
+this one:
+
+```java
+package com.myname.week_07_08;
+
+public class Contact {
+    public String name;
+    public String email;
+
+    Contact(String name, String email){
+        this.name = name;
+        this.email = email;
+    }
+}
+```
+
+We'd like to use this class but we'd also like to implement some additional
+functionality - the ability to send an email, for example.  We can extend the
+Contact class like this:
+
+```java
+package com.myname.week_07_08;
+
+public class BetterContact extends Contact {
+    BetterContact(String name, String email) {
+        super(name, email);
+    }
+
+    public void sendEmail(String message) {
+        // code to send an email containing a message
+    }
+
+}
+```
+
+And use the new BetterContact class:
+
+package com.myname.week_07_08;
+
+```java
+public class Main {
+    public static void main(String[] args) throws CloneNotSupportedException {
+        BetterContact bob = new BetterContact("Bob", "bob@bob.com");
+        bob.sendEmail("Hi");
+    }
+}
+```
+
+Suppose, that the maintainer of the Contact class releases an updated version
+of their library and adds email functionality.  The new contact class might
+look like this:
+
+```
+package com.myname.week_07_08;
+
+public class Contact {
+    public String name;
+    public String email;
+
+    Contact(String name, String email){
+        this.name = name;
+        this.email = email;
+    }
+
+    public boolean sendEmail(String message) {
+        // code to send an email
+        // will return false if unable to send
+        return true;
+    }
+
+}
+```
+
+Our program no longer works because the return types of the sendEmail() method
+differ (so it cannot act as an overriding method).
+
+Composition offers an alternative to implementation inheritance.  Rather
+than extending the Contact class, BetterContact can *wrap* the class by
+keeping a private field representing a Contact object.
+
+```java
+package com.myname.week_07_08;
+
+public class BetterContact {
+    private Contact contact;
+
+    BetterContact(String name, String email) {
+        contact = new Contact(name, email);
+    }
+
+    public void sendEmail(String message) {
+        // code to send an email containing a message
+        // that can make use of the contact object
+    }
+
+}
+```
+
+In this example, we don't have to worry about conflicting method return
+types and signatures.  When the Contact class is updated to include a
+sendEmail() method, we can either leave the code in BetterContact unchanged or
+call the new method - our program will run in either case.
+
+Composition can also provide functionality similar to multiple implementation
+inheritance.  A class can wrap many other classes.  For example, a we might
+have classes representing wheels, engines, doors, and other car components.  
+A car class might wrap all of these classes.
+
+```java
+package com.myname.week_07_08;
+
+class Wheel {
+    //Wheel implementation
+}
+
+class Door {
+    // Door implementation
+}
+
+class Engine {
+    // Engine implementation
+}
+
+public class Car {
+    private Wheel[] wheels;
+    private Door[] doors;
+    private Engine engine;
+
+    Car() {
+        wheels = new Wheel[] {new Wheel(), new Wheel(), new Wheel(), new Wheel()};
+        doors = new Door[] {new Door(), new Door(), new Door(), new Door()};
+        engine = new Engine();
+
+    }
+}
+```
+
+Car's implementation can now access the wheels, doors, and engine using the
+values of the corresponding private fields.  
+
+Inheritance is often described as an "is-a" relationship: a car is a vehicle.
+Composition is often described as a "has-a" relationship: a car has an engine,
+a car has a wheel, etc.
 
 ## Polymorphism
 
