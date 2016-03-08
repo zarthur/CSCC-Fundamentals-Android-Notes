@@ -1105,12 +1105,322 @@ Java supports four kinds of polymorphism.
   we saw earlier.
 
 
-
 ### Upcasting and Late Binding
+Consider the following example:
+
+```java
+package com.myname.week_07_08;
+
+class Shape {
+    private int centerX;
+    private int centerY;
+
+    Shape(int centerX, int centerY) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+
+    }
+
+    public int getCenterX() {
+        return centerX;
+    }
+
+    public int getCenterY() {
+        return centerY;
+    }
+
+    public void draw() {
+        System.out.println("Drawing a shape with center (" + centerX + ", " + centerY + ")");
+    }
+}
+
+
+class Rectangle extends Shape {
+    int length;
+    int width;
+
+    Rectangle(int centerX, int centerY, int length, int width) {
+        super(centerX, centerY);
+        this.length = length;
+        this.width = width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public  int getWidth() {
+        return width;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a rectangle with length: " + length + " and width: " + width);
+    }
+}
+
+
+public class Main {
+   public static void main(String[] args) {
+       Rectangle r = new Rectangle(1, 2, 5, 10);
+       Shape s = r;
+   }
+}
+```
+
+Here, we don't have to explicitly cast the Rectangle object to a Shape object
+with code like this:
+
+```java
+Shape s = (Shape) r;
+```
+
+because the Rectangle class provides the same interface as the Shape class (and
+more) since Rectangle extends Shape; this is known as **upcasting** since we
+are moving up the type hierarchy.  Notice that we relied on this feature when
+we constructed an array of shapes in a previous example.  Building on that
+functionality, let's look at this code:
+
+
+```java
+package com.myname.week_07_08;
+
+class Shape {
+    private int centerX;
+    private int centerY;
+
+    Shape(int centerX, int centerY) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+
+    }
+
+    public int getCenterX() {
+        return centerX;
+    }
+
+    public int getCenterY() {
+        return centerY;
+    }
+
+    public void draw() {
+        System.out.println("Drawing a shape with center (" + centerX + ", " + centerY + ")");
+    }
+}
+
+
+class Rectangle extends Shape {
+    int length;
+    int width;
+
+    Rectangle(int centerX, int centerY, int length, int width) {
+        super(centerX, centerY);
+        this.length = length;
+        this.width = width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public  int getWidth() {
+        return width;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a rectangle with length: " + length + " and width: " + width);
+    }
+}
+
+
+public class Main {
+   public static void main(String[] args) {
+       Shape s = new Shape(5, 6);
+       Rectangle r = new Rectangle(1, 2, 5, 10);
+       Shape[] shapes = new Shape[] {s, r};
+       for (Shape shape: shapes) {
+           shape.draw();
+       }
+   }
+}
+```
+
+Though the Rectangle object, *r*, is upcast to a Shape so it can be stored in
+the Shape array, *shapes*, when its draw method is called, we see that the
+draw method defined for the Rectangle class is used.  When the code is
+compiled, the compiler doesn't know which method to use - only that a method
+with the appropriate name and parameters exists on the superclass.  The
+compiler inserts an instruction in the compiled code that examines the object
+at runtime to call the correct method.  This is known as **late binding**.
+If a method is declared using the reserved word `final`, it cannot be
+overridden and the compiler knows what method to call; this is known as
+**early binding**.
 
 ### Downcasting  
+Upcasting allows us to move up the inheritance type hierarchy.  We an also move
+down the hierarchy by explicitly casting an instance of a superclass to an
+instance of a subclass.  This is known as **down casting**.  Consider this
+example:
 
-### Covariant Return Types
+```java
+package com.myname.week_07_08;
+
+class Shape {
+    private int centerX;
+    private int centerY;
+
+    Shape(int centerX, int centerY) {
+        setCenter(centerX, centerY);
+
+    }
+
+    public int getCenterX() {
+        return centerX;
+    }
+
+    public int getCenterY() {
+        return centerY;
+    }
+
+    public void setCenter(int centerX, int centerY) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+    }
+
+    public void draw() {
+        System.out.println("Drawing a shape with center (" + centerX + ", " + centerY + ")");
+    }
+}
+
+
+class Rectangle extends Shape {
+    int length;
+    int width;
+
+    Rectangle(int centerX, int centerY, int length, int width) {
+        super(centerX, centerY);
+        this.length = length;
+        this.width = width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public  int getWidth() {
+        return width;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a rectangle with length: " + length + " and width: " + width);
+    }
+}
+
+
+public class Main {
+    public static Shape moveRight(Shape s) {
+        int newCenterX = s.getCenterX() + 1;
+        s.setCenter(newCenterX, s.getCenterY());
+        return s;
+    }
+
+    public static void main(String[] args) {
+        Rectangle r = new Rectangle(1, 2, 5, 10);
+        Shape s = moveRight(r);
+        r = (Rectangle) s;
+        System.out.println(r.getLength() + ", " + r.getWidth());
+    }
+}
+```
+
+In the Main.main() method, we create a Rectangle object then use the
+Main.moveRight() method.  The moveRight() method takes a Shape parameter but
+we are able to specify a Rectangle thanks to upcasting.  However, the method
+returns a Shape object.  We know that the method modifies the object we provide
+rather than creating a new and we'd like to continue to use our object as a
+Rectangle rather than the more generic Shape.  In order to access Rectangle's
+unique methods, we have to downcast the shape returned by the moveRight()
+method back to a Rectangle.  
+
+While upcasting is always safe, downcasting is not.  Consider this example:
+
+```Java
+package com.myname.week_07_08;
+
+class Shape {
+    private int centerX;
+    private int centerY;
+
+    Shape(int centerX, int centerY) {
+        setCenter(centerX, centerY);
+
+    }
+
+    public int getCenterX() {
+        return centerX;
+    }
+
+    public int getCenterY() {
+        return centerY;
+    }
+
+    public void setCenter(int centerX, int centerY) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+    }
+
+    public void draw() {
+        System.out.println("Drawing a shape with center (" + centerX + ", " + centerY + ")");
+    }
+}
+
+
+class Rectangle extends Shape {
+    int length;
+    int width;
+
+    Rectangle(int centerX, int centerY, int length, int width) {
+        super(centerX, centerY);
+        this.length = length;
+        this.width = width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public  int getWidth() {
+        return width;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a rectangle with length: " + length + " and width: " + width);
+    }
+}
+
+
+public class Main {
+    public static Shape moveRight(Shape s) {
+        int newCenterX = s.getCenterX() + 1;
+        s.setCenter(newCenterX, s.getCenterY());
+        return s;
+    }
+
+    public static void main(String[] args) {
+        Shape s = new Shape(1, 2);
+        s = moveRight(s);
+        Rectangle r = (Rectangle) s;
+        System.out.println(r.getLength() + ", " + r.getWidth());
+    }
+}
+```
+
+Running this code will result in a *ClassCastException* because we are trying
+to cast an object to the Rectangle class when the object wasn't a Rectangle to
+begin with.
 
 ## Exercises
 1. Write a program that includes a class representing contact information for
@@ -1121,3 +1431,10 @@ class and stores the contact's phone number.  The business contact class
 should override the base class's method that displays the name and email
 address so that it displays the phone number in addition to the name and email
 address. Create instances of both classes to demonstrate functionality.
+
+2. Add a class to the previous example that represents a collection of
+contacts, both of the base class and the derived class.  The collection class
+should include a single method to add a contact, regardless of class, to the
+collection - this demonstrates upcasting.  The collection class should also
+include a method to iterate through the contacts and call their display
+methods - this demonstrates late binding.
