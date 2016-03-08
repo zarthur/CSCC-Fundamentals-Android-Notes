@@ -1085,23 +1085,24 @@ Notice that though we were working with the Shape type in the for loop, the
 subclasses' methods were used when we called Shape.draw().
 
 Java supports four kinds of polymorphism.  
-- coercion: an operations serves multiple types through implicit conversion.
+- *coercion*: an operations serves multiple types through implicit conversion.
   for example, while division is defined for two integers or two doubles,
   division of an integer by a double is supported because the compiler coerces
   or implicitly converts the integer to a double.  Using the instance of a
   subclass for a method parameter that expects an instance of the superclass
   is another example of coercion.
 
-- overloading: the same operator or method can take different parameters
+- *overloading*: the same operator or method can take different parameters
 
-- parametric: within a class declaration, a field name can associate with
+- *parametric*: within a class declaration, a field name can associate with
   different types and a method can associate with different parameters and
   return types. We'll look at this further when we discuss generics.
 
-- subtype: When a subtype/subclass is used in a supertype/suerclass context,
+- *subtype*: When a subtype/subclass is used in a supertype/superclass context,
   a call to the supertype's method results in execution of the subtype's
   method.  An example of this is calling Shape.draw() on elements in a Shape
-  array when the elements are instances of Circle, Rectangle, and Triangle.
+  array when the elements are instances of Circle, Rectangle, and Triangle as
+  we saw earlier.
 
 
 
