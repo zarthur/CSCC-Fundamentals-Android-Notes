@@ -1051,7 +1051,7 @@ class Triangle extends Shape {
 class Rectangle extends Shape {
     @Override
     public void draw() {
-        System.out.println("Drawing a Rectangle.");
+        System.out.println("Drawing a rectangle.");
     }
 }
 
@@ -1077,7 +1077,7 @@ The output is:
 
 ```
 Drawing a triangle.
-Drawing a Rectangle.
+Drawing a rectangle.
 Drawing a circle.
 ```
 
@@ -1087,7 +1087,7 @@ subclasses' methods were used when we called Shape.draw().
 Java supports four kinds of polymorphism.  
 - coercion: an operations serves multiple types through implicit conversion.
   for example, while division is defined for two integers or two doubles,
-  division of an integer by a double is supported because the compiler coerces 
+  division of an integer by a double is supported because the compiler coerces
   or implicitly converts the integer to a double.  Using the instance of a
   subclass for a method parameter that expects an instance of the superclass
   is another example of coercion.
