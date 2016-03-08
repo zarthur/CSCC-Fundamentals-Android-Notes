@@ -1021,6 +1021,88 @@ Composition is often described as a "has-a" relationship: a car has an engine,
 a car has a wheel, etc.
 
 ## Polymorphism
+Suppose we had a Shape class with a draw() method.  Suppose we also had several
+kinds of shapes, Circle, Rectangle, Triangle, that all inherited from Shape but
+provided their own implementations of the draw method.  If we were to create an
+array of Shapes, `Shape[]`, that contained Circles, Rectangles, and Triangles
+in addition to Shapes, we could call the draw() method associated with each.
+The method would do different things depending on the instance.  Because
+of this, we say that the Shape.draw() method has many forms or that it is
+**polymorphic**.
+
+Here is code based on the shape example:
+
+```java
+package com.myname.week_07_08;
+
+class Shape {
+    public void draw() {
+        System.out.println("Drawing a shape.");
+    }
+}
+
+class Triangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a triangle.");
+    }
+}
+
+class Rectangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Rectangle.");
+    }
+}
+
+class Circle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a circle.");
+    }
+}
+
+
+public class Main {
+   public static void main(String[] args) {
+       Shape[] shapes = new Shape[] { new Triangle(), new Rectangle(), new Circle()};
+       for (Shape shape: shapes) {
+           shape.draw();
+       }
+   }
+}
+```
+
+The output is:
+
+```
+Drawing a triangle.
+Drawing a Rectangle.
+Drawing a circle.
+```
+
+Notice that though we were working with the Shape type in the for loop, the
+subclasses' methods were used when we called Shape.draw().
+
+Java supports four kinds of polymorphism.  
+- coercion: an operations serves multiple types through implicit conversion.
+  for example, while division is defined for two integers or two doubles,
+  division of an integer by a double is supported because the compiler coerces 
+  or implicitly converts the integer to a double.  Using the instance of a
+  subclass for a method parameter that expects an instance of the superclass
+  is another example of coercion.
+
+- overloading: the same operator or method can take different parameters
+
+- parametric: within a class declaration, a field name can associate with
+  different types and a method can associate with different parameters and
+  return types. We'll look at this further when we discuss generics.
+
+- subtype: When a subtype/subclass is used in a supertype/suerclass context,
+  a call to the supertype's method results in execution of the subtype's
+  method.  An example of this is calling Shape.draw() on elements in a Shape
+  array when the elements are instances of Circle, Rectangle, and Triangle.
+
 
 
 ### Upcasting and Late Binding
