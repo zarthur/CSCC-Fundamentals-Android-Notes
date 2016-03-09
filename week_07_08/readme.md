@@ -867,13 +867,12 @@ based on how we defined the equals() method.
 ### Composition
 Implementation inheritance and the ability to reuse code can be very convenient
 but there can be disadvantages to it.  Implementation inheritance breaks
-implementation inheritance: a subclass relies on implementation details in the
-base class and if the base implementation changes, the subclass could stop
-functioning as expected.  While this isn't likely to be a problem when we
-control the code for both the base class and derived class, we'll often find
-it useful to inherit from code that we don't control such as a class in a
-third party library.  Changes to the base class can have unexpected effects on
-the derived class.  
+encapsulation: a subclass relies on implementation details in the base class
+and if the base implementation changes, the subclass could stop functioning as
+expected.  While this isn't likely to be a problem when we control the code for
+both the base class and derived class, we'll often find it useful to inherit
+from code that we don't control such as a class in a third party library.  
+Changes to the base class can have unexpected effects on the derived class.  
 
 As an example, suppose a third-party library has a contact class similar to
 this one:
@@ -1085,7 +1084,7 @@ Notice that though we were working with the Shape type in the for loop, the
 subclasses' methods were used when we called Shape.draw().
 
 Java supports four kinds of polymorphism.  
-- *coercion*: an operations serves multiple types through implicit conversion.
+- *coercion*: an operation serves multiple types through implicit conversion.
   for example, while division is defined for two integers or two doubles,
   division of an integer by a double is supported because the compiler coerces
   or implicitly converts the integer to a double.  Using the instance of a
@@ -1095,7 +1094,7 @@ Java supports four kinds of polymorphism.
 - *overloading*: the same operator or method can take different parameters
 
 - *parametric*: within a class declaration, a field name can associate with
-  different types and a method can associate with different parameters and
+  different types and a method can associate with different parameter and
   return types. We'll look at this further when we discuss generics.
 
 - *subtype*: When a subtype/subclass is used in a supertype/superclass context,
