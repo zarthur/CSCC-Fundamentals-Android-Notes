@@ -30,7 +30,7 @@ the task.  The program should loop until the user chooses to exit.
 The program should include methods dedicated to adding, removing, and updating
 tasks.
 
-A runnable version of the program is available [here](files/Project1.jar). One
+A runnable version of the program is available [here](files/project1.jar). One
 way to run this program is by downloading the file and running
 
 ```
@@ -60,6 +60,15 @@ only tasks of a specified priority.
 The program should implement exception handling to deal with bad input from
 the user and any other exceptions that might arise.  
 
+A runnable version of the program is available [here](files/project2.jar). One
+way to run this program is by downloading the file and running
+
+```
+java -jar project1.jar
+```
+
+from a command prompt or terminal.
+
 Be sure to commit your code and push it to GitHub.  If you would like to
 work in teams, use forks and pull requests; individual team members should
 submit links to their fork of the repository.
@@ -81,6 +90,10 @@ representing a collection of tasks.  This class should implement the
 appropriate interface so that a for-each loop can be used to iterate through
 all the tasks.  The order in which the tasks are returned for the for-each loop
 is up to you.
+
+Be sure to commit your code and push it to GitHub.  If you would like to
+work in teams, use forks and pull requests; individual team members should
+submit links to their fork of the repository.
 
 ## Project 4
 Project 4 should make use of topics covered during weeks twelve though fifteen.
