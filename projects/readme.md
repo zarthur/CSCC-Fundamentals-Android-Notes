@@ -77,11 +77,11 @@ submit links to their fork of the repository.
 Project 3 should make use of topics covered during weeks seven though eleven.
 
 Modify your code from Project 2 so that the class representing tasks implements
-the appropriate interface allowing two tasks to be compared based first on
+the appropriate interface allowing tasks to be sorted based first on
 their priority then on their name.  If two tasks have different priorities,
-the task with the greater priority is greater than the other task.  If two
+the task with the greater priority appears before the other task.  If two
 tasks have the same priority, then the task whose name would appear first
-alphabetically is "greater" than the other task.  If two tasks have the same
+alphabetically appears before the other task.  If two tasks have the same
 priority and their names are the same, then they are "equal" with regard to
 the comparison.
 
