@@ -8,5 +8,12 @@
 ## Interfaces
 ### Declaring Interface
 ### Implementing Interfaces
+### Examples from the Standard Library
+Implement the Comparable interface.
 ### Extending Interfaces
 ### Decoupling Interface from Implementation
+
+
+## Exercises
+1.
+2. Implement the Iterable interface.  
