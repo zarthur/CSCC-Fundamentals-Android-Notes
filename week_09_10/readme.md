@@ -292,8 +292,163 @@ public class Main {
 ```
 
 ## Interfaces
+When we first started working with classes, we said that a class had both an
+interface and an implementation.  The interface consists of methods and fields
+that were available to other objects when creating or communicating with
+objects of the class. The implementation is the code that provides
+functionality to the interface.
+
+Java allows us to formally define an interface type without an implementation
+using the `interface` reserved word.
+
+We'll first look at how we can create and use interfaces and then consider why
+we should use them.
+
 ### Declaring Interface
+An interface declaration is similar to a class declaration with a header
+followed by a body.  Instead of using the reserved word `class` in the header,
+an interface declaration header contains the reserved word `interface`.  
+
+Consider the previous example in which we wanted to add the ability to fly to
+certain subclasses of the Animal class.  The solution we previously used relied
+on an abstract class that declared a *fly()* method.  Instead of using an
+abstract class, we could use an interface.  We'll see why using an interface
+is advantageous later. First, let's declare an interface.  Often, you'll
+see interface names end in "-able"; for example, interfaces in the standard
+library include `Callable`, `Comparable`, and `Iterable` but there are others
+without this suffix (`Collection`, `Map`, `List`, and `Set`, for example).
+
+```java
+interface Flier {
+    void takeoff();
+    void fly();
+    void land();
+}
+```
+
+In this code, we've declared an interface named *Flier* that declares methods
+related to flight: *takeoff()*, *fly()*, and *land()*. Note that because an
+interface is what is exposed to other classes, methods declared in an interface
+type are implicitly publicly accessible; prefixing the method declaration with
+`private` or `protected` will result in an error.
+
+Another important thing to note is that while we can define fields in an
+interface, their values cannot change, that is, all interface fields are
+constants.
+
+Now that we've defined an interface, let's see how we can use it.
+
 ### Implementing Interfaces
+Before we return to working with the various classes we created
+before, let's start with a different example.
+
+Suppose we have two classes representing different things that are unrelated
+except by the fact that each flies: an airplane and a bee.  Both the Airplane
+and Bee class will have unique interfaces and implementations but they can
+share the interface specified by the *Flier* interface.  We can make use of an
+interface when defining a class using the `implements` reserved word.  When
+implementing an interface in a class that isn't abstract, we must provide an
+implementation for the methods declared in the interface.
+
+```Java
+package com.myname.week_09_10;
+
+interface Flier {
+    void takeoff();
+    void fly();
+    void land();
+}
+
+class Airplane implements Flier{
+    int speed;
+    String registration;
+
+    Airplane(int speed, String registration) {
+        this.speed = speed;
+        this.registration = registration;
+    }
+
+    // a method unique to Airplane
+    public void loadCargo() {
+        // some code related to loading cargo
+    }
+
+    @Override
+    public void takeoff() {
+        System.out.println("Airplane taking off!");
+        // code related to take off
+    }
+
+    @Override
+    public void fly() {
+        System.out.println("Airplane flying!");
+        // code related to maintaining flight
+    }
+
+    @Override
+    public void land() {
+        System.out.println("Airplane landing!");
+        // code related to landing
+    }
+
+}
+
+class Bee implements Flier{
+    int age;
+
+    Bee(int age ){
+        this.age = age;
+    }
+
+    // a method unique to Bee
+    public void sting() {
+        // some code related to stinging
+    }
+
+    @Override
+    public void takeoff() {
+        System.out.println("Bee starting to fly!");
+        // code related to starting flight
+    }
+
+    @Override
+    public void fly() {
+        System.out.println("Bee flying!");
+        // code related to maintaining flight
+    }
+
+    @Override
+    public void land() {
+        System.out.println("Bee landing!");
+        // code related to landing
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Airplane plane = new Airplane(500, "A3X95");
+        Bee bee = new Bee(1);
+
+        plane.takeoff();
+        bee.takeoff();
+    }
+}
+```
+
+In the *Airplane* and *Bee* classes, we make use of he *Flier* interface by
+including `implements Flier` in the class declarations.  By implementing
+*Flier*, we indicate that the class will provide the methods declared in the
+interface (*fly()*, *takeoff()*, and *land()*) as well as implementations for
+those methods.  
+
+This is an example of interface inheritance: *Airplane* and *Bee* "inherit" an
+interface from the *Flier* interface type.  Anything that can interact with a
+*Flier* will be able to interact with *Airplane* or *Bee* because they present
+the public methods described by the *Flier* interface.  We'll look at an
+example of this later.  Notice how this differs from implementation
+inheritance: there is no code reuse between *Flier* and *Airplane* and *Flier*
+and *Bee* other than method headers.  
+
 ### Examples from the Standard Library
 Implement the Comparable interface.
 ### Extending Interfaces
