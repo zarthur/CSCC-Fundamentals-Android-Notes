@@ -171,10 +171,10 @@ interference.  We'll begin by looking at how we define behaviors and state
 information and then look at restricting access to these items.  
 
 #### Fields
-A class field stores an attributed that associated with a class.  A class field
-is shared by all objects created by the class (using the new operator).  If one
-object modifies a class field, another object created from the same class will
-"see" the new value.
+A class field stores an attribute that is associated with a class.  A class
+field is shared by all objects created by the class (using the new operator).  
+If one object modifies a class field, another object created from the same
+class will "see" the new value.
 
 Within a class declaration, a class field is declared using the following
 syntax:
