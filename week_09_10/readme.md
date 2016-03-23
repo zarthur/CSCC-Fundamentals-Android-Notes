@@ -294,7 +294,7 @@ public class Main {
 ## Interfaces
 When we first started working with classes, we said that a class had both an
 interface and an implementation.  The interface consists of methods and fields
-that were available to other objects when creating or communicating with
+that are available to other objects when creating or communicating with
 objects of the class. The implementation is the code that provides
 functionality to the interface.
 
