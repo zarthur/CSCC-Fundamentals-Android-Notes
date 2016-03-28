@@ -339,9 +339,6 @@ constants.
 Now that we've defined an interface, let's see how we can use it.
 
 ### Implementing Interfaces
-Before we return to working with the various classes we created
-before, let's start with a different example.
-
 Suppose we have two classes representing different things that are unrelated
 except by the fact that each flies: an airplane and a bee.  Both the Airplane
 and Bee class will have unique interfaces and implementations but they can
@@ -449,11 +446,198 @@ example of this later.  Notice how this differs from implementation
 inheritance: there is no code reuse between *Flier* and *Airplane* and *Flier*
 and *Bee* other than method headers.  
 
+So far, the use of interfaces doesn't seem much different than using
+implementation inheritance with base classes and derived classes except that
+interfaces don't allow us to reuse code.  
+
+Let's consider a different example.  Suppose we are writing a program for
+working with various media files: songs, pictures, and videos.  We'll want
+our program to be able to play songs and videos, to display and print pictures,
+and to be able to share files.  Without using interfaces, it might make
+sense to start with a base class for files; create abstract classes for
+printable files, displayable files, playable files, and shareable files which
+all inherit from the base file class; and then create classes for pictures,
+videos, and songs.  The inheritance diagram would look something like this:
+
+![Inheritance diagram](images/file-inheritance.png)
+
+Notice that the *Picture*, *Song*, and *Video* classes all inherit from more
+than one class.  Java only supports single implementation inheritance so this
+design will not work.  Java does, however, support multiple interface
+inheritance so maybe we can use interfaces instead.  
+
+Let's stick with a *File* base class.  This class will will be responsible for
+keeping track of the file's location and reading from the file if necessary.  
+
+```java
+class File {
+    private String location;
+
+    File(String location) {
+        this.location = location;
+    }
+
+    byte[] read() {
+        int fileLength = 10; // replaced by code to determine file size
+        byte[] content = new byte[fileLength];
+        System.out.println("Reading data from " + location);
+        // code to open and read the file into the byte array
+        // code to close the file
+        return content;
+    }
+}
+```
+
+Our *File* class doesn't really do anything but in a real program, it would
+open the file, load the content into a byte array, close the file, and return
+the content when the *read()* method is called.
+
+We know we want to make our pictures, song, and videos, displayable, playable,
+printable, and shareable.  Rather than create classes, let's create interfaces
+that declare methods associated with each action.  
+
+```java
+interface Displayable {
+    void display();
+}
+
+interface Playable {
+    void play();
+}
+
+interface Printable {
+    void print(String printerName);
+}
+
+interface Shareable {
+    void postOnFacebook(String message);
+    void tweet(String message);
+    void email(String message, String destinationAddress);
+}
+```
+
+Our interfaces include declarations for associated methods.  Next, let's
+create a class for pictures.  Each picture will be displayable on screen,
+printable, and shareable.  This means that it will implement three of the
+four interfaces.  To implement multiple interfaces, we list them in the
+class declaration after the `implements` reserved word with each interface
+separated by a comma.
+
+```java
+class Picture extends File implements Displayable, Printable, Shareable {
+    Picture(String location) {
+        super(location);
+    }
+
+    @Override
+    public void display() {
+        //code to display the picture on screen
+        System.out.println("Displaying a picture.");
+    }
+
+    @Override
+    public void print(String printerName) {
+        //code to print a picture
+        System.out.println("Printing a picture to " + printerName +".");
+    }
+
+    @Override
+    public void postOnFacebook(String message) {
+        // code to post a picture on Facebook
+        System.out.printf("Posting a picture to Facebook.");        
+    }
+
+    @Override
+    public void tweet(String message) {
+        //code to post a picture on Twitter
+        System.out.println("Tweeting a picture.");
+    }
+
+    @Override
+    public void email(String message, String destinationAddress) {
+        //code to email a picture
+        System.out.println("Sending an email with a picture to " + destinationAddress + ".");
+    }
+}
+```
+
+Because we are implementing *Displayable*, *Printable*, and *Shareable* with
+the *Picture* class, we have to provide implementations for methods declared in
+all three of the interfaces.  
+
+We can do something similar for a song and a video class.
+
+```java
+class Song extends File implements Playable, Shareable {
+    Song(String location) {
+        super(location);
+    }
+
+    @Override
+    public void play() {
+        // code to play a song
+        System.out.println("Playing a song.");
+    }
+
+    @Override
+    public void postOnFacebook(String message) {
+        // code to post a song on Facebook
+        System.out.printf("Posting a song to Facebook.");
+    }
+
+    @Override
+    public void tweet(String message) {
+        //code to post a song on Twitter
+        System.out.println("Tweeting a song.");
+    }
+
+    @Override
+    public void email(String message, String destinationAddress) {
+        //code to email a song
+        System.out.println("Sending an email with a song to " + destinationAddress + ".");
+    }
+}
+
+class Video extends File implements Playable, Shareable {
+    Video(String location) {
+        super(location);
+    }
+
+    @Override
+    public void play() {
+        // code to play a video
+        System.out.println("Playing a video.");
+    }
+
+    @Override
+    public void postOnFacebook(String message) {
+        // code to post a video on Facebook
+        System.out.printf("Posting a video to Facebook.");
+    }
+
+    @Override
+    public void tweet(String message) {
+        //code to post a video on Twitter
+        System.out.println("Tweeting a video.");
+    }
+
+    @Override
+    public void email(String message, String destinationAddress) {
+        //code to email a video
+        System.out.println("Sending an email with a video to " + destinationAddress + ".");
+    }
+}
+```
+
+Here's code that includes the base *File* class, the interfaces, and the
+*Picture*, *Song*, and *Video* classes that extend the *File* class and
+implement the *Printable*, *Displayable*, *Playable*, and *Shareable*
+interfaces.
+
+### Extending Interfaces
 ### Examples from the Standard Library
 Implement the Comparable interface.
-### Extending Interfaces
 ### Decoupling Interface from Implementation
-
 
 ## Exercises
 1.
