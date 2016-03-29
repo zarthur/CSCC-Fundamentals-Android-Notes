@@ -1226,8 +1226,8 @@ added to the list before the *arthur* contact object.
 defines an abstract method *contact()*.  Create one class that makes use of the
 abstract contact class that stores and email address and implements the
 *contact()* method using the email address and another class that stores a
-phone number and implements the *contact()* method using the phone number.  
-The implementation of the *contact()* method should simply print a string
+phone number and implements the *contact()* method using the phone number. The
+implementation of the *contact()* method should simply print a string
 with the appropriate information like "Emailing aneuman1@cscc.edu" or
 "Calling 123-456-7890".
 
