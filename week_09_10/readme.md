@@ -452,10 +452,10 @@ interfaces don't allow us to reuse code.
 
 Let's consider a different example.  Suppose we are writing a program for
 working with various media files: songs, pictures, and videos.  We'll want
-our program to be able to play songs and videos, to display and print pictures,
+our program to be able to play songs and videos, to display pictures,
 and to be able to share files.  Without using interfaces, it might make
 sense to start with a base class for files; create abstract classes for
-printable files, displayable files, playable files, and shareable files which
+displayable files, playable files, and shareable files which
 all inherit from the base file class; and then create classes for pictures,
 videos, and songs.  The inheritance diagram would look something like this:
 
@@ -493,7 +493,7 @@ open the file, load the content into a byte array, close the file, and return
 the content when the *read()* method is called.
 
 We know we want to make our pictures, song, and videos, displayable, playable,
-printable, and shareable.  Rather than create classes, let's create interfaces
+and shareable.  Rather than create classes, let's create interfaces
 that declare methods associated with each action.  
 
 ```java
@@ -505,10 +505,6 @@ interface Playable {
     void play();
 }
 
-interface Printable {
-    void print(String printerName);
-}
-
 interface Shareable {
     void postOnFacebook(String message);
     void tweet(String message);
@@ -517,14 +513,14 @@ interface Shareable {
 ```
 
 Our interfaces include declarations for associated methods.  Next, let's
-create a class for pictures.  Each picture will be displayable on screen,
-printable, and shareable.  This means that it will implement three of the
-four interfaces.  To implement multiple interfaces, we list them in the
+create a class for pictures.  Each picture will be displayable on screen and
+shareable.  This means that it will implement two of the
+three interfaces.  To implement multiple interfaces, we list them in the
 class declaration after the `implements` reserved word with each interface
 separated by a comma.
 
 ```java
-class Picture extends File implements Displayable, Printable, Shareable {
+class Picture extends File implements Displayable, Shareable {
     Picture(String location) {
         super(location);
     }
@@ -536,15 +532,9 @@ class Picture extends File implements Displayable, Printable, Shareable {
     }
 
     @Override
-    public void print(String printerName) {
-        //code to print a picture
-        System.out.println("Printing a picture to " + printerName +".");
-    }
-
-    @Override
     public void postOnFacebook(String message) {
         // code to post a picture on Facebook
-        System.out.printf("Posting a picture to Facebook.");        
+        System.out.println("Posting a picture to Facebook.");        
     }
 
     @Override
@@ -561,9 +551,9 @@ class Picture extends File implements Displayable, Printable, Shareable {
 }
 ```
 
-Because we are implementing *Displayable*, *Printable*, and *Shareable* with
+Because we are implementing *Displayable* and *Shareable* with
 the *Picture* class, we have to provide implementations for methods declared in
-all three of the interfaces.  
+both the interfaces.  
 
 We can do something similar for a song and a video class.
 
@@ -582,7 +572,7 @@ class Song extends File implements Playable, Shareable {
     @Override
     public void postOnFacebook(String message) {
         // code to post a song on Facebook
-        System.out.printf("Posting a song to Facebook.");
+        System.out.println("Posting a song to Facebook.");
     }
 
     @Override
@@ -612,7 +602,7 @@ class Video extends File implements Playable, Shareable {
     @Override
     public void postOnFacebook(String message) {
         // code to post a video on Facebook
-        System.out.printf("Posting a video to Facebook.");
+        System.out.println("Posting a video to Facebook.");
     }
 
     @Override
@@ -631,8 +621,7 @@ class Video extends File implements Playable, Shareable {
 
 Here's code that includes the base *File* class, the interfaces, and the
 *Picture*, *Song*, and *Video* classes that extend the *File* class and
-implement the *Printable*, *Displayable*, *Playable*, and *Shareable*
-interfaces.
+implement *Displayable*, *Playable*, and *Shareable* interfaces.
 
 ```java
 package com.myname.week_09_10;
@@ -662,17 +651,13 @@ interface Playable {
     void play();
 }
 
-interface Printable {
-    void print(String printerName);
-}
-
 interface Shareable {
     void postOnFacebook(String message);
     void tweet(String message);
     void email(String message, String destinationAddress);
 }
 
-class Picture extends File implements Displayable, Printable, Shareable {
+class Picture extends File implements Displayable, Shareable {
     Picture(String location) {
         super(location);
     }
@@ -684,15 +669,9 @@ class Picture extends File implements Displayable, Printable, Shareable {
     }
 
     @Override
-    public void print(String printerName) {
-        //code to print a picture
-        System.out.println("Printing a picture to " + printerName +".");
-    }
-
-    @Override
     public void postOnFacebook(String message) {
         // code to post a picture on Facebook
-        System.out.printf("Posting a picture to Facebook.");
+        System.out.println("Posting a picture to Facebook.");
     }
 
     @Override
@@ -722,7 +701,7 @@ class Song extends File implements Playable, Shareable {
     @Override
     public void postOnFacebook(String message) {
         // code to post a song on Facebook
-        System.out.printf("Posting a song to Facebook.");
+        System.out.println("Posting a song to Facebook.");
     }
 
     @Override
@@ -752,7 +731,7 @@ class Video extends File implements Playable, Shareable {
     @Override
     public void postOnFacebook(String message) {
         // code to post a video on Facebook
-        System.out.printf("Posting a video to Facebook.");
+        System.out.println("Posting a video to Facebook.");
     }
 
     @Override
@@ -777,17 +756,483 @@ public class Main {
         coolSong.email("Check out this cool song", "aneuman1@cscc.edu");
 
         favoritePicture.display();
-        favoritePicture.print("myPrinter");
     }
 }
 ```
 
+### Decoupling Interface from Implementation
+Now that you've seen how to use an interface, you might be wondering what the
+advantage is besides being able to implement multiple interfaces in a class
+over implementation inheritance.  After all, one advantage to implementation
+inheritance is code reuse - we don't have to rewrite the same code over and
+over again.  
+
+Interfaces give us flexibility in designing our programs by allowing us to
+separate the publicly accessible methods, the interface, from the code that
+drives it, the implementation.  We've seen examples of this idea when we
+explored the Collections framework and worked with different types of Lists,
+Sets, and Maps and when we talked about polymorphism.  
+
+Suppose that the program we are writing is a media player and it allows us to
+create playlists.  We expect that a user will want to create a playlist of
+songs so we might make a playlist class that looks like this:
+
+```java
+class Playlist {
+    private String name;
+    private ArrayList<Song> playlistItems = new ArrayList<>();
+    private Song currentItem;
+
+    Playlist(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void addItem(Song song) {
+        playlistItems.add(song);
+    }
+
+    public void playNextItem() {
+        // if there's nothing to play, don't do anything
+        if (playlistItems.size() == 0) {
+            return;
+        }
+
+        // choose the first item the first time we start the playlist
+        if (currentItem == null) {
+            currentItem = playlistItems.get(0);
+        }
+        // otherwise choose the next song or the first if playing the last
+        else {
+            int currentIndex = playlistItems.indexOf(currentItem);
+            int newIndex = (currentIndex + 1) % playlistItems.size();
+            currentItem = playlistItems.get(newIndex);
+        }
+        currentItem.play();
+    }
+}
+```
+
+This playlist class has a name and a list of songs.  It's methods include one
+to get the name; one to add to the playlist; and one to play the next song,
+to play the first song if we're at the end of the list, or to do nothing if
+there are no items in the playlist.  
+
+This code makes use of the modulus operator, `%`, which you might might not be
+familiar with.  The modulus operator returns the remainder when dividing:
+`a % b` returns the remainder when `a` is divided by `b`.  So `5 % 4` is `1`.  
+This operator can be useful when working with indices of lists as we do in the
+playlist code.  If our playlist contains four songs and we're currently playing
+the last one, `currentIndex` is 3, `currentIndex + 1` is 4, and
+`(currentIndex + 1) % 4` is 0. An index of 0 corresponds to the first element
+in the list.  Using the modulus operator allows us to "wrap" around the list.  
+
+Notice that our playlist relies heavily on the Song class.  What if we later
+decide that users should also be able to have video playlists?  We could create
+an additional class named *VideoPlaylist* but what if we want users to be able
+to add both songs and videos to the playlists?  Rather than writing our
+playlist to support only songs, we'd like to rewrite it to support both songs
+and videos.  Notice that the only method we really depend on from the *Song*
+class is the *play()* method.  Videos also have a *play()* method because the
+*Video* class, like the *Song* class implements the *Playable* interface.  
+Rather that writing the *Playlist* class to make use of a specific
+implementation (the *Song* class), the class would be more flexible if we
+wrote it to work with the *Playable* interface.  
+
+```Java
+class Playlist {
+    private String name;
+    private ArrayList<Playable> playlistItems = new ArrayList<>();
+    private Playable currentItem;
+
+    Playlist(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void addItem(Playable item) {
+        playlistItems.add(item);
+    }
+
+    public void playNextItem() {
+        // if there's nothing to play, don't do anything
+        if (playlistItems.size() == 0) {
+            return;
+        }
+
+        // choose the first item the first time we start the playlist
+        if (currentItem == null) {
+            currentItem = playlistItems.get(0);
+        }
+        // otherwise choose the next song or the first if playing the last
+        else {
+            int currentIndex = playlistItems.indexOf(currentItem);
+            int newIndex = (currentIndex) + 1 % playlistItems.size();
+            currentItem = playlistItems.get(newIndex);
+        }
+        currentItem.play();
+    }
+}
+```
+
+Now, instances of the *Playlist* class will allow both videos and songs to be
+added.  If we later add code for an *AudioBook* class, we would be able to add
+it to a playlist as long as the new class implemented the *Playable* interface;
+we won't need to create a new playlist class for audio books.  
+
+Below is an example making use of the new *Playlist* class.  
+
+```java
+package com.myname.week_09_10;
+
+import java.util.ArrayList;
+
+class File {
+    private String location;
+
+    File(String location) {
+        this.location = location;
+    }
+
+    byte[] read() {
+        int fileLength = 10; // replaced by code to determine file size
+        byte[] content = new byte[fileLength];
+        System.out.println("Reading data from " + location);
+        // code to open and read the file into the byte array
+        // code to close the file
+        return content;
+    }
+}
+
+interface Displayable {
+    void display();
+}
+
+interface Playable {
+    void play();
+}
+
+interface Shareable {
+    void postOnFacebook(String message);
+    void tweet(String message);
+    void email(String message, String destinationAddress);
+}
+
+class Picture extends File implements Displayable, Shareable {
+    Picture(String location) {
+        super(location);
+    }
+
+    @Override
+    public void display() {
+        //code to display the picture on screen
+        System.out.println("Displaying a picture.");
+    }
+
+    @Override
+    public void postOnFacebook(String message) {
+        // code to post a picture on Facebook
+        System.out.println("Posting a picture to Facebook.");
+    }
+
+    @Override
+    public void tweet(String message) {
+        //code to post a picture on Twitter
+        System.out.println("Tweeting a picture.");
+    }
+
+    @Override
+    public void email(String message, String destinationAddress) {
+        //code to email a picture
+        System.out.println("Sending an email with a picture to " + destinationAddress + ".");
+    }
+}
+
+class Song extends File implements Playable, Shareable {
+    Song(String location) {
+        super(location);
+    }
+
+    @Override
+    public void play() {
+        // code to play a song
+        System.out.println("Playing a song.");
+    }
+
+    @Override
+    public void postOnFacebook(String message) {
+        // code to post a song on Facebook
+        System.out.println("Posting a song to Facebook.");
+    }
+
+    @Override
+    public void tweet(String message) {
+        //code to post a song on Twitter
+        System.out.println("Tweeting a song.");
+    }
+
+    @Override
+    public void email(String message, String destinationAddress) {
+        //code to email a song
+        System.out.println("Sending an email with a song to " + destinationAddress + ".");
+    }
+}
+
+class Video extends File implements Playable, Shareable {
+    Video(String location) {
+        super(location);
+    }
+
+    @Override
+    public void play() {
+        // code to play a video
+        System.out.println("Playing a video.");
+    }
+
+    @Override
+    public void postOnFacebook(String message) {
+        // code to post a video on Facebook
+        System.out.println("Posting a video to Facebook.");
+    }
+
+    @Override
+    public void tweet(String message) {
+        //code to post a video on Twitter
+        System.out.println("Tweeting a video.");
+    }
+
+    @Override
+    public void email(String message, String destinationAddress) {
+        //code to email a video
+        System.out.println("Sending an email with a video to " + destinationAddress + ".");
+    }
+}
+
+class Playlist {
+    private String name;
+    private ArrayList<Playable> playlistItems = new ArrayList<>();
+    private Playable currentItem;
+
+    Playlist(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void addItem(Playable item) {
+        playlistItems.add(item);
+    }
+
+    public void playNextItem() {
+        // if there's nothing to play, don't do anything
+        if (playlistItems.size() == 0) {
+            return;
+        }
+
+        // choose the first item the first time we start the playlist
+        if (currentItem == null) {
+            currentItem = playlistItems.get(0);
+        }
+        // otherwise choose the next song or the first if playing the last
+        else {
+            int currentIndex = playlistItems.indexOf(currentItem);
+            int newIndex = (currentIndex + 1) % playlistItems.size();
+            currentItem = playlistItems.get(newIndex);
+        }
+        currentItem.play();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Song coolSong = new Song("song.mp3");
+        Video coolVideo = new Video("video.avi");
+
+        Playlist favorites = new Playlist("Favorites");
+        favorites.addItem(coolSong);
+        favorites.addItem(coolVideo);
+
+        favorites.playNextItem();
+        favorites.playNextItem();
+        favorites.playNextItem();
+
+    }
+}
+```
+
+The output from this program is:
+
+```
+Playing a song.
+Playing a video.
+Playing a song.
+```
+
+
 
 ### Extending Interfaces
+Just like classes, we can extend interfaces and create subinterfaces.  This
+is also a form of interface inheritance.  For example, suppose we want
+to create an interface for things that can be printed.  We'll make the
+assumption that anything that can be displayed can be printed.  
+
+```java
+
+interface Displayable {
+    void display();
+}
+
+interface Printable extends Displayable {
+    void print();
+}
+```
+
+Any class that implemented the new *Printable* interface would have to
+implement both the *display()* and *print()* methods.
+
+Note that an interface cannot implement another interface since interfaces
+don't provide an implementation.
+
 ### Examples from the Standard Library
-Implement the Comparable interface.
-### Decoupling Interface from Implementation
+The standard library contains many interfaces. We've already worked with some
+of them including List, Set, and Map.  If we were creating our own lists, sets,
+or maps, we might implement these interfaces.  In future classes, we'll
+implement other interfaces from the standard library.  For now, let's look at
+how we might implement the *Comparable* interface.  This interface will allow
+us to so sort collections of objects that implement the interface.
+
+Suppose we have a class for contact information and an ArrayList to store our
+contacts.
+
+```Java
+package com.myname.week_09_10;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Contact {
+    String name;
+    String email;
+
+    Contact(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public void display() {
+        System.out.println("Name: " + name + ", Email:" + email);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Contact bob = new Contact("Bob", "bob@bob.com");
+        Contact arthur = new Contact("Arthur", "aneuman1@cscc.edu");
+
+        List<Contact> contacts = new ArrayList<>();
+        contacts.add(bob);
+        contacts.add(arthur);
+
+        for(Contact contact: contacts) {
+            contact.display();;
+        }
+    }
+}
+```
+
+We'd like to be able to sort our contacts based on name and email address,
+relying on an alphabetic ordering defined on the String class.  In order to
+achieve this, the *Contact* class has to implement the *Comparable* interface.
+
+
+```java
+package com.myname.week_09_10;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class Contact implements Comparable<Contact> {
+    String name;
+    String email;
+
+    Contact(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public void display() {
+        System.out.println("Name: " + name + ", Email:" + email);
+    }
+
+    @Override
+    public int compareTo(Contact o) {
+        if (!name.equals(o.name)) {
+            return name.compareTo(o.name);
+        }
+        else {
+            return email.compareTo(o.email);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Contact bob = new Contact("Bob", "bob@bob.com");
+        Contact arthur = new Contact("Arthur", "aneuman1@cscc.edu");
+
+        List<Contact> contacts = new ArrayList<>();
+        contacts.add(bob);
+        contacts.add(arthur);
+
+        Collections.sort(contacts);
+
+        for(Contact contact: contacts) {
+            contact.display();;
+        }
+    }
+}
+```
+
+When implementing the *Comparable* interface, we also have to specify the types
+against which we will compare our objects.  In this case, we'll only compare
+contacts to other contacts so we implement *Comparable<Contact>*.
+
+When implementing the *Comparable* interface, we must implement the
+*compareTo()* method.  The method takes a single parameter - the object we
+are comparing with the current object.  The method returns an integer.  A
+negative return value means the current object is "less than" the other object,
+a positive return value means the current object is "greater than" the other
+object, and a return value of 0 means the two objects are equal.  In this
+example, we rely on the fact that the *String* class implements the
+*Comparable* interface and use its *compareTo()* method to compare the name
+string and the email string.  
+
+When the program is run the contact information for Arthur should be printed
+before the contact information for Bob since the string "Arthur" is
+alphabetically before the string "Bob" even though the *bob* contact object was
+added to the list before the *arthur* contact object.
 
 ## Exercises
-1.
-2. Implement the Iterable interface.  
+1. Create an abstract class for contacts that stores a contact's name and
+defines an abstract method *contact()*.  Create one class that makes use of the
+abstract contact class that stores and email address and implements the
+*contact()* method using the email address and another class that stores a
+phone number and implements the *contact()* method using the phone number.  
+The implementation of the *contact()* method should simply print a string
+with the appropriate information like "Emailing aneuman1@cscc.edu" or 
+"Calling 123-456-7890".
+
+2. Create a class to store contact information consisting of a name and
+email address.  Additionally, create a class to store a collection of contacts
+that implements the *Iterable* interface so that a for-each loop can be used
+with the the collection class.  Demonstrate this functionality with a for-each
+loop in the *Main.main()* method that displays contact information.
