@@ -1142,7 +1142,7 @@ public class Main {
         contacts.add(arthur);
 
         for(Contact contact: contacts) {
-            contact.display();;
+            contact.display();
         }
     }
 }
@@ -1196,7 +1196,7 @@ public class Main {
         Collections.sort(contacts);
 
         for(Contact contact: contacts) {
-            contact.display();;
+            contact.display();
         }
     }
 }
@@ -1228,7 +1228,7 @@ abstract contact class that stores and email address and implements the
 *contact()* method using the email address and another class that stores a
 phone number and implements the *contact()* method using the phone number.  
 The implementation of the *contact()* method should simply print a string
-with the appropriate information like "Emailing aneuman1@cscc.edu" or 
+with the appropriate information like "Emailing aneuman1@cscc.edu" or
 "Calling 123-456-7890".
 
 2. Create a class to store contact information consisting of a name and
