@@ -433,11 +433,326 @@ a method and not within the *FilterCreator* class body, it is not a member
 class.
 
 ## Listeners
+Often in our programs, objects will depend on information from other objects.
+Suppose we are writing an app for a news app.  Two classes we might create
+are a *ConsoleViewer* that displays news items and a *NewsCollection* that
+maintains a collection of news items.  One way we can update the the
+*ConsoleViewer* is by having it regularly check with a *NewCollection* instance
+for new items. Alternatively, we can write *NewsCollection* to update
+*ConsoleViewer* instances when new items are added to the collection.  Let's
+look at how we might do this.
 
-### A more complicated example
-Examples adapted from *Head First: Design Patterns* by Eric Freeman and
-Elisabeth Robson
+```java
+package com.myname.week_11;
 
-See `java.util.Observer` and `java.util.Observable`.
+import java.util.ArrayList;
+import java.util.List;
 
-### UI Event Handlers
+class NewsItem {
+    private String title;
+    private String content;
+
+    NewsItem(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+}
+
+interface NewsViewer {
+    public void update(NewsItem item);
+}
+
+class NewsCollection {
+    private List<NewsItem> collection = new ArrayList<>();
+    private List<NewsViewer> viewers = new ArrayList<>();
+
+    // add a listener
+    public void addViewer(NewsViewer viewer) {
+        viewers.add(viewer);
+    }
+
+    // update listeners
+    public void updateViewers(NewsItem item) {
+        for (NewsViewer viewer: viewers) {
+            viewer.update(item);
+        }
+    }
+
+    public void addNewsItem(NewsItem item) {
+        collection.add(item);
+        updateViewers(item);
+    }
+
+    public void addNewsItem(String title, String content) {
+        addNewsItem(new NewsItem(title, content));
+    }
+}
+
+class ConsoleViewer implements NewsViewer{
+    // method called by objects that update listeners
+    public void update(NewsItem item){
+        System.out.println("Breaking News (displayed by ConsoleViewer): " + item.getTitle());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        NewsViewer consoleNews = new ConsoleViewer();
+        NewsCollection allTheNews = new NewsCollection();
+        allTheNews.addViewer(consoleNews);
+
+        allTheNews.addNewsItem("Lotto Winner", "Bob won the lottery!");
+        allTheNews.addNewsItem("Forecast", "It's going to be nice outside.");
+    }
+}
+```
+
+In this code, we first created a *NewsItem* class to represent individual news
+items with a title and content.  Next, we declared a *NewsViewer* interface
+that declared a single method: *update()* which has a single *NewsItem*
+parameter; this provides a standard way of updating listeners.  The
+*NewsCollection* class is responsible for keeping a collection of news items,
+providing functionality for adding to the collection, and notifying any
+listeners of any updates to the collection.  The *ConsoleViewer* class displays
+information about new news items on the console.  It also implements the
+*NewsViewer* interface.  In *Main.main()*, we create instances of both
+*NewsViewer* and *NewsCollection*. We then register the instance of
+*NewsViewer* as a listener with the instance of *NewsCollection*.  When we add
+news items to the instance of *NewsCollection*, the instance notifies the
+instance of *ConsoleViewer* by calling the *ConsoleViewer.update()* method.
+
+One advantage to writing code like this is that it is easy to add another
+listener.  If we wrote a *GUIViewer* class that implemented the *NewsViewer*
+interface, we could register it as a listener with the *NewsCollection* object
+and the *GUIViewer* instance would automatically be updated with new news
+items. The alternative is to have the individual viewers regularly check with
+the *NewsCollection* instance for new items.  
+
+Let's looks at another example.  This example is adapted from *Head First:
+Design Patterns* by Eric Freeman and Elisabeth Robson.  Suppose we wanted to
+write a weather monitoring application.  The application will depend on data
+from temperature and humidity sensors. A coordinating weather station will
+act as a listeners for updates from the sensors. The sensors will pass data to
+the listener based on a weather data class.  Here's the code for such an
+application:
+
+```java
+package com.myname.week_11;
+
+import java.util.*;
+
+interface WeatherDataSource {
+    public void addListener(WeatherDataListener listener);
+    public void removeListener(WeatherDataListener listener);
+    public void update();
+}
+
+interface WeatherDataListener {
+    public void updateData(WeatherData newData);
+}
+
+abstract class WeatherData {
+    private String dataType;
+    private Double measuredValue;
+
+    WeatherData(String dataType, Double measuredValue) {
+        this.dataType = dataType;
+        this.measuredValue = measuredValue;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public Double getMeasuredValue() {
+        return measuredValue;
+    }
+
+    abstract public String getUpdateMessage();
+}
+
+class TemperatureSensor implements WeatherDataSource {
+    private double currentTemperature;
+    private List<WeatherDataListener> listeners = new ArrayList<>();
+
+    TemperatureSensor() {
+        updateTemperature();
+    }
+
+    public double getCurrentTemperature() {
+        return currentTemperature;
+    }
+
+    private void updateTemperature() {
+        // read from humidity sensor
+        currentTemperature = new Random().nextDouble() * 100;
+    }
+
+    @Override
+    public void addListener(WeatherDataListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(WeatherDataListener listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public void update() {
+        System.out.println("TemperatureSensor: getting new data.");
+        updateTemperature();
+        for (WeatherDataListener listener : listeners) {
+            listener.updateData(new WeatherData("temperature", currentTemperature) {
+                @Override
+                public String getUpdateMessage() {
+                    return "The new temperature is " + currentTemperature;
+                }
+            });
+        }
+
+    }
+}
+
+class HumiditySensor implements WeatherDataSource {
+    private double currentHumidity;
+    private List<WeatherDataListener> listeners = new ArrayList<>();
+
+    HumiditySensor() {
+        updateHumidity();
+    }
+
+    public double getCurrentHumidity() {
+        return currentHumidity;
+    }
+
+    private void updateHumidity() {
+        // read from humidity sensor
+        currentHumidity = new Random().nextDouble();
+    }
+
+    @Override
+    public void addListener(WeatherDataListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(WeatherDataListener listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public void update() {
+        System.out.println("HumiditySensor: getting new data.");
+        updateHumidity();
+        for (WeatherDataListener listener: listeners) {
+            listener.updateData(new WeatherData("humidity", currentHumidity) {
+                @Override
+                public String getUpdateMessage() {
+                    return "Humidity updated to " + currentHumidity;
+                }
+            });
+        }
+
+    }
+
+}
+
+class WeatherStation implements WeatherDataListener {
+    private Map<String, Double> allWeatherData = new HashMap<>();
+    private List<String> log = new ArrayList<>();
+
+    @Override
+    public void updateData(WeatherData newData) {
+        System.out.println("WeatherStation: Updating the weather station data with new "
+                + newData.getDataType() + " data.");
+        allWeatherData.put(newData.getDataType(), newData.getMeasuredValue());
+        log.add(newData.getUpdateMessage());
+    }
+
+    public void displayCurrentWeather() {
+        System.out.println("Weather Report");
+        for (String dataType: allWeatherData.keySet()) {
+            System.out.println(dataType + ": " + allWeatherData.get(dataType));
+        }
+    }
+
+    public void displayLog() {
+        for (int i=0; i < log.size(); i++) {
+            int currentLine = i + 1;
+            System.out.println(currentLine + ": " + log.get(i));
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Main: creating objects");
+        WeatherStation localWeatherStation = new WeatherStation();
+
+        TemperatureSensor temperatureSensor = new TemperatureSensor();
+        HumiditySensor humiditySensor = new HumiditySensor();
+
+        temperatureSensor.addListener(localWeatherStation);
+        humiditySensor.addListener(localWeatherStation);
+
+        System.out.println("Main: simulating updates from sensors");
+        temperatureSensor.update();
+        humiditySensor.update();
+        temperatureSensor.update();
+
+        System.out.println("Main: displaying report and logs");
+        localWeatherStation.displayCurrentWeather();
+        localWeatherStation.displayLog();
+
+    }
+}
+```
+
+We start by defining an interface for a data source and a data listener.  The
+source must provide implementations for adding listeners, removing listeners,
+and updating listeners as declared in the *WeatherDataSource* interface.  Any
+listeners should implement the *WeatherDataListener* interface and provide an
+implementation for a method that can be called to update the listener.  
+
+Next, we define an abstract class, *WeatherData*, to represent individual
+weather measurements.  In addition to storing the type of weather data and the
+value, the *WeatherData* abstract class declares an abstract method that can be
+used to get a message associated with the update - possibly for logging
+purposes.
+
+We create two classes to represent sensors: *TemperatureSensor* and
+*HumiditySensor*.  In a real application, these classes would be responsible
+for reading data from a sensor but in our example, they rely on random numbers.
+Because they implement the *WeatherDataSource* interface, they have to
+implement the methods associated with managing and updating listeners.  
+
+The sensors make use of the *WeatherData* abstract class for sending
+information to any listeners. Because *WeatherData* is abstract, we have to
+provide an implementation for any of its abstract methods if we want to use it.
+In our code, we do this through the use of an anonymous class when we need it.
+
+We also create a class, *WeatherStation* that collects all weather data and
+keeps a log of new weather items. We want an instance of the *WeatherStation*
+class to be able to act as a listener to instances of the sensor classes so
+*WeatherStation* implements the *WeatherDataListener* interface; its
+*updateData()* method appends the new data to its list of weather data and
+updates its log.  
+
+In *Main.main()* we create instance of the sensors and *WeatherStation* and
+register the *WeatherStation* instance as a listener with the the sensor
+instances.  We then simulate updates to the sensors.  Notice that we don't need
+to have the *WeatherStation* instance check with the sensors for new values -
+the sensors notify the *WeatherStation* instance of new data.  We then use
+the instance of *WeatherStation* to display the current weather conditions and
+its log.
+
+##Exercise
