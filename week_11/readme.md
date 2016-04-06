@@ -6,7 +6,7 @@
 ## Nested Classes
 Classes that are declared outside of any other class are known as **top-level
 classes**.  Java allows us to declare classes within other classes; classes
-that are declared as members of other classes are known as **nested classes**.  
+that are declared within other classes are known as **nested classes**.  
 There are four kinds of nested classes:
 
 1. static member classes,
@@ -766,4 +766,4 @@ Modify the WeatherStation example from the lecture notes to include a
 atmospheric pressure data; it should behave similar to *TemperatureSensor* and
 *HumiditySensor*.  Update *Main.main()* to register the *WeatherStation*
 instance as a listener for an instance of *PressureSensor* and demonstrate an
-update of pressure data from the instance. 
+update of pressure data from the instance.
