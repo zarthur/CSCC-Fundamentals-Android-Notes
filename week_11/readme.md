@@ -8,6 +8,7 @@ Classes that are declared outside of any other class are known as **top-level
 classes**.  Java allows us to declare classes within other classes; classes
 that are declared as members of other classes are known as **nested classes**.  
 There are four kinds of nested classes:
+
 1. static member classes,
 2. nonstatic member classes,
 3. anonymous classes, and
@@ -547,7 +548,12 @@ application:
 ```java
 package com.myname.week_11;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 
 interface WeatherDataSource {
     public void addListener(WeatherDataListener listener);
