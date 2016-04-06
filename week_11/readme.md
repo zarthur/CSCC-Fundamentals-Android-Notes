@@ -554,7 +554,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 interface WeatherDataSource {
     public void addListener(WeatherDataListener listener);
     public void removeListener(WeatherDataListener listener);
@@ -762,3 +761,9 @@ the instance of *WeatherStation* to display the current weather conditions and
 its log.
 
 ##Exercise
+Modify the WeatherStation example from the lecture notes to include a
+*PressureSensor* class that implements *WeatherDataSource* and reports
+atmospheric pressure data; it should behave similar to *TemperatureSensor* and
+*HumiditySensor*.  Update *Main.main()* to register the *WeatherStation*
+instance as a listener for an instance of *PressureSensor* and demonstrate an
+update of pressure data from the instance. 
