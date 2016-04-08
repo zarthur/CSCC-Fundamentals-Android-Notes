@@ -272,10 +272,7 @@ public class Main {
         List<String> bNames = friends.filter(new StringFilter() {
             @Override
             public boolean accept(String candidate) {
-                if (candidate.startsWith("b")) {
-                    return true;
-                }
-                return false;
+                return candidate.startsWith("b");
             }
         });
 
@@ -331,10 +328,7 @@ class Names {
 class BFilter implements StringFilter {
     @Override
     public boolean accept(String candidate) {
-        if (candidate.startsWith("b")) {
-            return true;
-        }
-        return false;
+        return candidate.startsWith("b");
     }
 }
 
@@ -401,10 +395,7 @@ class FilterCreator{
         class StartsWithFilter implements StringFilter {
             @Override
             public boolean accept(String candidate) {
-                if (candidate.startsWith("b")) {
-                    return true;
-                }
-                return false;
+                 return candidate.startsWith(prefix);
             }
         }
         return new StartsWithFilter();
@@ -467,23 +458,23 @@ class NewsItem {
     }
 }
 
-interface NewsViewer {
+interface NewsListener {
     public void update(NewsItem item);
 }
 
 class NewsCollection {
     private List<NewsItem> collection = new ArrayList<>();
-    private List<NewsViewer> viewers = new ArrayList<>();
+    private List<NewsListener> listeners = new ArrayList<>();
 
     // add a listener
-    public void addViewer(NewsViewer viewer) {
+    public void addViewer(NewsListener listener) {
         viewers.add(viewer);
     }
 
     // update listeners
     public void updateViewers(NewsItem item) {
-        for (NewsViewer viewer: viewers) {
-            viewer.update(item);
+        for (NewsListener listener: listeners) {
+            listener.update(item);
         }
     }
 
@@ -497,7 +488,7 @@ class NewsCollection {
     }
 }
 
-class ConsoleViewer implements NewsViewer{
+class ConsoleViewer implements NewsListener{
     // method called by objects that update listeners
     public void update(NewsItem item){
         System.out.println("Breaking News (displayed by ConsoleViewer): " + item.getTitle());
@@ -506,7 +497,7 @@ class ConsoleViewer implements NewsViewer{
 
 public class Main {
     public static void main(String[] args) {
-        NewsViewer consoleNews = new ConsoleViewer();
+        NewsListener consoleNews = new ConsoleViewer();
         NewsCollection allTheNews = new NewsCollection();
         allTheNews.addViewer(consoleNews);
 
@@ -517,21 +508,21 @@ public class Main {
 ```
 
 In this code, we first created a *NewsItem* class to represent individual news
-items with a title and content.  Next, we declared a *NewsViewer* interface
+items with a title and content.  Next, we declared a *NewsListener* interface
 that declared a single method: *update()* which has a single *NewsItem*
 parameter; this provides a standard way of updating listeners.  The
 *NewsCollection* class is responsible for keeping a collection of news items,
 providing functionality for adding to the collection, and notifying any
 listeners of any updates to the collection.  The *ConsoleViewer* class displays
 information about new news items on the console.  It also implements the
-*NewsViewer* interface.  In *Main.main()*, we create instances of both
-*NewsViewer* and *NewsCollection*. We then register the instance of
-*NewsViewer* as a listener with the instance of *NewsCollection*.  When we add
-news items to the instance of *NewsCollection*, the instance notifies the
+*NewsListener* interface.  In *Main.main()*, we create instances of both
+*ConsoleViewer* and *NewsCollection*. We then register the instance of
+*ConsoleViewer* as a listener with the instance of *NewsCollection*.  When we
+add news items to the instance of *NewsCollection*, the instance notifies the
 instance of *ConsoleViewer* by calling the *ConsoleViewer.update()* method.
 
 One advantage to writing code like this is that it is easy to add another
-listener.  If we wrote a *GUIViewer* class that implemented the *NewsViewer*
+listener.  If we wrote a *GUIViewer* class that implemented the *NewsListener*
 interface, we could register it as a listener with the *NewsCollection* object
 and the *GUIViewer* instance would automatically be updated with new news
 items. The alternative is to have the individual viewers regularly check with
