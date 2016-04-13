@@ -198,14 +198,16 @@ In this example, we create a generic class *Stack<E>* that can store elements
 of type *E* on a stack.  When we create an instance of the class, we'll specify
 an actual type argument.  The actual type argument will be used to create an
 array that will be used to store elements. Notice that we can't write
-`new E[size]` in the constructor because the compiler doesn't know what *E* is.
-We can, however, cast the array at runtime.  We can suppress the warning by
-adding a `@SuppressWarnings("unchecked")` annotation to the constructor but
-it's not really necessary since *Object* instances can always be downcast to
-*E* in this this case. The class has two methods: *push()* and *pop()*.  The
-*push()* method takes a single parameter of type *E* and add it to the array.
-The *pop()* method returns the most recently added *E* instance.  Both methods
-throw checked exceptions (since they inherit from *Exception* and not
+`new E[size]` in the constructor. This is due to how arrays and generics are
+handled by the Java compiler.  See the *Arrays and Generics* section of the
+assigned reading for a detailed explanation. We can, however, cast the array at
+runtime.  We can suppress the warning by adding a
+`@SuppressWarnings("unchecked")` annotation to the constructor but it's not
+really necessary since *Object* instances can always be downcast to *E* in this
+case. The class has two methods: *push()* and *pop()*.  The *push()* method
+takes a single parameter of type *E* and add it to the array. The *pop()*
+method returns the most recently added *E* instance.  Both methods throw
+checked exceptions (since they inherit from *Exception* and not
 *RuntimeException*) to indicate that elements cannot be added or there are not
 elements to pop from the stack.
 
@@ -370,6 +372,158 @@ While *U* isn't as meaningful as *T*, the situation justifies its use in order
 to avoid confusion.
 
 ### Wildcards
+Suppose we were writing a program that kept a list of strings, maybe a list of
+names, and we wanted to write a method to display the elements of the list. We
+might write something like this:
+
+```java
+package com.myname.week_12;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void displayList(List<Object> list) {
+        for (Object o: list) {
+            System.out.println(o);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>();
+        names.add("bob");
+        names.add("sue");
+        displayList(names);
+    }
+
+}
+```
+
+While this seems reasonable, if you type this code in IntelliJ or try to
+compile it with the Java compiler, you'll encounter an error with a message
+about the inability of converting a List<String> to a List<Object>.  In
+general, for a given subtype *x* of type *y* and a given raw type *G*, *G<x>*
+is not a subtype of *G<y>*.
+
+![Generic Inheritance](images/generic-inheritance.png)
+
+While *String* is a subtype of *Object*, the polymorphic behavior doesn't apply
+to parameterized types so *List<String>* is not a subtype of *List<Object>*.
+However, *List<String>* is a subtype of *Collection<String>* since the raw
+type *List* is a subtype of *Collection*.
+
+Despite this, we would still like our *displayList* method to work.  We can
+achieve this using the `?` wildcard which represents any type.
+
+```java
+package com.myname.week_12;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void displayList(List<?> list) {
+        for (Object o: list) {
+            System.out.println(o);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>();
+        names.add("bob");
+        names.add("sue");
+        displayList(names);
+    }
+
+}
+```
+
 ### Generic Methods
-### Arrays and Generics
+Suppose we wanted to write a method to copy the elements of one list to another
+list.  We could write a method similar to the following but it would be very
+limited.
+
+```java
+public static void copyList(List<Object> source, List<Object> destination) {
+    for (Object o: source) {
+        destination.add(o);
+    }
+}
+```
+
+Its limitation is that it can only be used to copy lists of objects and not
+lists of other element types.  The reason it is limited is because of the
+inheritance issue we encountered when discussing wildcards: if *x* is a subtype
+of *y*, *G<x>* is not necessarily a subtype of *G<y>*.  We might consider using
+wildcards to address the problem.
+
+```java
+public static void copyList(List<? extends String> source, List<? super String> destination) {
+    for (String s: source) {
+        destination.add(s);
+    }
+}
+```
+
+Here, *source* is any type that is a subtype of *String* or *String* itself
+(*String* is an upper bound) and *destination* is any type of which *String* is
+a supertype or *String* itself (*String* is a lower bound).  Note that we
+cannot specify lower bounds as formal type parameters when creating generic
+classes.  While this code will work to copy lists of strings, it is limited
+to lists of strings and lists of *Object* elements.  We'd like to create a copy
+method that is more robust. To do this, we can create a generic method.  Note
+that the methods above are not generic methods but simply methods that take
+parameters of generic types.  A *generic method* is a class or instance method
+with a type-generalized implementation.  Generic methods are declared using the
+following syntax:
+
+```java
+<formal_type_parameter_list> return_type identifier(parameter_list)
+```
+
+The formal type parameter list is the same as when specifying a generic type.  
+The type parameter can appear as both the method's return type as well as the
+type of parameters in the parameter list.  Java infers the actual type
+arguments from the context in which the method is called.  Here is the list
+copying method as a generic method as well as code to demonstrate it's use.
+
+```java
+package com.myname.week_12;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Main {
+    public static <T> void copyList(List<T> source, List<T> destination) {
+        for (T object: source) {
+            destination.add(object);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>();
+        names.add("bob");
+        names.add("sue");
+        List<String> namesCopy = new ArrayList<>();
+        copyList(names, namesCopy);
+        for (String name: namesCopy) {
+            System.out.println(name);
+        }
+
+    }
+
+}
+```
+
+The biggest advantage here is that we are no longer limited by the type of the
+elements in the list like we were when we tried to use a method relying on
+generic types with wildcards.
+
 ## Exercise
+Implement a *Queue<E>* generic type similar to the *Stack<E>* type but with
+*enqueue()* and *dequeue()* methods.  The *enqueue()* method adds an element to
+the queue and the *dequeue()* method removes the first/oldest element from the
+queue.  Stacks are often described as being "last-in, first-out" whereas queues 
+represent a "first-in, first-out" behavior.
