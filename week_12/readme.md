@@ -13,7 +13,7 @@ have written code like this
 List<Sting> StringList = new ArrayList<>();
 ```
 
-Here, the type appearing between the angle brackets (`<` and '>') is known as
+Here, the type appearing between the angle brackets (`<` and `>`) is known as
 the *type parameter* and, in this case, it is used to specify the types of
 elements stored in the list.  In general, we can use type parameters to create
 both flexible and type-safe classes.  To understand what that means and why
@@ -194,7 +194,7 @@ public class Main {
 }
 ```
 
-In this example, we create a generic class *Stack<E>* that can store elements
+In this example, we create a generic class *Stack\<E\>* that can store elements
 of type *E* on a stack.  When we create an instance of the class, we'll specify
 an actual type argument.  The actual type argument will be used to create an
 array that will be used to store elements. Notice that we can't write
@@ -525,5 +525,5 @@ generic types with wildcards.
 Implement a *Queue<E>* generic type similar to the *Stack<E>* type but with
 *enqueue()* and *dequeue()* methods.  The *enqueue()* method adds an element to
 the queue and the *dequeue()* method removes the first/oldest element from the
-queue.  Stacks are often described as being "last-in, first-out" whereas queues 
+queue.  Stacks are often described as being "last-in, first-out" whereas queues
 represent a "first-in, first-out" behavior.
