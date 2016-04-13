@@ -97,3 +97,62 @@ submit links to their fork of the repository.
 
 ## Project 4
 Project 4 should make use of topics covered during weeks twelve though fifteen.
+
+Modify your code from project 3 to support adding, updating, and listing tasks
+to/from a remote server using JSON and a RESTful API.  The URL used to access
+the server will be provided later in class.  
+
+Creating and updating a task will require sending JSON to the server in the
+following form:
+
+```json
+{
+  "title":"Car",
+  "priority": 2,
+  "body":"Wash the car"
+}
+```
+
+Retrieving an individual task will require that your program be able to create
+objects from the following JSON string:
+
+```json
+{
+  "body": "Walk the dog",
+  "done": false,
+  "id": 0,
+  "priority": 3,
+  "title": "Dog"
+}
+```
+
+Retrieving all tasks will require that your program be able to process the
+following JSON string:
+
+```json
+{
+  "todos": [
+    {
+      "body": "Walk the dog",
+      "done": false,
+      "id": 0,
+      "priority": 3,
+      "title": "dog"
+    },
+    {
+      "body": "Prepare dinner",
+      "done": false,
+      "id": 1,
+      "priority": 1,
+      "title": "Dinner"
+    },
+    {
+      "body": "Take out the trash",
+      "done": false,
+      "id": 2,
+      "priority": 5,
+      "title": "Trash"
+    }
+  ]
+}
+```
