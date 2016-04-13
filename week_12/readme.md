@@ -366,7 +366,8 @@ class EnclosingClass<T> {
 }
 ```
 
-While *U* isn't as meaningful as *T*, the situation justifies its use.
+While *U* isn't as meaningful as *T*, the situation justifies its use in order
+to avoid confusion.
 
 ### Wildcards
 ### Generic Methods
