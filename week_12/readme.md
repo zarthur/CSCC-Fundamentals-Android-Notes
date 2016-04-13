@@ -228,7 +228,7 @@ require that the type parameter implement an interface so we can make use of a
 specific method or we might only want to store certain kinds of things.  To
 restrict the actual type arguments, we can specify an upper bound.  An **upper
 bound** is a type that serves as an upper limit (in terms of subtyping) on the
-types that can be chosen as a actual type arguments.  The upper bound is
+types that can be chosen as actual type arguments.  The upper bound is
 specified using the reserved word `extends` followed by a type name. We can
 specify multiple upper bounds by separating the type names with an `&`
 character.
@@ -482,7 +482,7 @@ following syntax:
 <formal_type_parameter_list> return_type identifier(parameter_list)
 ```
 
-The formal type parameter list is the same as when specifying a generic type.  
+The formal type parameter list is the same as when specifying a generic type.
 The type parameter can appear as both the method's return type as well as the
 type of parameters in the parameter list.  Java infers the actual type
 arguments from the context in which the method is called.  Here is the list
