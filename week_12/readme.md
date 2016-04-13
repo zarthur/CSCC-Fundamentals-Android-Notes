@@ -220,7 +220,7 @@ to represent a stack of doubles, etc., we can define a generic class once that
 can be use to store any type.
 
 ### Type Parameter Bounds
-*Stack<E>* from the previous example, *List<E>*, and *Map<K, V>* are examples
+*Stack\<E\>* from the previous example, *List\<E\>*, and *Map\<K, V\>* are examples
 where the type parameter is an **unbounded type parameter** - any type can be
 used as the actual type argument.  It is sometimes necessary to restrict kinds
 of actual type arguments that can be passed to a type parameter - we might
@@ -402,15 +402,15 @@ public class Main {
 
 While this seems reasonable, if you type this code in IntelliJ or try to
 compile it with the Java compiler, you'll encounter an error with a message
-about the inability of converting a List<String> to a List<Object>.  In
-general, for a given subtype *x* of type *y* and a given raw type *G*, *G<x>*
-is not a subtype of *G<y>*.
+about the inability of converting a List\<String\> to a List\<Object\>.  In
+general, for a given subtype *x* of type *y* and a given raw type *G*, *G\<x\>*
+is not a subtype of *G\<y\>*.
 
 ![Generic Inheritance](images/generic-inheritance.png)
 
 While *String* is a subtype of *Object*, the polymorphic behavior doesn't apply
-to parameterized types so *List<String>* is not a subtype of *List<Object>*.
-However, *List<String>* is a subtype of *Collection<String>* since the raw
+to parameterized types so *List\<String\>* is not a subtype of *List\<Object\>*.
+However, *List\<String\>* is a subtype of *Collection\<String\>* since the raw
 type *List* is a subtype of *Collection*.
 
 Despite this, we would still like our *displayList* method to work.  We can
@@ -455,7 +455,7 @@ public static void copyList(List<Object> source, List<Object> destination) {
 Its limitation is that it can only be used to copy lists of objects and not
 lists of other element types.  The reason it is limited is because of the
 inheritance issue we encountered when discussing wildcards: if *x* is a subtype
-of *y*, *G<x>* is not necessarily a subtype of *G<y>*.  We might consider using
+of *y*, *G\<x\>* is not necessarily a subtype of *G\<y\>*.  We might consider using
 wildcards to address the problem.
 
 ```java
@@ -522,7 +522,7 @@ elements in the list like we were when we tried to use a method relying on
 generic types with wildcards.
 
 ## Exercise
-Implement a *Queue<E>* generic type similar to the *Stack<E>* type but with
+Implement a *Queue\<E\>* generic type similar to the *Stack\<E\>* type but with
 *enqueue()* and *dequeue()* methods.  The *enqueue()* method adds an element to
 the queue and the *dequeue()* method removes the first/oldest element from the
 queue.  Stacks are often described as being "last-in, first-out" whereas queues
