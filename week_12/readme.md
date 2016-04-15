@@ -162,7 +162,7 @@ class Stack<E> {
             throw new StackFullException();
         }
 
-        elements[index] = element; // increment first, then use as array index
+        elements[index] = element;
         index++;
     }
 
