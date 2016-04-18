@@ -351,10 +351,42 @@ public class Main {
 ```
 
 ## Concurrency Utilities
+Working with the Threads API and *Thread* objects gives us a a low-level way of
+creating code that will execute in multiple threads.  The Concurrency Utilities
+Framework provides a higher-level framework that can be used to address
+problems often encountered when working with the Threads API.  We'll briefly
+examine some of the features of the Concurrency Utilities Framework.
+
 ### Executors
-### Synchronizers
+An *Executor* is an objet that implements the *java.util.concurrent.Executor*
+interface and decouples task submission from task execution.  When working with
+*Thread* objects, the same object is responsible for thread creation and
+running the task.  *Executor* alone isn't all that useful - it doesn't provide
+a way to track running tasks, it can't execute a collection of tasks (like
+*Thread*), and there's no easy way to get a return value from any code executed
+in a thread (also like *Thread*).  For these features, we can instead use an
+instance of *ExecutorService*.  The *java.util.concurrent.Executors* class
+provides methods for creating instances of *ExecutorService*.  
+
+Executors also allow us to represent our tasks by classes that implement the
+*Callable<V>* generic interface where *V* represents the type of a result
+returned by the *call()* method used to represent a task.  This is different
+than the *Runnable* interface and its *run()* method that doesn't allow us to
+return a value.  
+
+When working with an instance of *ExecutorService*, results will often be
+wrapped in *Future* objects.  the *Future* interface represents results that
+will not be available until some time in the future.  Instance of *Future* have
+methods such as *isDone()* and *get()* to check if a value has been assigned
+and to get a value.  
+
+As an example of working with executors, suppose we want to retrieve data from
+several websites.  We can create a thread pool, a collection of threads to
+which tasks are assigned, to collect the data.  While this example won't
+actually get data from the internet, code in a future lecture will.  
+
+
+
 ### Concurrent Collections
-### Locking Framework
-### Atomic Variables
 
 ## Exercise
