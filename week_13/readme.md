@@ -21,8 +21,8 @@ utilities, it's important to understand some low-level concepts.
 ### Runnable and Thread
 The *Runnable* interface is used to supply code for threads to execute.  The
 interface declares a single method, `void run()`, that takes no parameters and
-returns no value.  The following is an example of an an instance created
-using an anonymous class implementing *Runnable*
+returns no value.  The following is an example of an creating a *Runnable*
+instance:
 
 ```Java
 Runnable r = new Runnable() {
@@ -35,10 +35,10 @@ Runnable r = new Runnable() {
 
 The *Thread* class provides a method of interfacing with the underlying
 operating system's thread management.  A single operating system thread is
-associated with a thread instance.  The *Thread* class has a variety of
-constructors, some which take a instance of *Runnable* and some that do not; if
-we do not plan on providing an instance of *Runrable* we must extend *Thread*
-and override its *run()* method, providing code to execute.
+associated with a *Thread* instance.  The *Thread* class has a variety of
+constructors, some of which take a instance of *Runnable* and some that do not;
+if we do not plan on providing an instance of *Runnable* we must extend
+*Thread* and override its *run()* method, providing code to execute.
 
 The following is a simple example of a multi-threaded program.  In addition to
 the main thread, the two threads we create both execute code specified by the
@@ -117,7 +117,7 @@ the other threads to complete execution before resuming main by calling their
 earlier.
 
 Exceptions can occur within threads.  If an exception occurs and it is not
-handled, the thread will terminate.  While we can attempt to handle execptions
+handled, the thread will terminate.  While we can attempt to handle exceptions
 in the *Runnable.run()* method, we might wish to handle similar exceptions in
 the same way regardless of the code in *Runnable.run()*.  To do this, we can
 create an uncaught exception handler.  The following code will cause the thread
@@ -278,7 +278,7 @@ balance unaware that the other thread is about decrease the available balance
 so the `amount <= balance` condition is true in both threads and both
 threads decrease the balance below the available amount. This is an example of
 a race condition.  A **race condition** is a scenario in which multiple threads
-are accessing data and the final result is dependent only on the timing of how
+are accessing data and the final result is dependent on the timing of how
 the threads are executed.  The race condition exists in this example because
 checking the account balance and decreasing it are not atomic.  An
 *atomic operation* is an operation that appears to the system to occur
@@ -590,12 +590,12 @@ a permit lets them past the *permits.acquire()* statement.
 ### Concurrent Collections
 The interfaces and classes we've been using from the Collections framework such
 as *List*, *Set*, *Map*, *ArrayList*, *HashSet*, and *HashMap* are not
-thread-safe.  Objects or code is *thread-safe* when it is guaranteed to be
+thread-safe.  An object or code is *thread-safe* when it is guaranteed to be
 free of race conditions and functions correctly when accessed by multiple
 threads.
 
 One solution to this problem is to use wrapper methods on the
-*java.util.Collections* classto create thread-safe collection objects.  For
+*java.util.Collections* class to create thread-safe collection objects.  For
 example,
 
 ```
