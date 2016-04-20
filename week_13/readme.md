@@ -9,10 +9,10 @@ programs have executed following one path in a single thread, the main thread.
 While this is fine for a lot of programs, it is sometimes necessary to allow
 multiple threads to execute simultaneously.  For example, if we had a lot of
 different, independent tasks to perform, we could executive them at the same
-time in different threads.  Another example is if we had a computationally-
-intensive task that we wanted to perform in the background without interfering
-with the user interface, we might execute that task in a thread separate from
-the one handling the UI.  
+time in different threads.  Another example is if we had a
+computationally-intensive task that we wanted to perform in the background
+without interfering with the user interface, we might execute that task in a
+thread separate from the one handling the UI.  
 
 Since Java 5, Java has included a collection of concurrency utilities that are
 typically preferred for working with threads.  Before we look that those
