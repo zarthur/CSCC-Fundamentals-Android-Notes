@@ -160,6 +160,62 @@ see the output of our program as well.
 
 ## JSON
 
+**JSON** is a language-independent data format used to exchange data using
+human-readable text. JSON is based on JavaScript but can be used with any
+language.  Often, JSON is used to send and receive data to/from another
+program including a web server.
+
+There are six basic data types that are representable in JSON:
+
+1. *Number*: a signed, decimal number that may contain a fractional part,
+2. *String*: a sequence of zero or more unicode characters delimited with
+   double quotes,
+3. *Boolean*: either *true* or *false*,
+4. *Array*: an ordered list of zero or more values each of which can be of
+   any type,
+5. *Object*: an unordered collection of key/value pairs where the keys are
+   strings, and
+6. *null*: an empty value.
+
+The following is an example of a JSON array containing both strings and
+numbers:
+
+```JSON
+[10, "Hello", -4.32, "😀"]
+```
+
+Note that arrays are enclosed in square brackets (`[` and `]`) and elements
+are separated by commas.
+
+The following is an example of a JSON object:
+
+```JSON
+{
+  "name": "columbus",
+  "temperature": 70,
+  "forecast": [70, 65, 82, 54, 60]
+}
+```
+
+JSON objects are enclosed in curly brackets (`{` and `}`), names are strings
+enclosed in double quotes, values are any JSON type, a key is separated from
+a value using a colon, and key/value pairs are separated from one another using
+commas.
+
+##JSON in Java
+Now that we've been introduced to JSON, we'd like to be able to use it in
+Java.  For example, the next lecture will include examples of retrieving and
+sending data from/to a website; we'll use JSON to to facilitate the transfer.
+
+When working with JSON and other similar formats, we often describe the
+process of converting data in our program to JSON as **serialization** or
+**marshalling**. The process of converting JSON data into a data structure our
+program can work with is known as **deserialization**. We'll look at
+deserialization first.
+
+For the following examples, we'll be working with the following JSON data or
+some subset:
+
 ```JSON
 [
     {
@@ -177,8 +233,12 @@ see the output of our program as well.
 ]
 ```
 
+This data consists of a single JSON array where each element is a JSON object.
+Each of the three JSON objects have two key/value pairs.  The first key/value
+pair has a "name" key and a string value.  The second key/value pair has a
+"forecast" key and an array of numbers as the corresponding value.  
 
-## Deserializing JSON in Java
+### Deserialization
 To start, JSON
 
 ```JSON
@@ -190,7 +250,7 @@ To start, JSON
 
 Forecast.class
 ```Java
-package com.myname;
+package com.myname.week_14;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -231,7 +291,7 @@ Don't need setters, Gson uses reflection.
 Main.class:
 
 ```Java
-package com.myname;
+package com.myname.week_14;
 
 import com.google.gson.Gson;
 
@@ -250,7 +310,7 @@ public class Main {
 Many forecasts:
 
 ```Java
-package com.myname;
+package com.myname.week_14;
 
 import com.google.gson.Gson;
 
@@ -272,7 +332,7 @@ public class Main {
 
 Alternative:
 ```Java
-package com.myname;
+package com.myname.week_14;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -305,7 +365,7 @@ Another alternative using custom class:
 ForecastCollection.class:
 
 ```Java
-package com.myname;
+package com.myname.week_14;
 
 import java.util.ArrayList;
 
@@ -316,7 +376,7 @@ public class ForecastCollection extends ArrayList<Forecast> {
 Main.class:
 
 ```Java
-package com.myname;
+package com.myname.week_14;
 
 import com.google.gson.Gson;
 
@@ -337,3 +397,8 @@ public class Main {
     }
 }
 ```
+
+### Serialziation
+
+## Exercise
+Task problem
