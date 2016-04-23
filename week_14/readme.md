@@ -239,7 +239,7 @@ pair has a "name" key and a string value.  The second key/value pair has a
 "forecast" key and an array of numbers as the corresponding value.  
 
 ### Deserialization
-To start, JSON
+To start, let's consider this subset of the JSON data from above:
 
 ```JSON
 {
@@ -248,14 +248,97 @@ To start, JSON
 }
 ```
 
-Forecast.class
+For our examples, we'll store the JSON data in a string and use the Gson
+library to convert between JSON and Java data.
+
 ```Java
 package com.myname.week_14;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        String jsonData = "{\"name\": \"columbus\", \"forecast\": " +
+                "[40, 50, 65, 60, 70]}";
+
+        JsonParser parser = new JsonParser();
+
+        // parse the JSON data and return a JSON object for the top-level data
+        JsonObject jsonObject = parser.parse(jsonData).getAsJsonObject();
+
+        // Iterate through the JSON object
+        // Each key/value in the object can be represented as a
+        // String/JSON element pair
+        for (Map.Entry<String, JsonElement> entry: jsonObject.entrySet() ) {
+
+            // if the value is a JSON array, convert the JSON element to
+            // JSON array and iterate
+            if (entry.getValue().isJsonArray()) {
+                System.out.println(entry.getKey() + ":");
+
+                JsonArray jsonArray = entry.getValue().getAsJsonArray();
+                for (JsonElement element : jsonArray) {
+                    System.out.println("\t" + element);
+                }
+            }
+
+            // if the value is not a JSON array, get it's value
+            else {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+        }
+
+    }
+}
+```
+
+In this example, we start by creating a string representing JSON data.  Note
+that because both Java and JSON strings are enclosed in double quotes, we must
+use a backslash character within the Java string to "escape" the quotes used
+for JSON strings.  Next, we create an instance of *JsonParser* from the Gson
+library and use it to begin processing the JSON data contained in the
+*jsonData* string.  We know that that the outer-most data type in the JSON data
+is an object, so we can ask the parser to return a *JsonObject* using the
+*getAsJsonObject()* method.  Because JSON objects consist of key/value pairs,
+we can iterate through the object, one key/value pair at a time.  Instance
+of *JsonObject* have a method, *entrySet()* that returns a *Map.Entry<>*
+object we can use for iteration.  *Map.Entry<>* requires that we specify the
+key and value types; the keys are Java strings and the values are instances of
+*JsonElement* which is used to represent JSON data of any JSON type.  In this
+case, We know that the values are either JSON arrays or strings.  We can check
+if the value is an array using the *isJsonArray()* array method.  If
+it is an array, we use the *getAsJsonArray()* method to create a *JsonArray*
+object that we can use to further iterate.  In this example, we know that the
+inner array contains numbers.  If we want to display the numbers, we can rely
+on the *JsonElement.toString()* implementation to display the appropriate
+value.  Similarly, if the value in the key/vale pair was not an array, we can
+rely on the *JsonElement.toString()* method to display the value.
+
+While this example shows how we can iterate through JSON data, it doesn't show
+us how to use the data to create a Java object based on the data.
+
+To do that, we can create a class representing forecast data and use it's
+methods to set it's properties using the JSON data.
+
+```Java
+package com.myname.week_14;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class Forecast {
+// a class representing a city's forecast
+class Forecast {
     private String name;
     private List<Double> forecast;
 
@@ -284,28 +367,118 @@ public class Forecast {
         return String.format("The forecast for %s: is %s", name, forecastString);
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        String jsonData = "{\"name\": \"columbus\", \"forecast\": " +
+                "[40, 50, 65, 60, 70]}";
+
+        JsonParser parser = new JsonParser();
+
+        // a Forecast object
+        Forecast forecast = new Forecast();
+
+        JsonObject jsonObject = parser.parse(jsonData).getAsJsonObject();
+
+        for (Map.Entry<String, JsonElement> entry: jsonObject.entrySet() ) {
+
+            // if the value is a JSON array, create a list of values and
+            // assign it to the forecast
+            if (entry.getValue().isJsonArray()) {
+                List<Double> forecastData = new ArrayList<>();
+                JsonArray jsonArray = entry.getValue().getAsJsonArray();
+                for (JsonElement element : jsonArray) {
+                    forecastData.add(element.getAsDouble());
+                }
+                forecast.setForecast(forecastData);
+            }
+
+            // if the value is not a JSON array, it's the forecast's name
+            else {
+                forecast.setName(entry.getValue().getAsString());
+            }
+        }
+
+        //display forecast
+        System.out.println(forecast);
+    }
+}
 ```
 
-Don't need setters, Gson uses reflection.
+Here, we've created a class *Forecast* to represent a city's forecast by
+storing the city's name and a list of temperatures corresponding to the
+forecast.  Now, while iterating through the JSON data, we can use the data to
+assign values to the *Forecast* instance's fields rather than simply displaying
+the values at the console.
 
-Main.class:
+While these two examples, help us understand how to process JSON data
+layer-by-layer, this approach can be tedious and we are likely to accidentally
+introduce errors.  Fortunately, the Gson library provides us with another
+way of creating instances of objects using JSON data.
 
 ```Java
 package com.myname.week_14;
 
+
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+// a class representing a city's forecast
+class Forecast {
+    private String name;
+    private List<Double> forecast;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Double> getForecast() {
+        return new ArrayList<>(forecast);
+    }
+
+    public void setForecast(List<Double> forecast) {
+        this.forecast = forecast;
+    }
+
+    public String toString() {
+        List<String> forecastStrings = new ArrayList<>();
+        for (Double temp: forecast) {
+            forecastStrings.add(temp.toString());
+        }
+        String forecastString = String.join(", ", forecastStrings);
+        return String.format("The forecast for %s: is %s", name, forecastString);
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        String jsonData = "{'name': 'columbus', 'forecast': [40, 50, 65, 60, 70]}";
+        String jsonData = "{\"name\": \"columbus\", \"forecast\": " +
+                "[40, 50, 65, 60, 70]}";
 
         Gson gson = new Gson();
-        Forecast columbus = gson.fromJson(jsonData, Forecast.class);
-        System.out.println(columbus);
-
+        Forecast forecast = gson.fromJson(jsonData, Forecast.class);
+        System.out.println(forecast);
     }
 }
 ```
+
+Using the *Gson* class, we can easily create instances of other classes from
+JSON data.  In this example, the *Gson.fromJson()* method takes two parameters:
+a string containing JSON data and an instance of the generic class *Class<T>*
+used to determine the type of object to create from the JSON data.  
+
+The Gson deserializer relies on field names and types to be able to match JSON
+data with the appropriate fields in the class. While we don't have to provide
+getters and setters for the Gson serializer to work properly, we do have to
+use the JSON object's keys' names as field names in order for the deserializer
+to work properly.  
 
 Many forecasts:
 
