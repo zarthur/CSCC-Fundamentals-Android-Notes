@@ -480,96 +480,228 @@ getters and setters for the Gson serializer to work properly, we do have to
 use the JSON object's keys' names as field names in order for the deserializer
 to work properly.  
 
-Many forecasts:
+So far, we've been working with a single JSON object representing the forecast
+for one city.  What if we wanted to work with our the JSON array above that
+contains three JSON objects?  One solution is to simply use a Java array and
+rely on Gson to create the array elements and add them to the array.
 
 ```Java
 package com.myname.week_14;
 
+
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+// a class representing a city's forecast
+class Forecast {
+    private String name;
+    private List<Double> forecast;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Double> getForecast() {
+        return new ArrayList<>(forecast);
+    }
+
+    public void setForecast(List<Double> forecast) {
+        this.forecast = forecast;
+    }
+
+    public String toString() {
+        List<String> forecastStrings = new ArrayList<>();
+        for (Double temp: forecast) {
+            forecastStrings.add(temp.toString());
+        }
+        String forecastString = String.join(", ", forecastStrings);
+        return String.format("The forecast for %s: is %s", name, forecastString);
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        String jsonData = "[{'name': 'columbus', 'forecast': [40, 50, 65, 60, 70]}," +
-                "{'name': 'cleveland', 'forecast': [35, 40, 55, 60, 65]}," +
-                "{'name': 'cincinnati', 'forecast': [45, 50, 70, 65, 65]}]";
+        String jsonData = "[{\"name\": \"columbus\", \"forecast\": [40, 50, 65, 60, 70]},"
+                + "{\"name\": \"cleveland\", \"forecast\": [35, 55, 60, 45, 65]},"
+                + "{\"name\": \"cincinnati\", \"forecast\": [35, 60, 65, 45, 65]}]";
 
         Gson gson = new Gson();
-
+        // create an array of Forecast elements
         Forecast[] forecasts = gson.fromJson(jsonData, Forecast[].class);
-        for (Forecast cityForecast: forecasts) {
-            System.out.println(cityForecast);
+
+        for (Forecast forecast: forecasts) {
+            System.out.println(forecast);
         }
     }
 }
 ```
 
-Alternative:
+The main difference between this code and the previous example is the line
+
 ```Java
+Forecast[] forecasts = gson.fromJson(jsonData, Forecast[].class);
+```
+
+which creates an array of *Forecast* objects.  Notice that we have to use
+`Forecast[].class` to specify the type of object to produce from the JSON
+data.  Of course, if our JSON data doesn't match this form, we'll encounter
+an error.
+
+If we'd rather store forecasts in a List instead of an array, we can.  When
+working with generic classes, we can't simply rely on the *.class* property.  
+Instead, we must use the Gson *TypeToken* class.  
+
+```java
 package com.myname.week_14;
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+// a class representing a city's forecast
+class Forecast {
+    private String name;
+    private List<Double> forecast;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Double> getForecast() {
+        return new ArrayList<>(forecast);
+    }
+
+    public void setForecast(List<Double> forecast) {
+        this.forecast = forecast;
+    }
+
+    public String toString() {
+        List<String> forecastStrings = new ArrayList<>();
+        for (Double temp: forecast) {
+            forecastStrings.add(temp.toString());
+        }
+        String forecastString = String.join(", ", forecastStrings);
+        return String.format("The forecast for %s: is %s", name, forecastString);
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        String jsonData = "[{'name': 'columbus', 'forecast': [40, 50, 65, 60, 70]}," +
-                "{'name': 'cleveland', 'forecast': [35, 40, 55, 60, 65]}," +
-                "{'name': 'cincinnati', 'forecast': [45, 50, 70, 65, 65]}]";
+        String jsonData = "[{\"name\": \"columbus\", \"forecast\": [40, 50, 65, 60, 70]},"
+                + "{\"name\": \"cleveland\", \"forecast\": [35, 55, 60, 45, 65]},"
+                + "{\"name\": \"cincinnati\", \"forecast\": [35, 60, 65, 45, 65]}]";
 
         Gson gson = new Gson();
 
+        // use TypeToken to dermine List type
         Type forecastListType = new TypeToken<ArrayList<Forecast>>(){}.getType();
         List<Forecast> forecasts = gson.fromJson(jsonData, forecastListType);
 
-        for (Forecast cityForecast: forecasts) {
-            System.out.println(cityForecast);
+        for (Forecast forecast: forecasts) {
+            System.out.println(forecast);
         }
-
     }
 }
 ```
 
-Another alternative using custom class:
+*TypeToken* is a generic class that allows us to specify the type of list we'll
+be working with as the type parameter.  Note that the *TypeToken* constructor
+is protected so we have to create an anonymous subclass to use it.  
 
-ForecastCollection.class:
+Yet another alternative is to create a custom class to represent a list of
+*Forecast* objects like this:
 
-```Java
-package com.myname.week_14;
-
-import java.util.ArrayList;
-
-public class ForecastCollection extends ArrayList<Forecast> {
-}
+```java
+class ForecastCollection extends ArrayList<Forecast> {}
 ```
 
-Main.class:
+With this subclass, we can again rely on the *.class* property.
 
-```Java
+```java
 package com.myname.week_14;
 
+
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+// a class representing a city's forecast
+class Forecast {
+    private String name;
+    private List<Double> forecast;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Double> getForecast() {
+        return new ArrayList<>(forecast);
+    }
+
+    public void setForecast(List<Double> forecast) {
+        this.forecast = forecast;
+    }
+
+    public String toString() {
+        List<String> forecastStrings = new ArrayList<>();
+        for (Double temp: forecast) {
+            forecastStrings.add(temp.toString());
+        }
+        String forecastString = String.join(", ", forecastStrings);
+        return String.format("The forecast for %s: is %s", name, forecastString);
+    }
+}
+
+class ForecastCollection extends ArrayList<Forecast> {}
+
 
 public class Main {
     public static void main(String[] args) {
-        String jsonData = "[{'name': 'columbus', 'forecast': [40, 50, 65, 60, 70]}," +
-                "{'name': 'cleveland', 'forecast': [35, 40, 55, 60, 65]}," +
-                "{'name': 'cincinnati', 'forecast': [45, 50, 70, 65, 65]}]";
+        String jsonData = "[{\"name\": \"columbus\", \"forecast\": [40, 50, 65, 60, 70]},"
+                + "{\"name\": \"cleveland\", \"forecast\": [35, 55, 60, 45, 65]},"
+                + "{\"name\": \"cincinnati\", \"forecast\": [35, 60, 65, 45, 65]}]";
 
         Gson gson = new Gson();
 
+        // use ForecastCollection
         ForecastCollection forecasts = gson.fromJson(jsonData, ForecastCollection.class);
 
-        for (Forecast cityForecast: forecasts) {
-            System.out.println(cityForecast);
+        for (Forecast forecast: forecasts) {
+            System.out.println(forecast);
         }
-
     }
 }
 ```
+
+When writing a program that will create Java objects from JSON data, it's
+important to first examine the structure of the JSON data you'll be working
+with so the deserializer is able to properly create objects from the data.
 
 ### Serialziation
 
