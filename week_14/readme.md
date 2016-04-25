@@ -704,6 +704,108 @@ important to first examine the structure of the JSON data you'll be working
 with so the deserializer is able to properly create objects from the data.
 
 ### Serialziation
+Serialization is the conversation from a Java object to JSON.  One reason for
+needing to serialize our objects is when sending data to a web server.  Some
+web application program interfaces (APIs) support sending complicated data;
+this data is often sent in the form of JSON. Typically,  the code for
+serialization is simpler than the code for deserialization since we already
+know about the structure of the object we're trying to convert. Often
+serialization is as simple as using the *toJson()* method of a *Gson* instance.
+
+The following is an example of serializing an object created by deserializing
+JSON data.  While the example relies on the *ForecastCollection* class,
+serializing a list of *Forecast* elements is just as straightforward.  
+
+```java
+package com.myname.week_14;
+
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+// a class representing a city's forecast
+class Forecast {
+    private String name;
+    private List<Double> forecast;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Double> getForecast() {
+        return new ArrayList<>(forecast);
+    }
+
+    public void setForecast(List<Double> forecast) {
+        this.forecast = forecast;
+    }
+
+    public String toString() {
+        List<String> forecastStrings = new ArrayList<>();
+        for (Double temp: forecast) {
+            forecastStrings.add(temp.toString());
+        }
+        String forecastString = String.join(", ", forecastStrings);
+        return String.format("The forecast for %s: is %s", name, forecastString);
+    }
+}
+
+class ForecastCollection extends ArrayList<Forecast> {}
+
+
+public class Main {
+    public static void main(String[] args) {
+        String jsonData = "[{\"name\": \"columbus\", \"forecast\": [40, 50, 65, 60, 70]},"
+                + "{\"name\": \"cleveland\", \"forecast\": [35, 55, 60, 45, 65]},"
+                + "{\"name\": \"cincinnati\", \"forecast\": [35, 60, 65, 45, 65]}]";
+
+        Gson gson = new Gson();
+
+        ForecastCollection forecasts = gson.fromJson(jsonData, ForecastCollection.class);
+
+        for (Forecast forecast: forecasts) {
+            System.out.println(forecast);
+        }
+
+        // create a string with JSON data
+        System.out.println(gson.toJson(forecasts));
+    }
+}
+```
+
 
 ## Exercise
-Task problem
+Write the necessary code and supporting classes to deserialize the following
+JSON data representing a collection of tasks.  Serialize the resulting objects
+and confirm that the serialization looks similar to the original JSON data.
+
+```JSON
+{
+  "todos": [
+    {
+      "body": "Walk the dog",
+      "done": false,
+      "id": 0,
+      "priority": 3,
+      "title": "dog"
+    },
+    {
+      "body": "Pay the bills",
+      "done": false,
+      "id": 1,
+      "priority": 1,
+      "title": "bills"
+    }
+  ]
+}
+```
