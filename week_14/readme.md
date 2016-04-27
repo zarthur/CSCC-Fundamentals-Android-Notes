@@ -168,8 +168,8 @@ program including a web server.
 There are six basic data types that are representable in JSON:
 
 1. *Number*: a signed, decimal number that may contain a fractional part,
-2. *String*: a sequence of zero or more unicode characters delimited with
-   double quotes,
+2. *String*: a sequence of zero or more Unicode characters enclosed in double 
+   quotes,
 3. *Boolean*: either *true* or *false*,
 4. *Array*: an ordered list of zero or more values each of which can be of
    any type,
