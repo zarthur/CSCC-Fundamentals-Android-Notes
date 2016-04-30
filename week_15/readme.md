@@ -43,18 +43,18 @@ In addition to data associated with the request, the server's response includes
 a status code and text associated with the status code.  HTTP status codes are
 typically three-digit codes grouped by meaning.
 
-- 100-199 - Informational.  These statuses simply indicate that a request was
-  received.
-- 200-299 - Success.  These statuses indicate that the request was received and
-  processed successfully.
-- 300-399 - Redirection. These statuses indicate that a client must do
+- **100-199** - Informational.  These statuses simply indicate that a request
+  was received.
+- **200-299** - Success.  These statuses indicate that the request was received
+  and processed successfully.
+- **300-399** - Redirection. These statuses indicate that a client must do
   something to complete the request; often these are used to indicate that a
   resource has moved and the client must make a new request with the new
   location.
-- 400-499 - Client Error. These statuses indicate that the client has made an
-  error. The most common example is a *404 Not Found* error which occurs when a
-  client requests a resource that cannot be found on the server.
-- 500-599 - Server Error. These statuses indicate that the server failed to
+- **400-499** - Client Error. These statuses indicate that the client has made
+  an error. The most common example is a *404 Not Found* error which occurs
+  when a client requests a resource that cannot be found on the server.
+- **500-599** - Server Error. These statuses indicate that the server failed to
   fulfill an apparently valid request.
 
 When we interact with a server using HTTP, it is important to rely on the
