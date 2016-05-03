@@ -99,6 +99,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
+
 public class Main {
     public static void main(String[] args) {
         try {
@@ -129,8 +131,233 @@ public class Main {
 }
 ```
 
+In this example, we begin by creating an instance of the URL class to store the
+URL we'd like to retrieve data from.  Once we have a URL object, we can open a
+connection to the URL using the *URL.openConnection()* method.  Once we open
+the connection, we'd like to begin reading data.  In order to do this, we have
+to make use of an input stream.  
+
+An **input stream** is a data abstraction that
+allows use to read data from a source. A stream is usually used in situations
+where there is some flow of data - from a file to our program or from a web
+server to a program.  Unlike an array, a stream has no concept of an index - we
+can consume data but we can't move forward and backward as we please with a
+stream.  A reader is a special type of input stream; while an input stream
+can be used with character data or raw data in the form of bytes, a reader is
+only used with character data.  Normally with input streams and readers, we
+consume the data from the stream one byte or character at a time; a buffered
+input stream or reader allow us to consume larger chunks of data at a time -
+this usually improves the performance of our programs.  In our example, we
+rely on a *BufferedReader* to work with character data in chunks.  
+
+Notice that we've also cast the return value of *URL.openConnection()* to a
+*HttpURLConnection* object.  The *HttpURLConnection* class gives us to specify
+the HTTP request method (GET, POST, etc) and gives us access to the response
+status code and message.  GET is used as the default request method.
+
+To access the information in the response, we read data from the
+*BufferedReader* one line at a time until there are no lines left to read.  
+
+Many of these methods can throw checked exceptions that inherit from
+*IOException*; in practice, our try block wouldn't contain all our code and
+we'd handle each exception in the appropriate way.
 
 ### Interacting with a REST API
+Interacting with REST APIs require us to do more than just make GET requests.
+For the following examples, we'll make use of the RESTful Todo App accessible at
+[http://todo.eastus.cloudapp.azure.com/todo-android](http://todo.eastus.cloudapp.azure.com/todo-android)
+which is based on the code described above.  
+
+Looking at the [documentation](https://github.com/zarthur/restful-todo/blob/master/README.md)
+we'll need to make GET, POST, PUT, and DELETE requests.  While we could write
+code the relies entirely on the *HttpURLConnection* class, it can be tedious.  
+Instead, we will make use of the Apache HttpClient library.  To add the library
+to our project, we can add
+
+```
+compile 'org.apache.httpcomponents:httpclient:4.5.2'
+```
+
+to the *dependencies* section of our project's *build.gradle* file.
+
+Our code to make a GET request and display the response can be rewritten like
+this:
+
+```Java
+package com.myname.week_15;
+
+
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+
+class HttpException extends IOException {
+    public HttpException(HttpResponse response) {
+        super(response.getStatusLine().getStatusCode() + ": "
+                + response.getStatusLine().getReasonPhrase());
+    }
+}
+
+class HttpRequests {
+    private CloseableHttpClient client = HttpClientBuilder.create().build();
+
+    // return true if status is between 200 and 300
+    private static boolean isSuccess(HttpResponse response) throws IOException {
+        StatusLine status = response.getStatusLine();
+        return (status.getStatusCode() >= 200 && status.getStatusCode() < 300);
+    }
+
+    public String get(String url) throws IOException {
+        HttpGet request = new HttpGet(url);
+        CloseableHttpResponse response = client.execute(request);
+        try {
+            if (!isSuccess(response)) {
+                throw new HttpException(response);
+            }
+
+            return EntityUtils.toString(response.getEntity());
+        }
+        finally {
+            response.close();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        HttpRequests requests = new HttpRequests();
+        try {
+            System.out.println(requests.get("http://www.example.com"));
+        } catch (IOException e) {
+            System.out.println("Unable to open URL");
+        }
+    }
+}
+```
+
+Here, we create a new class to handle our HTTP requests that relies on a
+*CloseableHttpClient* to make our HTTP requests.  We create the client using
+the *HttpClientBuilder* class that allows us to create a client and specify
+certain client configuration options if necessary. In the *get()* method,
+we use create an instance of the *HttpGet* class using a string-based URL,
+execute the request, and check the status of the response.  If the response
+doesn't indicate success, we throw an exception.  If the response does indicate
+success, we convert the response to a string using a static method on the
+*EntityUtils* class. Comparing this code to the previous example, we see that
+working with the Apache HttpClient library simplifies our code.  
+
+The REST API we're using requires that users log in by providing a username
+and password.  The Apache HttpClient library makes this relatively simple.  
+The following code includes the additions necessary for authentication.  The
+example logs in as a user and prints the result of requesting
+`http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todos` with
+the username `test` and password `test`.
+
+```Java
+package com.myname.week_15;
+
+
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+
+class HttpException extends IOException {
+    public HttpException(HttpResponse response) {
+        super(response.getStatusLine().getStatusCode() + ": "
+                + response.getStatusLine().getReasonPhrase());
+    }
+}
+
+class HttpRequests {
+    private CloseableHttpClient client;
+    private CredentialsProvider credentials = new BasicCredentialsProvider();
+
+    public HttpRequests(String username, String password) {
+        credentials.setCredentials(AuthScope.ANY,
+                new UsernamePasswordCredentials(username, password));
+        client = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(credentials).build();
+    }
+
+    // return true if status is between 200 and 300
+    private static boolean isSuccess(HttpResponse response) throws IOException {
+        StatusLine status = response.getStatusLine();
+        return (status.getStatusCode() >= 200 && status.getStatusCode() < 300);
+    }
+
+    public String get(String url) throws IOException {
+        HttpGet request = new HttpGet(url);
+        CloseableHttpResponse response = client.execute(request);
+        try {
+            if (!isSuccess(response)) {
+                throw new HttpException(response);
+            }
+
+            return EntityUtils.toString(response.getEntity());
+        }
+        finally {
+            response.close();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        HttpRequests requests = new HttpRequests("test", "test");
+        try {
+            System.out.println(
+                    requests.get("http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todos"));
+        } catch (IOException e) {
+            System.out.println("Unable to open URL");
+        }
+    }
+}
+```
+
+The output might include something like this:
+
+```
+{
+  "todos": [
+    {
+      "body": "mow grass",
+      "done": false,
+      "id": 0,
+      "priority": 1,
+      "title": "grass"
+    }
+  ]
+}
+```
+
+Notice that we modified the *HttpRequests* class to to build the
+*CloseableHttpClient* in the constructor using the username and password
+credentials provided.  Subsequent requests made using the client will make use
+of these credentials.  
+
+To fully support the API, we'll need to support POST, PUT, and DELETE methods
+in addition to the GET method we already support.  To effectively work with
+the API, we'll also need to be able to serialize and deserialize JSON from/to
+the appropriate JSON objects.  Lets' add methods to our *HttpRequests* class
+to support the remaining HTTP request methods then work on implementing JSON
+support.
 
 
 ## Exercise
