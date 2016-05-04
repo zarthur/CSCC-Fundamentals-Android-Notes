@@ -805,6 +805,7 @@ method should check if the *Todo* instance has a non-null ID.  If there is a
 valid ID, the method should use the *HttpRequests.put()* method and the
 `/todos/api/v1.0/todo/update/<ID>` endpoint to send the update to the server.  
 
-Once the method is written, demonstrate it's functionality but creating a new
-todo item, getting it from the server using it's title, update the *Todo*
-object in your code, then send it to the server using the newly written method.
+Once the method is written, demonstrate it's functionality by creating a new
+todo item on the server, getting it from the server using its title, updating
+the *Todo* object in your code, then sending it to the server using the newly
+written method.
