@@ -801,8 +801,8 @@ class to communicate with the server.
 
 ## Exercise
 Add an *update()* method that takes a *Todo* instance as a parameter.  The
-method should check if the *Todo* instance has an ID.  If there is an ID, the
-method should use the *HttpRequests.put()* method and the
+method should check if the *Todo* instance has a non-null ID.  If there is a
+valid ID, the method should use the *HttpRequests.put()* method and the
 `/todos/api/v1.0/todo/update/<ID>` endpoint to send the update to the server.  
 
 Once the method is written, demonstrate it's functionality but creating a new
