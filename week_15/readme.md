@@ -512,6 +512,17 @@ public class Main {
 }
 ```
 
+In this code, we've created a *HttpRequests* class to handle *GET*, *POST*,
+*PUT*, and *DELETE* requests.  Compare the *HttpRequests.get()* method to the
+code we wrote previously.  Notice that we were able to reuse a large portion of
+the original code to support the other request methods and place it in the
+*HttpRequests.makeRequest()* method.  Similarly, the *POST* and *PUT* methods
+rely on the same *HttpRequests.addData()* method to attach data to the request.
+
+In *Main.main()* we demonstrate the functionality of the class using the Todo
+REST API.  A next step would be to incorporate the *HttpRequests* class with
+code we've written before to work with todo objects and their JSON
+representations.
 
 
 ## Exercise
