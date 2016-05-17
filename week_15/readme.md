@@ -114,12 +114,10 @@ public class Main {
                     + connection.getResponseCode()
                     + " " + connection.getResponseMessage());
 
-            String line;
             System.out.println("RESPONSE BODY");
-            do {
-                line = input.readLine();
+            while ((String line = input.readLine()) != null) {
                 System.out.println(line);
-            } while (line != null);
+            }
             System.out.println("END OF RESPONSE BODY");
 
         } catch (IOException e) {
