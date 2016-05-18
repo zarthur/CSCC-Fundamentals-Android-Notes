@@ -23,3 +23,7 @@ following the links below.
 ## Projects
 Descriptions of the projects assigned in class and links to supporting files
 can be found [here](projects/readme.md).
+
+## Software Versions
+These notes make use of IntelliJ 15 and the Java 8 JDK (1.8). These notes may
+not be accurate for other versions.

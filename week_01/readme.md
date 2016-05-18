@@ -10,6 +10,9 @@ IntelliJ IDEA Community Edition is a free integrated development environment
 If IntelliJ is not installed, it can be downloaded from the IntelliJ website:
 https://www.jetbrains.com/idea/download.
 
+These notes are written with IntelliJ IDEA 15 and may not be accurate for
+other versions.
+
 Starting IntelliJ for the first time, we will be presented with the welcome
 screen. From here, we can create a new project.
 
