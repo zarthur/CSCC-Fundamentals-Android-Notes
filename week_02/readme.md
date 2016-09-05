@@ -366,9 +366,9 @@ Depending on the values of *currentTemperature* and *warmThreshold*, this will d
 Java's single ternary operator, allows us to write simple if-else statements on
 one line.
 
-| Operator | Symbol | Description|
-|--|--|--|
-| Conditional | `?:`| Given `operand1 ? operand2 : operand3` where *operand1* is of Boolean type and *operand2* and *operand3* are of the same type, return *operand2* if *operand1* evaluates to *true* or *operand3* if *operand1* evaluates to *false* |
+| Operator    | Symbol | Description                                                                                                                                                                                                                         |
+|-------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Conditional | `?:`   | Given `operand1 ? operand2 : operand3` where *operand1* is of Boolean type and *operand2* and *operand3* are of the same type, return *operand2* if *operand1* evaluates to *true* or *operand3* if *operand1* evaluates to *false* |
 
 We can use the conditional operator to rewrite the previous example.
 
