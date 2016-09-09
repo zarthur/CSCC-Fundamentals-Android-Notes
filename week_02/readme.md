@@ -14,20 +14,13 @@ folder.
 Typically, we would create a new project when we start new work but rather than
 creating a new IntelliJ project and GitHub repository for each week's work, we
 will add to our existing project and repository.  To add a folder for this
-week's work, right-click on the top-level directory select **New** and
-**Module** from the context menu. This will be a Java module without any
-special libraries. Let's name the new module *week_01* folder and move our code
-from last week into the new module by dragging and dropping the package folder
-from the old *src* folder to the new *src* folder.  We can now delete the old
-*src* folder. Next, we can create a new module by right-clicking on our project
-folder and selecting **New** and **Module**.  Once we have the new module,
-right-click on it's *src* folder and select **New** and **Package** from the
-context menu. Name the package something similar to *com.myname.week_02*,
-replacing *myname* with your name.
+week's work, right-click on the `java` directory in `src/main` and select 
+**New** and **Package** from the context menu. Name the new module something 
+like *com.myname.week_02*.
 
-Now that we have a new folder for this week's work, we'll need to create a file
-where we can write code. Right-click on the newly created week_2 folder and
-select **New** and **Java Class**.  Let's call this new Java class *Main*.
+Now that we have a new package for this week's work, we'll need to create a 
+file where we can write code. Right-click on the newly created week_2 package 
+and select **New** and **Java Class**.  Let's call this new Java class *Main*.
 We'll talk about classes more later but typically each file corresponds to a
 class in Java. IntelliJ should automatically open the newly created file.
 
