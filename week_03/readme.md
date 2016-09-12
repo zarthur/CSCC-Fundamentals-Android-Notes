@@ -32,29 +32,29 @@ public class Main {
 
         double celsiusLowTemperature = 0.0;
         double celsiusHighTemperature = 9.3;
-        double fahrenheitLowTemperature = 9/5 * celsiusLowTemperature + 32;
-        double fahrenheitHighTemperature = 9/5 * celsiusHighTemperature + 32;
+        double fahrenheitLowTemperature = 9.0/5 * celsiusLowTemperature + 32;
+        double fahrenheitHighTemperature = 9.0/5 * celsiusHighTemperature + 32;
         System.out.println("The low will be " + fahrenheitLowTemperature
                 + " and the high will be " + fahrenheitHighTemperature + ".");
 
         celsiusLowTemperature = -2.4;
         celsiusHighTemperature = 8.3;
-        fahrenheitLowTemperature = 9/5 * celsiusLowTemperature + 32;
-        fahrenheitHighTemperature = 9/5 * celsiusHighTemperature + 32;
+        fahrenheitLowTemperature = 9.0/5 * celsiusLowTemperature + 32;
+        fahrenheitHighTemperature = 9.0/5 * celsiusHighTemperature + 32;
         System.out.println("The low will be " + fahrenheitLowTemperature
                 + " and the high will be " + fahrenheitHighTemperature + ".");
 
         celsiusLowTemperature = 7.7;
         celsiusHighTemperature = 16.8;
-        fahrenheitLowTemperature = 9/5 * celsiusLowTemperature + 32;
-        fahrenheitHighTemperature = 9/5 * celsiusHighTemperature + 32;
+        fahrenheitLowTemperature = 9.0/5 * celsiusLowTemperature + 32;
+        fahrenheitHighTemperature = 9.0/5 * celsiusHighTemperature + 32;
         System.out.println("The low will be " + fahrenheitLowTemperature
                 + " and the high will be " + fahrenheitHighTemperature + ".");
 
         celsiusLowTemperature = 14.1;
         celsiusHighTemperature = 26.3;
-        fahrenheitLowTemperature = 9/5 * celsiusLowTemperature + 32;
-        fahrenheitHighTemperature = 9/5 * celsiusHighTemperature + 32;
+        fahrenheitLowTemperature = 9.0/5 * celsiusLowTemperature + 32;
+        fahrenheitHighTemperature = 9.0/5 * celsiusHighTemperature + 32;
         System.out.println("The low will be " + fahrenheitLowTemperature
                 + " and the high will be " + fahrenheitHighTemperature + ".");
     }
@@ -127,7 +127,7 @@ package com.myname.week_03;
 
 public class Main {
     static void celsiusToFahrenheit(double celsiusValue) {
-        double fahrenheitValue = 9/5 * celsiusValue + 32;
+        double fahrenheitValue = 9.0/5 * celsiusValue + 32;
         System.out.println(celsiusValue + " degrees Celsius is equal to "
                 + fahrenheitValue + " degrees Fahrenheit.");
     }
@@ -177,8 +177,8 @@ method would have resulted in an error.  Similarly, variables declared within
 a method body have a scoped limited to the method.  The variable
 *fahrenheitValue*, is only accessible from within the method.
 
-Arguments are passed to functions in a style known as pass-by-value.  **Pass-by
--value** passes the value of a variable to the method.  In the case
+Arguments are passed to functions in a style known as pass-by-value. 
+**Pass-by-value** passes the value of a variable to the method.  In the case
 of primitive types, the value associated with the variable is passed to the
 method. In the case of reference variables, the value associated with the
 variable is a memory location, so that location is passed to the variable.
@@ -250,7 +250,7 @@ package com.myname.week_03;
 
 public class Main {
     static double celsiusToFahrenheit(double celsiusValue) {
-        double fahrenheitValue = 9/5 * celsiusValue + 32;
+        double fahrenheitValue = 9.0/5 * celsiusValue + 32;
         return fahrenheitValue;
     }
 
