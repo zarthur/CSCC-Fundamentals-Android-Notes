@@ -278,7 +278,7 @@ public class Main {
 
 
 ## Introduction to Packages
-A **package** is a unique namespace that can contain classes and sub-packages.  
+A **package** is a unique namespace that can contain classes and sub-packages. 
 Packages allow us to organize our code in meaningful ways similar to how
 folders and subfolders let us organize files in general on a computer.  In the
 code we've written so far, we've started each Java class file with a `package`

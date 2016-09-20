@@ -64,7 +64,7 @@ A runnable version of the program is available [here](files/project2.jar). One
 way to run this program is by downloading the file and running
 
 ```
-java -jar project1.jar
+java -jar project2.jar
 ```
 
 from a command prompt or terminal.
