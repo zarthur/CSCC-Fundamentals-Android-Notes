@@ -4,7 +4,7 @@
 *Learn Java for Android Development*, pp. 305-318, 404-425, 448-456
 
 ## Collaborating using GitHub
-In addition to providing a publically-accessible place to host our
+In addition to providing a publicly-accessible place to host our
 repositories, GitHub also provides functionality that is helpful when working
 with others.  There are several ways multiple people can work together when
 using Git and GitHub.  The simplest way is for everyone to pull from and
@@ -88,7 +88,7 @@ stored in the root directory of the repository.  To add it to our fork, we can
 right-click on the repository folder in IntelliJ and click *New* and *File*.  
 It is important that the file be named `.gitignore`.  After you create the
 file, IntelliJ will ask if the file should be added to the repository; select
-*Yes*.  You might have the option to install a plugin for use with .gitignore
+*Yes*.  You might have the option to install a plug-in for use with .gitignore
 files; you can install it if you'd like.  
 
 We can add IntelliJ-generated files to our .gitignore file to prevent adding
@@ -227,7 +227,7 @@ wrappers.
 
 ### Primitive Type Wrappers
 **Primitive Type Wrappers** are classes that provide a way of representing
-primative-type-based values using reference types.  The primitive type based
+primitive-type-based values using reference types.  The primitive type based
 wrappers are:
 
 - Boolean
