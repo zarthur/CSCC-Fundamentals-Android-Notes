@@ -342,7 +342,7 @@ public class Main {
 
 
     static void benchmark() {
-        int testEntries = 10000000;  //10 million
+        int testEntries = 1000000;  //1 million
         List<Integer> arrayList = new ArrayList<>();
         List<Integer> linkedList = new LinkedList<>();
 
@@ -386,13 +386,14 @@ the elements can be slow compared to non-sorted sets.
 ```Java
 package com.myname.week_04;
 
+import java.util.Set;
 import java.util.TreeSet;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        TreeSet<String> cities = new TreeSet<>();
+        Set<String> cities = new TreeSet<>();
         cities.add("Dayton");
         cities.add("Columbus");
         cities.add("Cleveland");
@@ -415,13 +416,14 @@ about order, using a HashSet is typically faster than using as TreeSet.
 ```java
 package com.myname.week_02;
 
+import java.util.Set;
 import java.util.HashSet;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        HashSet<String> cities = new HashSet<>();
+        Set<String> cities = new HashSet<>();
         cities.add("Dayton");
         cities.add("Columbus");
         cities.add("Cleveland");
