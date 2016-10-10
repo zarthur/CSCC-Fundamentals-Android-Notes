@@ -11,7 +11,7 @@ kinds of statements are cars have some state information that is common to
 vehicles in general (speed, color) and have behaviors common to all vehicles
 (move, park).  We can say that cars inherit state and behaviors from vehicles.
 **Inheritance** is a hierarchical relationship between similar categories where
-one category inherits state and behaviors from at least one other category.  
+one category inherits state and behaviors from at least one other category.
 
 There are two types of inheritance: implementation inheritance and interface
 inheritance.  **Implementation inheritance** refers to one class being able to
@@ -111,7 +111,7 @@ public class Main {
 ```
 
 In this example, we have a class, *Storm*, with fields and methods.  We also
-have another class, *ThunderStorm*, that extends, or inherits from, *Storm*.  
+have another class, *ThunderStorm*, that extends, or inherits from, *Storm*.
 In Main.main(), we create an instance of ThunderStorm and, because it inherits
 from Storm, make use of methods defined in the Storm class.
 
@@ -185,7 +185,7 @@ class ThunderStorm extends Storm {
             message = "There has been 1 lightning strike.";
         }
         else {
-            message = "There have been " + numberOfLightningStrikes + " lightning strikes.";        
+            message = "There have been " + numberOfLightningStrikes + " lightning strikes.";
         }
         System.out.println(message);
     }
@@ -211,16 +211,16 @@ We've added a field to track the number of lightning strikes and some methods
 that make use of that field to the ThunderStorm class.  If we tried to set the
 number of lightning strikes on an instance of the Storm class, our program
 would not compile because the corresponding method and field only exists for
-the ThunderStorm class.  
+the ThunderStorm class.
 
 What if we wanted to make use of the private fields declared in the Storm class
 in code that we will add to the ThunderStorm class?  As the code is written in
 the previous example, we cannot directly access any of the fields in Storm
 because they are private.  When we called display() from our ThunderStorm
 object, we were able to access the private fields because the display() method
-was defined in the Storm class, the same class as the private fields.  
+was defined in the Storm class, the same class as the private fields.
 In order to grant subclasses access to fields but to prevent other classes from
-directly accessing them, we can use the *protected* access control modifier.  
+directly accessing them, we can use the *protected* access control modifier.
 
 ```java
 package com.myname.week_07_08;
@@ -315,9 +315,9 @@ public class Main {
 By setting the latitude and longitude fields to protected in the base class,
 we can directly access them from the subclass.  Alternatively, we could have
 used the getters and setters provided by the base class since those are set to
-be publicly accessible.  
+be publicly accessible.
 
-Let's add a constructor to our base class.  
+Let's add a constructor to our base class.
 
 ```java
 package com.myname.week_07_08;
@@ -670,7 +670,7 @@ overriding.  Overriding replaces functionality inherited by the base class and
 overloading adds functionality.  To make it clear when we are overriding a
 method as opposed to overloading a base class's method, we can prefix the
 method with the `@Override` annotation.  Annotations are a form of metadata,
-providing information about the program itself without affecting the program.  
+providing information about the program itself without affecting the program.
 If we apply the `@Override` annotation to an overloaded method, the complier
 will report an error.  Below is an example with both overriding and
 overloading.
@@ -787,7 +787,7 @@ public class Main {
 ### The Object Class
 In Java, a class that doesn't explicitly extend another class extends the
 Object class.  Object is the ultimate superclass because it serves as the
-ancestor of every other class and doesn't extend any other class itself.  
+ancestor of every other class and doesn't extend any other class itself.
 Object provides a set of methods that all classes inherit.  Some of these
 methods are listed below.
 
@@ -809,7 +809,7 @@ we mean when we say two things are equal.  For example, if we have a class that
 represents contact information with name and email fields, we might say that
 two contacts are "equal" if the name and email fields are the same.  The
 equals() method in the Object class compares references, so we need to override
-the method if we want to compare objects' fields.  
+the method if we want to compare objects' fields.
 
 Consider the following example:
 
@@ -838,7 +838,7 @@ class Contact {
 
 
 public class Main {
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) {
         Contact bob = new Contact("bob", "bob@bob.com");
         Contact bob2 = new Contact("bob", "bob@bob.com");
 
@@ -871,8 +871,8 @@ encapsulation: a subclass relies on implementation details in the base class
 and if the base implementation changes, the subclass could stop functioning as
 expected.  While this isn't likely to be a problem when we control the code for
 both the base class and derived class, we'll often find it useful to inherit
-from code that we don't control such as a class in a third party library.  
-Changes to the base class can have unexpected effects on the derived class.  
+from code that we don't control such as a class in a third party library.
+Changes to the base class can have unexpected effects on the derived class.
 
 As an example, suppose a third-party library has a contact class similar to
 this one:
@@ -980,7 +980,7 @@ call the new method - our program will run in either case.
 
 Composition can also provide functionality similar to multiple implementation
 inheritance.  A class can wrap many other classes.  For example, a we might
-have classes representing wheels, engines, doors, and other car components.  
+have classes representing wheels, engines, doors, and other car components.
 A car class might wrap all of these classes.
 
 ```java
@@ -1013,7 +1013,7 @@ public class Car {
 ```
 
 Car's implementation can now access the wheels, doors, and engine using the
-values of the corresponding private fields.  
+values of the corresponding private fields.
 
 Inheritance is often described as an "is-a" relationship: a car is a vehicle.
 Composition is often described as a "has-a" relationship: a car has an engine,
@@ -1083,7 +1083,7 @@ Drawing a circle.
 Notice that though we were working with the Shape type in the for loop, the
 subclasses' methods were used when we called Shape.draw().
 
-Java supports four kinds of polymorphism.  
+Java supports four kinds of polymorphism.
 - *coercion*: an operation serves multiple types through implicit conversion.
   for example, while division is defined for two integers or two doubles,
   division of an integer by a double is supported because the compiler coerces
@@ -1256,7 +1256,7 @@ If a method is declared using the reserved word `final`, it cannot be
 overridden and the compiler knows what method to call; this is known as
 **early binding**.
 
-### Downcasting  
+### Downcasting
 Upcasting allows us to move up the inheritance type hierarchy.  We an also move
 down the hierarchy by explicitly casting an instance of a superclass to an
 instance of a subclass.  This is known as **down casting**.  Consider this
@@ -1341,7 +1341,7 @@ returns a Shape object.  We know that the method modifies the object we provide
 rather than creating a new and we'd like to continue to use our object as a
 Rectangle rather than the more generic Shape.  In order to access Rectangle's
 unique methods, we have to downcast the shape returned by the moveRight()
-method back to a Rectangle.  
+method back to a Rectangle.
 
 While upcasting is always safe, downcasting is not.  Consider this example:
 
