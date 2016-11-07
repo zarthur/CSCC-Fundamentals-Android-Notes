@@ -19,7 +19,7 @@ nested classes, we'll look at all four.
 
 ### Static Member Classes
 A **static member class** is a static class enclosed in and a member of another
-class.  As an enclosed in another class, it has access to the outer
+class.  As it is enclosed in another class, it has access to the outer
 class's methods and fields but because it is static, it only has access to
 the static methods and fields.  Consider the following example.  Suppose we
 wanted to create a class for rectangles that stored each rectangle's width and
@@ -106,8 +106,8 @@ subclassed by non-member classes.
 ### Nonstatic Member Classes
 A **nonstatic member class** is a non-static class enclosed in and a member of
 another class.  An instance of a nonstatic member class is implicitly
-associated an instance of the enclosing class and is able to access the outer
-class's instance methods and fields.  
+associated with an instance of the enclosing class and is able to access the 
+outer class's instance methods and fields.  
 
 ```java
 package com.myname.week_11;
