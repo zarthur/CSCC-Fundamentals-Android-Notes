@@ -24,7 +24,7 @@ interface declares a single method, `void run()`, that takes no parameters and
 returns no value.  The following is an example of an creating a *Runnable*
 instance:
 
-```Java
+```java
 Runnable r = new Runnable() {
   @Override
   public void run() {
@@ -36,7 +36,7 @@ Runnable r = new Runnable() {
 The *Thread* class provides a method of interfacing with the underlying
 operating system's thread management.  A single operating system thread is
 associated with a *Thread* instance.  The *Thread* class has a variety of
-constructors, some of which take a instance of *Runnable* and some that do not;
+constructors, some of which take an instance of *Runnable* and some that do not;
 if we do not plan on providing an instance of *Runnable* we must extend
 *Thread* and override its *run()* method, providing code to execute.
 
@@ -45,7 +45,7 @@ the main thread, the two threads we create both execute code specified by the
 *Runnable* instance.  Note that we have to explicitly start a thread by calling
 its *start()* method.
 
-```Java
+```java
 package com.myname.week_13;
 
 public class Main {
@@ -157,7 +157,7 @@ instances of the *Thread* class.  Java offers finer control of setting
 uncaught exception handlers, for example we could have used the
 *setUncaughtExceptionHandler()* method on the thread instance.
 
-```Java
+```java
 package com.myname.week_13;
 
 public class Main {
@@ -208,7 +208,7 @@ must be taken to avoid problems due to this sharing of data.  The following
 example demonstrates a shared checking account form which two people are both
 withdrawing funds.  
 
-```Java
+```java
 package com.myname.week_13;
 
 class CheckingAccount
@@ -282,7 +282,7 @@ are accessing data and the final result is dependent on the timing of how
 the threads are executed.  The race condition exists in this example because
 checking the account balance and decreasing it are not atomic.  An
 *atomic operation* is an operation that appears to the system to occur
-instantaneously and appear to be indivisible.  Note that the call to the
+instantaneously and appears to be indivisible.  Note that the call to the
 *sleep()* method in the example serves to exaggerate the problem. Because the
 comparison between the balance and the withdraw amount and the action of
 decreasing the balance would normally execute so quickly, we might have to run
@@ -295,7 +295,7 @@ before they can access the method.  To synchronize access, we can prefix the
 method header with `synchronized`.  This modified code will not allow the
 balance in the account to fall below zero.
 
-```Java
+```java
 package com.myname.week_13;
 
 class CheckingAccount {
@@ -368,14 +368,14 @@ instance of *ExecutorService*.  The *java.util.concurrent.Executors* class
 provides methods for creating instances of *ExecutorService*.  
 
 Executors also allow us to represent our tasks by classes that implement the
-*Callable<V>* generic interface where *V* represents the type of a result
+*Callable\<V\>* generic interface where *V* represents the type of a result
 returned by the *call()* method used to represent a task.  This is different
 than the *Runnable* interface and its *run()* method that doesn't allow us to
 return a value.  
 
 When working with an instance of *ExecutorService*, results will often be
-wrapped in *Future* objects.  the *Future* interface represents results that
-will not be available until some time in the future.  Instance of *Future* have
+wrapped in *Future* objects. The *Future* interface represents results that
+will not be available until some time in the future. Instances of *Future* have
 methods such as *isDone()* and *get()* to check if a value has been assigned
 and to get a value.  
 
