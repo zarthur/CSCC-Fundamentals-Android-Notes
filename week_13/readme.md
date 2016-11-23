@@ -393,22 +393,20 @@ import java.util.concurrent.*;
 
 // a class to simulate data retrieval
 class SiteDownloader {
-    static final Map<String, String> data;
-
-    // class initializer to set fake site data
-    static {
-        Map<String, String> fakeData = new HashMap<>();
-        fakeData.put("http://www.weather.gov", "Weather Forecast");
-        fakeData.put("http://www.espn.com", "Sports Scores");
-        fakeData.put("http://www.marketwatch.com","Stock Market Data");
-        fakeData.put("http://www.fandango.com", "Movie Showtimes");
-        data = Collections.unmodifiableMap(fakeData);
-    }
-
+    
     // a method to retrieve
     static String get(String URL) {
-        return data.get(URL);
-    }
+        switch (URL) {
+            case "http://www.weather.gov":
+                return "Weather forecast";
+            case "http://www.espn.com":
+                return "Sports scores";
+            case "http://www.marketwatch.com":
+                return "Stock market date";
+            case "http://www.fandango.com":
+                return "Movie showtimes";
+        }
+        return "";    }
 }
 
 public class Main {
