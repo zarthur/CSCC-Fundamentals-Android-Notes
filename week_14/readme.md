@@ -25,7 +25,9 @@ and project name, respectively.
 After creating the new project, you should see many Gradle-related files. We
 can specify our program's dependencies by modifying *build.gradle*.  For the
 work we'll be doing this week, we'll want to use the Gson library so your
-*build.gradle* file will look similar to this:
+*build.gradle* file will look similar to the following. Note that you can find 
+the latest Gson library version at 
+https://mvnrepository.com/artifact/com.google.code.gson/gson
 
 ```
 group 'com.myname'
