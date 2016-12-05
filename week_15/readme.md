@@ -5,11 +5,11 @@
 
 ## HTTP and REST
 **Hypertext transfer protocol (HTTP)** is a means of transferring data
-between a client and a server in based on requests and responses.  A client
-submits a request to a server and the returns a response - usually with some
-data related to the request including status information about the completion
-of the request. Any time you load a web site in a browser, the data is
-retrieved from the server by the browser using HTTP.
+between a client and a server based on requests and responses.  A client
+submits a request to a server and the server returns a response - usually with 
+some data related to the request including status information about the 
+completion of the request. Any time you load a web site in a browser, the data 
+is retrieved from the server by the browser using HTTP.
 
 ### Requests and Responses
 The HTTP standard defines several different types of requests that a client can
@@ -149,9 +149,9 @@ this usually improves the performance of our programs.  In our example, we
 rely on a *BufferedReader* to work with character data in chunks.  
 
 Notice that we've also cast the return value of *URL.openConnection()* to a
-*HttpURLConnection* object.  The *HttpURLConnection* class gives us to specify
-the HTTP request method (GET, POST, etc) and gives us access to the response
-status code and message.  GET is used as the default request method.
+*HttpURLConnection* object.  The *HttpURLConnection* class gives us methods to 
+specify the HTTP request method (GET, POST, etc) and gives us access to the 
+response status code and message.  GET is used as the default request method.
 
 To access the information in the response, we read data from the
 *BufferedReader* one line at a time until there are no lines left to read.  
@@ -244,7 +244,7 @@ Here, we create a new class to handle our HTTP requests that relies on a
 *CloseableHttpClient* to make our HTTP requests.  We create the client using
 the *HttpClientBuilder* class that allows us to create a client and specify
 certain client configuration options if necessary. In the *get()* method,
-we use create an instance of the *HttpGet* class using a string-based URL,
+we create an instance of the *HttpGet* class using a string-based URL,
 execute the request, and check the status of the response.  If the response
 doesn't indicate success, we throw an exception.  If the response does indicate
 success, we convert the response to a string using a static method on the
