@@ -808,4 +808,6 @@ valid ID, the method should use the *HttpRequests.put()* method and the
 `/todos/api/v1.0/todo/update/<ID>` endpoint to send the update to the server.  
 
 Once the method is written, demonstrate it's functionality by adding code 
-to the Main.main() method from the last example in class.
+to the Main.main() method from the last example in class. Because the update 
+method requires that the *Todo* instance have an ID, it should be created using 
+the exisitng method to get a *Todo* by ID.
