@@ -98,9 +98,10 @@ submit links to their fork of the repository.
 ## Project 4
 Project 4 should make use of topics covered during weeks twelve though fifteen.
 
-Modify your code from project 3 to support adding, updating, and listing tasks
-to/from a remote server using JSON and a RESTful API.  The URL used to access
-the server will be provided later in class.  
+Modify your code from project 3 to support adding, updating, removing, listing 
+tasks, and listing task of a certain priority to/from a remote server using 
+JSON and a RESTful API.  The URL used to access the server will be provided 
+later in class.  
 
 Creating and updating a task will require sending JSON to the server in the
 following form:
@@ -118,11 +119,13 @@ objects from the following JSON string:
 
 ```json
 {
-  "body": "Walk the dog",
-  "done": false,
-  "id": 0,
-  "priority": 3,
-  "title": "Dog"
+  "todo": {
+    "body": "mow grass",
+    "done": false,
+    "id": 0,
+    "priority": 1,
+    "title": "grass"
+  }
 }
 ```
 
@@ -156,3 +159,7 @@ following JSON string:
   ]
 }
 ```
+Due to issues with Gradle and IntelliJ, the program does not need to support 
+user interaction using the console; instead, you can hard-code examples of 
+adding a task, updating a task, removing a task, listing tasks, and listing 
+tasks of a given priority.

@@ -659,11 +659,11 @@ class Todo {
         this.priority = priority;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -723,11 +723,15 @@ class TodoAPIWrapper {
     }
 
     // get a todo by id
+    // api returns a todo nested in a JSON object,
+    // need to use nested object with GSON
     public Todo getTodo(int id) {
         String url = hostURL + "/todos/api/v1.0/todo/" + id;
         try {
             String response = requests.get(url);
-            return gson.fromJson(response, Todo.class);
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObject = parser.parse(response).getAsJsonObject();
+            return gson.fromJson(jsonObject.get("todo").toString(), Todo.class);
         } catch (IOException e) {
             System.out.println("Unable to get todo with id" + id);
         }
@@ -803,7 +807,5 @@ method should check if the *Todo* instance has a non-null ID.  If there is a
 valid ID, the method should use the *HttpRequests.put()* method and the
 `/todos/api/v1.0/todo/update/<ID>` endpoint to send the update to the server.  
 
-Once the method is written, demonstrate it's functionality by creating a new
-todo item on the server, getting it from the server using its title, updating
-the *Todo* object in your code, then sending it to the server using the newly
-written method.
+Once the method is written, demonstrate it's functionality by adding code 
+to the Main.main() method from the last example in class.
