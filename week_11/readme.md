@@ -467,12 +467,12 @@ class NewsCollection {
     private List<NewsListener> listeners = new ArrayList<>();
 
     // add a listener
-    public void addViewer(NewsListener listener) {
-        viewers.add(viewer);
+    public void addListener(NewsListener listener) {
+        listeners.add(listener);
     }
 
     // update listeners
-    public void updateViewers(NewsItem item) {
+    public void updateListeners(NewsItem item) {
         for (NewsListener listener: listeners) {
             listener.update(item);
         }
@@ -480,7 +480,7 @@ class NewsCollection {
 
     public void addNewsItem(NewsItem item) {
         collection.add(item);
-        updateViewers(item);
+        updateListeners(item);
     }
 
     public void addNewsItem(String title, String content) {
