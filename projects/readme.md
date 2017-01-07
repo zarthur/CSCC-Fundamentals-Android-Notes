@@ -119,13 +119,11 @@ objects from the following JSON string:
 
 ```json
 {
-  "todo": {
-    "body": "mow grass",
-    "done": false,
-    "id": 0,
-    "priority": 1,
-    "title": "grass"
-  }
+  "body": "mow grass",
+  "done": false,
+  "uuid": "05494bb0a-e8c8-49b8-a584-ccdcc4f0e1f8",
+  "priority": 1,
+  "title": "grass"
 }
 ```
 
@@ -138,21 +136,21 @@ following JSON string:
     {
       "body": "Walk the dog",
       "done": false,
-      "id": 0,
+      "uuid": "5494bb0a-e8c8-49b8-a584-ccdcc4f0e1f8",
       "priority": 3,
       "title": "dog"
     },
     {
       "body": "Prepare dinner",
       "done": false,
-      "id": 1,
+      "uuid": "f012b899-3819-44fd-91c7-2f06fddffb99",
       "priority": 1,
       "title": "Dinner"
     },
     {
       "body": "Take out the trash",
       "done": false,
-      "id": 2,
+      "uuid": "ae9e6e7a-758f-43c4-8b0f-1c17c8ba05fd",
       "priority": 5,
       "title": "Trash"
     }

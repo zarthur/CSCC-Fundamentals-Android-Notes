@@ -181,7 +181,7 @@ to the *dependencies* section of our project's *build.gradle* file.
 Our code to make a GET request and display the response can be rewritten like
 this:
 
-```Java
+```java
 package com.myname.week_15;
 
 
@@ -258,7 +258,7 @@ example logs in as a user and prints the result of requesting
 `http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todos` with
 the username `test` and password `test`.
 
-```Java
+```java
 package com.myname.week_15;
 
 
@@ -331,13 +331,13 @@ public class Main {
 
 The output might include something like this:
 
-```
+```json
 {
   "todos": [
     {
       "body": "mow grass",
       "done": false,
-      "id": 0,
+      "uuid": "ae9e6e7a-758f-43c4-8b0f-1c17c8ba05fd'",
       "priority": 1,
       "title": "grass"
     }
@@ -723,15 +723,11 @@ class TodoAPIWrapper {
     }
 
     // get a todo by id
-    // api returns a todo nested in a JSON object,
-    // need to use nested object with GSON
     public Todo getTodo(int id) {
         String url = hostURL + "/todos/api/v1.0/todo/" + id;
         try {
             String response = requests.get(url);
-            JsonParser parser = new JsonParser();
-            JsonObject jsonObject = parser.parse(response).getAsJsonObject();
-            return gson.fromJson(jsonObject.get("todo").toString(), Todo.class);
+            return gson.fromJson(response, Todo.class);
         } catch (IOException e) {
             System.out.println("Unable to get todo with id" + id);
         }
