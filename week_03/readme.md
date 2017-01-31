@@ -4,9 +4,9 @@
 *Learn Java for Android Development*, pp. 107-124, 275-276
 
 ## Methods
-As our programs become more complex, it becomes import to divide and organize
-our code in a meaningful way.  For example, if we perform the same set of
-steps by executing similar sets of statements, we might want to be able to
+As our programs become more complex, it becomes important to divide and 
+organize our code in a meaningful way.  For example, if we perform the same set 
+of steps by executing similar sets of statements, we might want to be able to
 group those steps together and write them only once rather than writing them
 over and over again.  Often we can do this sort of grouping using looping
 statements. Another way to group parts of our code is by behavior.
