@@ -261,7 +261,7 @@ examined.
 
 An example of using a LinkedList is very similar to one for an ArrayList:
 
-```Java
+```java
 package com.myname.week_04;
 
 import java.util.LinkedList;
@@ -300,15 +300,15 @@ public class Main {
 
 When reading about the object-oriented design paradigm and interfaces, you
 might encounter the following phrase: "Program to an interface, not an
-implementation."  This means when declaring a variable or defining a method,
-its often more convenient to use the name of the most basic class or interface
-that supports your needs as the data type than the class of the instance you
-might be creating or passing to a method.
+implementation."  Part of what this means is that when declaring a variable or 
+defining a method, it's often more convenient to use the name of the most basic 
+class or interface that supports your needs as the data type than the class of 
+the instance you might be creating or passing to a method.
 
 Consider this example that allows us to see that adding to an ArrayList is
 slower than adding to a LinkedList but iterating through an ArrayList is faster.
 
-```Java
+```java
 package com.myname.week_02;
 
 import java.util.ArrayList;
@@ -383,7 +383,7 @@ A TreeSet stores elements based on a tree structure with each element linked to
 others.  This results in elements being stored in a sorted order but accessing
 the elements can be slow compared to non-sorted sets.
 
-```Java
+```java
 package com.myname.week_04;
 
 import java.util.Set;
@@ -522,7 +522,7 @@ the `.hashCode()` method.  A HashMap makes no guarantee about order. Let's look
 at a modified version of the previous example. In general, a HashMap performs
 better than a TreeMap with regard to accessing elements.
 
-```Java
+```java
 package com.myname.week_04;
 
 import java.util.HashMap;
