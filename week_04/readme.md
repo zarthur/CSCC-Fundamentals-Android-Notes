@@ -576,16 +576,24 @@ notice that we only had to make a change in one place to use a HashMap instead
 of a TreeMap.  This is the convenience of programming to interfaces.
 
 ## Exercise
-Write a program that first prompts the user to enter a list of city names, one
-at a time until the user specifies "END".  Next, the program should prompt the
-user to enter the average daily temperature for each of the next five days for
-each city. The program should store the user's cities and temperature data in
-one data structure.  Next, calculate the five-day average for each city.  
-Finally, display a message containing the city's name and the average for each
-city.
+Suppose we have read the contents of a text file into a string array.  Write 
+a program that determines and displays the number of times each word in the 
+array appears. For example, if the string array were
 
-The code to prompt the user for input, to calculate the five-day average, and
-to display the results should be in separate methods.
+```java
+String[] data = {"It", "was", "the", "best", "of", "times", "It", "was", "the",
+        "worst", "of", "times"};
+```
 
-Hint: You can use `String.split(" ")` to split a string into an array of
-strings based on where spaces occur in the original string.  
+the output of the program would be 
+
+```
+It: 2
+was: 2
+the: 2
+best: 1
+of: 2
+times: 2 
+worst: 1
+```
+
