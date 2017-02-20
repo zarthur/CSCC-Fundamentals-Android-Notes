@@ -76,12 +76,13 @@ track of the order using the *stack*.  When an exception or error occurs,
 information about which methods were called and their order is often available
 as a *stack trace*.
 
-Java provides two classes serve as the base classes of exceptions and errors.
-The base class is `Throwable` and has several methods that are useful in
-diagnosing problems when exceptions or errors occur. When a The classes for
-exceptions and errors are `Exception` and `Error`.  These subclasses implement
-all the methods the `Throwable` class does. We'll discuss base classes,
-subclasses, and inheritance later in the course.
+Java provides a class that serves as the base classes of exceptions and 
+errors. This base class is `Throwable` and has several methods that are useful in
+diagnosing problems when exceptions or errors occur. Based on `Throwable` are 
+two classes unique to exceptions and errors, `Exception` and `Error` 
+respectively.  These subclasses implement all the methods the `Throwable` 
+class does. We'll discuss base classes, subclasses, and inheritance 
+later in the course.
 
 For now, let's look at the method's available to instances of the `Throwable`
 class.
@@ -132,12 +133,12 @@ Exception and it's subclasses except RuntimeException and it's subclasses
 represent checked exceptions.
 
 An **unchecked** or **runtime exception** is an exception that doesn't need
-to be handled.  Runtime exceptions often represent a coding mistake.  
-Rather than writing code to handle these exceptions caused by mistakes, one
-should instead fix the coding mistake.  This was the design philosophy behind
-the decision to implement both checked and unchecked exceptions in Java.  
-Often, however, you will see code for handling unchecked exceptions such
-as NumberFormatException which we encountered earlier.
+to be handled or can't be handled well ahead of time. If possible, code that 
+often generates runtime exceptions should be rewritten. This was the design 
+philosophy behind the decision to implement both checked and unchecked 
+exceptions in Java. Sometimes, unchecked exceptions cannot be avoided and 
+occur often enough that we will add code to handle them; one example is 
+NumberFormatException which we encountered earlier.
 
 ## Throwing Exceptions
 When exceptions occur in the code we write, one option we have for dealing with
@@ -435,7 +436,7 @@ public class Main {
 }
 ```
 
-In this example, we have a finally block that simply displays some text.  
+In this example, we have a finally block that simply displays some text. 
 Regardless of whether the user enters valid input or not, the text will be
 displayed.  Note that when you run this program and enter an invalid integer,
 the finally block will not immediately execute because the catch block is
