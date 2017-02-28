@@ -43,9 +43,7 @@ Here, *DerivedClass* inherits methods and fields from *BaseClass*.  A base
 class is also be called a parent class or super class.  A derived class is also
 known as a child class or subclass.  Let's look at an example.
 
-```Java
-package com.myname.week_07_08;
-
+```java
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
 class Storm {
@@ -118,9 +116,7 @@ from Storm, make use of methods defined in the Storm class.
 We can add additional fields and methods to our subclass to represent state
 or behaviors specific to the subclass but not appropriate for the base class.
 
-```Java
-package com.myname.week_07_08;
-
+```java
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
 class Storm {
@@ -223,8 +219,6 @@ In order to grant subclasses access to fields but to prevent other classes from
 directly accessing them, we can use the *protected* access control modifier.
 
 ```java
-package com.myname.week_07_08;
-
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
 class Storm {
@@ -320,8 +314,6 @@ be publicly accessible.
 Let's add a constructor to our base class.
 
 ```java
-package com.myname.week_07_08;
-
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
 class Storm {
@@ -442,8 +434,6 @@ code below, we'll use super() with parameters to access the custom constructor
 we wrote for Storm from within the ThunderStorm class.
 
 ```java
-package com.myname.week_07_08;
-
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
 class Storm {
@@ -559,8 +549,6 @@ it with an implementation tailored to the derived class.  We can use *super*
 from within the derived class to access the base class's methods.
 
 ```java
-package com.myname.week_07_08;
-
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
 class Storm {
@@ -676,8 +664,6 @@ will report an error.  Below is an example with both overriding and
 overloading.
 
 ```java
-package com.myname.week_07_08;
-
 enum Direction {NORTH, SOUTH, EAST, WEST};
 
 class Storm {
@@ -814,8 +800,6 @@ the method if we want to compare objects' fields.
 Consider the following example:
 
 ```java
-package com.myname.week_07_08;
-
 class Contact {
     public String name;
     public String email;
@@ -878,8 +862,6 @@ As an example, suppose a third-party library has a contact class similar to
 this one:
 
 ```java
-package com.myname.week_07_08;
-
 public class Contact {
     public String name;
     public String email;
@@ -896,8 +878,6 @@ functionality - the ability to send an email, for example.  We can extend the
 Contact class like this:
 
 ```java
-package com.myname.week_07_08;
-
 public class BetterContact extends Contact {
     BetterContact(String name, String email) {
         super(name, email);
@@ -912,11 +892,9 @@ public class BetterContact extends Contact {
 
 And use the new BetterContact class:
 
-package com.myname.week_07_08;
-
 ```java
 public class Main {
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) {
         BetterContact bob = new BetterContact("Bob", "bob@bob.com");
         bob.sendEmail("Hi");
     }
@@ -927,9 +905,7 @@ Suppose, that the maintainer of the Contact class releases an updated version
 of their library and adds email functionality.  The new contact class might
 look like this:
 
-```
-package com.myname.week_07_08;
-
+```java
 public class Contact {
     public String name;
     public String email;
@@ -956,8 +932,6 @@ than extending the Contact class, BetterContact can *wrap* the class by
 keeping a private field representing a Contact object.
 
 ```java
-package com.myname.week_07_08;
-
 public class BetterContact {
     private Contact contact;
 
@@ -984,8 +958,6 @@ have classes representing wheels, engines, doors, and other car components.
 A car class might wrap all of these classes.
 
 ```java
-package com.myname.week_07_08;
-
 class Wheel {
     //Wheel implementation
 }
@@ -1032,8 +1004,6 @@ of this, we say that the Shape.draw() method has many forms or that it is
 Here is code based on the shape example:
 
 ```java
-package com.myname.week_07_08;
-
 class Shape {
     public void draw() {
         System.out.println("Drawing a shape.");
@@ -1108,8 +1078,6 @@ Java supports four kinds of polymorphism.
 Consider the following example:
 
 ```java
-package com.myname.week_07_08;
-
 class Shape {
     private int centerX;
     private int centerY;
@@ -1182,8 +1150,6 @@ functionality, let's look at this code:
 
 
 ```java
-package com.myname.week_07_08;
-
 class Shape {
     private int centerX;
     private int centerY;
@@ -1263,8 +1229,6 @@ instance of a subclass.  This is known as **down casting**.  Consider this
 example:
 
 ```java
-package com.myname.week_07_08;
-
 class Shape {
     private int centerX;
     private int centerY;
@@ -1345,9 +1309,7 @@ method back to a Rectangle.
 
 While upcasting is always safe, downcasting is not.  Consider this example:
 
-```Java
-package com.myname.week_07_08;
-
+```java
 class Shape {
     private int centerX;
     private int centerY;
