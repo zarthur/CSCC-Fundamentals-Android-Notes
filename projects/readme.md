@@ -91,6 +91,8 @@ appropriate interface so that a for-each loop can be used to iterate through
 all the tasks.  The order in which the tasks are returned for the for-each loop
 is up to you.
 
+Test this new functionality.
+
 Be sure to commit your code and push it to GitHub.  If you would like to
 work in teams, use forks and pull requests; individual team members should
 submit links to their fork of the repository.
