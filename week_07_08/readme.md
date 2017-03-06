@@ -215,8 +215,9 @@ the previous example, we cannot directly access any of the fields in Storm
 because they are private.  When we called display() from our ThunderStorm
 object, we were able to access the private fields because the display() method
 was defined in the Storm class, the same class as the private fields.
-In order to grant subclasses access to fields but to prevent other classes from
-directly accessing them, we can use the *protected* access control modifier.
+In order to grant subclasses access to fields but to prevent other classes in 
+different packages from directly accessing them, we can use the *protected* 
+access control modifier.
 
 ```java
 enum Direction {NORTH, SOUTH, EAST, WEST};
