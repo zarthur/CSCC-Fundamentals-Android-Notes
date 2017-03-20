@@ -4,7 +4,7 @@
 *Learn Java for Android Development*, pp. 167-169, 174-183
 
 ## Abstract Classes and Abstract Methods
-Imaging that we wanted to create classes representing different kinds of
+Imagine that we wanted to create classes representing different kinds of
 animals.  We could start with an *Animal* base class that contained all the
 state and behavior shared by all animals and create subclasses to represent
 specific animal species.  For example, we could write the following to
@@ -1210,10 +1210,14 @@ When implementing the *Comparable* interface, we must implement the
 *compareTo()* method.  The method takes a single parameter - the object we
 are comparing with the current object.  The method returns an integer.  A
 negative return value means the current object is "less than" the other object,
-a positive return value means the current object is "greater than" the other
-object, and a return value of 0 means the two objects are equal.  In this
-example, we rely on the fact that the *String* class implements the
-*Comparable* interface and use its *compareTo()* method to compare the name
+ meaning the current object would appear before the other when sorted; a 
+ positive return value means the current object is "greater than" the other
+object, meaning that the current object would appear after the other object 
+when sorted; and a return value of 0 means the two objects could appear in 
+either order. Note that value returned by *compareTo()* is distinct from the 
+value returned by *equals()*; ideally these would be consistent. In this 
+example, we rely on the fact that the *String* class implements the 
+*Comparable* interface and use its *compareTo()* method to compare the name 
 string and the email string.  
 
 When the program is run the contact information for Arthur should be printed
