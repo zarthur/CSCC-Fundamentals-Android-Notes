@@ -2,6 +2,10 @@
 Lecture notes and supporting material for the Programming Fundamentals for
 Android course at Columbus State Community College.
 
+## Book
+These notes are based on the book used in the course: 
+Learn Java for Android Development by Jeff Friesen
+
 ## Lecture Notes
 Weekly lecture notes can be found in the various subdirectories or by
 following the links below.
