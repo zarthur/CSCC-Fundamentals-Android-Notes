@@ -24,8 +24,6 @@ parameter.  Suppose we had a *Contact* class that stored a contact's name and
 email address and we wanted to store a collection of contacts in a list.
 
 ```java
-package com.myname.week_12;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,21 +125,19 @@ generics.
    known. For example, `List<?> aList;` indicates that the type of the list
    elements is unknown.
 
-Every generic type also identifies a raw type.  A *raw type* is a generic type
-without its type parameters.  Raw types are not generic types themselves and
-can be used as if `Object` were specified as the type parameter but without any
-type safety checks.
+Every generic type also identifies a raw type.  A *raw type* is specified using 
+a generic type without its type parameters.  Raw types are not generic types 
+themselves and can be used as if `Object` were specified as the type parameter 
+but without anytype safety checks.
 
 ### Declaring and Using Generic Types
-In order to declaring and use generic types, we must specify a formal type
+In order to declare and use generic types, we must specify a formal type
 parameter list when declaring a class or interface and make use of the type
 parameters in the implementation.  Suppose we wanted to create a stack, a
 collection of elements supporting two operations: *push* to add an element
 and *pop* to remove the most recently added element.  
 
 ```java
-package com.myname.week_12;
-
 class StackFullException extends Exception {}
 
 class StackEmptyException extends Exception {}
@@ -455,8 +451,8 @@ public static void copyList(List<Object> source, List<Object> destination) {
 Its limitation is that it can only be used to copy lists of objects and not
 lists of other element types.  The reason it is limited is because of the
 inheritance issue we encountered when discussing wildcards: if *x* is a subtype
-of *y*, *G\<x\>* is not necessarily a subtype of *G\<y\>*.  We might consider using
-wildcards to address the problem.
+of *y*, *G\<x\>* is not necessarily a subtype of *G\<y\>*.  We might consider 
+using wildcards to address the problem.
 
 ```java
 public static void copyList(List<? extends String> source, List<? super String> destination) {
@@ -467,8 +463,8 @@ public static void copyList(List<? extends String> source, List<? super String> 
 ```
 
 Here, *source* is any type that is a subtype of *String* or *String* itself
-(*String* is an upper bound) and *destination* is any type of which *String* is
-a supertype or *String* itself (*String* is a lower bound).  Note that we
+(*String* is an upper bound) and *destination* is any type which is a supertype 
+of *String* is or *String* itself (*String* is a lower bound).  Note that we
 cannot specify lower bounds as formal type parameters when creating generic
 classes.  While this code will work to copy lists of strings, it is limited
 to lists of strings and lists of *Object* elements.  We'd like to create a copy
