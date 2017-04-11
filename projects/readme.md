@@ -114,7 +114,7 @@ data representing two tasks might appear as follows:
     "title": "dog"
   },
   {
-    "title": "Prepare dinner",
+    "description": "Prepare dinner",
     "priority": 1,
     "title": "Dinner"
   }
