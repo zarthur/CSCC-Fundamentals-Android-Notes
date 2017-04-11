@@ -98,68 +98,25 @@ work in teams, use forks and pull requests; individual team members should
 submit links to their fork of the repository.
 
 ## Project 4
-Project 4 should make use of topics covered during weeks twelve though fifteen.
+Project 4 should make use of topics covered during weeks twelve though fourteen.
 
-Modify your code from project 3 to support adding, updating, removing, listing 
-tasks, and listing task of a certain priority to/from a remote server using 
-JSON and a RESTful API.  The URL used to access the server will be provided 
-later in class.  
-
-Creating and updating a task will require sending JSON to the server in the
-following form:
+Modify your code from project 3 to support saving and loading task data to/from 
+a file.  The program should try to load the task data when the program starts 
+and save the task data when the user decides to exit the program. Task 
+information should be stored in the file as JSON data. For example, the file 
+data representing two tasks might appear as follows:
 
 ```json
-{
-  "title":"Car",
-  "priority": 2,
-  "body":"Wash the car"
-}
+[
+  {
+    "description": "Walk the dog",
+    "priority": 2,
+    "title": "dog"
+  },
+  {
+    "title": "Prepare dinner",
+    "priority": 1,
+    "title": "Dinner"
+  }
+]
 ```
-
-Retrieving an individual task will require that your program be able to create
-objects from the following JSON string:
-
-```json
-{
-  "body": "mow grass",
-  "done": false,
-  "uuid": "05494bb0a-e8c8-49b8-a584-ccdcc4f0e1f8",
-  "priority": 1,
-  "title": "grass"
-}
-```
-
-Retrieving all tasks will require that your program be able to process the
-following JSON string:
-
-```json
-{
-  "todos": [
-    {
-      "body": "Walk the dog",
-      "done": false,
-      "uuid": "5494bb0a-e8c8-49b8-a584-ccdcc4f0e1f8",
-      "priority": 3,
-      "title": "dog"
-    },
-    {
-      "body": "Prepare dinner",
-      "done": false,
-      "uuid": "f012b899-3819-44fd-91c7-2f06fddffb99",
-      "priority": 1,
-      "title": "Dinner"
-    },
-    {
-      "body": "Take out the trash",
-      "done": false,
-      "uuid": "ae9e6e7a-758f-43c4-8b0f-1c17c8ba05fd",
-      "priority": 5,
-      "title": "Trash"
-    }
-  ]
-}
-```
-Due to issues with Gradle and IntelliJ, the program does not need to support 
-user interaction using the console; instead, you can hard-code examples of 
-adding a task, updating a task, removing a task, listing tasks, and listing 
-tasks of a given priority.
