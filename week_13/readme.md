@@ -504,7 +504,7 @@ have been waiting longer for a permit.
 The following example is a modified version of the checking account example
 from earlier using an executor service and a semaphore.
 
-```Java
+```java
 package com.myname.week_13;
 
 import java.util.concurrent.ExecutorService;

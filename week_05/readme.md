@@ -15,7 +15,7 @@ other object-oriented languages, we can create our own classes.
 In all the examples we've worked with so far, we've relied on a class named
 *Main* specified by code that looks like this:
 
-```Java
+```java
 public class Main {
     //additional Java code
 }
@@ -25,7 +25,7 @@ This code declares a class named *Main* and the code associated with it is
 written between the two braces. The minimal syntax required for declaring a
 class is:
 
-```Java
+```java
 class Name {
     //class member declarations
 }
@@ -43,7 +43,7 @@ additional language features.
 Continuing with the weather theme of previous weeks, let's create a class
 that represents weather data at a specific time for a specific location.
 
-```Java
+```java
 package com.myname.week_05;
 
 class WeatherData {
@@ -80,7 +80,7 @@ the class's name is followed by parentheses containing a comma-separated
 parameter list that can be used when the constructor is called.  Let's look
 at an example.
 
-```Java
+```java
 package com.myname.week_05;
 
 class WeatherData {
@@ -122,7 +122,7 @@ created a default constructor.  A *default constructor* is used to when no
 other constructor is specified.  It takes no arguments.  The default
 constructor for the *WeatherData* class would be equivalent to
 
-```Java
+```java
 WeatherData(){}
 ```
 
@@ -130,7 +130,7 @@ Once we explicitly define a constructor, the default constructor is no longer
 available.  Java allows us to specify multiple constructors, so we could add
 the default constructor (and others) if we'd like.
 
-```Java
+```java
 package com.myname.week_05;
 
 class WeatherData {
@@ -196,7 +196,7 @@ We can effectively make a class field a constant by using the reserved word
 *final*.  This will prevent changes to the field.  A convention is to write
 variable names with all capital letters when they represent constants.
 
-```Java
+```java
 package com.myname.week_05;
 
 class WeatherData {
@@ -268,7 +268,7 @@ class field is that a class field requires the use of the reserved word
 
 Let's add some instance fields to our WeatherData class.
 
-```Java
+```java
 package com.myname.week_05;
 
 class WeatherData {
@@ -606,7 +606,7 @@ What if we wanted to perform a check on the value the specified for the
 temperature and make sure it was greater than a minimal value?  This is one
 reason to use *setters* and to prevent access directly to the instance field.
 
-```Java
+```java
 package com.myname.week_05;
 
 class WeatherData {

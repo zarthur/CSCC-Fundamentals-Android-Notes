@@ -347,7 +347,7 @@ interface when defining a class using the `implements` reserved word.  When
 implementing an interface in a class that isn't abstract, we must provide an
 implementation for the methods declared in the interface.
 
-```Java
+```java
 package com.myname.week_09_10;
 
 interface Flier {
@@ -842,7 +842,7 @@ Rather that writing the *Playlist* class to make use of a specific
 implementation (the *Song* class), the class would be more flexible if we
 wrote it to work with the *Playable* interface.  
 
-```Java
+```java
 class Playlist {
     private String name;
     private ArrayList<Playable> playlistItems = new ArrayList<>();
@@ -1112,7 +1112,7 @@ us to so sort collections of objects that implement the interface.
 Suppose we have a class for contact information and an ArrayList to store our
 contacts.
 
-```Java
+```java
 package com.myname.week_09_10;
 
 import java.util.ArrayList;

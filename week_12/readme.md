@@ -234,7 +234,7 @@ audio through the computer's speakers.  We'd like to create a stack of objects
 that are both displayable on screen and playable through the speakers so we
 can create a playlist and then play all the items.
 
-```Java
+```javaava
 package com.myname.week_12;
 
 import java.util.ArrayList;
@@ -341,7 +341,7 @@ don't implement these interfaces.
 A type parameter's scope is the entirety of the corresponding generic type
 unless the type parameter is masked/hidden. Consider this example:
 
-```Java
+```javaava
 class EnclosingClass<T> {
     static class EnclosedClass<T extends Comparable<T>> {
     }
@@ -357,7 +357,7 @@ to the unbounded type parameter associated with *EnclosingClass*.  To avoid
 confusion, a different name should be given to *EnclosedClass*'s type
 parameter.
 
-```Java
+```javaava
 class EnclosingClass<T> {
     static class EnclosedClass<U extends Comparable<U>> {
     }

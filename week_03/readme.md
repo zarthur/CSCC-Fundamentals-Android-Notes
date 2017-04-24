@@ -245,7 +245,7 @@ must also specify the appropriate return type when defining the method.  Let's
 look at an example that includes a temperature conversion method that returns
 the calculated value.
 
-```Java
+```java
 package com.myname.week_03;
 
 public class Main {
@@ -284,7 +284,7 @@ example also demonstrates that we can call methods from other methods besides
 the main() method.  Typically, the main() method will only have what is
 necessary to start the program.
 
-```Java
+```java
 package com.myname.week_03;
 
 public class Main {
@@ -412,7 +412,7 @@ make extensive use of the standard library.
 Another method that might be of interest to us is one that allows us to convert
 strings to integers.  
 
-```Java
+```java
 package com.myname.week_03;
 
 public class Main {
