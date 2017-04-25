@@ -74,59 +74,6 @@ settings similar to those below.
 
 ![IntelliJ Run Configuration](images/intellij-config.png)
 
-While we're setting up our project, let's create a *.gitignore* file.  The
-following will exclude user-specific configuration files from our Git
-repository.
-
-```
-## Gradle
-.gradle
-build/
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Cache of project
-.gradletasknamecache
-
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-gradle/wrapper/gradle-wrapper.properties
-
-## IntelliJ
-# User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
-
-# Sensitive or high-churn files:
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-
-# Gradle:
-.idea/gradle.xml
-.idea/libraries
-
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
-
-## File-based project format:
-*.iws
-
-## Plugin-specific files:
-
-# IntelliJ
-/out/
-```
-
 Now, if we create a *Main* class file and add the following code, we should be
 able to run the project.
 
@@ -204,7 +151,7 @@ enclosed in double quotes, values are any JSON type, a key is separated from
 a value using a colon, and key/value pairs are separated from one another using
 commas.
 
-##JSON in Java
+## JSON in Java
 Now that we've been introduced to JSON, we'd like to be able to use it in
 Java.  For example, the next lecture will include examples of retrieving and
 sending data from/to a website; we'll use JSON to to facilitate the transfer.
