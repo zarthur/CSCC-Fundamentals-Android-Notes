@@ -162,9 +162,8 @@ we'd handle each exception in the appropriate way.
 
 ### Interacting with a REST API
 Interacting with REST APIs require us to do more than just make GET requests.
-For the following examples, we'll make use of the RESTful Todo App accessible at
-[http://todo.eastus.cloudapp.azure.com/todo-android](http://todo.eastus.cloudapp.azure.com/todo-android)
-which is based on the code described above.  
+For the following examples, we'll make use of a RESTful Todo App hosted online 
+(the URL will be given in class) which is based on the code described above.  
 
 Looking at the [documentation](https://github.com/zarthur/restful-todo/blob/master/README.md)
 we'll need to make GET, POST, PUT, and DELETE requests.  While we could write
@@ -255,7 +254,7 @@ The REST API we're using requires that users log in by providing a username
 and password.  The Apache HttpClient library makes this relatively simple.  
 The following code includes the additions necessary for authentication.  The
 example logs in as a user and prints the result of requesting
-`http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todos` with
+`http://SERVER_URL/todo-android/todos/api/v1.0/todos` with
 the username `test` and password `test`.
 
 ```java
@@ -321,7 +320,7 @@ public class Main {
         HttpRequests requests = new HttpRequests("test", "test");
         try {
             System.out.println(
-                    requests.get("http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todos"));
+                    requests.get("http://SERVER_URL/todo-android/todos/api/v1.0/todos"));
         } catch (IOException e) {
             System.out.println("Unable to open URL");
         }
@@ -462,7 +461,7 @@ public class Main {
         String data = "{\"title\":\"dinner\", \"body\":\"prepare dinner\", \"priority\": 3}";
 
         // post example
-        String url = "http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todo/create";
+        String url = "http://SERVER_URL/todo-android/todos/api/v1.0/todo/create";
         System.out.println("POST Example - add a todo");
         try {
             String response = requests.post(url, contentType, data);
@@ -474,7 +473,7 @@ public class Main {
 
         // put example
         data = "{\"title\":\"dinner\", \"body\":\"eat dinner\", \"priority\": 1}";
-        url = "http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todo/update/0";
+        url = "http://SERVER_URL/todo-android/todos/api/v1.0/todo/update/0";
         System.out.println("PUT Example - update a todo");
         try {
             String response = requests.put(url, contentType, data);
@@ -485,7 +484,7 @@ public class Main {
         }
 
         // get example
-        url = "http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todos";
+        url = "http://SERVER_URL/todo-android/todos/api/v1.0/todos";
         System.out.println("GET Example - list all todos");
         try {
             String response = requests.get(url);
@@ -496,7 +495,7 @@ public class Main {
         }
 
         // delete example
-        url = "http://todo.eastus.cloudapp.azure.com/todo-android/todos/api/v1.0/todo/delete/0";
+        url = "http://SERVER_URL/todo-android/todos/api/v1.0/todo/delete/0";
         System.out.println("Delete Example - delete a todo");
         try {
             String response = requests.delete(url);
@@ -763,7 +762,7 @@ class TodoAPIWrapper {
 public class Main {
     public static void main(String[] args) {
         TodoAPIWrapper todoAPI = new TodoAPIWrapper("test", "test",
-                "http://todo.eastus.cloudapp.azure.com/todo-android");
+                "http://SERVER_URL/todo-android");
 
         // create two todos
         System.out.println("Adding todos");
