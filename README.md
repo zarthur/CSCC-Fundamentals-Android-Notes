@@ -1,12 +1,15 @@
 # CSCC-Fundamentals-Android-Notes
+
 Lecture notes and supporting material for the Programming Fundamentals for
 Android course at Columbus State Community College.
 
 ## Book
-These notes are based on the book used in the course: 
+
+These notes are based on the book used in the course:
 *Learn Java for Android Development* by Jeff Friesen
 
 ## Lecture Notes
+
 Weekly lecture notes can be found in the various subdirectories or by
 following the links below.
 
@@ -25,9 +28,11 @@ following the links below.
 - [Week 15 - HTTP and Networking](week_15/readme.md)
 
 ## Projects
+
 Descriptions of the projects assigned in class and links to supporting files
 can be found [here](projects/readme.md).
 
 ## Software Versions
-These notes make use of IntelliJ 15 and the Java 8 JDK (1.8). These notes may
+
+These notes make use of Android Studio 4.0.1 and the Java 8 JDK (1.8). These notes may
 not be accurate for other versions.

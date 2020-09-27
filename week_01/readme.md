@@ -1,25 +1,104 @@
 # Week 1 - Utilize Data
 
 ## Corresponding Text
+
 *Learn Java for Android Development*, pp. 1-11, 37-70
 
-## IntelliJ IDEA Java IDE
-IntelliJ IDEA Community Edition is a free integrated development environment
-(IDE) providing useful features for Java programming.
+## Android Studio
 
-If IntelliJ is not installed, it can be downloaded from the IntelliJ website:
-https://www.jetbrains.com/idea/download.
+Android Studio is an integrated development environment (IDE) used to develop
+Android applications.  Android Studio is based on IntelliJ IDEA, a popular
+Java integrated development environment (IDE), Most of Android Studio's
+features are available as an IntelliJ IDEA plugin.
 
-Starting IntelliJ for the first time, we will be presented with the welcome
-screen. From here, we can create a new project.
+### Download and Installation
 
-![IntelliJ Welcome Screen](images/intellij_start.png)
+Android Studio can be downloaded from https://developer.android.com/studio. The
+Android Studio download page will provide installation instructions, which vary
+depending on the operating system of the computer.
 
-When creating a new Java project, be sure that Java is selected for the project
-software development kit (SDK). If no SDK is selected, click the **New...**
-button and IntelliJ should find the SDK automatically. If no SDK is available
-the Java development kit (JDK) can be downloaded from Oracle's website:
-http://www.oracle.com/technetwork/java/javase/downloads/index.html.
+### Initial Configuration
+
+After installing Android Studio, there is some initial configuration that must
+be done before we can begin writing Android applications.
+
+When you start Android Studio for the first time, you will be presented with
+the *Android Studio Setup Wizard*
+
+![Android Studio Setup Wizard](images/studio-start-1.png)
+
+Click **Next** to begin the setup process.
+
+Next, we're asked to choose the installation type.
+
+![Android Studio Install Type](images/studio-start-2.png)
+
+We'll use the standard settings. With **Standard** selected, click **Next**.
+
+Android Studio has includes a light and dark theme.
+
+![Android Studio Install Type](images/studio-start-3.png)
+
+Select the theme you prefer and click **Next**.
+
+As a final step, verify Android Studio's Settings.
+
+![Android Studio Verify Settings](images/studio-start-4.png)
+
+Click **Finish** to confirm settings and begin downloading and installing the
+required components including the Android software development kit (SDK).  When
+installation is complete, click **Finish** again.
+
+### Creating an Android App
+
+![Android Studio Welcome Screen](images/studio-start.png)
+
+The first step in creating a new Android app is to select
+**Start a new Android Studio Project** from the Android Studio welcome screen.
+
+![Android Studio Project Template](images/studio-new-1.png)
+
+This course will introduce important concepts of Java programming that are
+relevant to Android development. While we will work with graphical user
+interface (GUI) elements to help us explore Java, we won't explore the
+interface too much in this course.  For our first project, we'll start a
+simple template. Select **Empty Activity** and click **Next**.
+
+![Android Studio Project Configuration](images/studio-new-2.png)
+
+Next, we have to give our App a name and specify a package name. The
+package name is usually based on a domain name (like those used in website
+addresses) and the company name - for example, *com.arthurneuman.myfirstapp*.
+
+Android Studio supports two programming languages, Java and Kotlin. For this
+course, we'll use Java. Select *Java* from the *Language* menu.
+
+We can also choose the minimum version of Android that will be required to run
+our application. Choosing a lower API version will allow our app to target more
+devices but will prevent us from using newer features.  For now, let's select
+*API 26: Android 8.0 (Oreo)*.
+
+With *Name*, *Package name*, *Language*, and *Minimum SDK* specified, click
+**Finish**.
+
+Android Studio will download any additional components that are required. Once
+the download completes, click **Finish**.
+
+Android Studio will now generate all the files necessary for our first
+application. Once generation is complete, we'll be presented with a window
+that shows the stucture of our project as well as some initial code.
+
+![Initial Project](images/studio-new-3.png)
+
+
+We can open the *Project* pane and examine the project's directory structure.
+Two import files are `MainActivity.java` and `activity_main.xml`.  The Java
+file contains the code that will be executed when our application is run.  The
+XML file contains information about how graphical elements are displayed.
+
+![Initial Layout](images/studio-new-4.png)
+
+
 
 ![IntelliJ New Project](images/new_project.png)
 
