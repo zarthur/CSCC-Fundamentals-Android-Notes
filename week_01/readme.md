@@ -86,10 +86,9 @@ the download completes, click **Finish**.
 
 Android Studio will now generate all the files necessary for our first
 application. Once generation is complete, we'll be presented with a window
-that shows the stucture of our project as well as some initial code.
+that shows the structure of our project as well as some initial code.
 
 ![Initial Project](images/studio-new-3.png)
-
 
 We can open the *Project* pane and examine the project's directory structure.
 Two import files are `MainActivity.java` and `activity_main.xml`.  The Java
@@ -98,53 +97,85 @@ XML file contains information about how graphical elements are displayed.
 
 ![Initial Layout](images/studio-new-4.png)
 
+Notice in layout view that the *Component Tree* lists two items: a
+*ConstraintLayout* and a *TextView*. Theses are UI components that we will
+discuss in more detail later but for now the important thing to know is that
+we can access and modify them from code we write in `MainActivity.java`. To
+make it easier to access the *TextView*, we need to assign an *id*. In the
+*Component Tree*, select the *TextView*. Notice that information about the
+*TextView* appears on the right. In the *Attributes* area, set *id* to
+`output`.
 
+To modify the text in the output *TextView*, open `MainActivity.java` and
+modify the code to look like this:
 
-![IntelliJ New Project](images/new_project.png)
+``` java
+public class MainActivity extends AppCompatActivity {
 
-For our first projects, we won't need any additional libraries or frameworks,
-so we can continue by clicking **Next**.
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-To start, we'll rely on the command line app template. Make sure **Create
-project from template** is selected and click **Next**.
-
-Now, we can give the project a title, choose where it will be saved, and name
-the base package (we'll talk about packages in more detail later). For now,
-the base package name should be something like *com.myname.week_01*. I've
-chosen the following for my first project:
-
-![IntelliJ Project Details](images/new_project_details.png)
-
-After clicking **Finish**, we should see the project layout on the left and
-an editor on the right.
-
-![IntelliJ Editor](images/editor.png)
-
-We can write Java code in the editor and run our programs from the IntelliJ IDE
-itself. We can check that everything is working by entering the following code
-in the editor. Make sure you replace `package com.myname.week_01` with what you
-named your package.
-
-```java
-package com.myname.week_01;
-
-public class Main {
-
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        TextView output = (TextView) findViewById((R.id.output));
+        output.setText("Hello from Android!");
     }
 }
 ```
-Now we should be able to run the code by pressing the Run/Play button in the
-upper right corner. If everything is working, we should see a new pane appear
-in the IntelliJ window with the `Hello, World!` text.
 
-![Hello, World!](images/hello_world.png)
+If error message or red lines appear under `TextView` in the code, right-click
+`TextView`, select *Show context actions*, and choose *Import class*.
 
-For now, most of our programs will appear very much like this program and we'll
-eventually talk about the various line of code. One thing to note before we
-continue is that `System.out.println()` is used to display data at the console.
-We'll use this as we investigate Java. Lets explore variables and data types.
+The code we added does two things. First, it finds the *TextView* in the layout
+using the ID we specified. Then, the text is updated. We'll talk more about
+the specific components of each line as the course progresses but for now the
+important thing to know is that we have a *TextView* in interface and the code
+above can be used to modify its text.
+
+### Running an App
+
+Using Android Studio we can run apps either on an separate Android device or
+on an emulated virtual device running on a computer. We have to create a virtual
+device before we can use it.
+
+Open the *Tools* menu and select *AVD Manager*. The
+*Android Virtual Device Manager* window should appear.
+
+![Android Virtual Device Manager](images/avd-1.png)
+
+Click *Create Virtual Device*. We'll use the default hardware settings. In
+the picture below, the *Pixel 2* was selected as the hardware device but the
+device might be different on your computer.
+
+![Android Virtual Device Manager](images/avd-2.png)
+
+Click *Next* to advance to the *System Image* settings. Here, we can select
+the version of Android that will run on the virtual device.  We previously
+indicated that we'd be developing our application with compatibility for
+Android 8.0 (API level 26); select it from the list of system images.
+
+![Android Virtual Device Manager](images/avd-3.png)
+
+The image has to be downloaded before it can be used. If a *Download* link
+appears next to the name, click the link. A license window will appear. Accept
+the license and click *Next*. Once the download and installation of the image
+completes, click *Finish*.
+
+With the desired system image selected, click *Next*.
+
+![Android Virtual Device Manager](images/avd-4.png)
+
+Finally, we can set the device name and configure some additional properties.
+We'll use the default values so click *Finish* and close the
+*Android Virtual Device Manager*.
+
+Now that we've created a virutal device, we can run our app.  Click the
+*Run app* button in the toolbar; the button has green play arrrow icon.
+Anroid Studio will start the Android virtual device, build the app, copy the
+app to the virtual device, and start the app. We should now be able to see
+our app running on the virtual device.
+
+![Android Virtual Device Manager](images/running-app-1.png)
 
 ## Variables and Java Data Types
 A **variable** is a named location in the computer's memory used to
