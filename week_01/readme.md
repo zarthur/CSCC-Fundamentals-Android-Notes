@@ -68,7 +68,7 @@ simple template. Select **Empty Activity** and click **Next**.
 
 Next, we have to give our App a name and specify a package name. The
 package name is usually based on a domain name (like those used in website
-addresses) and the company name - for example, *com.arthurneuman.myfirstapp*.
+addresses) and the company name - for example, *com.myname.myfirstapp*.
 
 Android Studio supports two programming languages, Java and Kotlin. For this
 course, we'll use Java. Select *Java* from the *Language* menu.
@@ -169,21 +169,71 @@ Finally, we can set the device name and configure some additional properties.
 We'll use the default values so click *Finish* and close the
 *Android Virtual Device Manager*.
 
-Now that we've created a virutal device, we can run our app.  Click the
-*Run app* button in the toolbar; the button has green play arrrow icon.
-Anroid Studio will start the Android virtual device, build the app, copy the
+Now that we've created a virtual device, we can run our app.  Click the
+*Run app* button in the toolbar; the button has green play arrow icon.
+Android Studio will start the Android virtual device, build the app, copy the
 app to the virtual device, and start the app. We should now be able to see
 our app running on the virtual device.
 
 ![Android Virtual Device Manager](images/running-app-1.png)
 
+As we begin working with Android and the Java language, we'll explore langugage
+features using this simple app and the *TextView* to display output from code
+we write. Before we proceed there are two concepts we should be familiar with:
+using *append()* with *TextView* and displaying multi-line text.
+
+In our example, we used *setText()* to replace any existing text in the
+*TextView*. We can use *append()* to add additional text. For example, if
+we add a line to our app like this and run our app, the *TextView* will contain
+"Hello from Android!Goodbye from Android.".
+
+``` java
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        output.setText("Hello from Android!");
+        output.append("Goodbye from Android.");
+    }
+}
+```
+
+To split the text across two lines, we can add a new line character, `\n`, to
+the end of the first text or at the beginning of the second text.  If make the
+following change to the app, we should see the text appear on two line when
+we run it.
+
+``` java
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        output.setText("Hello from Android!\n");
+        output.append("Goodbye from Android.");
+    }
+}
+```
+
 ## Variables and Java Data Types
+
+Now that we have a simple working app, we can use it to begin exploring the
+Java language.
+
 A **variable** is a named location in the computer's memory used to
 conveniently store a value. The type of data stored in a variable is
 determined by the variable's data type. A **data type** is a classification of
 data items and specifies its possible values. Java has eight primitive data
 types. A primitive data type is a type whose values are not objects, which we
 will discuss later. The eight primitive data types are
+
 - **boolean**: has only two possible values: true and false
 - **char**: a single Unicode character such as "A", "z", "5", or "%" with
   integer value between 0 and 65,535
@@ -199,8 +249,8 @@ will discuss later. The eight primitive data types are
 
 It is important to note that floats and doubles are floating point data types.
 While floating point values are useful for representing numbers with fractional
-parts, on computers there is a limit to how many decimal places can be
-accurately represented.
+parts, on computers there is a limit to the number of decimal places that can
+be accurately represented.
 
 In addition to the primitive data types there are user-defined types. We will
 talk about user-defined types more later. There is one commonly used
@@ -216,6 +266,7 @@ in a variable of type *String*, the string *hello* is stored somewhere in the
 computer's memory and the address of that location is stored in the variable.
 
 ### Creating variables and storing values
+
 Recall that variables are named storage locations for data. Storing data and
 accessing it later is important in nearly all computer programs. In Java,
 a variable name can be any collection of letters, digits, "\_", or "$" as long
@@ -223,10 +274,10 @@ as it doesn't begin with a digit. Typically, variable names begin with a
 letter and describe the value being stored.
 
 Variables must be declared before they can be used. To declare a variable, we
-must specify at least the variables data type and it's name. The following are
+must specify at least the variables data type and its name. The following are
 examples of variables being declared.
 
-```java
+``` java
 float temperature;
 int zipCode;
 boolean isRaining;
@@ -280,7 +331,7 @@ The following is a syntactically valid Java program consisting only of
 variable declarations:
 
 ```java
-package com.myname.week_01;
+package com.myname.myfirstapp;
 
 public class Main {
     public static void main(String[] args) {
@@ -293,18 +344,18 @@ public class Main {
 }
 ```
 
-We could copy this into IntelliJ and run it. The program doesn't do much.
-So far, we've declared variables but haven't assigned any values to them.
-Depending on the type, the declared variables will have a default initial value
-or be uninitialized depending on the data types of the variables. We'll look at
-this later. For now, let's look at assigning values to variables and working
-with the variables.
+The program doesn't do much. So far, we've declared variables but haven't
+assigned any values to them. Depending on the type, the declared variables
+will have a default initial value or be uninitialized depending on the data
+types of the variables. We'll look at this later. For now, let's look at
+assigning values to variables and working with the variables.
 
 ### Expressions
+
 In Java, an **expression** is a combination of literals, variable names, method
 calls, and operators. A **literal** is a value expressed verbatim like *123*
 or *"Hello"*. In Java, there are several kinds of literals: a character, a
-string (a sequence of chacters), an integer, a floating-point value, the
+string (a sequence of characters), an integer, a floating-point value, the
 boolean values *true* and *false*, and *null*. The *null* literal is used with
 reference variables to indicate that the variable doesn't refer to an object.
 We'll talk about operators soon and discuss method calls later.
@@ -318,7 +369,6 @@ The following are examples of literals.
 | int          | 1, -20, 1234                                 |
 | float/double | 1, 2.0, 0.8392, -12923.1023                  |
 | boolean      | true, false                                  |
-
 
 A **simple expression** is an individual literal, variable name, or method
 call (we'll discuss method calls more later). All of the example literals
@@ -368,8 +418,7 @@ As we continue exploring Java, we'll discuss other operators.
 
 Here's Java code that demonstrates some of these operators. This code contains
 comments. Comments are not evaluated and serve to document code. In this
-example, comments are preceded by two forward slashes, `//`. We're also using
-`System.out.println()`; remember that this lets us print values to the console.
+example, comments are preceded by two forward slashes, `//`.
 
 ```java
 package com.myname.week_01;
