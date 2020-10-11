@@ -792,7 +792,7 @@ the next snapshot we store. The repository is a store of all the snapshots
 we've taken; we can use the repository to compare different snapshots and
 even revert your data to the state it was in a previous snapshot.
 
-A basic Git workflow consists of making changes to files in the working
+A basic Git work flow consists of making changes to files in the working
 directory, adding them to a new snapshot in the staging area, and committing
 the snapshot to the repository. All this can take place on your own computer.
 Git is also able to easily update a repository on another computer based on
@@ -804,12 +804,12 @@ local repository and into your working directory.
 If you don't have a GitHub account, go to https://github.com and create one.
 We'll work with creating repositories from Android Studio.
 
-### Working with GitHub in IntelliJ IDEA
+### Working with GitHub in Android Studio
 
 With our existing project, we can create a new repository by selecting
-**VCS -> Import into Version Control -> Share Project on Github** from
-the menu bar. If this is the first time using GitHub with IntelliJ, you will
-be prompted to enter your Github credentials and an IntelliJ password.
+**VCS -> Import into Version Control -> Share Project on GitHub** from
+the menu bar. If this is the first time using GitHub with Android Studio, you
+will be prompted to enter your GitHub credentials.
 
 You will be prompted to enter a repository name, a remote name, and a
 description; leave the remote name set to *origin*.
@@ -823,11 +823,18 @@ For now, we can add the default set of files.
 
 Once we have committed our files to the local repository, we can push the
 changes to the remote repository on GitHub by selecting **VCS -> Git -> Push**
-from the menus. When we modify, add, or remove files in the future, we can
+from the menus. Click **Push** to copy the commit and associated files to
+GitHub.
+
+![Push](images/push.png)
+
+When we modify, add, or remove files in the future, we can
 use the commit menu option; this combines steps of adding files to staging and
-committing them to the local repository.
+committing them to the local repository. We will use the push menu option to
+copy our changes to GitHub.
 
 ## Exercise
+
 **Write a program that stores a city name as a string, the city's zip code as an
 integer, and the high temperature for the next five days in an array. The
 program should calculate the average high temperature for the next five days
@@ -841,7 +848,7 @@ For example, if the city is Columbus; the zip code is 43215; and the high
 temperatures for the next five days are 32, 25, 27, 40, and 45, the output of
 the program might be:
 
-```
+``` text
 City: Columbus
 Zip Code: 43215
 Average High Temperature 33.8
