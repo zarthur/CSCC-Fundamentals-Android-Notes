@@ -801,6 +801,9 @@ repository and we can push changes from our local repository to a GitHub
 repository. Similarly, we can pull changes from a remote repository to your
 local repository and into your working directory.
 
+Git-it, an application available at https://github.com/jlord/git-it-electron,
+provides an interactive tutorial on using Git and GitHub.
+
 If you don't have a GitHub account, go to https://github.com and create one.
 We'll work with creating repositories from Android Studio.
 
