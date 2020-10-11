@@ -68,7 +68,7 @@ simple template. Select **Empty Activity** and click **Next**.
 
 Next, we have to give our App a name and specify a package name. The
 package name is usually based on a domain name (like those used in website
-addresses) and the company name - for example, *com.myname.myfirstapp*.
+addresses) and the company name - for example, *com.myname.week_01*.
 
 Android Studio supports two programming languages, Java and Kotlin. For this
 course, we'll use Java. Select *Java* from the *Language* menu.
@@ -110,6 +110,13 @@ To modify the text in the output *TextView*, open `MainActivity.java` and
 modify the code to look like this:
 
 ``` java
+package com.myname.week_01;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -131,6 +138,9 @@ using the ID we specified. Then, the text is updated. We'll talk more about
 the specific components of each line as the course progresses but for now the
 important thing to know is that we have a *TextView* in interface and the code
 above can be used to modify its text.
+
+We'll discuss other parts of the code like `package`, `import`, `class` and
+`onCreate` later in this course and the next course.
 
 ### Running an App
 
@@ -202,9 +212,12 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-To split the text across two lines, we can add a new line character, `\n`, to
-the end of the first text or at the beginning of the second text.  If make the
-following change to the app, we should see the text appear on two line when
+To split the text across two lines, we can add a line separator, also known
+as a new line character. Line separators can differ from one operating system to
+another so Java has a built-in way of using the correct new line character,
+`System.lineSeparator()`.  By adding a line separator after the first line of
+text and before the second line, the output will appear on two lines. If make
+the following change to the app, we should see the text appear on two line when
 we run it.
 
 ``` java
@@ -216,11 +229,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView output = (TextView) findViewById((R.id.output));
-        output.setText("Hello from Android!\n");
+        output.setText("Hello from Android!");
+        output.append(System.lineSeparator());
         output.append("Goodbye from Android.");
     }
 }
 ```
+
+Using *append()* with *TextView* has some limitations. For example, we can't
+use append to display a number like *5* or *2.3*. We could put those numbers
+inside double quotes and *append()* would work just fine but that becomes
+cumbersome as we try to display more complex output.  An alternative is
+to use a *StringBuilder*.  A *StringBuilder* let's use build up a sequence
+of text one part at a time.  Like *TextView*, *StringBuilder* has an *append()*
+but unlike *TextView*, the *StringBuilder* *append()* will let us use numbers
+without requiring extra double quotes.  Our last program rewritten to use
+*StringBuilder* would look like this.
+
+``` java
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("Hello from Android!");
+        builder.append(System.lineSeparator());
+        builder.append("Goodbye from Android.");
+
+        output.setText(builder);
+    }
+}
+```
+
+We'll use *StringBuilder* to construct output for most of the examples we look
+at.
+
 
 ## Variables and Java Data Types
 
@@ -254,8 +303,9 @@ be accurately represented.
 
 In addition to the primitive data types there are user-defined types. We will
 talk about user-defined types more later. There is one commonly used
-user-defined type, String, that we'll use now but explore further later. The
-**String** data type is used to store a sequence of characters.
+user-defined type, String, that we looked at briefly earlier and that that
+we'll use often but will explore further later. The **String** data type is
+used to store a sequence of characters.
 
 User-defined types are also known as reference types. A variable with a
 **reference type** stores a reference, a memory address, to the location in
@@ -327,20 +377,22 @@ variables are being declared like this:
 float currentTemperature, forecastHighs[], forecastLows[];
 ```
 
-The following is a syntactically valid Java program consisting only of
-variable declarations:
+The following is a syntactically valid Java program consisting only of the code
+that Android Studio automatically created and variable declarations :
 
-```java
-package com.myname.myfirstapp;
+``` java
+public class MainActivity extends AppCompatActivity {
 
-public class Main {
-    public static void main(String[] args) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         float temperature, humidity, pressure;
         int zipCode;
         boolean isRaining;
         String city;
-        int[] dailyHighs;
-    }
+        int[] dailyHighs;    }
 }
 ```
 
@@ -387,9 +439,9 @@ so on. Java has only one ternary operator, the rest are unary and binary.
 
 Operators can also be classified based on their position relative to the
 operands. **Prefix operators** appear before the operands (in -3, the -
-operator is both an example a prefix and unary operator), **postfix operators**
-appear after the operands (x++), and **infix operators** appear between two or
-more operands (2 + 4).
+operator is both an example of a prefix and unary operator),
+**postfix operators** appear after the operands (x++), and **infix operators**
+appear between two or more operands (2 + 4).
 
 While there are many operators that we'll work with, we'll start by focusing
 on the arithmetic operators.
@@ -418,13 +470,27 @@ As we continue exploring Java, we'll discuss other operators.
 
 Here's Java code that demonstrates some of these operators. This code contains
 comments. Comments are not evaluated and serve to document code. In this
-example, comments are preceded by two forward slashes, `//`.
+example, comments are preceded by two forward slashes, `//`.  Notice we've also
+added the code to use the *TextView*.
 
 ```java
-package com.myname.week_01;
+package com.arthurneuman.myfirstapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         //Initialize variables using the assignment operator
         int currentTemperature = 50;
         int tomorrowTemperature = 68;
@@ -438,26 +504,45 @@ public class Main {
         char celsius = 'C';
 
         //Addition
-        System.out.println("Addition");
-        System.out.println(currentTemperature + tomorrowTemperature); //two integers
-        System.out.println("The current city is: " + cityName); //two strings
-        System.out.println(fahrenheit + celsius);
+        builder.append("Addition");
+        builder.append(System.lineSeparator());
+
+        builder.append(currentTemperature + tomorrowTemperature); //two integers
+        builder.append(System.lineSeparator());
+
+        builder.append("The current city is: " + cityName); //two strings
+        builder.append(System.lineSeparator());
+
+        builder.append(fahrenheit + celsius);
+        builder.append(System.lineSeparator());
+
 
         //Subtraction
-        System.out.println("Subtraction");
-        System.out.println(tomorrowHumidity - currentHumidity); //two floats
+        builder.append("Subtraction");
+        builder.append(System.lineSeparator());
+
+        builder.append(tomorrowHumidity - currentHumidity); //two floats
+        builder.append(System.lineSeparator());
+
 
         //Unary plus and unary minus
-        System.out.println("Unary plus and unary minus");
-        System.out.println(+currentTemperature);
-        System.out.println(-currentTemperature);
+        builder.append("Unary plus and unary minus");
+        builder.append(System.lineSeparator());
+
+        builder.append(+currentTemperature);
+        builder.append(System.lineSeparator());
+
+        builder.append(-currentTemperature);
+        builder.append(System.lineSeparator());
+
+        output.setText(builder);
     }
 }
 ```
 
 If we run this program, the output should be:
 
-```
+``` text
 Addition
 118
 The current city is: Columbus
@@ -476,11 +561,24 @@ corresponding to the characters.
 
 Lets looks at some more examples of operators.
 
-```java
-package com.myname.week_01;
+``` java
+package com.arthurneuman.myfirstapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int currentTemperature = 50;
         int highTemperature = 68;
         double currentHumidity = 0.55;
@@ -490,14 +588,24 @@ public class Main {
         //Compound assignment
         highHumidity += 0.1; //add to existing value
         currentHumidity /= 2; //divide existing value
-        System.out.println(highHumidity);
-        System.out.println(currentHumidity);
+
+        builder.append(highHumidity);
+        builder.append(System.lineSeparator());
+
+        builder.append(currentHumidity);
+        builder.append(System.lineSeparator());
+
 
         //Unary increment and decrement
         int tomorrowHighTemperature = ++highTemperature; //prefix increment
         int tomorrowLowTemperature = currentTemperature--; //postfix decrement
-        System.out.println(tomorrowHighTemperature);
-        System.out.println(tomorrowLowTemperature);
+
+        builder.append(tomorrowHighTemperature);
+        builder.append(System.lineSeparator());
+
+        builder.append(tomorrowLowTemperature);
+        builder.append(System.lineSeparator());
+
 
         /*
         Comparison
@@ -508,15 +616,21 @@ public class Main {
 
         //compare the content of two strings
         boolean isColumbus = cityName == "Columbus";
-        System.out.println(isHigh);
-        System.out.println(isColumbus);
+
+        builder.append(isHigh);
+        builder.append(System.lineSeparator());
+
+        builder.append(isColumbus);
+        builder.append(System.lineSeparator());
+
+        output.setText(builder);
     }
 }
 ```
 
 The output should be:
 
-```
+``` text
 0.85
 0.275
 69
@@ -534,30 +648,55 @@ operand variable on the right-hand side.
 Finally, let's look at the array index operator. For this example, we'll
 initialize an array with some values using braces.
 
-```java
-package com.myname.week_01;
+``` java
+package com.arthurneuman.myfirstapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int[] forecastHighs = {50, 60, 55, 45, 30};
 
         //Display each element from the array
-        System.out.println(forecastHighs[0]);
-        System.out.println(forecastHighs[1]);
-        System.out.println(forecastHighs[2]);
-        System.out.println(forecastHighs[3]);
-        System.out.println(forecastHighs[4]);
+        builder.append(forecastHighs[0]);
+        builder.append(System.lineSeparator());
+
+        builder.append(forecastHighs[1]);
+        builder.append(System.lineSeparator());
+
+        builder.append(forecastHighs[2]);
+        builder.append(System.lineSeparator());
+
+        builder.append(forecastHighs[3]);
+        builder.append(System.lineSeparator());
+
+        builder.append(forecastHighs[4]);
+        builder.append(System.lineSeparator());
 
         //Replace the last value in the array
         forecastHighs[4] = 100;
-        System.out.println(forecastHighs[4]);
+        builder.append(forecastHighs[4]);
+        builder.append(System.lineSeparator());
+
+        output.setText(builder);
     }
 }
 ```
 
 The output is:
 
-```
+``` text
 50
 60
 55
@@ -566,7 +705,7 @@ The output is:
 100
 ```
 
-In a previous example, we created an array using an integer literal to specify
+In the previous example, we created an array using an integer literal to specify
 the size and immediately assigned values to its elements. What if we didn't
 have values at the time the array is declared? What if we wanted to use a
 variable to specify the length?  We can use the *new* operator to do this. For
@@ -574,24 +713,39 @@ example, we can set the length of an array of strings using a variable with
 an integer value and then assign values to each element in the array.
 
 ```java
-package com.myname.week_01;
+package com.arthurneuman.myfirstapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int numberOfAnimals = 3;
         String[] animals = new String[numberOfAnimals];
         animals[0] = "cat";
         animals[1] = "dog";
         animals[2] = "chicken";
 
-        System.out.println(animals[1]);
+        builder.append(animals[1]);
+
+        output.setText(builder);
     }
 }
 ```
 
 The output is:
 
-```
+``` text
 dog
 ```
 
@@ -622,9 +776,11 @@ is not an integer, the value is truncated and the integer *2* is stored in
 *quotient*.
 
 ## Using GitHub
+
 For this class, we'll use GitHub to save and share our work.
 
 ### Git and GitHub
+
 GitHub is built on Git, a version control system allowing us to keep track of
 changes to your code at various points in time as snapshots. When working with
 Git on your computer, there are three distinct stages in which data resides:
@@ -645,14 +801,11 @@ repository and we can push changes from our local repository to a GitHub
 repository. Similarly, we can pull changes from a remote repository to your
 local repository and into your working directory.
 
-For a better overview of how Git works, try this Git tutorial:
-https://try.github.io
-
 If you don't have a GitHub account, go to https://github.com and create one.
-We'll work with creating repositories from
-within IntelliJ IDEA.
+We'll work with creating repositories from Android Studio.
 
 ### Working with GitHub in IntelliJ IDEA
+
 With our existing project, we can create a new repository by selecting
 **VCS -> Import into Version Control -> Share Project on Github** from
 the menu bar. If this is the first time using GitHub with IntelliJ, you will
