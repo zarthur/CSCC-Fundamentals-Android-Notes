@@ -1,91 +1,26 @@
-# Week 2 - Flow Control
+# Week 2 - Control Flow
+
+This week we'll look at control flow which, at a high level, is simply the order
+in which statements in our code are executed.  We'll look at ways of controlling
+the flow including the use of decision statements and loops. We'll also look at
+another UI component beyond the *TextView*.
 
 ## Corresponding Text
+
 *Learn Java for Android Development*, pp. 71-84
 
-## Adding to Your Repository
-After the work from the last week, your IntelliJ project should look similar
-to the one pictured below. In your **src** directory should be a folder with a
-name similar to **com.myname.week_1** and a file named **Main** within that
-folder.
+## Getting Started
 
-![IntelliJ after last week's work](images/starting.png)
+After the work from the last week, your Android Studio project should look
+similar to the one pictured below. Within the application folder, there is a
+`java` folder that contains three subfolders.  One of these includes the
+`MainActivity.java` file that includes the code we wrote; the other two folders
+are used for testing, which we'll talk about later.
 
-Typically, we would create a new project when we start new work but rather than
-creating a new IntelliJ project and GitHub repository for each week's work, we
-will add to our existing project and repository.  To add a folder for this
-week's work, right-click on the `java` directory in `src/main` and select 
-**New** and **Package** from the context menu. Name the new module something 
-like *com.myname.week_02*.
-
-Now that we have a new package for this week's work, we'll need to create a 
-file where we can write code. Right-click on the newly created week_2 package 
-and select **New** and **Java Class**.  Let's call this new Java class *Main*.
-We'll talk about classes more later but typically each file corresponds to a
-class in Java. IntelliJ should automatically open the newly created file.
-
-Notice that near the top of the file is a block comment; this is automatically
-added to newly created files based on a template. IntelliJ will present a
-warning about the comment until you change the default template.  To do this,
-place your pointer over part of the text until a light bulb icon appears.
-Click the light bulb and select **Edit Template**.
-
-![Edit Template](images/edit_template.png)
-
-Modify the template and click **Ok**; this will prevent the editor from
-presenting a warning in the future.
-
-Our new file just needs one more thing for us to work with.  We need to add a
-`main` method to the code so it looks similar to this:
-
-```java
-package com.myname.week_02;
-
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Week 2!");
-    }
-
-}
-```
-
-To run our week_2 code, we can right-click on *Main* in the *com.myname.week_02*
-package and select *Run Main.main()*.
-
-![Run week_2 code](images/run_week_2.png)
-
-We can also configure IntelliJ so that we can push the play/run button in the
-toolbar to run our week_2 code.  To do this, click the arrow next to *Main* and
-select *Edit Configurations*.
-
-![Edit configurations](images/edit_configurations.png)
-
-The Run/Debug Configurations window will appear.
-
-Let's rename the existing *Main* configuration by selecting it on the left, and
-replacing it's name with something like *Week 1*. You will also have to
-update the "Use classpath of module" field to point to the new module we
-created for the old code.
-
-We can create a new configuration by clicking the plus icon in the upper left
-corner of the window and selecting *Application*. Let's name this configuration
-*Week 2*. We also have to specify the main class and working directory.  The
-main class is *com.myname.week_02.Main*, with *myname* replaced with your name.
-The working directory can be copied and pasted from the *Week 1* configuration.
-The configuration should now look similar to this:
-
-![Week 2 Configuration](images/configurations.png)
-
-Click "Ok" and you should see that *Week 2* is now selected in the drop down
-box in the toolbar; pressing the play/run button now will run the code in the
-*week_2* package.
-
-You can commit commit the new file to your local repository now by selecting
-**VCS -> Git -> Commit File...** from the menu bar.  If you'd like to push the
-changes to the remote GitHub repository, select **VCS -> Git -> Push** from the
-menu bar.
+![Android Studio after last week's work](images/starting.png)
 
 ## Boolean Operators
+
 Last week we looked at some operators that could be used to make compound
 expressions.  Let's look at a few more operators.
 
@@ -100,50 +35,72 @@ expressions.  Let's look at a few more operators.
 
 Notice that there are situations when using conditional AND (`&&`) and
 conditional OR (`||`) when the second operand does not need to be examined;
-this is known as *short-ciruiting*.  The corresponding logical operators will
+this is known as *short-circuiting*.  The corresponding logical operators will
 always examine the second operand.
 
 Let's look at a simple example.
 
-```java
-package com.myname.week_02;
+``` java
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         //There are four possible combinations of two Boolean values
         //The four combinations with conditional AND
         boolean result = true && true;
-        System.out.println("true && true: " + result);
+        builder.append("true && true: " + result);
+        builder.append(System.lineSeparator());
 
         result = true && false;
-        System.out.println("true && false: " + result);
+        builder.append("true && false: " + result);
+        builder.append(System.lineSeparator());
 
         result = false && true;
-        System.out.println("false && true: " + result);
+        builder.append("false && true: " + result);
+        builder.append(System.lineSeparator());
 
         result = false && false;
-        System.out.println("false && false: " + result);
-
+        builder.append("false && false: " + result);
+        builder.append(System.lineSeparator());
 
         //The four combinations with logical inclusive OR
         result = true | true;
-        System.out.println("true | true: " + result);
+        builder.append("true | true: " + result);
+        builder.append(System.lineSeparator());
 
         result = true | false;
-        System.out.println("true | false: " + result);
+        builder.append("true | false: " + result);
+        builder.append(System.lineSeparator());
 
         result = false | true;
-        System.out.println("false | true: " + result);
+        builder.append("false | true: " + result);
+        builder.append(System.lineSeparator());
 
         result = false | false;
-        System.out.println("false | false: " + result);
+        builder.append("false | false: " + result);
+        builder.append(System.lineSeparator());
+
+        output.setText(builder);
     }
 }
 ```
 
 Running this code should give the following output:
 
-```
+```  text
 true && true: true
 true && false: false
 false && true: false
@@ -161,27 +118,46 @@ logical inclusive OR in this case.
 Let's look at an example of where the conditional and logical operators differ.
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int lowTemperature = 32;
         int highTemperature = 50;
 
         //Conditional OR
-        System.out.println(true || ++lowTemperature > 0);
-        System.out.println(lowTemperature);
+        builder.append(true || ++lowTemperature > 0);
+        builder.append(System.lineSeparator());
+        builder.append(lowTemperature);
+        builder.append(System.lineSeparator());
 
         //Logical inclusive OR
-        System.out.println(true | ++highTemperature > 0);
-        System.out.println(highTemperature);
+        builder.append(true | ++highTemperature > 0);
+        builder.append(System.lineSeparator());
+        builder.append(highTemperature);
+        builder.append(System.lineSeparator());
 
+        output.setText(builder);
     }
 }
 ```
+
 The output is:
 
-```
+``` text
 true
 32
 true
@@ -195,15 +171,17 @@ operand in a conditional OR expression was *true*, the second operand was not
 evaluated.  Both operands are always evaluated when using logical operators.
 
 ## Decision Statements
+
 Decision statements can be used to choose between two or more sets of
 statements based on the evaluation of a Boolean expression.
 
 ### If and If-Else Statements
+
 The **if statement** evaluates a Boolean expression and executes another
 statement if the expression is true.  The if statement has the following
 syntax:
 
-```
+``` text
 if (Boolean expression)
     statement
 ```
@@ -211,50 +189,80 @@ if (Boolean expression)
 Here, *statement* will only be executed if *Boolean expression* evaluates to
 true.  Here's an example:
 
-```java
-package com.myname.week_02;
+``` java
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int currentTemperature = 32;
         int warmThreshold = 60;
 
         if (currentTemperature > warmThreshold)
-            System.out.println("It's warm outside!");
+            builder.append("It's warm outside!");
+
+        output.setText(builder);
     }
 }
 ```
 
-This program will produce no output.  The *System.out.println()* statement will
+This program will produce no output.  The *builder.append()* statement will
 only be executed if the Boolean expression `currentTemperature > warmThreshold`
 evaluates to true. In this case, since *currentTemperature* is not greater
 than *warmThreshold*, the Boolean expression evaluates to false and the
-*System.out.println()* statement is not executed.  Let's change the current
+*builder.append()* statement is not executed.  Let's change the current
 temperature and see what happens.
 
 ```java
-package com.myname.week_2;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
-        int currentTemperature = 82;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
+        int currentTemperature = 75;
         int warmThreshold = 60;
 
         if (currentTemperature > warmThreshold)
-            System.out.println("It's warm outside!");
+            builder.append("It's warm outside!");
+
+        output.setText(builder);
     }
 }
 ```
 
 The output is now:
 
-```
+``` text
 It's warm outside!
 ```
 
 When we changed *currentTemperature* to a value greater than *warmThreshold*,
 the Boolean expression `currentTemperature > warmThreshold` evaluated to true
-and the statement
+and the *builder.append()* statement is executed.
 
 In the previous examples, we only had one statement to execute when the Boolean
 expression evaluated to true. Often, there's more than one statement that we'd
@@ -262,28 +270,42 @@ like to evaluate.  We can do this by grouping statements together using
 braces, `{` and `}`.
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
-        int currentTemperature = 82;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
+        int currentTemperature = 75;
         int warmThreshold = 60;
 
-        if (currentTemperature > warmThreshold)
-        {
-            System.out.println("The temperature is " + currentTemperature);
-            System.out.println("It's warm outside!");
+        if (currentTemperature > warmThreshold) {
+            builder.append("The temperature is " + currentTemperature);
+            builder.append(System.lineSeparator());
+            builder.append("It's warm outside!");
         }
+
+        output.setText(builder);
     }
 }
-
 ```
 
 In this example, the program will execute two statements if the Boolean
 expression evaluates to true.  The output is:
 
-```
-The temperature is 82
+``` text
+The temperature is 75
 It's warm outside!
 ```
 
@@ -291,30 +313,46 @@ Suppose we wanted to print a message if the day's high temperature is above
 some value and the there's no chance of rain.  Our Boolean expression can be
 a compound expression consisting of Boolean expressions.
 
-```java
-package com.myname.week_02;
+``` java
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
-        int highTemperature = 82;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
+        int highTemperature = 75;
         double precipitationProbability = .05;
 
         int warmThreshold = 60;
         double precipitationThreshold = 0.5;
 
         if ((highTemperature > warmThreshold)
-                && (precipitationProbabilityy < precipitationThreshold))
+                && (precipitationProbability < precipitationThreshold))
         {
-            System.out.println("It's going to be a great day!");
+            builder.append("It's going to be a great day!");
         }
+
+        output.setText(builder);
     }
 }
 ```
 
-In this example, we used combined two Boolean expressions, `highTemperature >
-warmThreshold` and `precipitationProbabily > precipitationThreshold` using
-the conditional AND operator.  Notice, we can also split the Boolean expression
-across multiple lines, if necessary.
+In this example, we used combined two Boolean expressions,
+`highTemperature > warmThreshold` and
+`precipitationProbabily > precipitationThreshold` using the conditional *AND*
+operator.  Notice, we can also split the Boolean expression across multiple
+lines, if necessary.
 
 So far we've looked at executing statements if the Boolean expression evaluates
 to true. What if we want to execute one set of statements if the Boolean
@@ -322,7 +360,7 @@ expression evaluates to true and another set when the expression is false?
 We can use the reserved word *else*. An **if-else** statement has the following
 form:
 
-```
+``` text
 if (Boolean expression)
     statement1
 else
@@ -336,25 +374,41 @@ Building on a previous example, we can output text if a condition is true and
 output alternate text if the condition is false.
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int currentTemperature = 30;
         int warmThreshold = 60;
 
 
         if (currentTemperature > warmThreshold) {
-            System.out.println("It's warm outside!");
+            builder.append("It's warm outside!");
         }
         else {
-            System.out.println("It's cold outside!");
+            builder.append("It's cold outside!");
         }
+
+        output.setText(builder);
     }
 }
 ```
 
-Depending on the values of *currentTemperature* and *warmThreshold*, this will display either `It's warm outside!` or `It's cold outside!`
+Depending on the values of *currentTemperature* and *warmThreshold*, this will
+display either `It's warm outside!` or `It's cold outside!`
 
 Java's single ternary operator, allows us to write simple if-else statements on
 one line.
@@ -366,15 +420,31 @@ one line.
 We can use the conditional operator to rewrite the previous example.
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int currentTemperature = 30;
         int warmThreshold = 60;
 
-        System.out.println(currentTemperature > warmThreshold
+
+        builder.append(currentTemperature > warmThreshold
             ? "It's warm outside!" : "It's cold outside!");
+
+        output.setText(builder);
     }
 }
 ```
@@ -573,7 +643,7 @@ I don't know where the wind is blowing from.
 ```
 
 Notice that every statement that is part of the matching case and those cases
-that occur after the matching case are executed.  
+that occur after the matching case are executed.
 
 ## Loops
 Often, there's a need to repeatedly execute a statement multiple times; this
@@ -760,7 +830,7 @@ while (Boolean expression)
 ```
 
 The statement begins with the reserved word *while* followed by a Boolean
-expression in parentheses and the statement to be executed repeatedly.  
+expression in parentheses and the statement to be executed repeatedly.
 
 Let's look at an example.
 
@@ -879,12 +949,12 @@ public class Main {
 
 This program will repeat the text `Enter C or c to continue` as long as the
 user enters something other than *C* or *c* and presses enter or return.  There
-are two things to notice about the code that we'll discuss in depth later.  
+are two things to notice about the code that we'll discuss in depth later.
 First, the line `java.util.Scanner scanner = new java.util.Scanner(System.in);`
 is outside the while loop.  For now, think of this line as creating a new
 scanner used to look for input; we can reuse the same scanner over and over
 again rather than make a new one every time through the loop.  This saves us
-some time while the program is running.  
+some time while the program is running.
 
 The second thing to note is that when we compare strings, we typically cannot
 simply use the `==` operator.  The `==` operator will work to compare the
@@ -975,7 +1045,7 @@ temperature is greater than or equal to zero, we use the continue statement to
 move on to the next iteration of the loop (or stop if there are no more loop
 iterations).  In this case, we could have changed the Boolean expression in
 the if statement to achieve the same results but there are often situations
-where it's more convenient to use continue statements.  
+where it's more convenient to use continue statements.
 
 ## Scope
 A variable's **scope** is where, in code, that variable exists and is

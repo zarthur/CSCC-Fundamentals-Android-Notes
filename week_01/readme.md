@@ -1,5 +1,9 @@
 # Week 1 - Utilize Data
 
+This week we'll learn the basics of creating a project in *Android Studio* and
+how to write code and display output in an Android application. We'll also
+begin to use GitHub to store our work.
+
 ## Corresponding Text
 
 *Learn Java for Android Development*, pp. 1-11, 37-70
@@ -68,7 +72,7 @@ simple template. Select **Empty Activity** and click **Next**.
 
 Next, we have to give our App a name and specify a package name. The
 package name is usually based on a domain name (like those used in website
-addresses) and the company name - for example, *com.myname.week_01*.
+addresses) and the company name - for example, *com.myname.myapplication*.
 
 Android Studio supports two programming languages, Java and Kotlin. For this
 course, we'll use Java. Select *Java* from the *Language* menu.
@@ -110,7 +114,7 @@ To modify the text in the output *TextView*, open `MainActivity.java` and
 modify the code to look like this:
 
 ``` java
-package com.myname.week_01;
+package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -474,7 +478,7 @@ example, comments are preceded by two forward slashes, `//`.  Notice we've also
 added the code to use the *TextView*.
 
 ```java
-package com.arthurneuman.myfirstapplication;
+package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -562,7 +566,7 @@ corresponding to the characters.
 Lets looks at some more examples of operators.
 
 ``` java
-package com.arthurneuman.myfirstapplication;
+package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -649,7 +653,7 @@ Finally, let's look at the array index operator. For this example, we'll
 initialize an array with some values using braces.
 
 ``` java
-package com.arthurneuman.myfirstapplication;
+package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -713,7 +717,7 @@ example, we can set the length of an array of strings using a variable with
 an integer value and then assign values to each element in the array.
 
 ```java
-package com.arthurneuman.myfirstapplication;
+package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
