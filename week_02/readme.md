@@ -2,8 +2,7 @@
 
 This week we'll look at control flow which, at a high level, is simply the order
 in which statements in our code are executed.  We'll look at ways of controlling
-the flow including the use of decision statements and loops. We'll also look at
-another UI component beyond the *TextView*.
+the flow including the use of decision statements and loops.
 
 ## Corresponding Text
 
@@ -457,25 +456,39 @@ values?
 We could do write separate if statements like this:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int coldThreshold = 60;
         int hotThreshold = 75;
         int currentTemperature = 65;
 
         if (currentTemperature < coldThreshold) {
-            System.out.println("It's too cold!");
+            builder.append("It's too cold!");
         }
 
         if (currentTemperature > hotThreshold) {
-            System.out.println("It's too hot!");
+            builder.append("It's too hot!");
         }
 
         if ((currentTemperature >= coldThreshold) && (currentTemperature <= hotThreshold)) {
-            System.out.println("It's just right!");
+            builder.append("It's just right!");
         }
+        output.setText(builder);
     }
 }
 ```
@@ -489,27 +502,40 @@ One alternative to multiple if statements is to chain if-else statements like
 this:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int coldThreshold = 60;
         int hotThreshold = 75;
         int currentTemperature = 65;
 
         if (currentTemperature < coldThreshold) {
-            System.out.println("It's too cold!");
+            builder.append("It's too cold!");
         }
-
         else {
             if (currentTemperature > hotThreshold) {
-                System.out.println("It's too hot!");
+                builder.append("It's too hot!");
             }
 
             else {
-                System.out.println("It's just right!");
+                builder.append("It's just right!");
             }
         }
+        output.setText(builder);
     }
 }
 ```
@@ -529,36 +555,52 @@ We can also write the previous example in the following form, which might be
 easier to read:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int coldThreshold = 60;
         int hotThreshold = 75;
         int currentTemperature = 65;
 
         if (currentTemperature < coldThreshold) {
-            System.out.println("It's too cold!");
+            builder.append("It's too cold!");
         }
 
         else if (currentTemperature > hotThreshold) {
-            System.out.println("It's too hot!");
+                builder.append("It's too hot!");
         }
 
         else {
-            System.out.println("It's just right!");
+            builder.append("It's just right!");
         }
+
+        output.setText(builder);
     }
 }
 ```
 
 ### Switch Statement
+
 The **switch statement** let's us choose from among several different execution
 paths in a more efficient manner than using chained if-else statements. The
 switch statement has the following syntax where content in brackets (`[`, `]`)
 are optional:
 
-```
+``` text
 switch (selector expression)
 {
     case value1: statement1 [break;]
@@ -580,27 +622,47 @@ executed if none of the prior cases match the *selector expression*.
 The following is an example using the switch statement:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String windDirection= "west";
         switch (windDirection) {
             case "north":
-                System.out.println("The wind is blowing from the north.");
+                builder.append("The wind is blowing from the north.");
+                builder.append(System.lineSeparator());
                 break;
             case "south":
-                System.out.println("The wind is blowing from the south.");
+                builder.append("The wind is blowing from the south.");
+                builder.append(System.lineSeparator());
                 break;
             case "west":
-                System.out.println("The wind is blowing from the west.");
+                builder.append("The wind is blowing from the west.");
+                builder.append(System.lineSeparator());
                 break;
             case "east":
-                System.out.println("The wind is blowing from the east.");
+                builder.append("The wind is blowing from the east.");
+                builder.append(System.lineSeparator());
                 break;
             default:
-                System.out.println("I don't know where the wind is blowing from.");
+                builder.append("I don't know where the wind is blowing from.");
+                builder.append(System.lineSeparator());
         }
+
+        output.setText(builder);
     }
 }
 ```
@@ -613,30 +675,50 @@ from." is displayed.
 What happens if we remove the break statements?
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String windDirection= "west";
         switch (windDirection) {
             case "north":
-                System.out.println("The wind is blowing from the north.");
+                builder.append("The wind is blowing from the north.");
+                builder.append(System.lineSeparator());
             case "south":
-                System.out.println("The wind is blowing from the south.");
+                builder.append("The wind is blowing from the south.");
+                builder.append(System.lineSeparator());
             case "west":
-                System.out.println("The wind is blowing from the west.");
+                builder.append("The wind is blowing from the west.");
+                builder.append(System.lineSeparator());
             case "east":
-                System.out.println("The wind is blowing from the east.");
+                builder.append("The wind is blowing from the east.");
+                builder.append(System.lineSeparator());
             default:
-                System.out.println("I don't know where the wind is blowing from.");
+                builder.append("I don't know where the wind is blowing from.");
+                builder.append(System.lineSeparator());
         }
+
+        output.setText(builder);
     }
 }
 ```
 
 The output of this code is:
 
-```
+``` text
 The wind is blowing from the west.
 The wind is blowing from the east.
 I don't know where the wind is blowing from.
@@ -646,15 +728,17 @@ Notice that every statement that is part of the matching case and those cases
 that occur after the matching case are executed.
 
 ## Loops
+
 Often, there's a need to repeatedly execute a statement multiple times; this
 repeated execution is called a **loop**.  Java provides several kinds of loop
 statements.
 
 ### For and For-Each Statements
+
 The **for statement** lets us loop over a statement a specific number of times
 or indefinitely; it has the following syntax:
 
-```
+``` text
 for ([initialize]; [test]; [update])
     statement
 ```
@@ -706,8 +790,8 @@ My favorite number is 8!
 My favorite number is 9!
 ```
 
-Let's examine what happened.  We have a for loop that executes a
-`System.out.println()` statement through each iteration of the loop.  In this
+Let's examine what happened.  We have a for loop that appends to the
+*StringBuilder* in each iteration of the loop.  In this
 for loop, the initialize section is simply the statement `int i=0`, which
 initializes a new integer-valued variable to 0.  The variable *i* is a
 loop-control variable in this case.  The test section consists of the Boolean
@@ -722,22 +806,38 @@ as the value is less than 10 (as indicated by the test section).
 Remember, each of the sections is optional.  Consider this example:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int i = 0;
-        for (; i <= 10;) {
-            System.out.println(i + "*" + i + " = " + i*i);
+        for (; i < 10;) {
+            builder.append(i + "*" + i + " = " + i*i);
+            builder.append(System.lineSeparator());
             i++;
         }
+
+        output.setText(builder);
     }
 }
 ```
 
 The output is:
 
-```
+``` text
 0*0 = 0
 1*1 = 1
 2*2 = 4
@@ -759,21 +859,37 @@ updated the control variable.
 Here's another example:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String[] words = {"hello", "how", "are", "you"};
         for (int i = 0; i < words.length; i++) {
-            System.out.println(words[i]);
+            builder.append(words[i]);
+            builder.append(System.lineSeparator());
         }
+
+        output.setText(builder);
     }
 }
 ```
 
 The output is:
 
-```
+``` text
 hello
 how
 are
@@ -795,13 +911,31 @@ in an array and similar structures.  This type of for loop is commonly known
 as a **for-each loop**.  Here's the previous example rewritten to use a
 for-each loop:
 
-```java
-public class Main {
-    public static void main(String[] args) {
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String[] words = {"hello", "how", "are", "you"};
         for (String word: words) {
-            System.out.println(word);
+            builder.append(word);
+            builder.append(System.lineSeparator());
         }
+
+        output.setText(builder);
     }
 }
 ```
@@ -821,10 +955,11 @@ there are no more *elements* remaining in *collection* to be assigned to
 *item*.
 
 ### While and Do-While Statements
+
 The **while statement** repeatedly executes another statement as long as a
 Boolean expression evaluates to true.  The syntax of the while statement is
 
-```
+``` text
 while (Boolean expression)
     statement
 ```
@@ -835,22 +970,38 @@ expression in parentheses and the statement to be executed repeatedly.
 Let's look at an example.
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int i = 0;
         while (i < 10) {
-            System.out.println(i);
+            builder.append(i);
+            builder.append(System.lineSeparator());
             i += 2;
         }
+
+        output.setText(builder);
     }
 }
 ```
 
 The output is:
 
-```
+``` text
 0
 2
 4
@@ -872,7 +1023,8 @@ package com.myname.week_02;
 public class Main {
     public static void main(String[] args) {
         for (int i = 0; i < 10; ) {
-            System.out.println(i);
+            builder.append(i);
+            builder.append(System.lineSeparator());
             i += 2;
         }
     }
@@ -886,7 +1038,7 @@ done ahead of time and while loops when we don't necessarily know this.
 In Java, there is also the **do-while statement** which will always execute its
 statement at least once.  Its syntax is
 
-```
+``` text
 do
     statement
 while (Boolean expression);
@@ -899,16 +1051,32 @@ Boolean expression is true.
 Here's an example:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int i = 100;
         do {
-            System.out.println(i);
+            builder.append(i);
+            builder.append(System.lineSeparator());
             i += 2;
         }
         while (i<10);
+
+        output.setText(builder);
     }
 }
 ```
@@ -919,56 +1087,14 @@ execute the statement before evaluating the Boolean expression.  Do-while loops
 are useful if we want to guarantee at least one execution of the statement
 inside the loop but are generally less readable than while loops.
 
-The book gives examples of reading user input.  Because of how Java is executed
-in the IDE, these examples will not work as written. Specifically,
-`System.in.read()` will not work as expected.  We can read user input into
-strings using the following code:
-
-```java
-java.util.Scanner scanner = new java.util.Scanner(System.in);
-String input = scanner.nextLine();
-```
-
-Let's look at an example similar to one in the book using this code.
-
-```java
-package com.myname.week_02;
-
-public class Main {
-    public static void main(String[] args) {
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-        String input = "";
-        while (!input.equals("C") && !input.equals("c"))
-        {
-            System.out.println("Enter C or c to continue.");
-            input = scanner.nextline();
-        }
-    }
-}
-```
-
-This program will repeat the text `Enter C or c to continue` as long as the
-user enters something other than *C* or *c* and presses enter or return.  There
-are two things to notice about the code that we'll discuss in depth later.
-First, the line `java.util.Scanner scanner = new java.util.Scanner(System.in);`
-is outside the while loop.  For now, think of this line as creating a new
-scanner used to look for input; we can reuse the same scanner over and over
-again rather than make a new one every time through the loop.  This saves us
-some time while the program is running.
-
-The second thing to note is that when we compare strings, we typically cannot
-simply use the `==` operator.  The `==` operator will work to compare the
-values of primitive types. Recall that String is a reference type and that it
-stores a memory address to the location of its value. The `==` operator
-compares these memory addresses for reference types and we have to use
-`.equals`.  We will discuss this further later.
-
 ## Break and Continue Statements
+
 Sometimes its useful to stop a loop's execution or to skip the execution of
 a statement and move on to the next iteration of a loop.  The break and continue
 statements allow us to do these things.
 
 ### Break Statements
+
 The **break statement** terminates execution of a loop or evaluation of a
 switch statement (as we saw saw earlier) and transfers execution to the first
 statement following the loop or switch statement.
@@ -977,25 +1103,42 @@ A common scenario in which you might use a break statement is when searching
 for a specific value.  As a simple example, suppose we have an array of
 integers and want to display the first negative integer in the array.
 
-```java
-package com.myname.week_02;
+``` java
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         int[] integers = {1,2,3,4,-1,-2, 10};
         boolean foundNegative = false;
 
         for (int i = 0; i < integers.length; i++) {
             if (integers[i] < 0) {
-                System.out.println("Negative found: " + integers[i]);
+                builder.append("Negative found: " + integers[i]);
+                builder.append(System.lineSeparator());
                 foundNegative = true;
                 break;
             }
         }
 
         if (!foundNegative) {
-            System.out.println("No negative found.");
+            builder.append("No negative found.");
+            builder.append(System.lineSeparator());
         }
+
+        output.setText(builder);
     }
 }
 ```
@@ -1011,6 +1154,7 @@ keep track of whether we found a negative or not; this allows us to indicate
 that no negatives were found if the array contained only non-negative values.
 
 ### Continue Statements
+
 The **continue statement** skips the remainder of a loop's current iteration,
 re-evaluates the loop's Boolean expression, and performs the next iteration
 if the Boolean expression is true or terminates the loop.
@@ -1022,20 +1166,37 @@ temperature corresponds to the second city, and so on.  Suppose we only want
 to display the names of cities with negative temperatures.
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String[] cityNames = {"Columbus", "Cleveland", "Cincinnati", "Dayton"};
         int[] currentTemperatures = {-10, -20, 5, -1};
-        System.out.println("Cities with negative temperatures:");
+        builder.append("Cities with negative temperatures:");
+        builder.append(System.lineSeparator());
 
         for (int i = 0; i < cityNames.length; i++) {
             if (currentTemperatures[i] >= 0) {
                 continue;
             }
-            System.out.println(cityNames[i]);
+            builder.append(cityNames[i]);
+            builder.append(System.lineSeparator());
         }
+
+        output.setText(builder);
     }
 }
 ```
@@ -1048,39 +1209,70 @@ the if statement to achieve the same results but there are often situations
 where it's more convenient to use continue statements.
 
 ## Scope
+
 A variable's **scope** is where, in code, that variable exists and is
 accessible. All variables aren't accessible from any part of a program.
 
-For example, consider this simple code that _will not run_:
+For example, consider this simple code that **will not run**:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         for (int i = 1; i <= 10; i++){
-            System.out.println(i);
+            builder.append(i);
+            builder.append(System.lineSeparator());
         }
-        System.out.println(i);
+        builder.append(i);
+        builder.append(System.lineSeparator());
+
+        output.setText(builder);
     }
 }
 ```
 
 The reason that this program will not run is that the variable *i* used in
-the last `System.out.prinln(i);` is not defined; IntelliJ will indicate that
-java cannot find the symbol if you try to run this code.  The reason that *i*
-is not defined is that it was declared as part of the for loop and its scope
+the last `System.out.prinln(i);` is not defined; Android Studio will indicate
+that Java cannot find the symbol if you try to run this code.  The reason that
+*i* is not defined is that it was declared as part of the for loop and its scope
 is the for loop, that is, it only exists and is accessible from within the for
 loop.
 
 One situation where you might run into problems related to scope is with the
-switch statement.  For example, this code _will not run_:
+switch statement.  For example, this code **will not run**:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String choice = "a";
         switch (choice) {
             case "a":
@@ -1092,6 +1284,8 @@ public class Main {
             default:
                 int result = 0;
         }
+
+        output.setText(builder);
     }
 }
 ```
@@ -1104,10 +1298,23 @@ nested scopes for each case using braces.  Using the first method, we'd have
 the following code:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String choice = "a";
         switch (choice) {
             case "a":
@@ -1119,6 +1326,8 @@ public class Main {
             default:
                 result = 0;
         }
+
+        output.setText(builder);
     }
 }
 ```
@@ -1126,10 +1335,23 @@ public class Main {
 Using nested scopes, we'd have:
 
 ```java
-package com.myname.week_02;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output = (TextView) findViewById((R.id.output));
+        StringBuilder builder = new StringBuilder();
+
         String choice = "a";
         switch (choice) {
             case "a": {
@@ -1144,6 +1366,8 @@ public class Main {
                 int result = 0;
             }
         }
+
+        output.setText(builder);
     }
 }
 ```
@@ -1151,6 +1375,7 @@ public class Main {
 Note that even with nested scopes, we still need break statements.
 
 ## Exercise
+
 Suppose the high temperature (in degrees Fahrenheit) for each of next week's
 days are 45, 29, 10, 22, 41, 28, and 33 and the probability of precipitation
 for each of the next five days is 95%, 60%, 25%, 5%, 0%, 75%, and 90%.  Write

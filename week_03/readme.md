@@ -1,24 +1,26 @@
 # Week 3 - Introduction to Methods and Enumerations
 
+User input, methods, enumerations
+
 ## Corresponding Text
 *Learn Java for Android Development*, pp. 107-124, 275-276
 
 ## Methods
-As our programs become more complex, it becomes important to divide and 
-organize our code in a meaningful way.  For example, if we perform the same set 
+As our programs become more complex, it becomes important to divide and
+organize our code in a meaningful way.  For example, if we perform the same set
 of steps by executing similar sets of statements, we might want to be able to
 group those steps together and write them only once rather than writing them
 over and over again.  Often we can do this sort of grouping using looping
 statements. Another way to group parts of our code is by behavior.
 **Behaviors** refer to some sequence of code that performs a certain task.  In
 addition to this week's discussion, we'll talk more about behaviors when we
-discuss classes and objects.  
+discuss classes and objects.
 
 Java represents behavior using methods.  **Methods** are named blocks of code.
 In your reading, you will see references to class methods and instance methods.
 For now, we'll only be looking at class methods but we'll talk about both again
 later. For the remainder of this week's discussion, method will technically
-refer to class methods.  
+refer to class methods.
 
 Before we start working with methods, let's look at the following code and
 think of how we can improve it:
@@ -117,7 +119,7 @@ soon.  A method's name and the number, types, and order of its parameters are
 known as the method's **signature**.  The reserved word *static*, the return
 type, and the method's signature are known as the **method header**; the set
 of statements within a method, *statements_to_execute*, are known as the
-**method body**.  
+**method body**.
 
 Let's look at how we can move the conversion of Celsius to Fahrenheit to a
 method.  We're going to change the output of our program for now.
@@ -177,7 +179,7 @@ method would have resulted in an error.  Similarly, variables declared within
 a method body have a scoped limited to the method.  The variable
 *fahrenheitValue*, is only accessible from within the method.
 
-Arguments are passed to functions in a style known as pass-by-value. 
+Arguments are passed to functions in a style known as pass-by-value.
 **Pass-by-value** passes the value of a variable to the method.  In the case
 of primitive types, the value associated with the variable is passed to the
 method. In the case of reference variables, the value associated with the
@@ -227,10 +229,10 @@ method - the values are copied and made available to the method. Because
 *anInteger* is a primitive data type, the copied value *10* is associated with
 the variable *integerValue* in the method body. A change to *integerValue*
 doesn't affect *anInteger*. The variable *anIntegerArray*, is different.  It's
-value is a memory location of the integer values that constitute the array.  
+value is a memory location of the integer values that constitute the array.
 Because *integerArray* and *anIntegerArray* both have values that correspond to
 the same memory location, changes to *anIntegerArray* within the method will
-affect the *integerArray* variable outside the method.  
+affect the *integerArray* variable outside the method.
 
 While strings are reference types, they are immutable in Java. So, they don't
 exhibit the same behavior as arrays.
@@ -320,7 +322,7 @@ type is `void`.  This is done by simply using `return;` with no value.
 ### Method Overloading
 Java allows us to define methods with the same names but with different
 parameter lists.  This allows us to use the same name for a collection of
-methods that exhibit the same behavior but use different types of data.  
+methods that exhibit the same behavior but use different types of data.
 
 ```java
 package com.myname.week_03;
@@ -410,7 +412,7 @@ included with Java for convenience.  As we continue to explore Java, we'll
 make extensive use of the standard library.
 
 Another method that might be of interest to us is one that allows us to convert
-strings to integers.  
+strings to integers.
 
 ```java
 package com.myname.week_03;
@@ -425,7 +427,7 @@ public class Main {
 }
 ```
 
-The method `Integer.parseInt()` takes a string parameter and returns an int.  
+The method `Integer.parseInt()` takes a string parameter and returns an int.
 Be careful when using methods that converts from one type to another as errors
 can occur.  We will talk about handling these errors later.
 
@@ -439,7 +441,7 @@ enum name {value1, value2, ..., valueN};
 ```
 
 where *name* is the name of the enumeration and each of *value1* through
-*valueN* are the possible values associated with the enumeration.  
+*valueN* are the possible values associated with the enumeration.
 
 ```java
 package com.myname.week_03;
@@ -475,7 +477,7 @@ west, east, and south.  We also have a method that displays information about
 the wind depending on the argument's value.  We use a switch statement that
 works with the enumeration's possible values.  While we could have achieved the
 same effect using strings or integers with each direction corresponding to a
-direction, the enumeration makes our code more readable and maintainable.  
+direction, the enumeration makes our code more readable and maintainable.
 Because we've used an enumeration, we know precisely what values are possible
 for variables like *measuredWindDirection*.
 
