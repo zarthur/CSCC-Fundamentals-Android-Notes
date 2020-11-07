@@ -15,7 +15,7 @@ following the links below.
 
 - [Week 1 - Utilize Data](week_01/readme.md)
 - [Week 2 - Flow Control](week_02/readme.md)
-- [Week 3 - Introduction to Methods and Enumerations](week_03/readme.md)
+- [Week 3 - Introduction to Methods, Enumerations, and User Input](week_03/readme.md)
 - [Week 4 - Collection Types](week_04/readme.md)
 - [Week 5 - Classes and Objects](week_05/readme.md)
 - [Week 6 - Exception Handling](week_06/readme.md)

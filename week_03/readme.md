@@ -1,6 +1,6 @@
 # Week 3 - Introduction to Methods, Enumerations, and User Input
 
-User input, methods, enumerations
+Methods, enumerations, and user input.
 
 ## Corresponding Text
 
@@ -677,10 +677,154 @@ are possible for variables like *measuredWindDirection*.
 
 ## User Input
 
+To collect user input, we need to modify our layout.  Right now, the layout
+contains one component, a *TextView* object used to display text.  We'll modify
+the layout to include a *TextView* object, an *EditText* object, and a *Button*
+object - the *EditText* object will allow us to collect input and the *Button*
+will allow us to process the input. We'll also add a *LinearLayout* to organize
+ the UI components.
+
+To start modifying the UI, we first need to open the layout file,
+`activity_main.xml`, in the `res/layout` folders. The layout contains the
+single *EditText* object we've been using to display output.
+
+![App layout](images/layout-1.png)
+
+Delete the existing *TextView*, the object with the text *Hello, World!*.  To
+help organize our UI, we can use a variety of layout components - we'll use
+a vertical *LinearLayout* which will allow us to stack our components
+vertically.  To add the *LinearLayout*, select *Layouts* in the *Palette*
+tool and drag and drop the *LinearLayout (vertical)* to the layout
+preview.
+
+Next, select *Text* from the *Palette* tool and drag and drop a *Plain Text*
+item to the layout preview - this adds an *EditText* object to our layout.
+
+![EditText added](images/layout-2.png)
+
+Click the *EditText* item we just added and modify the following attributes to
+have the listed values.
+
+| Attribute |  Value  |
+| --------- | ------- |
+| *id*      | `input` |
+| *hint*    | `Input` |
+| *text*    | *Empty* |
+
+From the *Palette* tool, drag and drop a *TextView* object below the existing
+*EditText* object.  Modify its attributes to have the following values:
+
+| Attribute |  Value   |
+| --------- | -------- |
+| *id*      | `output` |
+
+![TextView added](images/layout-3.png)
+
+Finally, drag and drop a *Button* object from the *Palette* tool below the
+*TextView*.  Modify it's attributes to have the following values:
+
+| Attribute |  Value  |
+| --------- | ------- |
+| *text*      | `Process` |
+
+![Button added](images/layout-4.png)
+
+Near the top, right corner of the Android Studio window, you should an option
+to toggle to view between *Code*, *Split*, and *Design*.  We've been working
+in the design view.  If you select *Code*, you should see something similar to
+the following XML that defines the layout.
+
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+<LinearLayout
+    android:layout_width="409dp"
+    android:layout_height="729dp"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp">
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Input"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Output" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Process" />
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+In order to use the *EditText* and *Button* objects, we'll need to modify our
+code. The Android framework relies on **events** to process user interaction
+with the interface.  For example, when a user taps on a button, it creates a
+*click* event. An event is handled by a **listener** that captures details of
+the event and executes some specified code.  To process the *click* event
+associated with the *Button* object, we have to assign a listener using the
+*Button.setOnClickListener()* method.  As an argument to the method, we have
+to specify an *OnClickLister* object.  We typically do this by creating an
+**anonymous class** with an *OnClick()* method.  We'll talk more about
+events, listeners, and anonymous classes later in the course.  For now,
+use the following code in *MainActivity.java*.
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                output.setText("Your input is: " + input.getText());
+            }
+        });
+    }
+}
+```
+
+If you run the app, you can enter text in the input *EditText* and click the
+process *Button*.  The text in the *TextView* should update to include the
+text you entered.
+
+![Input](images/input-1.png)
+
 ## Exercise
+
 Write a program that prompts a user to enter a temperature in Fahrenheit,
-converts it to Celsius, and displays the Celsius temperature.  Separate the
-code that collects user input, the code that converts temperatures, and the
-code that displays the output into different methods.  The program should
-repeat until the user enters a value less than -460 (approximately absolute
-zero).
+converts it to Celsius, and displays the Celsius temperature.
