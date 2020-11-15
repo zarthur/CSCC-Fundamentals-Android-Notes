@@ -675,6 +675,75 @@ corresponding to a direction, the enumeration makes our code more readable and
 maintainable. Because we've used an enumeration, we know precisely what values
 are possible for variables like *measuredWindDirection*.
 
+## Introduction to Packages
+
+A **package** is a unique namespace that can contain classes and sub-packages.
+Packages allow us to organize our code in meaningful ways similar to how
+folders and subfolders let us organize files in general on a computer.
+
+For example, consider the last code we ran.  Near the top, we have this line of
+code:
+
+``` java
+package com.myname.myapplication
+```
+
+This tells Java that all the code in this file belongs to the
+`com.myname.myapplication` package.
+
+We can use code from other packages using the packages' names.  Consider this
+example that sets the text of the *TextView* object to `Hello`.
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        android.widget.TextView output =
+                (android.widget.TextView) findViewById((R.id.output));
+
+        output.setText("Hello");
+    }
+}
+```
+
+We've accessed the *TextView* class/type using it's full name including the
+package it resides in by writing `android.widget.TextView`.  This is not
+how we've been using *TextView* so far.  Instead, we can *import* the package
+and class near the beginning of our code to tell Java exactly where to look
+for the class or type we're using.  This allows us to avoid having to write the
+full name of the class or type.
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView output =
+                (TextView) findViewById((R.id.output));
+
+        output.setText("Hello");
+    }
+}
+```
+
 ## User Input
 
 To collect user input, we need to modify our layout.  Right now, the layout
@@ -791,8 +860,6 @@ package com.myname.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
