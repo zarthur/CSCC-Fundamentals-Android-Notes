@@ -1,29 +1,34 @@
 # Week 5 - Classes and Objects
 
+An introduction to classes and objects
+
 ## Corresponding Text
+
 *Learn Java for Android Development*, pp. 89-107, 124-137
 
 ## Classes and Objects
-Last week, we discussed working with object in Java by creating instances of
+
+Last week, we discussed working with objects in Java by creating instances of
 classes in the standard library.  For example, we created an ArrayList using
 code like `new ArrayList<String>()`.  We described classes as defining the
-structure of the objects created from them, describing attributes representing
-state and methods representing behaviors related to that state.  In Java, like
-other object-oriented languages, we can create our own classes.  
+structure of the objects created from them, describing data attributes
+representing state and methods representing behaviors related to that state.
+In Java, like other object-oriented languages, we can create our own classes.
 
 ### Declaring Classes
+
 In all the examples we've worked with so far, we've relied on a class named
-*Main* specified by code that looks like this:
+*MainActivity* specified by code that looks like this:
 
 ```java
-public class Main {
+public class MainActivity {
     //additional Java code
 }
 ```
 
-This code declares a class named *Main* and the code associated with it is
-written between the two braces. The minimal syntax required for declaring a
-class is:
+This code declares a class named *MainActivity* and the code associated with
+it is written between the two braces. The minimal syntax required for declaring
+a class is:
 
 ```java
 class Name {
@@ -32,7 +37,7 @@ class Name {
 ```
 
 A class is declared by first using the reserved word *class* followed by the
-name of the class.  The name of the class is often written with the first
+name of the class. The name of the class is often written with the first
 letter of every word capitalized (compare this to methods where the first
 letter of the first word is lower case and the first letter of subsequent words
 is capitalized).  After the name, we specify the code associated with the
@@ -43,143 +48,273 @@ additional language features.
 Continuing with the weather theme of previous weeks, let's create a class
 that represents weather data at a specific time for a specific location.
 
-```java
-package com.myname.week_05;
+The convention in Java is that each class should be stored in its own file.
+Before we create a new class, let's create a file for that class.  In
+Android Studio, expand the folders in the *Project* view until you see
+`app/java/com.myname.myapplication` - *myname* might be your name. Right-click
+on `com.myname.myapplication`, select *New*, then select *Java Class*.
 
-class WeatherData {
-}
+![New Java class](images/new-1.png)
 
-public class Main {
-    public static void main(String[] args) {
-        WeatherData weather = new WeatherData();
-    }    
+When prompted for a name, enter `WeatherData`.  When prompted to add the file
+to Git, click *Add*.
+
+Notice that Android studio automatically added some code to the new class
+including the package it belongs to and the minimal code required to create
+a class.
+
+---
+
+WeatherData.java
+
+``` java
+package com.myname.myapplication;
+
+public class WeatherData {
 }
 ```
 
-Here we have two classes: *weatherData* and *Main*.  Recall that we write our
-*main()* method in the *Main* class and configure IntelliJ to use the *Main*
-class to run our programs.  We call the *Main* class the program's entry point.
-We'll continue to use a class named *Main* as an entry point in our programs.
-In addition to *Main*, we've also declared a class named *WeatherData*.  In
-the *main()* method, we create a new *WeatherData* instance using the *new*
-operator.  Notice that our class name is used to specify the data type of the
-variable storing an instance of the class.  There's not much to our WeatherData
-class right now besides its name.
+---
+
+We now have two classes in two files: *WeatherData* and *MainActivity*.  Recall
+that our code begins executing in the the *MainActivity.onCreate()* method.
+We'll continue to use this as the starting point of our code. We can create
+instances of *WeatherData* in the *MainActivity.onCreate()* method but there's
+not much to our WeatherData class right now besides its name.
 
 ### Constructing Objects
+
 Often when we create an instance of a class, there is some code that we'd like
 to execute to do things like set an instance's state.  One way we can do this
-is by using a constructor.  A class's constructor is a method used to allocate
-memory for an object when the *new* operator is used to create an instance.  
-Once memory is allocated, the constructor is called (or invoked) to initialize
-the object.  Once execution of the constructor is complete, the new operator
-returns the memory location of the newly created object (classes specify
-reference types).  The constructor doesn't have a name itself but uses the
-name of the class that declares the constructor.  When declaring a constructor,
+is by using a constructor.  A class's **constructor** is a method used to
+allocate memory for an object when the *new* operator is used to create an
+instance. Once memory is allocated, the constructor is called (or invoked) to
+initialize the object.  Once execution of the constructor is complete, the new
+operator returns the memory location of the newly created object (classes
+define reference types).  The constructor doesn't have a name itself but uses
+the name of the class that it belongs to. When declaring a constructor,
 the class's name is followed by parentheses containing a comma-separated
 parameter list that can be used when the constructor is called.  Let's look
 at an example.
 
+---
+
+WeatherData.java
+
 ```java
-package com.myname.week_05;
+package com.myname.myapplication;
 
-class WeatherData {
-    WeatherData(String city, double temperature, double humidity) {
-        System.out.println("WeatherData city: " + city);
-        System.out.println("WeatherData temperature: " + temperature);
-        System.out.println("WeatherData humidity: " + humidity);
-    }
-}
+import android.widget.TextView;
 
-public class Main {
-    public static void main(String[] args) {
-        WeatherData weather = new WeatherData("Columbus", 50, 72);
+public class WeatherData {
+    WeatherData(TextView textView, String city, double temp, double humidity) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("WeatherData city: " + city);
+        builder.append(System.lineSeparator());
+
+        builder.append("WeatherData temperature: " + temperature);
+        builder.append(System.lineSeparator());
+
+        builder.append("WeatherData humidity: " + humidity);
+        builder.append(System.lineSeparator());
+
+        textView.append(builder.toString());
     }
 }
 ```
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        WeatherData weatherData = new WeatherData(output, "Columbus", 40, 45);
+
+    }
+}
+```
+
+---
 
 If you run this program, the output should be:
 
 ```
 WeatherData city: Columbus
-WeatherData temperature: 50.0
-WeatherData humidity: 72.0
+WeatherData temperature: 40.0
+WeatherData humidity: 45.0
 ```
 
 We've added a constructor to our WeatherData class.  After indicating that
 the method is a constructor by using the class's name, we specified that
-the constructor took three parameters: a string and two doubles.  The
-constructor then displayed some information using the parameters.  When we
-ran the program, execution began in in the *Main* class with the *main()*
-method.  In this method, we constructed a new instance of the *WeatherData*
-class using the *new* operator.  The *new* operator first allocated sufficient
-memory for a *WeatherData* object, then called the constructor with the values
-we specified, and finally returned the memory location of the new object which
-was stored in the *weather* variable.  
+the constructor took four parameters: a TextView, a string, and two doubles.
+The constructor then displayed some information using the parameters.  When we
+ran the program, execution began in in the *MainActivity* class with the
+*onCreate()* method. In this method, we constructed a new instance of the
+*WeatherData* class using the *new* operator.  The *new* operator first
+allocated sufficient memory for a *WeatherData* object, then called the
+constructor with the values we specified, and finally returned the memory
+location of the new object which was stored in the *weatherData* variable.
 
-What did the *new* operator do when we didn't declare a constructor?  Java
-created a default constructor.  A *default constructor* is used to when no
+What does the *new* operator do when we don't declare a constructor?  Java
+created a default constructor.  A **default constructor** is used to when no
 other constructor is specified.  It takes no arguments.  The default
 constructor for the *WeatherData* class would be equivalent to
 
-```java
-WeatherData(){}
-```
+---
 
-Once we explicitly define a constructor, the default constructor is no longer
-available.  Java allows us to specify multiple constructors, so we could add
-the default constructor (and others) if we'd like.
+WeatherData.java
 
-```java
-package com.myname.week_05;
+``` java
+package com.myname.myapplication;
 
-class WeatherData {
-    WeatherData(){}
+import android.widget.TextView;
 
-    WeatherData(String city) {
-        System.out.println("WeatherData city: " + city);
-    }
-
-    WeatherData(String city, double temperature, double humidity) {
-        System.out.println("WeatherData city: " + city);
-        System.out.println("WeatherData temperature: " + temperature);
-        System.out.println("WeatherData humidity: " + humidity);
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        WeatherData weather1 = new WeatherData();
-        WeatherData weather2 = new WeatherData("Cleveland");
-        WeatherData weather3 = new WeatherData("Columbus", 50, 72);
-    }
+public class WeatherData {
+    WeatherData() {}
 }
 ```
 
-In this example, we have three different constructors for the WeatherData
-class: one that behaves like the default constructor, one that takes only
-a string parameter, and one that takes a string and two doubles.  Constructors,
-like other methods, must have unique signatures.
+The default constructor doesn't execute any additional code when an instance
+is created. Once we explicitly define a constructor, the default constructor is
+no longer available.  Java allows us to specify multiple constructors, so we
+could add the default constructor (and others) if we'd like.
+
+---
+
+WeatherData.java
+
+``` java
+package com.myname.myapplication;
+
+import android.widget.TextView;
+
+public class WeatherData {
+    WeatherData(TextView textView, String city) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("WeatherData city: " + city);
+        builder.append(System.lineSeparator());
+
+        textView.append(builder.toString());
+
+    }
+
+    WeatherData(TextView textView, String city, double temp, double humidity) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("WeatherData city: " + city);
+        builder.append(System.lineSeparator());
+
+        builder.append("WeatherData temperature: " + temp);
+        builder.append(System.lineSeparator());
+
+        builder.append("WeatherData humidity: " + humidity);
+        builder.append(System.lineSeparator());
+
+        textView.append(builder.toString());
+    }
+}
+```
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        WeatherData weatherData1 = new WeatherData(output, "Columbus", 40, 45);
+        WeatherData weatherData2 = new WeatherData(output, "Cleveland");
+
+    }
+}
+```
+
+---
+
+In this example, we have two constructors for the WeatherData class: one that
+takes only a TextView parameter and a String parameter, and one that takes a
+TextView parameter, a String parameter, and two double parameters.
+Constructors, like methods, must have unique signatures.
 
 ### Encapsulation
+
 Previously, we described classes as combining related state information
-(attributes) with behaviors that make use of or modify that state information.
-Combining state information with related behaviors in one data structure is
-known as **encapsulation**.  Encapsulation is also sometimes used to describe
-restrictions on access to behaviors and state information to avoid misuse or
-interference.  We'll begin by looking at how we define behaviors and state
-information and then look at restricting access to these items.  
+(data attributes) with behaviors that make use of or modify that state
+information. Combining state information with related behaviors in one data
+structure is known as **encapsulation**.  Encapsulation is also sometimes used
+to describe restrictions on access to behaviors and state information to avoid
+misuse or interference.  We'll begin by looking at how we define behaviors and
+state information and then look at restricting access to these items.
 
 #### Fields
+
 A class field stores an attribute that is associated with a class.  A class
-field is shared by all objects created by the class (using the new operator).  
+field is shared by all objects created by the class (using the new operator).
 If one object modifies a class field, another object created from the same
 class will "see" the new value.
 
 Within a class declaration, a class field is declared using the following
 syntax:
 
-```
+``` java
 static type_name variable_name [ = expression ] ;
 ```
 
@@ -190,16 +325,20 @@ initializer. If no initial value is specified, the field is initialized to 0,
 0.0, false, null, etc, depending on the. field's type.
 
 In our WeatherData class, we can add class fields for values that we would want
-to share with all objects created from the class.  
+to share with all objects created from the class.
 
 We can effectively make a class field a constant by using the reserved word
 *final*.  This will prevent changes to the field.  A convention is to write
 variable names with all capital letters when they represent constants.
 
-```java
-package com.myname.week_05;
+---
 
-class WeatherData {
+WeatherData.java
+
+```java
+package com.myname.myapplication;
+
+public class WeatherData {
     final static String TEMP_UNIT = "F";
     final static String HUMIDITY_UNIT = "%";
     final static String PRECIPITATION_UNIT = "%";
@@ -212,29 +351,73 @@ class WeatherData {
         counter++;
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Counter: " + WeatherData.counter);
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        StringBuilder builder = new StringBuilder();
+
+        addText(builder,"Temp unit: " + WeatherData.TEMP_UNIT);
+        addText(builder,"Counter: " + WeatherData.counter);
 
         WeatherData columbus = new WeatherData("Columbus", 50, 75, 30);
-        System.out.println("Counter: " + WeatherData.counter);
+        addText(builder, "Counter: " + WeatherData.counter);
 
         WeatherData cleveland = new WeatherData("Cleveland", 45, 70, 30);
-        System.out.println("Counter: " + WeatherData.counter);
+        addText(builder, "Counter: " + WeatherData.counter);
 
-        System.out.println("Counter: " + columbus.counter);
-        System.out.println("Counter: " + cleveland.counter);
+        addText(builder, "Counter: " + columbus.counter);
+        addText(builder, "Counter: " + cleveland.counter);
+
+        output.setText(builder.toString());
     }
 }
 ```
 
 In this example, we've added five fields *TEMP_UNIT*, *HUMIDITY_UNIT*,
 *PRECIPITATION_UNIT*, *FREEZING_TEMP*, and *counter*.  The first four are
-marked final so they will act like constants.  If you run this example, the
+marked final so they will act like constants. If you run this example, the
 output should be:
 
-```
+``` text
+Temp unit: F
 Counter: 0
 Counter: 1
 Counter: 2
@@ -242,18 +425,24 @@ Counter: 2
 Counter: 2
 ```
 
-Notice that the value of constructor increases each time a WeatherData object
+Notice that the value of *counter* increases each time a WeatherData object
 is created.  This is consistent with the code in the constructor.  Each
-WeatherData object also has access to the updated value.  While we were able
-to use the objects we created in main() to access the counter class field
-(`cleveland.counter` and `columbus.counter`), we typically use the class
-name to access the field (`WeatherData.counter`).
+WeatherData object also has access to the updated value since *counter* is
+a class field.  While we were able to use the objects we created in
+*onCreate()* to access the counter class field (`cleveland.counter` and
+`columbus.counter`), we typically use the class name to access a class field
+(`WeatherData.counter`).
+
+In the previous example, we also created a new method in the *MainActivity()*
+class named *addText()*. This method combines the steps of appending text to
+a StringBuilder and adding a line separator so we don't have to repeatedly add
+the line separator ourselves.
 
 An **instance field** stores an attribute associated with an object where each
 instance of a class maintains a separate value. The syntax for the declaration
 is:
 
-```
+``` java
 type_name variable_name [ = expression ];
 ```
 
@@ -268,8 +457,12 @@ class field is that a class field requires the use of the reserved word
 
 Let's add some instance fields to our WeatherData class.
 
+---
+
+WeatherData.java
+
 ```java
-package com.myname.week_05;
+package com.myname.myapplication;
 
 class WeatherData {
     final static String TEMP_UNIT = "F";
@@ -290,22 +483,66 @@ class WeatherData {
         this.precipitation = precipitation;
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
+---
+
+MainActivity.java
+
+```java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        StringBuilder builder = new StringBuilder();
+
         WeatherData columbus = new WeatherData("Columbus", 50, 75, 30);
-        System.out.println("City name: " + columbus.cityName);
-        System.out.println("Temperature: " + columbus.temperature + WeatherData.TEMP_UNIT);
-        System.out.println("Humidity: " + columbus.humidity + WeatherData.HUMIDITY_UNIT);
-        System.out.println("Chance of precipitation: " + columbus.precipitation
+        addText(builder, "City name: " + columbus.cityName);
+        addText(builder, "Temperature: " + columbus.temperature + WeatherData.TEMP_UNIT);
+        addText(builder, "Humidity: " + columbus.humidity + WeatherData.HUMIDITY_UNIT);
+        addText(builder, "Chance of precipitation: " + columbus.precipitation
                 + WeatherData.PRECIPITATION_UNIT);
+
+        output.setText(builder.toString());
     }
 }
 ```
 
+---
+
 If we run this program, the output is:
 
-```
+``` text
 City name: Columbus
 Temperature: 50.0F
 Humidity: 75.0%
@@ -316,18 +553,20 @@ After declaring and initializing the class fields, we declared four instance
 methods: *cityName*, *temperature*, *humidity*, and *precipitation*.  In the
 constructor, we assign values to these fields using the values passed to the
 constructor.  Notice the use of *this* when the field name was the same
-as the parameter name.  *this* is a reference to the current instance and
-allows us to be explicit when accessing the instance field.  If we had written
-`temperature = temperature` instead of `this.temperature = temperature`, Java
-would assume that we were reassigning the value of the parameter *temperature*
-to itself.  So, we have to be explicit and use *this*.
+as the parameter name.  *this* is a reference to the current instance of a
+class that we're working with and allows us to be explicit when accessing the
+instance field.  If we had written `temperature = temperature` instead of
+`this.temperature = temperature`, Java would assume that we were reassigning
+the value of the parameter *temperature* to itself.  So, we have to be explicit
+and use *this*.
 
 #### Methods
+
 We've explored class methods in an earlier lecture.  Recall that methods can be
 used to represent behavior.  Behavior associated with a class can be written
 as class methods.  Class methods, like class fields, can be accessed using the
 class's name and without creating an instance.  While class methods can
-access and modify class fields, the cannot access or modify instance fields.  
+access and modify class fields, the cannot access or modify instance fields.
 
 Recall that class methods have the following syntax:
 
@@ -340,7 +579,7 @@ where *return_type* is the data type of any value returned by the method
 (*void* if no value is returned), *name* is the method's name, and
 *parameter_list* is a list of comma-separated types and names for values
 passed to the method.  Class methods require the reserved word *static* be
-a part of their method headers.  
+a part of their method headers.
 
 Let's add some class methods to our WeatherData class.
 
@@ -396,7 +635,7 @@ as long as what we are trying to access is unambiguous; if it is ambiguous, we
 have to use the class name like `WeatherData.FREEZING_TEMP`.
 
 An **instance method** represents a behavior associated with an object and
-can access/modify an object's instance fields.  
+can access/modify an object's instance fields.
 
 The syntax for declaring an instance method is:
 
@@ -513,9 +752,9 @@ If no access control is specified, the method, field, or class is
 same package.
 
 Often, instance fields are declared *private* and special methods known as
-*getters* and *setters* are defined for accessing or modifying their values.  
+*getters* and *setters* are defined for accessing or modifying their values.
 Usually, class fields are declared *public* but can be made private to hide
-unnecessary details.  
+unnecessary details.
 
 Let's declare the access control levels of our fields and methods in
 WeatherData.
@@ -589,7 +828,7 @@ public class Main {
 }
 ```
 
-We've made a number of changes but the output should be the same as before.  
+We've made a number of changes but the output should be the same as before.
 First, we marked the class fields specifying units as *private*. The constant
 representing the freezing temperature was marked *public*. All the instance
 methods were marked *private* We made both the constructor and the class
@@ -600,7 +839,7 @@ to indirectly access the city name and indirectly set the temperature - we'll
 see why this could be important in the next example.  We decided that
 `willSnow()` is a helper method and shouldn't be available to other classes, so
 we marked it as *private*.  The `displayWeatherReport()` method should be
-accessible to other classes, so we marked it *public*.  
+accessible to other classes, so we marked it *public*.
 
 What if we wanted to perform a check on the value the specified for the
 temperature and make sure it was greater than a minimal value?  This is one
@@ -685,7 +924,7 @@ of creating a new object, the *new* operator allocates space in memory to store
 the object.  But how do we free memory when we no longer need the object?  If
 memory weren't freed, we could eventually run out of available memory and the
 program would stop.  While some languages require that objects be explicitly
-removed from memory, Java takes care of this for us.  
+removed from memory, Java takes care of this for us.
 
 Java provides a **garbage collector** that occasionally runs, checks for
 unreferenced objects (or objects with references to each other but nothing else
@@ -704,7 +943,7 @@ program is utilizing more memory than we expect.
 
 ## Exercise
 Create a class that represents contact information for a person.  The class
-should store the person's name and their email address.  
+should store the person's name and their email address.
 
 Create a second class that represents an address book (a collection of contact
 information for many people) that includes methods for adding new contact
