@@ -1,10 +1,10 @@
 # Week 4 - Collection Types and Exception Handling
 
-An introduction to collections and how to handle exceptions.
+An introduction to collections.
 
 ## Corresponding Text
 
-*Learn Java for Android Development*, pp. 217-232, 305-318, 404-425, 448-456
+*Learn Java for Android Development*, pp. 305-318, 404-425, 448-456
 
 ## Introduction to Classes, Instances, and Interfaces
 
