@@ -107,16 +107,14 @@ package com.myname.myapplication;
 import android.widget.TextView;
 
 public class WeatherData {
-    WeatherData(TextView textView, String city, double temp, double humidity) {
+    // constructor
+    WeatherData(TextView textView, String city, double temp) {
         StringBuilder builder = new StringBuilder();
 
         builder.append("WeatherData city: " + city);
         builder.append(System.lineSeparator());
 
         builder.append("WeatherData temperature: " + temperature);
-        builder.append(System.lineSeparator());
-
-        builder.append("WeatherData humidity: " + humidity);
         builder.append(System.lineSeparator());
 
         textView.append(builder.toString());
@@ -158,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        WeatherData weatherData = new WeatherData(output, "Columbus", 40, 45);
+        // new instance
+        WeatherData weatherData = new WeatherData(output, "Columbus", 40);
 
     }
 }
@@ -171,7 +170,6 @@ If you run this program, the output should be:
 ```
 WeatherData city: Columbus
 WeatherData temperature: 40.0
-WeatherData humidity: 45.0
 ```
 
 We've added a constructor to our WeatherData class.  After indicating that
@@ -219,6 +217,10 @@ package com.myname.myapplication;
 import android.widget.TextView;
 
 public class WeatherData {
+    // constructor
+    WeatherData() {}
+
+    //constructor
     WeatherData(TextView textView, String city) {
         StringBuilder builder = new StringBuilder();
 
@@ -229,16 +231,14 @@ public class WeatherData {
 
     }
 
-    WeatherData(TextView textView, String city, double temp, double humidity) {
+    //constructor
+    WeatherData(TextView textView, String city, double temp) {
         StringBuilder builder = new StringBuilder();
 
         builder.append("WeatherData city: " + city);
         builder.append(System.lineSeparator());
 
         builder.append("WeatherData temperature: " + temp);
-        builder.append(System.lineSeparator());
-
-        builder.append("WeatherData humidity: " + humidity);
         builder.append(System.lineSeparator());
 
         textView.append(builder.toString());
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
         WeatherData weatherData1 = new WeatherData(output, "Columbus", 40, 45);
         WeatherData weatherData2 = new WeatherData(output, "Cleveland");
-
+        WeatherData weatherData3 = new WeatherData();  // nothing displayed
     }
 }
 ```
@@ -331,6 +331,10 @@ We can effectively make a class field a constant by using the reserved word
 *final*.  This will prevent changes to the field.  A convention is to write
 variable names with all capital letters when they represent constants.
 
+In the following example, we'll also create a new method in the
+*MainActivity()* class named *addText()*. This method combines the steps of
+appending text to a StringBuilder and adding a line separator so we don't have
+to repeatedly add the line separator ourselves.
 ---
 
 WeatherData.java
@@ -339,15 +343,15 @@ WeatherData.java
 package com.myname.myapplication;
 
 public class WeatherData {
+    // class fields
     final static String TEMP_UNIT = "F";
-    final static String HUMIDITY_UNIT = "%";
     final static String PRECIPITATION_UNIT = "%";
     final static int FREEZING_TEMP = 32;
 
     static int counter = 0;
 
-    WeatherData(String city, double temperature, double humidity,
-                double precipitation) {
+    // constructor
+    WeatherData(String city, double temperature, double precipitation) {
         counter++;
     }
 }
@@ -397,10 +401,10 @@ public class MainActivity extends AppCompatActivity {
         addText(builder,"Temp unit: " + WeatherData.TEMP_UNIT);
         addText(builder,"Counter: " + WeatherData.counter);
 
-        WeatherData columbus = new WeatherData("Columbus", 50, 75, 30);
+        WeatherData columbus = new WeatherData("Columbus", 50, 30);
         addText(builder, "Counter: " + WeatherData.counter);
 
-        WeatherData cleveland = new WeatherData("Cleveland", 45, 70, 30);
+        WeatherData cleveland = new WeatherData("Cleveland", 45, 30);
         addText(builder, "Counter: " + WeatherData.counter);
 
         addText(builder, "Counter: " + columbus.counter);
@@ -411,10 +415,9 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-In this example, we've added five fields *TEMP_UNIT*, *HUMIDITY_UNIT*,
-*PRECIPITATION_UNIT*, *FREEZING_TEMP*, and *counter*.  The first four are
-marked final so they will act like constants. If you run this example, the
-output should be:
+In this example, we've added five fields *TEMP_UNIT*, *PRECIPITATION_UNIT*,
+*FREEZING_TEMP*, and *counter*.  The first four are marked final so they will
+act like constants. If you run this example, the output should be:
 
 ``` text
 Temp unit: F
@@ -432,11 +435,6 @@ a class field.  While we were able to use the objects we created in
 *onCreate()* to access the counter class field (`cleveland.counter` and
 `columbus.counter`), we typically use the class name to access a class field
 (`WeatherData.counter`).
-
-In the previous example, we also created a new method in the *MainActivity()*
-class named *addText()*. This method combines the steps of appending text to
-a StringBuilder and adding a line separator so we don't have to repeatedly add
-the line separator ourselves.
 
 An **instance field** stores an attribute associated with an object where each
 instance of a class maintains a separate value. The syntax for the declaration
@@ -465,21 +463,20 @@ WeatherData.java
 package com.myname.myapplication;
 
 class WeatherData {
+    // class fields
     final static String TEMP_UNIT = "F";
-    final static String HUMIDITY_UNIT = "%";
     final static String PRECIPITATION_UNIT = "%";
     final static int FREEZING_TEMP = 32;
 
+    // instance fields
     String cityName;
     double temperature;
-    double humidity;
     double precipitation;
 
-    WeatherData(String city, double temperature, double humidity,
-                double precipitation) {
+    // constructor
+    WeatherData(String city, double temperature, double precipitation) {
         cityName = city;
         this.temperature = temperature;
-        this.humidity = humidity;
         this.precipitation = precipitation;
     }
 }
@@ -526,10 +523,9 @@ public class MainActivity extends AppCompatActivity {
 
         StringBuilder builder = new StringBuilder();
 
-        WeatherData columbus = new WeatherData("Columbus", 50, 75, 30);
+        WeatherData columbus = new WeatherData("Columbus", 50, 30);
         addText(builder, "City name: " + columbus.cityName);
         addText(builder, "Temperature: " + columbus.temperature + WeatherData.TEMP_UNIT);
-        addText(builder, "Humidity: " + columbus.humidity + WeatherData.HUMIDITY_UNIT);
         addText(builder, "Chance of precipitation: " + columbus.precipitation
                 + WeatherData.PRECIPITATION_UNIT);
 
@@ -545,12 +541,11 @@ If we run this program, the output is:
 ``` text
 City name: Columbus
 Temperature: 50.0F
-Humidity: 75.0%
 Chance of precipitation: 30.0%
 ```
 
 After declaring and initializing the class fields, we declared four instance
-methods: *cityName*, *temperature*, *humidity*, and *precipitation*.  In the
+methods: *cityName*, *temperature*, and *precipitation*.  In the
 constructor, we assign values to these fields using the values passed to the
 constructor.  Notice the use of *this* when the field name was the same
 as the parameter name.  *this* is a reference to the current instance of a
@@ -570,11 +565,12 @@ access and modify class fields, the cannot access or modify instance fields.
 
 Recall that class methods have the following syntax:
 
-```
+``` java
 static return_type name(parameter_list) {
     //statements to execute
 }
 ```
+
 where *return_type* is the data type of any value returned by the method
 (*void* if no value is returned), *name* is the method's name, and
 *parameter_list* is a list of comma-separated types and names for values
@@ -583,153 +579,260 @@ a part of their method headers.
 
 Let's add some class methods to our WeatherData class.
 
+---
+
+WeatherData.java
+
 ```java
-package com.myname.week_05;
+package com.myname.myapplication;
 
 class WeatherData {
+    // class fields
     final static String TEMP_UNIT = "F";
-    final static String HUMIDITY_UNIT = "%";
     final static String PRECIPITATION_UNIT = "%";
     final static int FREEZING_TEMP = 32;
 
+    // instance fields
     String cityName;
     double temperature;
-    double humidity;
     double precipitation;
 
-    WeatherData(String city, double temperature, double humidity,
-                double precipitation) {
+    // constructor
+    WeatherData(String city, double temperature, double precipitation) {
         cityName = city;
         this.temperature = temperature;
-        this.humidity = humidity;
         this.precipitation = precipitation;
     }
 
+    // class methods
     static double tempFtoC(double fahrenheit) {
-        return 5.0 / 9 * (fahrenheit - 32);
+        return 0.56 * (fahrenheit - 32);
     }
 
     static double tempCtoF(double celsius) {
-        return 9.0 / 5 * celsius + 32;
+        return 1.8 * celsius + 32;
     }
 
-    static void displayFreezeTemp() {
-        System.out.println(FREEZING_TEMP + TEMP_UNIT);
+    static String getFreezingTemp() {
+        return FREEZING_TEMP + TEMP_UNIT;
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.println(WeatherData.tempCtoF(100));
-        System.out.println(WeatherData.tempFtoC(32));
-       WeatherData.displayFreezeTemp();
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        StringBuilder builder = new StringBuilder();
+
+        String temp1 = String.valueOf(WeatherData.tempCtoF(100));
+        addText(builder, temp1);
+
+        String temp2 = String.valueOf(WeatherData.tempFtoC(32));
+        addText(builder, temp2);
+
+        addText(builder, WeatherData.getFreezingTemp());
+
+        output.setText(builder.toString());
     }
 }
 ```
 
 We've added three class methods: *tempFtoC*, *tempCtoF*, and
-*displayFreezeTemp*.  Notice that none of these class methods access or modify
-instance fields but *displayFreezeTemp* does access two class fields.  Also,
+*getFreezingTemp*.  Notice that none of these class methods access or modify
+instance fields but *getFreezingTemp* does access two class fields.  Also,
 when we access class fields from within the class, we can drop the class name
 as long as what we are trying to access is unambiguous; if it is ambiguous, we
-have to use the class name like `WeatherData.FREEZING_TEMP`.
+have to use the class name like `WeatherData.FREEZING_TEMP`. We did not have
+to create an instance of the WeatherData class using *new* to use the class
+methods.
+
+When we wanted to display the value returned by the *WeatherData.tempCtoF()*
+and *WeatherData.tempFtoC()* methods, we had to convert the value from
+a double to a String since the *MainActivity.addText()* method requires a
+string as a parameter. To do this conversion, we relied on a class method
+of the String class, specifically *String.valueOf()*.
 
 An **instance method** represents a behavior associated with an object and
 can access/modify an object's instance fields.
 
 The syntax for declaring an instance method is:
 
-```
+``` java
 return_type name(parameter_list) {
     //statements to execute
 }
 ```
 
+The key difference in the declaration between a class and instance method is
+the use of *static* for class methods and its absence with instance methods.
 Like a class method, the method's signature is given by the method's name and
 the number, order, and types of the the parameters in *parameter_list*.  Class
-and instance methods must be unique to their classes based on their signatures.
+and instance methods must be unique in their classes based on their signatures.
 
-Let's add some instance methods to our program:
+Let's add some instance methods to our program.
+
+---
+
+WeatherData.java
 
 ```java
-package com.myname.week_05;
+package com.myname.myapplication;
 
 class WeatherData {
+    // class fields
     final static String TEMP_UNIT = "F";
-    final static String HUMIDITY_UNIT = "%";
     final static String PRECIPITATION_UNIT = "%";
     final static int FREEZING_TEMP = 32;
 
+    // instance fields
     String cityName;
     double temperature;
-    double humidity;
     double precipitation;
 
-    WeatherData(String city, double temperature, double humidity,
-                double precipitation) {
+    // constructor
+    WeatherData(String city, double temperature, double precipitation) {
         cityName = city;
         this.temperature = temperature;
-        this.humidity = humidity;
         this.precipitation = precipitation;
     }
 
+    // class methods
     static double tempFtoC(double fahrenheit) {
-        return 5.0 / 9 * (fahrenheit - 32);
+        return 0.56 * (fahrenheit - 32);
     }
 
     static double tempCtoF(double celsius) {
-        return 9.0 / 5 * celsius + 32;
+        return 1.8 * celsius + 32;
     }
 
-    static void displayFreezeTemp() {
-        System.out.println(FREEZING_TEMP + TEMP_UNIT);
+    static String getFreezingTemp() {
+        return FREEZING_TEMP + TEMP_UNIT;
     }
 
+    // instance methods
     boolean willSnow() {
         return (temperature <= FREEZING_TEMP) && (precipitation >= 50);
     }
 
-    void displayWeatherReport() {
+    String getWeatherReport() {
         String temp = temperature + TEMP_UNIT;
-        String humid = humidity + HUMIDITY_UNIT;
         String precip = precipitation + PRECIPITATION_UNIT;
         String snowLikely = willSnow() ? "likely" : "unlikely";
 
-        System.out.println("The current temperature in " + cityName + " is " + temp
-                + ". The current relative humidity is: " + humid
+        return ("The current temperature in " + cityName + " is " + temp
                 + ". The current chance of precipitation is " + precip
                 + ". It is " + snowLikely + " to snow.");
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        WeatherData columbus = new WeatherData("Columbus", 30, 60, 75);
-        columbus.displayWeatherReport();
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        WeatherData columbus = new WeatherData("Columbus", 30, 75);
+
+        StringBuilder builder = new StringBuilder();
+        addText(builder, columbus.getWeatherReport());
+
+        output.setText(builder.toString());
     }
 }
 ```
 
-We've added two instance methods: *willSnow* and *displayWeatherReport*.  The
+We've added two instance methods: *willSnow* and *getWeatherReport*.  The
 *willSnow* instance method returns a boolean value that depends on the value
 of the instance fields *temperature* and *precipitation*.  The
 *displayWeatherReport* makes use of class fields, instance fields, and another
 instance method.  The output of the program is:
 
-`The current temperature in Columbus is 30.0F. The current relative humidity is: 60.0%. The current chance of precipitation is 75.0%. It is likely to snow.`
+`The current temperature in Columbus is 30.0F. The current chance of precipitation is 75.0%. It is likely to snow.`
 
 ### Access Control
+
 A class exposes an *interface*, constructors, methods, and fields that can be
 accessed from outside the class.  An interface acts like a contract between a
-class and other objects that might communicate with it or instances of it.  The
-contract is such that the class won't change the methods and fields that
-other things depend on.  A class also provides an *implementation* that
-consists of code that supports the interface including helper methods that
-assist exposed methods but probably should be publicly accessible themselves.
-Hiding the implementation details makes it easier to make changes to code - we
-only have to make sure that the interface remains the same to avoid breaking
-code that uses our classes but we are free to make modifications to the
-implementation.
+class and other objects that might communicate with it or instances of it.  In
+some ways, the contract is an agreement that the class won't change the methods
+and fields that other things depend on.
+
+A class also provides an *implementation* that consists of code that supports
+the interface including helper methods that assist exposed methods but probably
+shouldn't be publicly accessible themselves. Hiding the implementation details
+makes it easier to make changes to code - we only have to make sure that the
+interface remains the same to avoid breaking code that uses our classes but we
+are free to make modifications to the implementation.
 
 Java provides four levels of control for methods and fields: *public*,
 *protected*, *private*, and *package-private*. We can indicate that a method
@@ -742,14 +845,14 @@ declared in files whose names match the classes' names.
 
 A **protected** field or method is accessible from all classes in the same
 package as the the field's or method's class as well as any subclasses of the
-class.
+class. We'll talk more about subclasses later.
 
 A **private** field or method cannot be accessed from outside the class in
 which it is declared.
 
 If no access control is specified, the method, field, or class is
 **package-private**, meaning that it is only accessible to classes within the
-same package.
+same package but not any classes (including subclasses) in other packages.
 
 Often, instance fields are declared *private* and special methods known as
 *getters* and *setters* are defined for accessing or modifying their values.
@@ -757,172 +860,315 @@ Usually, class fields are declared *public* but can be made private to hide
 unnecessary details.
 
 Let's declare the access control levels of our fields and methods in
-WeatherData.
+WeatherData and create getters and setters for the instance fields.
+
+---
+
+WeatherData.java
 
 ```java
-package com.myname.week_05;
+package com.myname.myapplication;
 
 class WeatherData {
     // class fields
     private final static String TEMP_UNIT = "F";
-    private final static String HUMIDITY_UNIT = "%";
     private final static String PRECIPITATION_UNIT = "%";
-    final static int FREEZING_TEMP = 32;
+    private final static int FREEZING_TEMP = 32;
 
     // instance fields
     private String cityName;
     private double temperature;
-    private double humidity;
     private double precipitation;
 
-    // constructor
-    public WeatherData(String city, double temperature, double humidity,
-                       double precipitation) {
-        cityName = city;
-        this.humidity = humidity;
-        this.precipitation = precipitation;
-        setTemperature(temperature);
-    }
-
-    // class methods
-    public static double tempFtoC(double fahrenheit) {
-        return 5.0 / 9 * (fahrenheit - 32);
-    }
-
-    public static double tempCtoF(double celsius) {
-        return 9.0 / 5 * celsius + 32;
-    }
-
-    // instance methods
+    // getters and setters
     public String getCityName() {
         return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public double getTemperature() {
+        return temperature;
     }
 
     public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
+    public double getPrecipitation() {
+        return precipitation;
+    }
 
+    public void setPrecipitation(double precipitation) {
+        this.precipitation = precipitation;
+    }
+
+    // constructors
+    public WeatherData() {}
+
+    public WeatherData(String city, double temperature, double precipitation) {
+        cityName = city;
+        this.temperature = temperature;
+        this.precipitation = precipitation;
+    }
+
+    // class methods
+    public static double tempFtoC(double fahrenheit) {
+        return 0.56 * (fahrenheit - 32);
+    }
+
+    public static double tempCtoF(double celsius) {
+        return 1.8 * celsius + 32;
+    }
+
+    public static String getFreezingTemp() {
+        return FREEZING_TEMP + TEMP_UNIT;
+    }
+
+    // instance methods
     private boolean willSnow() {
         return (temperature <= FREEZING_TEMP) && (precipitation >= 50);
     }
 
-    public void displayWeatherReport() {
+    public String getWeatherReport() {
         String temp = temperature + TEMP_UNIT;
-        String humid = humidity + HUMIDITY_UNIT;
         String precip = precipitation + PRECIPITATION_UNIT;
         String snowLikely = willSnow() ? "likely" : "unlikely";
 
-        System.out.println("The current temperature in " + cityName + " is " + temp
-                + ". The current relative humidity is: " + humid
+        return ("The current temperature in " + cityName + " is " + temp
                 + ". The current chance of precipitation is " + precip
                 + ". It is " + snowLikely + " to snow.");
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        WeatherData columbus = new WeatherData("Columbus", 30, 60, 75);
-        columbus.displayWeatherReport();
+---
+
+MainActivity.java
+
+```java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        WeatherData columbus = new WeatherData();
+        columbus.setCityName("Columbus");
+        columbus.setTemperature(30);
+        columbus.setPrecipitation(75);
+
+        StringBuilder builder = new StringBuilder();
+        addText(builder, columbus.getWeatherReport());
+
+        output.setText(builder.toString());
     }
 }
 ```
 
+---
+
 We've made a number of changes but the output should be the same as before.
-First, we marked the class fields specifying units as *private*. The constant
-representing the freezing temperature was marked *public*. All the instance
-methods were marked *private* We made both the constructor and the class
-methods that provide temperature conversion functionality public - any class
-should be able to access them.  We created a `getter` for the city name and a
-`setter` for the temperature and marked them public; this allows other classes
-to indirectly access the city name and indirectly set the temperature - we'll
-see why this could be important in the next example.  We decided that
-`willSnow()` is a helper method and shouldn't be available to other classes, so
-we marked it as *private*.  The `displayWeatherReport()` method should be
-accessible to other classes, so we marked it *public*.
+First, we marked the class fields specifying constant values as *private*.  We
+also set all the instance fields to private.  In order to enable code outside
+the class to retrieve or alter the values of the instance fields, we created
+getters and setters and marked these as *public*.  All the methods with the
+execption of *willSnow()* were marked as private and can be accessed outside
+the class.  The *willSnow()* method is a helper method for the
+*getWeatherReport()* method so we mark it as *private*. This indicates that we
+only allow its use within the *WeatherData* class.
+
+We've also add a constructor that takes no parameters. This allows us to create
+an instance of the class and later set the city name, the temperature, and the
+chance of precipitation using the setters.
+
+We can quickly create getters and setters in Android Studio by right-clicking
+in the area where a class's code is displayed, clicking *Generate...*, clicking
+*Getter and Setter*, selecting the appropriate fields, and clicking *OK*.
 
 What if we wanted to perform a check on the value the specified for the
 temperature and make sure it was greater than a minimal value?  This is one
 reason to use *setters* and to prevent access directly to the instance field.
 
+---
+
+WeatherData.java
+
 ```java
-package com.myname.week_05;
+package com.myname.myapplication;
 
 class WeatherData {
     // class fields
     private final static String TEMP_UNIT = "F";
-    private final static String HUMIDITY_UNIT = "%";
     private final static String PRECIPITATION_UNIT = "%";
-    final static int FREEZING_TEMP = 32;
+    private final static int FREEZING_TEMP = 32;
 
     // instance fields
     private String cityName;
     private double temperature;
-    private double humidity;
     private double precipitation;
 
-    // constructor
-    public WeatherData(String city, double temperature, double humidity,
-                       double precipitation) {
-        cityName = city;
-        this.humidity = humidity;
-        this.precipitation = precipitation;
-        setTemperature(temperature);
-    }
-
-    // class methods
-    public static double tempFtoC(double fahrenheit) {
-        return 5.0 / 9 * (fahrenheit - 32);
-    }
-
-    public static double tempCtoF(double celsius) {
-        return 9.0 / 5 * celsius + 32;
-    }
-
-    // instance methods
+    // getters and setters
     public String getCityName() {
         return cityName;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature < -461 ? -461 : temperature;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature < -100 ? -100 : temperature;
+    }
+
+    public double getPrecipitation() {
+        return precipitation;
+    }
+
+    public void setPrecipitation(double precipitation) {
+        this.precipitation = precipitation;
+    }
+
+    // constuctors
+    public WeatherData() {}
+
+    public WeatherData(String city, double temperature, double precipitation) {
+        cityName = city;
+        this.temperature = temperature < -100 ? -100 : temperature;
+        this.precipitation = precipitation;
+    }
+
+    // class methods
+    public static double tempFtoC(double fahrenheit) {
+        return 0.56 * (fahrenheit - 32);
+    }
+
+    public static double tempCtoF(double celsius) {
+        return 1.8 * celsius + 32;
+    }
+
+    // instance methods
+    public static String getFreezingTemp() {
+        return FREEZING_TEMP + TEMP_UNIT;
+    }
 
     private boolean willSnow() {
         return (temperature <= FREEZING_TEMP) && (precipitation >= 50);
     }
 
-    public void displayWeatherReport() {
+    public String getWeatherReport() {
         String temp = temperature + TEMP_UNIT;
-        String humid = humidity + HUMIDITY_UNIT;
         String precip = precipitation + PRECIPITATION_UNIT;
         String snowLikely = willSnow() ? "likely" : "unlikely";
 
-        System.out.println("The current temperature in " + cityName + " is " + temp
-                + ". The current relative humidity is: " + humid
+        return ("The current temperature in " + cityName + " is " + temp
                 + ". The current chance of precipitation is " + precip
                 + ". It is " + snowLikely + " to snow.");
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        WeatherData columbus = new WeatherData("Columbus", 30, 60, 75);
-        columbus.displayWeatherReport();
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        Button button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        WeatherData columbus = new WeatherData();
+        columbus.setCityName("Columbus");
+        columbus.setTemperature(-200);
+        columbus.setPrecipitation(75);
+
+        StringBuilder builder = new StringBuilder();
+        addText(builder, columbus.getWeatherReport());
+
+        output.setText(builder.toString());
     }
 }
 ```
 
+---
+
 Here, we modified the `setTemperature()` *setter* method to check if the
-temperature was less than -461.  If it is, the temperature field is set to -461
-otherwise the field is set to whatever value was specified.
+temperature was less than -100.  If it is, the temperature field is set to -100
+otherwise the field is set to whatever value was specified.  We added
+similar logic to the constructor.  While we can call the setter from the
+constructor, it's generally best practice to avoid relying on getters and
+setters in the constructor.
 
 ## Garbage Collection
+
 When we create objects, we use the *new* operator.  As part of the process
 of creating a new object, the *new* operator allocates space in memory to store
 the object.  But how do we free memory when we no longer need the object?  If
-memory weren't freed, we could eventually run out of available memory and the
+memory isn't freed, we could eventually run out of available memory and the
 program would stop.  While some languages require that objects be explicitly
 removed from memory, Java takes care of this for us.
 
@@ -934,21 +1180,22 @@ else in the program. For example, `WeatherData columbus = new WeatherData();`
 represents a referenced object because the new WeatherData object is accessible
 using the `columbus` variable.  However, once `columbus` goes out of scope
 or we assign a new value to it, the object might not be accessible from
-anywhere else and is an unreferenced object.  Similarly, `new WeatherData()`
-is an unreferenced object: the new object is not stored and not accessible.
-While we don't have to worry about explicitly freeing memory, we should be
-aware of references that exist to objects - especially if it appears that our
-program is utilizing more memory than we expect.
+anywhere else and is an unreferenced object.  Similarly, `new WeatherData();`
+by itself is an unreferenced object: the new object is not stored and not
+accessible. While we don't have to worry about explicitly freeing memory, we
+should be aware of references that exist to objects - especially if it appears
+that our program is utilizing more memory than we expect.
 
 
 ## Exercise
-Create a class that represents contact information for a person.  The class
-should store the person's name and their email address.
 
-Create a second class that represents an address book (a collection of contact
-information for many people) that includes methods for adding new contact
-information and for searching the existing collection for a contacts email
-address when the name is specified.
+Update the user interface to include an additional *EditText* object so
+there are two - one for a person's name and one for a phone number.
 
-The program should create instances of the classes and demonstrate the
-functionality.
+Create a class that stores a name and phone number in instance fields and
+has a public method that returns a string containing the name and phone number.
+
+Update the code in *MainActivity* to use the data in the *EditText* objects
+to create an instance of the new class and to display the generated string
+when the button in the user interface is tapped.
+

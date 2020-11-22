@@ -1,10 +1,11 @@
+<!-- MOVE TO WEEK 4 -->
 # Week 6- Exception Handling
 
 ## Corresponding Text
 *Learn Java for Android Development*, pp. 217-232
 
 ##Exceptions
-An **exception** is a interruption in the normal behavior of a program.  
+An **exception** is a interruption in the normal behavior of a program.
 Suppose your program tries to load data from a resource on the Internet. The
 normal behavior is that the data will be loaded and the program will continue.
 If the resource is unavailable or unreachable, the data can't be loaded and
@@ -76,12 +77,12 @@ track of the order using the *stack*.  When an exception or error occurs,
 information about which methods were called and their order is often available
 as a *stack trace*.
 
-Java provides a class that serves as the base classes of exceptions and 
+Java provides a class that serves as the base classes of exceptions and
 errors. This base class is `Throwable` and has several methods that are useful in
-diagnosing problems when exceptions or errors occur. Based on `Throwable` are 
-two classes unique to exceptions and errors, `Exception` and `Error` 
-respectively.  These subclasses implement all the methods the `Throwable` 
-class does. We'll discuss base classes, subclasses, and inheritance 
+diagnosing problems when exceptions or errors occur. Based on `Throwable` are
+two classes unique to exceptions and errors, `Exception` and `Error`
+respectively.  These subclasses implement all the methods the `Throwable`
+class does. We'll discuss base classes, subclasses, and inheritance
 later in the course.
 
 For now, let's look at the method's available to instances of the `Throwable`
@@ -133,11 +134,11 @@ Exception and it's subclasses except RuntimeException and it's subclasses
 represent checked exceptions.
 
 An **unchecked** or **runtime exception** is an exception that doesn't need
-to be handled or can't be handled well ahead of time. If possible, code that 
-often generates runtime exceptions should be rewritten. This was the design 
-philosophy behind the decision to implement both checked and unchecked 
-exceptions in Java. Sometimes, unchecked exceptions cannot be avoided and 
-occur often enough that we will add code to handle them; one example is 
+to be handled or can't be handled well ahead of time. If possible, code that
+often generates runtime exceptions should be rewritten. This was the design
+philosophy behind the decision to implement both checked and unchecked
+exceptions in Java. Sometimes, unchecked exceptions cannot be avoided and
+occur often enough that we will add code to handle them; one example is
 NumberFormatException which we encountered earlier.
 
 ## Throwing Exceptions
@@ -151,12 +152,12 @@ an exception occurred in the UserInput.promptInt() method but because it wasn't
 dealt with there, it became an issue for the code that called
 UserInput.promptInt(), specifically Main.main().  If an exception occurs in
 a program's main method and isn't handled, the program will terminate. This is
-the behavior we saw.  
+the behavior we saw.
 
 If a checked exception can occur in a method and the method doesn't deal with
 the exception by handling it, it must throw the method to the calling code.  In
 Java, all checked exceptions that can be thrown by a method but be indicated
-as part of the method's header.  
+as part of the method's header.
 
 If, in our code, we want to create and throw an exception, we can use the
 *throw* keyword with an instance of an exception class.  Let's looks at an
@@ -229,7 +230,7 @@ This code will not compile and run.  The reason it won't compile is because
 there is the possibility of encountering a checked exception in the Main.main()
 method and we haven't handled it there or indicated that the method could throw
 it.  Generally, we don't want the program's main method to throw exceptions, so
-we should handle it.  
+we should handle it.
 
 ## Handling Exceptions
 To deal with exceptions, both checked and unchecked, when they occur, we can
@@ -286,11 +287,11 @@ public class Main {
 We've added a try-catch block to Main.main().  Inside the try block of code,
 we included the statement that could generate an exception.  Inside the
 catch block, we've printed some text that includes the message associated
-with the exception itself.  
+with the exception itself.
 
 Generally, you should put as few statements as necessary in a try block and
 use the most specific type of exception in the catch block.  This makes your
-code much easier to read and understand.  
+code much easier to read and understand.
 
 Let's return to our first example:
 
@@ -323,7 +324,7 @@ public class Main {
 Recall that UserInput.promptInt() will throw an unchecked NumberFormatException
 when the user specifies a value that cannot be parsed as an int.  Let's make
 use of the fact that Integer.parseInt() throws the exception to repeatedly
-prompt the user until they enter a valid value.  
+prompt the user until they enter a valid value.
 
 ```java
 package com.myname.week_06;
@@ -386,7 +387,7 @@ reserved word `finally` followed by code to be executed after a try block
 regardless of whether or not an exception occurred.  If a catch block is
 specified, the code in the catch block will be executed before the finally
 block.  If no catch block is specified, the code in the finally block will be
-executed before the exception is thrown and execution leaves the method.  
+executed before the exception is thrown and execution leaves the method.
 You'll often see finally blocks when consuming data from outside the program,
 from files for example. In these cases, we have to open a resource to access
 the data and should close them when we are finished using them regardless of
@@ -436,7 +437,7 @@ public class Main {
 }
 ```
 
-In this example, we have a finally block that simply displays some text. 
+In this example, we have a finally block that simply displays some text.
 Regardless of whether the user enters valid input or not, the text will be
 displayed.  Note that when you run this program and enter an invalid integer,
 the finally block will not immediately execute because the catch block is
