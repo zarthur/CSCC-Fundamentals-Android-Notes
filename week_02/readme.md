@@ -116,7 +116,7 @@ logical inclusive OR in this case.
 
 Let's look at an example of where the conditional and logical operators differ.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -224,7 +224,7 @@ than *warmThreshold*, the Boolean expression evaluates to false and the
 *builder.append()* statement is not executed.  Let's change the current
 temperature and see what happens.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -268,7 +268,7 @@ expression evaluated to true. Often, there's more than one statement that we'd
 like to evaluate.  We can do this by grouping statements together using
 braces, `{` and `}`.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -372,7 +372,7 @@ If *Boolean expression* evaluates to true, *statement1* will be executed; if
 Building on a previous example, we can output text if a condition is true and
 output alternate text if the condition is false.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -418,7 +418,7 @@ one line.
 
 We can use the conditional operator to rewrite the previous example.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -455,7 +455,7 @@ values?
 
 We could do write separate if statements like this:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -501,7 +501,7 @@ avoid any unnecessary statement evaluations.
 One alternative to multiple if statements is to chain if-else statements like
 this:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -554,7 +554,7 @@ we only had to evaluate two Boolean expressions rather than three.  What if
 We can also write the previous example in the following form, which might be
 easier to read:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -621,7 +621,7 @@ executed if none of the prior cases match the *selector expression*.
 
 The following is an example using the switch statement:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -674,7 +674,7 @@ from." is displayed.
 
 What happens if we remove the break statements?
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -763,7 +763,7 @@ modify the value of the loop-control variables.
 
 Let's look at a simple example:
 
-```java
+``` java
 package com.myname.week_02;
 
 public class Main {
@@ -805,7 +805,7 @@ as the value is less than 10 (as indicated by the test section).
 
 Remember, each of the sections is optional.  Consider this example:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -858,7 +858,7 @@ updated the control variable.
 
 Here's another example:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -969,7 +969,7 @@ expression in parentheses and the statement to be executed repeatedly.
 
 Let's look at an example.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1017,7 +1017,7 @@ the loop stops.
 
 Notice that we could have written this with a for statement:
 
-```java
+``` java
 package com.myname.week_02;
 
 public class Main {
@@ -1050,7 +1050,7 @@ Boolean expression is true.
 
 Here's an example:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1165,7 +1165,7 @@ such that the first temperature corresponds to the first city, the second
 temperature corresponds to the second city, and so on.  Suppose we only want
 to display the names of cities with negative temperatures.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1215,7 +1215,7 @@ accessible. All variables aren't accessible from any part of a program.
 
 For example, consider this simple code that **will not run**:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1255,7 +1255,7 @@ loop.
 One situation where you might run into problems related to scope is with the
 switch statement.  For example, this code **will not run**:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1297,7 +1297,7 @@ are two ways to fix this code: we can initialize *result* once or we can create
 nested scopes for each case using braces.  Using the first method, we'd have
 the following code:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1334,7 +1334,7 @@ public class MainActivity extends AppCompatActivity {
 
 Using nested scopes, we'd have:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;

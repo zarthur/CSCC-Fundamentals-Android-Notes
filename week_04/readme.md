@@ -1,4 +1,4 @@
-# Week 4 - Collection Types and Exception Handling
+# Week 4 - Collection Types
 
 An introduction to collections.
 
@@ -138,7 +138,7 @@ value using either a literal or variable.
 
 For example:
 
-```java
+``` java
 int number = 10;
 Integer wrappedInt = new Integer(number)
 
@@ -152,7 +152,7 @@ than primitive types.
 Another feature of primitive type wrappers is that they have various convenient
 attributes and methods.  For example:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -225,7 +225,7 @@ The **ArrayList** class provides an implementation of the List interface based
 on arrays. Because of this, access to elements is fast but updates are
 relatively slow.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -326,7 +326,7 @@ the instance you might be creating or passing to a method.
 Consider this example that allows us to see that adding to an ArrayList is
 slower than adding to a LinkedList but iterating through an ArrayList is faster.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -432,7 +432,7 @@ A TreeSet stores elements based on a tree structure with each element linked to
 others.  This results in elements being stored in a sorted order but accessing
 the elements can be slow compared to non-sorted sets.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -488,7 +488,7 @@ uses an elements hash code (the value returned by the hashCode() method) to
 determine if an element is in the set or not.  While there is no guarantee
 about order, using a HashSet is typically faster than using as TreeSet.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -567,7 +567,7 @@ A **TreeMap** is a map implementation based on a tree structure.  As a result,
 the entries are stored in sorted order based on keys.  Accessing entries is
 somewhat slower than other map implementations.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -644,7 +644,7 @@ Suppose we have read the contents of a text file into a string array.  Write
 a program then determines and displays the number of times each word in the
 array appears. For example, if the string array were
 
-```java
+``` java
 String[] data = {"It", "was", "the", "best", "of", "times", "It", "was", "the",
         "worst", "of", "times"};
 ```

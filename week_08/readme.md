@@ -21,7 +21,7 @@ For example, when we ask the user for input, store the input as a string,
 and try to convert the string to an integer, we will encounter an exception
 when the user's input doesn't correspond to an integer.
 
-```java
+``` java
 package com.myname.week_06;
 
 import java.util.Scanner;
@@ -163,7 +163,7 @@ If, in our code, we want to create and throw an exception, we can use the
 *throw* keyword with an instance of an exception class.  Let's looks at an
 example that illustrates both creating a new exception and throwing it.
 
-```java
+``` java
 package com.myname.week_06;
 
 class Arithmetic {
@@ -193,7 +193,7 @@ What if we wanted to avoid calculating the average of empty arrays?  One way
 we could do that is to throw a checked exception and force whatever code
 that called Arithmetic.average() to deal with it.
 
-```java
+``` java
 package com.myname.week_06;
 
 class Arithmetic {
@@ -238,7 +238,7 @@ use try-catch statements.  A **try-catch statement** is code that executes
 other code that might throw an exception and specifies what to do if the
 exception occurs.  The syntax of a try-catch statement is:
 
-```java
+``` java
 try {
   //code that can throw an exception
 }
@@ -253,7 +253,7 @@ the exception instance itself, which can be useful for debugging.
 Let's add some exception handling to our previous example so that the program
 will run.
 
-```java
+``` java
 package com.myname.week_06;
 
 class Arithmetic {
@@ -295,7 +295,7 @@ code much easier to read and understand.
 
 Let's return to our first example:
 
-```java
+``` java
 package com.myname.week_06;
 
 import java.util.Scanner;
@@ -326,7 +326,7 @@ when the user specifies a value that cannot be parsed as an int.  Let's make
 use of the fact that Integer.parseInt() throws the exception to repeatedly
 prompt the user until they enter a valid value.
 
-```java
+``` java
 package com.myname.week_06;
 
 import java.util.Scanner;
@@ -395,7 +395,7 @@ whether an exception occurs or not; the code to close the resource appears in
 a finally block.  We'll look at examples of this later in the course.  But, to
 demonstrate a finally block, consider this example:
 
-```java
+``` java
 package com.myname.week_06;
 
 import java.util.Scanner;

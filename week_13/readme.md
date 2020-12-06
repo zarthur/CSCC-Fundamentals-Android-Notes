@@ -12,7 +12,7 @@ different, independent tasks to perform, we could executive them at the same
 time in different threads.  Another example is if we had a
 computationally-intensive task that we wanted to perform in the background
 without interfering with the user interface, we might execute that task in a
-thread separate from the one handling the UI.  
+thread separate from the one handling the UI.
 
 Since Java 5, Java has included a collection of concurrency utilities that are
 typically preferred for working with threads.  Before we look that those
@@ -24,7 +24,7 @@ interface declares a single method, `void run()`, that takes no parameters and
 returns no value.  The following is an example of an creating a *Runnable*
 instance:
 
-```java
+``` java
 Runnable r = new Runnable() {
   @Override
   public void run() {
@@ -45,7 +45,7 @@ the main thread, the two threads we create both execute code specified by the
 *Runnable* instance.  Note that we have to explicitly start a thread by calling
 its *start()* method.
 
-```java
+``` java
 package com.myname.week_13;
 
 public class Main {
@@ -123,7 +123,7 @@ the same way regardless of the code in *Runnable.run()*.  To do this, we can
 create an uncaught exception handler.  The following code will cause the thread
 to terminate.
 
-```java
+``` java
 public class Main {
     public static void main(String[] args) {
         Runnable runnable = new Runnable()
@@ -157,7 +157,7 @@ instances of the *Thread* class.  Java offers finer control of setting
 uncaught exception handlers, for example we could have used the
 *setUncaughtExceptionHandler()* method on the thread instance.
 
-```java
+``` java
 package com.myname.week_13;
 
 public class Main {
@@ -206,9 +206,9 @@ While threads can execute independently from other other threads, they may not
 be completely isolated.  Often threads will access and modify shared data. Care
 must be taken to avoid problems due to this sharing of data.  The following
 example demonstrates a shared checking account form which two people are both
-withdrawing funds.  
+withdrawing funds.
 
-```java
+``` java
 package com.myname.week_13;
 
 class CheckingAccount
@@ -295,7 +295,7 @@ before they can access the method.  To synchronize access, we can prefix the
 method header with `synchronized`.  This modified code will not allow the
 balance in the account to fall below zero.
 
-```java
+``` java
 package com.myname.week_13;
 
 class CheckingAccount {
@@ -365,26 +365,26 @@ a way to track running tasks, it can't execute a collection of tasks (like
 *Thread*), and there's no easy way to get a return value from any code executed
 in a thread (also like *Thread*).  For these features, we can instead use an
 instance of *ExecutorService*.  The *java.util.concurrent.Executors* class
-provides methods for creating instances of *ExecutorService*.  
+provides methods for creating instances of *ExecutorService*.
 
 Executors also allow us to represent our tasks by classes that implement the
 *Callable\<V\>* generic interface where *V* represents the type of a result
 returned by the *call()* method used to represent a task.  This is different
 than the *Runnable* interface and its *run()* method that doesn't allow us to
-return a value.  
+return a value.
 
 When working with an instance of *ExecutorService*, results will often be
 wrapped in *Future* objects. The *Future* interface represents results that
 will not be available until some time in the future. Instances of *Future* have
 methods such as *isDone()* and *get()* to check if a value has been assigned
-and to get a value.  
+and to get a value.
 
 As an example of working with executors, suppose we want to retrieve data from
 several websites.  We can create a thread pool, a collection of threads to
 which tasks are assigned, to collect the data.  While this example won't
-actually get data from the internet, code in a future lecture will.  
+actually get data from the internet, code in a future lecture will.
 
-```java
+``` java
 package com.myname.week_13;
 
 
@@ -393,7 +393,7 @@ import java.util.concurrent.*;
 
 // a class to simulate data retrieval
 class SiteDownloader {
-    
+
     // a method to retrieve
     static String get(String URL) {
         switch (URL) {
@@ -470,12 +470,12 @@ each URL.  We then submit the *Callable* instance to the thread pool and
 add the *submit()* method's return value to our list of results.  Note that
 we probably wouldn't create the *callable* variable but use an anonymous class
 with the *submit()* method instead.  Because the thread pool was created to
-include two threads, only two tasks will execute simultaneously.  
+include two threads, only two tasks will execute simultaneously.
 
 As the tasks execute, we wait and continuously check for completion in a while
 loop using the *Future.isDone()* method.  Once all the tasks are complete,
 we display the results.  Throughout the code, we use try-catch blocks to print
-any exceptions that might occur.  
+any exceptions that might occur.
 
 ### Synchronizers
 The Threads API provides features that enable synchronization beyond specifying
@@ -499,12 +499,12 @@ Semaphores that allow only one thread to execute at a time are known as
 associated with semaphores.  A "fair" semaphore will ensure that threads are
 given permits in the order in which the threads request permits.  An "unfair"
 semaphore allows a thread to acquire a permit before other threads that might
-have been waiting longer for a permit.  
+have been waiting longer for a permit.
 
 The following example is a modified version of the checking account example
 from earlier using an executor service and a semaphore.
 
-```java
+``` java
 package com.myname.week_13;
 
 import java.util.concurrent.ExecutorService;
@@ -604,7 +604,7 @@ could be used to create a thread-safe array list.  One problem with these
 wrapped solutions is that it is often necessary to use semaphores when
 iterating through a collection to prevent modification.  Another problem is
 that performance suffers when synchronized collections are access frequently
-by multiple threads.  
+by multiple threads.
 
 The Concurrency Utilities framework provides performant collections with
 weakly-consistent iterators which have the following properties:
@@ -621,7 +621,7 @@ As an example we'll look at the *BlockingQueue* interface and the
 *ArrayBlockingQueue* class.  *BlockingQueue* is a subinterface of the *Queue*
 interface in the Collections framework.
 
-```java
+``` java
 package com.myname.week_13;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -687,7 +687,7 @@ synchronization, first by declaring the *withdraw()* method as synchronized
 and second by using a synchronizer.  An alternative method is to use a
 synchronize statement like this:
 
-```java
+``` java
 //some code
 synchronize(object) {
   // code that uses object but only allows one thread to access it at a time

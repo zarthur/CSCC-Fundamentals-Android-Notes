@@ -347,7 +347,7 @@ each declaration with a semicolon (;).
 Suppose we wanted to declare several variables of the same type. We could
 write something like this:
 
-```java
+``` java
 float temperature;
 float humidity;
 float pressure;
@@ -357,7 +357,7 @@ With Java, however, we can declare multiple variables of the same type at once.
 Rather than write three separate lines, we can declare our three variables on
 one line like this:
 
-```java
+``` java
 float temperature, humidity, pressure;
 ```
 
@@ -368,7 +368,7 @@ locations in memory. The individual values of an array are called
 **elements**. Brackets, `[` and `]`, are used to declare arrays. For example,
 we can declare an array of integers:
 
-```java
+``` java
 int[] dailyHighs;
 ```
 
@@ -377,7 +377,7 @@ we can place the brackets next to the type or the variable.
 Typically, we'll see the brackets placed next to the type unless multiple
 variables are being declared like this:
 
-```java
+``` java
 float currentTemperature, forecastHighs[], forecastLows[];
 ```
 
@@ -477,7 +477,7 @@ comments. Comments are not evaluated and serve to document code. In this
 example, comments are preceded by two forward slashes, `//`.  Notice we've also
 added the code to use the *TextView*.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -716,7 +716,7 @@ variable to specify the length?  We can use the *new* operator to do this. For
 example, we can set the length of an array of strings using a variable with
 an integer value and then assign values to each element in the array.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -760,7 +760,7 @@ side and the type of the variable on the left-hand side.
 
 Consider the following:
 
-```java
+``` java
 int sum = 2 + 3;
 ```
 
@@ -770,7 +770,7 @@ integer.
 
 What happens in the following?
 
-```java
+``` java
 int quotient = 10 / 4
 ```
 

@@ -6,9 +6,9 @@
 ## HTTP and REST
 **Hypertext transfer protocol (HTTP)** is a means of transferring data
 between a client and a server based on requests and responses.  A client
-submits a request to a server and the server returns a response - usually with 
-some data related to the request including status information about the 
-completion of the request. Any time you load a web site in a browser, the data 
+submits a request to a server and the server returns a response - usually with
+some data related to the request including status information about the
+completion of the request. Any time you load a web site in a browser, the data
 is retrieved from the server by the browser using HTTP.
 
 ### Requests and Responses
@@ -17,7 +17,7 @@ make.  Each of the different types of request methods, also called HTTP verbs,
 correspond to a different action that can be done to some resource on a server.
 While we typically use HTTP to retrieve data from a server in the form of a web
 page or submit data to a server using forms, we can also update data or delete
-resources from a server using HTTP assuming we have the proper permissions.  
+resources from a server using HTTP assuming we have the proper permissions.
 
 For the examples we'll be looking at, we'll work with four of the HTTP request
 methods.
@@ -34,7 +34,7 @@ We can use these request methods to create, read, update, and delete data on a
 server using a client.  We'll see examples of this later.
 
 For each request made, the server should generate a response and send it to
-the client.  The data included in the response is dependent on the request.  
+the client.  The data included in the response is dependent on the request.
 For example, if the client makes a GET request for a web page, the server's
 response might include HTML; if the client makes a DELETE request, the server's
 response might simply be an indication whether the delete was successful or not.
@@ -89,7 +89,7 @@ it has been modified to better serve our needs.
 
 ## HTTP in Java
 
-```java
+``` java
 package com.myname.week_15;
 
 
@@ -133,7 +133,7 @@ In this example, we begin by creating an instance of the URL class to store the
 URL we'd like to retrieve data from.  Once we have a URL object, we can open a
 connection to the URL using the *URL.openConnection()* method.  Once we open
 the connection, we'd like to begin reading data.  In order to do this, we have
-to make use of an input stream.  
+to make use of an input stream.
 
 An **input stream** is a data abstraction that
 allows use to read data from a source. A stream is usually used in situations
@@ -146,15 +146,15 @@ only used with character data.  Normally with input streams and readers, we
 consume the data from the stream one byte or character at a time; a buffered
 input stream or reader allow us to consume larger chunks of data at a time -
 this usually improves the performance of our programs.  In our example, we
-rely on a *BufferedReader* to work with character data in chunks.  
+rely on a *BufferedReader* to work with character data in chunks.
 
 Notice that we've also cast the return value of *URL.openConnection()* to a
-*HttpURLConnection* object.  The *HttpURLConnection* class gives us methods to 
-specify the HTTP request method (GET, POST, etc) and gives us access to the 
+*HttpURLConnection* object.  The *HttpURLConnection* class gives us methods to
+specify the HTTP request method (GET, POST, etc) and gives us access to the
 response status code and message.  GET is used as the default request method.
 
 To access the information in the response, we read data from the
-*BufferedReader* one line at a time until there are no lines left to read.  
+*BufferedReader* one line at a time until there are no lines left to read.
 
 Many of these methods can throw checked exceptions that inherit from
 *IOException*; in practice, our try block wouldn't contain all our code and
@@ -162,12 +162,12 @@ we'd handle each exception in the appropriate way.
 
 ### Interacting with a REST API
 Interacting with REST APIs require us to do more than just make GET requests.
-For the following examples, we'll make use of a RESTful Todo App hosted online 
-(the URL will be given in class) which is based on the code described above.  
+For the following examples, we'll make use of a RESTful Todo App hosted online
+(the URL will be given in class) which is based on the code described above.
 
 Looking at the [documentation](https://github.com/zarthur/restful-todo/blob/master/README.md)
 we'll need to make GET, POST, PUT, and DELETE requests.  While we could write
-code the relies entirely on the *HttpURLConnection* class, it can be tedious.  
+code the relies entirely on the *HttpURLConnection* class, it can be tedious.
 Instead, we will make use of the Apache HttpClient library.  To add the library
 to our project, we can add
 
@@ -180,7 +180,7 @@ to the *dependencies* section of our project's *build.gradle* file.
 Our code to make a GET request and display the response can be rewritten like
 this:
 
-```java
+``` java
 package com.myname.week_15;
 
 
@@ -248,16 +248,16 @@ execute the request, and check the status of the response.  If the response
 doesn't indicate success, we throw an exception.  If the response does indicate
 success, we convert the response to a string using a static method on the
 *EntityUtils* class. Comparing this code to the previous example, we see that
-working with the Apache HttpClient library simplifies our code.  
+working with the Apache HttpClient library simplifies our code.
 
 The REST API we're using requires that users log in by providing a username
-and password.  The Apache HttpClient library makes this relatively simple.  
+and password.  The Apache HttpClient library makes this relatively simple.
 The following code includes the additions necessary for authentication.  The
 example logs in as a user and prints the result of requesting
 `http://SERVER_URL/todo-android/todos/api/v1.0/todos` with
 the username `test` and password `test`.
 
-```java
+``` java
 package com.myname.week_15;
 
 
@@ -347,7 +347,7 @@ The output might include something like this:
 Notice that we modified the *HttpRequests* class to to build the
 *CloseableHttpClient* in the constructor using the username and password
 credentials provided.  Subsequent requests made using the client will make use
-of these credentials.  
+of these credentials.
 
 To fully support the API, we'll need to support POST, PUT, and DELETE methods
 in addition to the GET method we already support.  To effectively work with
@@ -356,7 +356,7 @@ the appropriate JSON objects.  Lets' add methods to our *HttpRequests* class
 to support the remaining HTTP request methods then work on implementing JSON
 support.
 
-```java
+``` java
 package com.myname.week_15;
 
 
@@ -521,7 +521,7 @@ REST API.  A next step would be to incorporate the *HttpRequests* class with
 code we've written before to work with todo objects and their JSON
 representations.
 
-```java
+``` java
 package com.myname.week_15;
 
 
@@ -794,15 +794,15 @@ public class Main {
 In the preceding code, we've added a class representing each todo item, a
 class to represent a collection of todo items, and a class that includes
 methods for creating, removing, and getting todos using the *HttpRequests*
-class to communicate with the server.  
+class to communicate with the server.
 
 ## Exercise
 Add an *update()* method that takes a *Todo* instance as a parameter.  The
 method should check if the *Todo* instance has a non-null ID.  If there is a
 valid ID, the method should use the *HttpRequests.put()* method and the
-`/todos/api/v1.0/todo/update/<ID>` endpoint to send the update to the server.  
+`/todos/api/v1.0/todo/update/<ID>` endpoint to send the update to the server.
 
-Once the method is written, demonstrate it's functionality by adding code 
-to the Main.main() method from the last example in class. Because the update 
-method requires that the *Todo* instance have an ID, it should be created using 
+Once the method is written, demonstrate it's functionality by adding code
+to the Main.main() method from the last example in class. Because the update
+method requires that the *Todo* instance have an ID, it should be created using
 the exisitng method to get a *Todo* by ID.

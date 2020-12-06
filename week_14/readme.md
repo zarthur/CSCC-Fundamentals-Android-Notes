@@ -7,7 +7,7 @@
 Often when we want our programs to perform a complicated task, it's useful to
 use a library or framework developed by someone else.  A **library** is a
 collection of code implementing related behavior with a well defined interface
-that is accessible to other code using the library.  
+that is accessible to other code using the library.
 
 Many tools exist for managing the libraries we might want to use in our Java
 code.  Among these are tools like Apache Maven and Gradle.  We'll use Gradle
@@ -18,15 +18,15 @@ For the next two weeks topics, we'll work with a new IntelliJ project separate
 from our other weekly code. When creating a new project IntelliJ, we can choose
 to use Gradle by selecting *Gradle* as shown below. When specifying the
 *Groupid* and *Artifactid*, you can use something similar to a package name
-and project name, respectively.  
+and project name, respectively.
 
 ![Using Gradle](images/intellij-gradle.png)
 
 After creating the new project, you should see many Gradle-related files. We
 can specify our program's dependencies by modifying *build.gradle*.  For the
 work we'll be doing this week, we'll want to use the Gson library so your
-*build.gradle* file will look similar to the following. Note that you can find 
-the latest Gson library version at 
+*build.gradle* file will look similar to the following. Note that you can find
+the latest Gson library version at
 https://mvnrepository.com/artifact/com.google.code.gson/gson
 
 ```
@@ -77,7 +77,7 @@ settings similar to those below.
 Now, if we create a *Main* class file and add the following code, we should be
 able to run the project.
 
-```java
+``` java
 package com.myname;
 
 
@@ -117,7 +117,7 @@ program including a web server.
 There are six basic data types that are representable in JSON:
 
 1. *Number*: a signed, decimal number that may contain a fractional part,
-2. *String*: a sequence of zero or more Unicode characters enclosed in double 
+2. *String*: a sequence of zero or more Unicode characters enclosed in double
    quotes,
 3. *Boolean*: either *true* or *false*,
 4. *Array*: an ordered list of zero or more values each of which can be of
@@ -157,7 +157,7 @@ Java.  For example, the next lecture will include examples of retrieving and
 sending data from/to a website; we'll use JSON to to facilitate the transfer.
 
 When working with JSON and other similar formats, we often describe the
-process of converting data in our program to JSON as **serialization**. 
+process of converting data in our program to JSON as **serialization**.
 The process of converting JSON data into a data structure our
 program can work with is known as **deserialization**. We'll look at
 deserialization first.
@@ -185,7 +185,7 @@ some subset:
 This data consists of a single JSON array where each element is a JSON object.
 Each of the three JSON objects have two key/value pairs.  The first key/value
 pair has a "name" key and a string value.  The second key/value pair has a
-"forecast" key and an array of numbers as the corresponding value.  
+"forecast" key and an array of numbers as the corresponding value.
 
 ### Deserialization
 To start, let's consider this subset of the JSON data from above:
@@ -200,7 +200,7 @@ To start, let's consider this subset of the JSON data from above:
 For our examples, we'll store the JSON data in a string and use the Gson
 library to convert between JSON and Java data.
 
-```java
+``` java
 package com.myname.week_14;
 
 import com.google.gson.JsonArray;
@@ -274,7 +274,7 @@ us how to use the data to create a Java object based on the data.
 To do that, we can create a class representing forecast data and use it's
 methods to set it's properties using the JSON data.
 
-```java
+``` java
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -363,7 +363,7 @@ layer-by-layer, this approach can be tedious and we are likely to accidentally
 introduce errors.  Fortunately, the Gson library provides us with another
 way of creating instances of objects using JSON data.
 
-```java
+``` java
 package com.myname.week_14;
 
 
@@ -419,20 +419,20 @@ public class Main {
 Using the *Gson* class, we can easily create instances of other classes from
 JSON data.  In this example, the *Gson.fromJson()* method takes two parameters:
 a string containing JSON data and an instance of the generic class *Class<T>*
-used to determine the type of object to create from the JSON data.  
+used to determine the type of object to create from the JSON data.
 
 The Gson deserializer relies on field names and types to be able to match JSON
 data with the appropriate fields in the class. While we don't have to provide
 getters and setters for the Gson serializer to work properly, we do have to
 use the JSON object's keys' names as field names in order for the deserializer
-to work properly.  
+to work properly.
 
 So far, we've been working with a single JSON object representing the forecast
 for one city.  What if we wanted to work with our the JSON array above that
 contains three JSON objects?  One solution is to simply use a Java array and
 rely on Gson to create the array elements and add them to the array.
 
-```java
+``` java
 package com.myname.week_14;
 
 
@@ -492,7 +492,7 @@ public class Main {
 
 The main difference between this code and the previous example is the line
 
-```java
+``` java
 Forecast[] forecasts = gson.fromJson(jsonData, Forecast[].class);
 ```
 
@@ -502,10 +502,10 @@ data.  Of course, if our JSON data doesn't match this form, we'll encounters
 an error.
 
 If we'd rather store forecasts in a List instead of an array, we can.  When
-working with generic classes, we can't simply rely on the *.class* property.  
-Instead, we must use the Gson *TypeToken* class.  
+working with generic classes, we can't simply rely on the *.class* property.
+Instead, we must use the Gson *TypeToken* class.
 
-```java
+``` java
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -567,18 +567,18 @@ public class Main {
 
 *TypeToken* is a generic class that allows us to specify the type of list we'll
 be working with as the type parameter.  Note that the *TypeToken* constructor
-is protected so we have to create an anonymous subclass to use it.  
+is protected so we have to create an anonymous subclass to use it.
 
 Yet another alternative is to create a custom class to represent a list of
 *Forecast* objects like this:
 
-```java
+``` java
 class ForecastCollection extends ArrayList<Forecast> {}
 ```
 
 With this subclass, we can again rely on the *.class* property.
 
-```java
+``` java
 package com.myname.week_14;
 
 
@@ -658,9 +658,9 @@ serialization is as simple as using the *toJson()* method of a *Gson* instance.
 
 The following is an example of serializing an object created by deserializing
 JSON data.  While the example relies on the *ForecastCollection* class,
-serializing a list of *Forecast* elements is just as straightforward.  
+serializing a list of *Forecast* elements is just as straightforward.
 
-```java
+``` java
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -725,24 +725,24 @@ public class Main {
 ```
 
 ### Saving and Loading Data
-Now that we have a convenient way of converting a Java object to what is 
-basically a string and a way of converting back, we can easily store data in 
-files.  To see how we can do this, let's update our forecast code from the last 
-example to first read JSON data from a file then convert it and display the 
-information.  Before the program exits, we'll add another city to our 
+Now that we have a convenient way of converting a Java object to what is
+basically a string and a way of converting back, we can easily store data in
+files.  To see how we can do this, let's update our forecast code from the last
+example to first read JSON data from a file then convert it and display the
+information.  Before the program exits, we'll add another city to our
 collection of forecasts and save all the data to the file.
 
-In addition to accepting a string as its first parameter, the *Gson.fromJson()* 
-method is overloaded to also accept instances of the *Reader* class including 
-instances of *FileReader*, a class used for reading data from a file.  
-Similarly, the *Gson.toJson()* method is overloaded to take a *FileWriter* 
-parameter.  
+In addition to accepting a string as its first parameter, the *Gson.fromJson()*
+method is overloaded to also accept instances of the *Reader* class including
+instances of *FileReader*, a class used for reading data from a file.
+Similarly, the *Gson.toJson()* method is overloaded to take a *FileWriter*
+parameter.
 
-Consider the following code.  Here, we assume that a data file named 
-`data.json` is stored in the project's root (or top-level) folder and contains 
-valid JSON data.  
+Consider the following code.  Here, we assume that a data file named
+`data.json` is stored in the project's root (or top-level) folder and contains
+valid JSON data.
 
-```java
+``` java
 import com.google.gson.Gson;
 
 import java.io.FileReader;
@@ -847,23 +847,23 @@ public class Main {
 }
 ```
 
-In the *Main* class, we've added two new methods: *load()* and *save()*.  The 
-*load()* method takes a String parameter specifying the filename.  It then 
-creates a new *FileReader* instance to to use with *Gson.fromJson()*.  The 
+In the *Main* class, we've added two new methods: *load()* and *save()*.  The
+*load()* method takes a String parameter specifying the filename.  It then
+creates a new *FileReader* instance to to use with *Gson.fromJson()*.  The
 *Gson* library handles reading data from the file and converting the JSON data
-to Java objects.  The method returns an instance of *ForecastCollection*. 
-Notice that we use a try-finally block to ensure that the file is closed 
+to Java objects.  The method returns an instance of *ForecastCollection*.
+Notice that we use a try-finally block to ensure that the file is closed
 after we read the data from it.
 
-Similarly, the *save()* method uses a *FileWriter* to save the specified 
-data to a file given by the specified filename*.  Again, *Gson* handles 
-opening the file, converting the Java objects to JSON, and writing the data to 
-the file.  We should make sure to close the underlying file using a try-finally 
+Similarly, the *save()* method uses a *FileWriter* to save the specified
+data to a file given by the specified filename*.  Again, *Gson* handles
+opening the file, converting the Java objects to JSON, and writing the data to
+the file.  We should make sure to close the underlying file using a try-finally
 block.
 
-In the *Main.main()* method, we load data from a file, display information 
-based on the data, add to the data, then save the updated data back to the 
-original file.  We can confirm that new data has been written to the file by 
+In the *Main.main()* method, we load data from a file, display information
+based on the data, add to the data, then save the updated data back to the
+original file.  We can confirm that new data has been written to the file by
 opening it.
 
 ## Exercise

@@ -20,7 +20,7 @@ In Java, like other object-oriented languages, we can create our own classes.
 In all the examples we've worked with so far, we've relied on a class named
 *MainActivity* specified by code that looks like this:
 
-```java
+``` java
 public class MainActivity {
     //additional Java code
 }
@@ -30,7 +30,7 @@ This code declares a class named *MainActivity* and the code associated with
 it is written between the two braces. The minimal syntax required for declaring
 a class is:
 
-```java
+``` java
 class Name {
     //class member declarations
 }
@@ -101,7 +101,7 @@ at an example.
 
 WeatherData.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 import android.widget.TextView;
@@ -329,11 +329,12 @@ In the following example, we'll also create a new method in the
 *MainActivity()* class named *addText()*. This method combines the steps of
 appending text to a StringBuilder and adding a line separator so we don't have
 to repeatedly add the line separator ourselves.
+
 ---
 
 WeatherData.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 public class WeatherData {
@@ -450,7 +451,7 @@ Let's add some instance fields to our WeatherData class.
 
 WeatherData.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 class WeatherData {
@@ -477,7 +478,7 @@ class WeatherData {
 
 MainActivity.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -571,7 +572,7 @@ Let's add some class methods to our WeatherData class.
 
 WeatherData.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 class WeatherData {
@@ -696,7 +697,7 @@ Let's add some instance methods to our program.
 
 WeatherData.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 class WeatherData {
@@ -848,7 +849,7 @@ WeatherData and create getters and setters for the instance fields.
 
 WeatherData.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 class WeatherData {
@@ -930,7 +931,7 @@ class WeatherData {
 
 MainActivity.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -1003,7 +1004,7 @@ reason to use *setters* and to prevent access directly to the instance field.
 
 WeatherData.java
 
-```java
+``` java
 package com.myname.myapplication;
 
 class WeatherData {
@@ -1161,7 +1162,6 @@ by itself is an unreferenced object: the new object is not stored and not
 accessible. While we don't have to worry about explicitly freeing memory, we
 should be aware of references that exist to objects - especially if it appears
 that our program is utilizing more memory than we expect.
-
 
 ## Exercise
 

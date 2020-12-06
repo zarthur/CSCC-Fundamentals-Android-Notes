@@ -27,7 +27,7 @@ refer to class methods.
 Before we start working with methods, let's look at the following code and
 think of how we can improve it:
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,7 +88,7 @@ Here, we're converting some low and high temperatures for four days from
 Celsius to Fahrenheit.  One way to improve this code is by using what we know
 about loop statements.  For example, we can use a for loop.
 
-```java
+``` java
 package com.myname.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;

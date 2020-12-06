@@ -5,11 +5,11 @@
 
 ## Collections Example
 Recall that when we started working with Lists, Sets, and Maps, we specified
-the types of elements contained in instances of ArrayList, HashMap, and so on.  
+the types of elements contained in instances of ArrayList, HashMap, and so on.
 For example, if we were planning on storing Strings in an array list, we might
 have written code like this
 
-```java
+``` java
 List<Sting> StringList = new ArrayList<>();
 ```
 
@@ -23,7 +23,7 @@ Prior to Java 5, the Collections framework didn't allow us to specify a type
 parameter.  Suppose we had a *Contact* class that stored a contact's name and
 email address and we wanted to store a collection of contacts in a list.
 
-```java
+``` java
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +70,7 @@ that isn't a subclass of *Contact*, like *String*, we'll encounter a
 instance of *Contact* before casting but it would be nice to restrict our list
 to only allow instances of *Contact* as elements - then Java would know the
 list only contains *Contact* instances when iterating through the list. We can
-accomplish this using generic types.  
+accomplish this using generic types.
 
 Notice also that the program above will actually compile and start running.  We
 can see that by the fact that there is output associated with the contact we
@@ -84,7 +84,7 @@ A **generic type** is a class or interface that declares a family of types
 using a **formal type parameter list**, a comma-separated list of type
 parameters between angle brackets.  The syntax of a generic type is:
 
-```java
+``` java
 class identifier<formal_type_parameter_list> {}
 interface identifier<formal_type_parameter_list> {}
 ```
@@ -114,10 +114,10 @@ generics.
 2. **Concrete Parameterized Type** Another parameterized type is used as the
    type parameter.  `List<Map<String, Double>>` is an example using a concrete
    parameterized type, `Map<String, Double>` as the actual type argument.
-3. **Array Type** An array type is passed to the type parameter.  
+3. **Array Type** An array type is passed to the type parameter.
    `List<String []>` is an example using an array type; here, the elements of
    the list are arrays of strings.
-4. **Type Parameter** Another type parameter is used as the type parameter.  
+4. **Type Parameter** Another type parameter is used as the type parameter.
    Consider `class X<E> { List<E> internalList; }`.  The class *X* has a type
    parameter, *E*, that is used as a type parameter for `List<E>` when
    declaring an instance field.
@@ -125,9 +125,9 @@ generics.
    known. For example, `List<?> aList;` indicates that the type of the list
    elements is unknown.
 
-Every generic type also identifies a raw type.  A *raw type* is specified using 
-a generic type without its type parameters.  Raw types are not generic types 
-themselves and can be used as if `Object` were specified as the type parameter 
+Every generic type also identifies a raw type.  A *raw type* is specified using
+a generic type without its type parameters.  Raw types are not generic types
+themselves and can be used as if `Object` were specified as the type parameter
 but without anytype safety checks.
 
 ### Declaring and Using Generic Types
@@ -135,9 +135,9 @@ In order to declare and use generic types, we must specify a formal type
 parameter list when declaring a class or interface and make use of the type
 parameters in the implementation.  Suppose we wanted to create a stack, a
 collection of elements supporting two operations: *push* to add an element
-and *pop* to remove the most recently added element.  
+and *pop* to remove the most recently added element.
 
-```java
+``` java
 class StackFullException extends Exception {}
 
 class StackEmptyException extends Exception {}
@@ -234,7 +234,7 @@ audio through the computer's speakers.  We'd like to create a stack of objects
 that are both displayable on screen and playable through the speakers so we
 can create a playlist and then play all the items.
 
-```javaava
+``` javaava
 package com.myname.week_12;
 
 import java.util.ArrayList;
@@ -341,7 +341,7 @@ don't implement these interfaces.
 A type parameter's scope is the entirety of the corresponding generic type
 unless the type parameter is masked/hidden. Consider this example:
 
-```javaava
+``` javaava
 class EnclosingClass<T> {
     static class EnclosedClass<T extends Comparable<T>> {
     }
@@ -357,7 +357,7 @@ to the unbounded type parameter associated with *EnclosingClass*.  To avoid
 confusion, a different name should be given to *EnclosedClass*'s type
 parameter.
 
-```javaava
+``` javaava
 class EnclosingClass<T> {
     static class EnclosedClass<U extends Comparable<U>> {
     }
@@ -372,7 +372,7 @@ Suppose we were writing a program that kept a list of strings, maybe a list of
 names, and we wanted to write a method to display the elements of the list. We
 might write something like this:
 
-```java
+``` java
 package com.myname.week_12;
 
 
@@ -412,7 +412,7 @@ type *List* is a subtype of *Collection*.
 Despite this, we would still like our *displayList* method to work.  We can
 achieve this using the `?` wildcard which represents any type.
 
-```java
+``` java
 package com.myname.week_12;
 
 import java.util.ArrayList;
@@ -440,7 +440,7 @@ Suppose we wanted to write a method to copy the elements of one list to another
 list.  We could write a method similar to the following but it would be very
 limited.
 
-```java
+``` java
 public static void copyList(List<Object> source, List<Object> destination) {
     for (Object o: source) {
         destination.add(o);
@@ -451,10 +451,10 @@ public static void copyList(List<Object> source, List<Object> destination) {
 Its limitation is that it can only be used to copy lists of objects and not
 lists of other element types.  The reason it is limited is because of the
 inheritance issue we encountered when discussing wildcards: if *x* is a subtype
-of *y*, *G\<x\>* is not necessarily a subtype of *G\<y\>*.  We might consider 
+of *y*, *G\<x\>* is not necessarily a subtype of *G\<y\>*.  We might consider
 using wildcards to address the problem.
 
-```java
+``` java
 public static void copyList(List<? extends String> source, List<? super String> destination) {
     for (String s: source) {
         destination.add(s);
@@ -463,7 +463,7 @@ public static void copyList(List<? extends String> source, List<? super String> 
 ```
 
 Here, *source* is any type that is a subtype of *String* or *String* itself
-(*String* is an upper bound) and *destination* is any type which is a supertype 
+(*String* is an upper bound) and *destination* is any type which is a supertype
 of *String* is or *String* itself (*String* is a lower bound).  Note that we
 cannot specify lower bounds as formal type parameters when creating generic
 classes.  While this code will work to copy lists of strings, it is limited
@@ -474,7 +474,7 @@ parameters of generic types.  A *generic method* is a class or instance method
 with a type-generalized implementation.  Generic methods are declared using the
 following syntax:
 
-```java
+``` java
 <formal_type_parameter_list> return_type identifier(parameter_list)
 ```
 
@@ -484,7 +484,7 @@ type of parameters in the parameter list.  Java infers the actual type
 arguments from the context in which the method is called.  Here is the list
 copying method as a generic method as well as code to demonstrate it's use.
 
-```java
+``` java
 package com.myname.week_12;
 
 import java.util.ArrayList;

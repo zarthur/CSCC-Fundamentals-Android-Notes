@@ -6,7 +6,7 @@
 ## Nested Classes
 Classes that are declared outside of any other class are known as **top-level
 classes**.  Java allows us to declare classes within other classes; classes
-that are declared within other classes are known as **nested classes**.  
+that are declared within other classes are known as **nested classes**.
 There are four kinds of nested classes:
 
 1. static member classes,
@@ -28,7 +28,7 @@ of storing height and width as either *doubles* or *floats* depending on
 whether we need a lot of precision or if we don't need to waste memory storing
 a double.  We could use this code:
 
-```java
+``` java
 package com.myname.week_11;
 
 abstract class Rectangle {
@@ -106,10 +106,10 @@ subclassed by non-member classes.
 ### Nonstatic Member Classes
 A **nonstatic member class** is a non-static class enclosed in and a member of
 another class.  An instance of a nonstatic member class is implicitly
-associated with an instance of the enclosing class and is able to access the 
-outer class's instance methods and fields.  
+associated with an instance of the enclosing class and is able to access the
+outer class's instance methods and fields.
 
-```java
+``` java
 package com.myname.week_11;
 
 import java.util.ArrayList;
@@ -172,15 +172,15 @@ In this example, we created a class to provide some address book functionality.
 The address book keeps a collection of individual addresses with a name
 associated with each.  The *AddressBook* class contains an *addAddress()*
 method that creates an instance of the nonstatic member class, *Contact*, and
-adds the new instance to a list.  
+adds the new instance to a list.
 
 ### Anonymous Classes
 An **anonymous class** is a class without a name.  It is also not a member of
 its enclosing class.  An anonymous class is simultaneously declared and
 instantiated in one place.  An anonymous class can be an extension of a class
-or an implementation of an interface.  
+or an implementation of an interface.
 
-```java
+``` java
 package com.myname.week_11;
 
 import java.util.Random;
@@ -232,7 +232,7 @@ length, etc - we can create an interface with a method used determine if a
 name string is what we want or not.  When we want to use the filtering method,
 we'll have to specify the filter using an anonymous class.
 
-```java
+``` java
 package com.myname.week_11;
 
 import java.util.ArrayList;
@@ -289,13 +289,13 @@ list should be part of the new list or not.  In *Main.main()*, we use the
 *filter()* method but have to provide an implementation of the *StringFilter*
 instance.  We do this with an anonymous class in which we specify the details
 of the filter's *accept()* method.  Specifically, the filter looks for strings
-that begin with the letter 'b'.  
+that begin with the letter 'b'.
 
 Note that instead of using an anonymous class, we could have created an
 class that implemented the *StringFilter* interface, created an instance, and
-used the instance with the *filter()* method.  
+used the instance with the *filter()* method.
 
-```java
+``` java
 package com.myname.week_11;
 
 import java.util.ArrayList;
@@ -354,13 +354,13 @@ need to use the *BFilter* class again.
 ### Local Classes
 A **local class** is a class declared anywhere that a local variable can be
 declared.  A local class has a name and can be reused.  A local class can
-access the variables in the surrounding scope but they must be declared final.  
+access the variables in the surrounding scope but they must be declared final.
 
 Continuing with the last example, suppose we want to create a class that we
 could use to produce a variety of different filters - objects implementing
 the *StringFilter* interface.
 
-```java
+``` java
 package com.myname.week_11;
 
 import java.util.ArrayList;
@@ -434,7 +434,7 @@ for new items. Alternatively, we can write *NewsCollection* to update
 *ConsoleViewer* instances when new items are added to the collection.  Let's
 look at how we might do this.
 
-```java
+``` java
 package com.myname.week_11;
 
 import java.util.ArrayList;
@@ -526,7 +526,7 @@ listener.  If we wrote a *GUIViewer* class that implemented the *NewsListener*
 interface, we could register it as a listener with the *NewsCollection* object
 and the *GUIViewer* instance would automatically be updated with new news
 items. The alternative is to have the individual viewers regularly check with
-the *NewsCollection* instance for new items.  
+the *NewsCollection* instance for new items.
 
 Let's looks at another example.  This example is adapted from *Head First:
 Design Patterns* by Eric Freeman and Elisabeth Robson.  Suppose we wanted to
@@ -536,7 +536,7 @@ act as a listeners for updates from the sensors. The sensors will pass data to
 the listener based on a weather data class.  Here's the code for such an
 application:
 
-```java
+``` java
 package com.myname.week_11;
 
 import java.util.ArrayList;
@@ -717,7 +717,7 @@ We start by defining an interface for a data source and a data listener.  The
 source must provide implementations for adding listeners, removing listeners,
 and updating listeners as declared in the *WeatherDataSource* interface.  Any
 listeners should implement the *WeatherDataListener* interface and provide an
-implementation for a method that can be called to update the listener.  
+implementation for a method that can be called to update the listener.
 
 Next, we define an abstract class, *WeatherData*, to represent individual
 weather measurements.  In addition to storing the type of weather data and the
@@ -729,7 +729,7 @@ We create two classes to represent sensors: *TemperatureSensor* and
 *HumiditySensor*.  In a real application, these classes would be responsible
 for reading data from a sensor but in our example, they rely on random numbers.
 Because they implement the *WeatherDataSource* interface, they have to
-implement the methods associated with managing and updating listeners.  
+implement the methods associated with managing and updating listeners.
 
 The sensors make use of the *WeatherData* abstract class for sending
 information to any listeners. Because *WeatherData* is abstract, we have to
@@ -741,7 +741,7 @@ keeps a log of new weather items. We want an instance of the *WeatherStation*
 class to be able to act as a listener to instances of the sensor classes so
 *WeatherStation* implements the *WeatherDataListener* interface; its
 *updateData()* method appends the new data to its list of weather data and
-updates its log.  
+updates its log.
 
 In *Main.main()* we create instance of the sensors and *WeatherStation* and
 register the *WeatherStation* instance as a listener with the the sensor
