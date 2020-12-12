@@ -1,11 +1,12 @@
-<!-- MOVE TO WEEK 4 -->
-# Week 6- Exception Handling
+# Week 8 - Exception Handling
 
 ## Corresponding Text
+
 *Learn Java for Android Development*, pp. 217-232
 
-##Exceptions
-An **exception** is a interruption in the normal behavior of a program.
+## Exceptions
+
+An **exception** is an interruption in the normal behavior of a program.
 Suppose your program tries to load data from a resource on the Internet. The
 normal behavior is that the data will be loaded and the program will continue.
 If the resource is unavailable or unreachable, the data can't be loaded and

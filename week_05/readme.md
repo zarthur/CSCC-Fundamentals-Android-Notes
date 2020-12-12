@@ -133,8 +133,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -144,14 +142,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
 
         // new instance
         WeatherData weatherData = new WeatherData(output, "Columbus", 40);
@@ -164,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
 If you run this program, the output should be:
 
-```
+``` text
 WeatherData city: Columbus
 WeatherData temperature: 40.0
 ```
@@ -254,8 +244,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -265,14 +253,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
 
         WeatherData weatherData1 = new WeatherData(output, "Columbus", 40, 45);
         WeatherData weatherData2 = new WeatherData(output, "Cleveland");
@@ -363,8 +343,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -379,15 +357,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         addText(builder,"Temp unit: " + WeatherData.TEMP_UNIT);
@@ -485,8 +454,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -501,15 +468,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         WeatherData columbus = new WeatherData("Columbus", 50, 30);
@@ -619,8 +577,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -635,15 +591,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         String temp1 = String.valueOf(WeatherData.tempCtoF(100));
@@ -759,8 +706,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -775,18 +720,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+        StringBuilder builder = new StringBuilder();
 
         WeatherData columbus = new WeatherData("Columbus", 30, 75);
 
-        StringBuilder builder = new StringBuilder();
         addText(builder, columbus.getWeatherReport());
 
         output.setText(builder.toString());
@@ -938,8 +875,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -954,21 +889,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+        StringBuilder builder = new StringBuilder();
 
         WeatherData columbus = new WeatherData();
         columbus.setCityName("Columbus");
         columbus.setTemperature(30);
         columbus.setPrecipitation(75);
 
-        StringBuilder builder = new StringBuilder();
         addText(builder, columbus.getWeatherReport());
 
         output.setText(builder.toString());
@@ -1093,8 +1020,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -1109,21 +1034,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+        StringBuilder builder = new StringBuilder();
 
         WeatherData columbus = new WeatherData();
         columbus.setCityName("Columbus");
         columbus.setTemperature(-200);
         columbus.setPrecipitation(75);
 
-        StringBuilder builder = new StringBuilder();
         addText(builder, columbus.getWeatherReport());
 
         output.setText(builder.toString());
@@ -1174,4 +1091,3 @@ has a public method that returns a string containing the name and phone number.
 Update the code in *MainActivity* to use the data in the *EditText* objects
 to create an instance of the new class and to display the generated string
 when the button in the user interface is tapped.
-

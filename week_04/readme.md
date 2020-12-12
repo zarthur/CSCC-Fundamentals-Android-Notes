@@ -159,8 +159,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -170,15 +168,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         char letter = 'A';
@@ -196,8 +185,8 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-Note that we didn't make any changes to the interface and removed code form the
-*OnClickListener()* method for now.
+Note that we didn't make any changes to the interface and removed code for
+the *EditText* and *Button* objects for now.
 
 ## Lists
 
@@ -221,6 +210,7 @@ however, create instances of *ArrayList* and *LinkedList*, which both implement
 the list interface.
 
 ### ArrayList
+
 The **ArrayList** class provides an implementation of the List interface based
 on arrays. Because of this, access to elements is fast but updates are
 relatively slow.
@@ -232,8 +222,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -246,15 +234,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         char letter = 'A';
@@ -310,7 +289,6 @@ can replace
 `import java.util.ArrayList;` and
 `List<String> cities = new ArrayList<String>();`
 
-
 with
 
 `import java.util.LinkedList` and
@@ -333,8 +311,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -372,15 +348,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         int testEntries = 1000000;  //1 million
@@ -439,8 +406,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Set;
@@ -453,15 +418,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         Set<String> cities = new TreeSet<>();
@@ -495,8 +451,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Set;
@@ -509,15 +463,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         Set<String> cities = new HashSet<>();
@@ -574,8 +519,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Map;
@@ -588,15 +531,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView output = (TextView) findViewById((R.id.output));
-        final EditText input = (EditText) findViewById(R.id.input);
-        Button button = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         StringBuilder builder = new StringBuilder();
 
         Integer[] columbus_temps = {20, 40};
@@ -630,6 +564,7 @@ values for temperatures was replaced by the values the second time we used
 *Columbus*.
 
 ### HashMap
+
 A **HashMap** provides a map implementation based on on a hash table data
 structure.  A simple hash table has slots for storing various values.  The
 slot in which a value will be stored is determined by the hash code of the
@@ -651,7 +586,7 @@ String[] data = {"It", "was", "the", "best", "of", "times", "It", "was", "the",
 
 the output of the program would be
 
-```
+``` text
 It: 2
 was: 2
 the: 2
