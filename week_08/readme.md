@@ -23,27 +23,41 @@ and try to convert the string to an integer, we will encounter an exception
 when the user's input doesn't correspond to an integer.
 
 ``` java
-package com.myname.week_06;
+package com.myname.myapplication;
 
-import java.util.Scanner;
+import androidx.appcompat.app.AppCompatActivity;
 
-class UserInput {
-    Scanner scanner = new Scanner(System.in);
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-    public int promptInt(String message) {
-        System.out.println(message);
-        String userInput = scanner.nextLine();
-        int userInt = Integer.parseInt(userInput);
-        return userInt;
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
     }
-}
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-public class Main {
-    public static void main(String[] args) {
-        UserInput input = new UserInput();
-        int aNumber = input.promptInt("Enter an integer.");
-        System.out.println("Twice your number is " + aNumber * 2);
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int userInput = Integer.parseInt(input.getText().toString());
+                String result = "Twice your number is " + userInput * 2;
+                addText(builder, result);
+                output.setText(builder);
+            }
+        });
     }
 }
 ```
@@ -67,6 +81,7 @@ In this lecture, we'll explore how exceptions work in Java and how we can
 handle them in our code.
 
 ### Throwable Class Hierarchy
+
 When an exception or error occurs in Java, an object is created with details
 of the context in which the exception or error occurred.  The new object is
 then *thrown*. The Java Virtual Machine (JVM) in which all our Java code runs
