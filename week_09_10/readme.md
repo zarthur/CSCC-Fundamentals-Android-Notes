@@ -1,17 +1,23 @@
-# Weeks 9 and 10 - Interfaces and Abstract Classes
+# Weeks 9 and 10 - Abstract Classes and Interfaces
 
 ## Corresponding Text
+
 *Learn Java for Android Development*, pp. 167-169, 174-183
 
 ## Abstract Classes and Abstract Methods
+
 Imagine that we wanted to create classes representing different kinds of
 animals.  We could start with an *Animal* base class that contained all the
 state and behavior shared by all animals and create subclasses to represent
 specific animal species.  For example, we could write the following to
 represent dogs and cats.
 
+---
+
+Animal.java
+
 ``` java
-package com.myname.week_09_10;
+package com.myname.myapplication;
 
 class Animal {
     private String name;
@@ -40,27 +46,52 @@ class Cat extends Animal {
         this.furColor = furColor;
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        Dog odie = new Dog("Odie", 5, "beagle");
-        Cat garfield = new Cat("Garfield", 6, "orange");
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+...
+
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        ...
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dog odie = new Dog("Odie", 5, "beagle");
+                Cat garfield = new Cat("Garfield", 6, "orange");
+            }
+        });
     }
 }
 ```
+
+---
 
 Here, the *Animal* base class takes care of storing an animal's name and age;
 the *Dog* and *Cat* derived classes manage a property unique to each class.
 Because *Dog* and *Cat* extend *Animal*, instances of *Dog* and *Cat* have
 *name* and *age* fields automatically.  What if we wanted to require that all
-instances of subclasses to *Animal* have a *Speak()* method?  We could
+instances of subclasses of *Animal* have a *Speak()* method?  We could
 implement the method in the *Animal* class and override it in each child class
 but it might not make sense to provide an implementation in the base class
-itself. One option we have it to declare the method method and leave it's body
+itself. One option we have it to declare the method and leave it's body
 empty in the base class.
 
+---
+
+Animal.java
+
 ``` java
-package com.myname.week_09_10;
+package com.myname.myapplication;
 
 class Animal {
     private String name;
@@ -71,7 +102,7 @@ class Animal {
         this.age = age;
     }
 
-    public void speak() {}
+    public String speak() {}
 }
 
 class Dog extends Animal {
@@ -91,17 +122,9 @@ class Cat extends Animal {
         this.furColor = furColor;
     }
 }
-
-public class Main {
-    public static void main(String[] args) {
-        Dog odie = new Dog("Odie", 5, "beagle");
-        Cat garfield = new Cat("Garfield", 6, "orange");
-
-        odie.speak();
-        garfield.speak();
-    }
-}
 ```
+
+---
 
 While instances of *Dog* and *Cat* now have a *Speak()* method, there's nothing
 that requires us to specify an implementation for those classes beyond the base
@@ -109,10 +132,10 @@ class's implementation.  What we might like to do is leave the implementation
 undefined in the base class but require derived classes to provide an
 implementation unique to the child class.
 
-To do this, we can make use of an abstract method.  **Abstract methods** are
-declared methods lacking a body or implementation.  Abstract methods are
+To do this, we can make use of an abstract method. **Abstract methods** are
+declared methods lacking a body or implementation. Abstract methods are
 declared by prefixing a method header with the `abstract` reserved word.
-Abstract methods must be declared in abstract classes.  **Abstract classes**
+Abstract methods must be declared in abstract classes. **Abstract classes**
 are classes that may or may not contain abstract methods and cannot be used
 to create instances directly; in order to create an instance, a subclass must
 be created that provides an implementation of any abstract methods.  Classes
@@ -123,8 +146,12 @@ that non-abstract subclasses define an implementation for the method.  Once
 we declare a method as abstract, we must declare the class containing the
 method as abstract as well.
 
+---
+
+Animal.java
+
 ``` java
-package com.myname.week_09_10;
+package com.myname.myapplication;
 
 abstract class Animal {
     private String name;
@@ -135,7 +162,7 @@ abstract class Animal {
         this.age = age;
     }
 
-    abstract public void speak();
+    abstract public String speak();
 }
 
 class Dog extends Animal {
@@ -147,8 +174,8 @@ class Dog extends Animal {
     }
 
     @Override
-    public void speak() {
-        System.out.println("Woof!");
+    public String speak() {
+        return "Woof!";
     }
 }
 
@@ -161,21 +188,60 @@ class Cat extends Animal {
     }
 
     @Override
-    public void speak() {
-        System.out.println("Meow!");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Dog odie = new Dog("Odie", 5, "beagle");
-        Cat garfield = new Cat("Garfield", 6, "orange");
-
-        odie.speak();
-        garfield.speak();
+    public String speak() {
+        return "Meow!";
     }
 }
 ```
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dog odie = new Dog("Odie", 5, "beagle");
+                Cat garfield = new Cat("Garfield", 6, "orange");
+
+                addText(builder, odie.speak());
+                addText(builder, garfield.speak());
+
+                output.setText(builder);
+            }
+        });
+    }
+}
+```
+
+---
 
 Notice that after declaring an abstract method, we must terminate the statement
 with a semicolon.  Neither the *Dog* nor the *Cat* class is abstract so both
@@ -187,8 +253,12 @@ consider adding the *Fly()* method to the *Animal* class as an abstract method
 but it doesn't really make sense for animals that can't fly.  One option we
 have is to extend the *Animal* class with an abstract subclass.
 
+---
+
+Animal.java
+
 ``` java
-package com.myname.week_09_10;
+package com.myname.myapplication;
 
 abstract class Animal {
     private String name;
@@ -199,7 +269,7 @@ abstract class Animal {
         this.age = age;
     }
 
-    abstract public void speak();
+    abstract public String speak();
 }
 
 abstract class FlyingAnimal extends Animal {
@@ -207,7 +277,7 @@ abstract class FlyingAnimal extends Animal {
         super(name, age);
     }
 
-    abstract public void fly();
+    abstract public String fly();
 }
 
 class Dog extends Animal {
@@ -219,8 +289,8 @@ class Dog extends Animal {
     }
 
     @Override
-    public void speak() {
-        System.out.println("Woof!");
+    public String speak() {
+        return "Woof!";
     }
 }
 
@@ -233,8 +303,8 @@ class Cat extends Animal {
     }
 
     @Override
-    public void speak() {
-        System.out.println("Meow!");
+    public String speak() {
+        return "Meow!";
     }
 }
 
@@ -247,13 +317,13 @@ class Bird extends FlyingAnimal {
     }
 
     @Override
-    public void speak() {
-        System.out.println("Chirp!");
+    public String fly() {
+        return "Flying...";
     }
 
     @Override
-    public void fly() {
-        System.out.println("Flying...");
+    public String speak() {
+        return "Chirp!";
     }
 }
 
@@ -265,33 +335,72 @@ class Bat extends FlyingAnimal {
     }
 
     @Override
-    public void fly() {
-        System.out.println("Flying...");
+    public String fly() {
+        return "Flying...";
     }
 
     @Override
-    public void speak() {
-        System.out.println("Bat sounds!");
+    public String speak() {
+        return "Bat sounds!";
     }
 }
 
-public class Main {
-    public static void main(String[] args) {
-        Dog odie = new Dog("Odie", 5, "beagle");
-        Cat garfield = new Cat("Garfield", 6, "orange");
-        Bird tweety = new Bird("Tweety", 2, 4);
-        Bat batty = new Bat("Batty", 2, 1);
+```
 
-        odie.speak();
-        garfield.speak();
-        tweety.speak();
+---
 
-        batty.fly();
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dog odie = new Dog("Odie", 5, "beagle");
+                Cat garfield = new Cat("Garfield", 6, "orange");
+                Bird tweety = new Bird("Tweety", 2, 4);
+                Bat batty = new Bat("Batty", 2, 1);
+
+                addText(builder, odie.speak());
+                addText(builder, garfield.speak());
+                addText(builder, tweety.speak());
+
+                addText(builder, batty.fly());
+
+                output.setText(builder);
+            }
+        });
     }
 }
 ```
 
 ## Interfaces
+
 When we first started working with classes, we said that a class had both an
 interface and an implementation.  The interface consists of methods and fields
 that are available to other objects when creating or communicating with
@@ -305,6 +414,7 @@ We'll first look at how we can create and use interfaces and then consider why
 we should use them.
 
 ### Declaring Interface
+
 An interface declaration is similar to a class declaration with a header
 followed by a body.  Instead of using the reserved word `class` in the header,
 an interface declaration header contains the reserved word `interface`.
@@ -320,9 +430,9 @@ without this suffix (`Collection`, `Map`, `List`, and `Set`, for example).
 
 ``` java
 interface Flier {
-    void takeoff();
-    void fly();
-    void land();
+    String takeoff();
+    String fly();
+    String land();
 }
 ```
 
@@ -339,6 +449,7 @@ constants.
 Now that we've defined an interface, let's see how we can use it.
 
 ### Implementing Interfaces
+
 Suppose we have two classes representing different things that are unrelated
 except by the fact that each flies: an airplane and a bee.  Both the Airplane
 and Bee class will have unique interfaces and implementations but they can
@@ -347,13 +458,17 @@ interface when defining a class using the `implements` reserved word.  When
 implementing an interface in a class that isn't abstract, we must provide an
 implementation for the methods declared in the interface.
 
-``` java
-package com.myname.week_09_10;
+---
 
-interface Flier {
-    void takeoff();
-    void fly();
-    void land();
+Flier.java
+
+``` java
+package com.myname.myapplication;
+
+public interface Flier {
+    String takeoff();
+    String fly();
+    String land();
 }
 
 class Airplane implements Flier{
@@ -371,21 +486,21 @@ class Airplane implements Flier{
     }
 
     @Override
-    public void takeoff() {
-        System.out.println("Airplane taking off!");
+    public String takeoff() {
         // code related to take off
+        return "Airplane taking off!";
     }
 
     @Override
-    public void fly() {
-        System.out.println("Airplane flying!");
+    public String fly() {
         // code related to maintaining flight
+        return "Airplane flying!";
     }
 
     @Override
-    public void land() {
-        System.out.println("Airplane landing!");
+    public String land() {
         // code related to landing
+        return "Airplane landing!";
     }
 
 }
@@ -403,31 +518,68 @@ class Bee implements Flier{
     }
 
     @Override
-    public void takeoff() {
-        System.out.println("Bee starting to fly!");
+    public String takeoff() {
         // code related to starting flight
+        return "Bee starting to fly!";
     }
 
     @Override
-    public void fly() {
-        System.out.println("Bee flying!");
+    public String fly() {
         // code related to maintaining flight
+        return "Bee flying!";
     }
 
     @Override
-    public void land() {
-        System.out.println("Bee landing!");
+    public String land() {
         // code related to landing
+        return "Bee landing!";
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        Airplane plane = new Airplane(500, "A3X95");
-        Bee bee = new Bee(1);
+---
 
-        plane.takeoff();
-        bee.takeoff();
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Airplane plane = new Airplane(500, "A3X95");
+                Bee bee = new Bee(1);
+
+                addText(builder, plane.takeoff());
+                addText(builder, bee.takeoff());
+
+                output.setText(builder);
+            }
+        });
     }
 }
 ```
@@ -450,8 +602,8 @@ So far, the use of interfaces doesn't seem much different than using
 implementation inheritance with base classes and derived classes except that
 interfaces don't allow us to reuse code.
 
-Let's consider a different example.  Suppose we are writing a program for
-working with various media files: songs, pictures, and videos.  We'll want
+Let's consider a different example.  Suppose we are writing an app that
+works with various media files: songs, pictures, and videos.  We'll want
 our program to be able to play songs and videos, to display pictures,
 and to be able to share files.  Without using interfaces, it might make
 sense to start with a base class for files; create abstract classes for
@@ -469,8 +621,20 @@ inheritance so maybe we can use interfaces instead.
 Let's stick with a *File* base class.  This class will will be responsible for
 keeping track of the file's location and reading from the file if necessary.
 
+Rather than passing strings around to show when a method has been called,
+we'll use the logger.
+
+---
+
+File.java
+
 ``` java
+package com.myname.myapplication;
+
+import android.util.Log;
+
 class File {
+    private static final String TAG = File.class.getSimpleName();
     private String location;
 
     File(String location) {
@@ -480,13 +644,16 @@ class File {
     byte[] read() {
         int fileLength = 10; // replaced by code to determine file size
         byte[] content = new byte[fileLength];
-        System.out.println("Reading data from " + location);
+        Log.i(TAG, "Reading data from " + location);
+
         // code to open and read the file into the byte array
         // code to close the file
         return content;
     }
 }
 ```
+
+---
 
 Our *File* class doesn't really do anything but in a real program, it would
 open the file, load the content into a byte array, close the file, and return
@@ -494,139 +661,21 @@ the content when the *read()* method is called.
 
 We know we want to make our pictures, song, and videos, displayable, playable,
 and shareable.  Rather than create classes, let's create interfaces
-that declare methods associated with each action.
+that declare methods associated with each action. For convenience, we'll add
+these to *File.java*.
+
+---
+
+File.java
 
 ``` java
-interface Displayable {
-    void display();
-}
+...
+package com.myname.myapplication;
 
-interface Playable {
-    void play();
-}
-
-interface Shareable {
-    void postOnFacebook(String message);
-    void tweet(String message);
-    void email(String message, String destinationAddress);
-}
-```
-
-Our interfaces include declarations for associated methods.  Next, let's
-create a class for pictures.  Each picture will be displayable on screen and
-shareable.  This means that it will implement two of the
-three interfaces.  To implement multiple interfaces, we list them in the
-class declaration after the `implements` reserved word with each interface
-separated by a comma.
-
-``` java
-class Picture extends File implements Displayable, Shareable {
-    Picture(String location) {
-        super(location);
-    }
-
-    @Override
-    public void display() {
-        //code to display the picture on screen
-        System.out.println("Displaying a picture.");
-    }
-
-    @Override
-    public void postOnFacebook(String message) {
-        // code to post a picture on Facebook
-        System.out.println("Posting a picture to Facebook.");
-    }
-
-    @Override
-    public void tweet(String message) {
-        //code to post a picture on Twitter
-        System.out.println("Tweeting a picture.");
-    }
-
-    @Override
-    public void email(String message, String destinationAddress) {
-        //code to email a picture
-        System.out.println("Sending an email with a picture to " + destinationAddress + ".");
-    }
-}
-```
-
-Because we are implementing *Displayable* and *Shareable* with
-the *Picture* class, we have to provide implementations for methods declared in
-both the interfaces.
-
-We can do something similar for a song and a video class.
-
-``` java
-class Song extends File implements Playable, Shareable {
-    Song(String location) {
-        super(location);
-    }
-
-    @Override
-    public void play() {
-        // code to play a song
-        System.out.println("Playing a song.");
-    }
-
-    @Override
-    public void postOnFacebook(String message) {
-        // code to post a song on Facebook
-        System.out.println("Posting a song to Facebook.");
-    }
-
-    @Override
-    public void tweet(String message) {
-        //code to post a song on Twitter
-        System.out.println("Tweeting a song.");
-    }
-
-    @Override
-    public void email(String message, String destinationAddress) {
-        //code to email a song
-        System.out.println("Sending an email with a song to " + destinationAddress + ".");
-    }
-}
-
-class Video extends File implements Playable, Shareable {
-    Video(String location) {
-        super(location);
-    }
-
-    @Override
-    public void play() {
-        // code to play a video
-        System.out.println("Playing a video.");
-    }
-
-    @Override
-    public void postOnFacebook(String message) {
-        // code to post a video on Facebook
-        System.out.println("Posting a video to Facebook.");
-    }
-
-    @Override
-    public void tweet(String message) {
-        //code to post a video on Twitter
-        System.out.println("Tweeting a video.");
-    }
-
-    @Override
-    public void email(String message, String destinationAddress) {
-        //code to email a video
-        System.out.println("Sending an email with a video to " + destinationAddress + ".");
-    }
-}
-```
-
-Here's code that includes the base *File* class, the interfaces, and the
-*Picture*, *Song*, and *Video* classes that extend the *File* class and
-implement *Displayable*, *Playable*, and *Shareable* interfaces.
-
-``` java
-package com.myname.week_09_10;
+import android.util.Log;
 
 class File {
+    private static final String TAG = File.class.getSimpleName();
     private String location;
 
     File(String location) {
@@ -636,7 +685,8 @@ class File {
     byte[] read() {
         int fileLength = 10; // replaced by code to determine file size
         byte[] content = new byte[fileLength];
-        System.out.println("Reading data from " + location);
+        Log.i(TAG, "Reading data from " + location);
+
         // code to open and read the file into the byte array
         // code to close the file
         return content;
@@ -656,8 +706,29 @@ interface Shareable {
     void tweet(String message);
     void email(String message, String destinationAddress);
 }
+```
+
+---
+
+Our interfaces include declarations for associated methods. Next, let's
+create a class for pictures.  Each picture will be displayable on screen and
+shareable. This means that it will implement two of the
+three interfaces. To implement multiple interfaces, we list them in the
+class declaration after the `implements` reserved word with each interface
+separated by a comma.
+
+---
+
+Picture.java
+
+``` java
+package com.myname.myapplication;
+
+import android.util.Log;
 
 class Picture extends File implements Displayable, Shareable {
+    private static final String TAG = Picture.class.getSimpleName();
+
     Picture(String location) {
         super(location);
     }
@@ -665,29 +736,49 @@ class Picture extends File implements Displayable, Shareable {
     @Override
     public void display() {
         //code to display the picture on screen
-        System.out.println("Displaying a picture.");
+        Log.i(TAG, "Displaying a picture.");
     }
 
     @Override
     public void postOnFacebook(String message) {
         // code to post a picture on Facebook
-        System.out.println("Posting a picture to Facebook.");
+        Log.i(TAG, "Posting a picture to Facebook.");
     }
 
     @Override
     public void tweet(String message) {
         //code to post a picture on Twitter
-        System.out.println("Tweeting a picture.");
+        Log.i(TAG, "Tweeting a picture.");
     }
 
     @Override
     public void email(String message, String destinationAddress) {
         //code to email a picture
-        System.out.println("Sending an email with a picture to " + destinationAddress + ".");
+        Log.i(TAG, "Sending an email with a picture to " + destinationAddress + ".");
     }
 }
+```
+
+---
+
+Because we are implementing *Displayable* and *Shareable* with
+the *Picture* class, we have to provide implementations for methods declared in
+both the interfaces.
+
+We can do something similar for a song and a video class.
+
+---
+
+Song.java
+
+``` java
+package com.myname.myapplication;
+
+import android.util.Log;
 
 class Song extends File implements Playable, Shareable {
+    private static final String TAG = Song.class.getSimpleName();
+
     Song(String location) {
         super(location);
     }
@@ -695,29 +786,41 @@ class Song extends File implements Playable, Shareable {
     @Override
     public void play() {
         // code to play a song
-        System.out.println("Playing a song.");
+        Log.i(TAG, "Playing a song.");
     }
 
     @Override
     public void postOnFacebook(String message) {
         // code to post a song on Facebook
-        System.out.println("Posting a song to Facebook.");
+        Log.i(TAG, "Posting a song to Facebook.");
     }
 
     @Override
     public void tweet(String message) {
         //code to post a song on Twitter
-        System.out.println("Tweeting a song.");
+        Log.i(TAG, "Tweeting a song.");
     }
 
     @Override
     public void email(String message, String destinationAddress) {
         //code to email a song
-        System.out.println("Sending an email with a song to " + destinationAddress + ".");
+        Log.i(TAG, "Sending an email with a song to " + destinationAddress + ".");
     }
 }
+```
+
+---
+
+Video.java
+
+```java
+package com.myname.myapplication;
+
+import android.util.Log;
 
 class Video extends File implements Playable, Shareable {
+    private static final String TAG = Video.class.getSimpleName();
+
     Video(String location) {
         super(location);
     }
@@ -725,42 +828,94 @@ class Video extends File implements Playable, Shareable {
     @Override
     public void play() {
         // code to play a video
-        System.out.println("Playing a video.");
+        Log.i(TAG, "Playing a video.");
     }
 
     @Override
     public void postOnFacebook(String message) {
         // code to post a video on Facebook
-        System.out.println("Posting a video to Facebook.");
+        Log.i(TAG, "Posting a video to Facebook.");
     }
 
     @Override
     public void tweet(String message) {
         //code to post a video on Twitter
-        System.out.println("Tweeting a video.");
+        Log.i(TAG, "Tweeting a video.");
     }
 
     @Override
     public void email(String message, String destinationAddress) {
         //code to email a video
-        System.out.println("Sending an email with a video to " + destinationAddress + ".");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Song coolSong = new Song("song.mp3");
-        Picture favoritePicture = new Picture("image.jpg");
-
-        coolSong.play();
-        coolSong.email("Check out this cool song", "aneuman1@cscc.edu");
-
-        favoritePicture.display();
+        Log.i(TAG, "Sending an email with a video to " + destinationAddress + ".");
     }
 }
 ```
 
+---
+
+We can update the *MainActivity* class to make use of the code we just wrote.
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Song coolSong = new Song("song.mp3");
+                Picture favoritePicture = new Picture("image.jpg");
+
+                coolSong.play();
+                coolSong.email("Check out this cool song", "aneuman1@cscc.edu");
+
+                favoritePicture.display();
+            }
+        });
+    }
+}
+```
+
+---
+
+When we run the app and tap the button, we should see something similar to the
+following in the log messages.
+
+``` text
+2021-01-10 09:31:47.164 3123-3123/com.myname.myfirstapplication I/Song: Playing a song.
+2021-01-10 09:31:47.165 3123-3123/com.myname.myfirstapplication I/Song: Sending an email with a song to aneuman1@cscc.edu.
+2021-01-10 09:31:47.165 3123-3123/com.myname.myfirstapplication I/Picture: Displaying a picture.
+```
+
 ### Decoupling Interface from Implementation
+
 Now that you've seen how to use an interface, you might be wondering what the
 advantage is besides being able to implement multiple interfaces in a class
 over implementation inheritance.  After all, one advantage to implementation
@@ -777,11 +932,19 @@ Suppose that the program we are writing is a media player and it allows us to
 create playlists.  We expect that a user will want to create a playlist of
 songs so we might make a playlist class that looks like this:
 
+---
+
+Playlist.java
+
 ``` java
+package com.myname.myapplication;
+
+import java.util.ArrayList;
+
 class Playlist {
     private String name;
     private ArrayList<Song> playlistItems = new ArrayList<>();
-    private Song currentItem;
+    private int currentIndex = 0;
 
     Playlist(String name) {
         this.name = name;
@@ -801,27 +964,23 @@ class Playlist {
             return;
         }
 
-        // choose the first item the first time we start the playlist
-        if (currentItem == null) {
-            currentItem = playlistItems.get(0);
-        }
-        // otherwise choose the next song or the first if playing the last
-        else {
-            int currentIndex = playlistItems.indexOf(currentItem);
-            int newIndex = (currentIndex + 1) % playlistItems.size();
-            currentItem = playlistItems.get(newIndex);
-        }
+        // play the item at currentIndex and update currentIndex for the next
+        // song, if currentIndex points to the the last item, set it to 0
+        Song currentItem = playlistItems.get(currentIndex);
+        currentIndex = (currentIndex + 1) % playlistItems.size();
         currentItem.play();
     }
 }
 ```
 
+---
+
 This playlist class has a name and a list of songs.  It's methods include one
 to get the name; one to add to the playlist; and one to play the next song,
-to play the first song if we're at the end of the list, or to do nothing if
+play the first song if we're at the end of the list, or to do nothing if
 there are no items in the playlist.
 
-This code makes use of the modulus operator, `%`, which you might might not be
+This code makes use of the modulus operator, `%`, which you might not be
 familiar with.  The modulus operator returns the remainder when dividing:
 `a % b` returns the remainder when `a` is divided by `b`.  So `5 % 4` is `1`.
 This operator can be useful when working with indices of lists as we do in the
@@ -837,16 +996,24 @@ to add both songs and videos to the playlists?  Rather than writing our
 playlist to support only songs, we'd like to rewrite it to support both songs
 and videos.  Notice that the only method we really depend on from the *Song*
 class is the *play()* method.  Videos also have a *play()* method because the
-*Video* class, like the *Song* class implements the *Playable* interface.
+*Video* class, like the *Song* class, implements the *Playable* interface.
 Rather that writing the *Playlist* class to make use of a specific
 implementation (the *Song* class), the class would be more flexible if we
 wrote it to work with the *Playable* interface.
 
+---
+
+Playlist.java
+
 ``` java
+package com.myname.myapplication;
+
+import java.util.ArrayList;
+
 class Playlist {
     private String name;
     private ArrayList<Playable> playlistItems = new ArrayList<>();
-    private Playable currentItem;
+    private int currentIndex = 0;
 
     Playlist(String name) {
         this.name = name;
@@ -856,8 +1023,8 @@ class Playlist {
         return this.name;
     }
 
-    public void addItem(Playable item) {
-        playlistItems.add(item);
+    public void addItem(Playable playable) {
+        playlistItems.add(playable);
     }
 
     public void playNextItem() {
@@ -866,20 +1033,16 @@ class Playlist {
             return;
         }
 
-        // choose the first item the first time we start the playlist
-        if (currentItem == null) {
-            currentItem = playlistItems.get(0);
-        }
-        // otherwise choose the next song or the first if playing the last
-        else {
-            int currentIndex = playlistItems.indexOf(currentItem);
-            int newIndex = (currentIndex) + 1 % playlistItems.size();
-            currentItem = playlistItems.get(newIndex);
-        }
+        // play the item at currentIndex and update currentIndex for the next
+        // song, if currentIndex points to the the last item, set it to 0
+        Playable currentItem = playlistItems.get(currentIndex);
+        currentIndex = (currentIndex + 1) % playlistItems.size();
         currentItem.play();
     }
 }
 ```
+
+---
 
 Now, instances of the *Playlist* class will allow both videos and songs to be
 added.  If we later add code for an *AudioBook* class, we would be able to add
@@ -888,197 +1051,69 @@ we won't need to create a new playlist class for audio books.
 
 Below is an example making use of the new *Playlist* class.
 
+---
+
+MainActivity.java
+
 ``` java
-package com.myname.week_09_10;
+package com.myname.myapplication;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
-class File {
-    private String location;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-    File(String location) {
-        this.location = location;
-    }
-
-    byte[] read() {
-        int fileLength = 10; // replaced by code to determine file size
-        byte[] content = new byte[fileLength];
-        System.out.println("Reading data from " + location);
-        // code to open and read the file into the byte array
-        // code to close the file
-        return content;
-    }
-}
-
-interface Displayable {
-    void display();
-}
-
-interface Playable {
-    void play();
-}
-
-interface Shareable {
-    void postOnFacebook(String message);
-    void tweet(String message);
-    void email(String message, String destinationAddress);
-}
-
-class Picture extends File implements Displayable, Shareable {
-    Picture(String location) {
-        super(location);
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
     }
 
     @Override
-    public void display() {
-        //code to display the picture on screen
-        System.out.println("Displaying a picture.");
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    @Override
-    public void postOnFacebook(String message) {
-        // code to post a picture on Facebook
-        System.out.println("Posting a picture to Facebook.");
-    }
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
 
-    @Override
-    public void tweet(String message) {
-        //code to post a picture on Twitter
-        System.out.println("Tweeting a picture.");
-    }
 
-    @Override
-    public void email(String message, String destinationAddress) {
-        //code to email a picture
-        System.out.println("Sending an email with a picture to " + destinationAddress + ".");
-    }
-}
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Song coolSong = new Song("song.mp3");
+                Video coolVideo = new Video("video.avi");
 
-class Song extends File implements Playable, Shareable {
-    Song(String location) {
-        super(location);
-    }
+                Playlist favorites = new Playlist("Favorites");
+                favorites.addItem(coolSong);
+                favorites.addItem(coolVideo);
 
-    @Override
-    public void play() {
-        // code to play a song
-        System.out.println("Playing a song.");
-    }
-
-    @Override
-    public void postOnFacebook(String message) {
-        // code to post a song on Facebook
-        System.out.println("Posting a song to Facebook.");
-    }
-
-    @Override
-    public void tweet(String message) {
-        //code to post a song on Twitter
-        System.out.println("Tweeting a song.");
-    }
-
-    @Override
-    public void email(String message, String destinationAddress) {
-        //code to email a song
-        System.out.println("Sending an email with a song to " + destinationAddress + ".");
-    }
-}
-
-class Video extends File implements Playable, Shareable {
-    Video(String location) {
-        super(location);
-    }
-
-    @Override
-    public void play() {
-        // code to play a video
-        System.out.println("Playing a video.");
-    }
-
-    @Override
-    public void postOnFacebook(String message) {
-        // code to post a video on Facebook
-        System.out.println("Posting a video to Facebook.");
-    }
-
-    @Override
-    public void tweet(String message) {
-        //code to post a video on Twitter
-        System.out.println("Tweeting a video.");
-    }
-
-    @Override
-    public void email(String message, String destinationAddress) {
-        //code to email a video
-        System.out.println("Sending an email with a video to " + destinationAddress + ".");
-    }
-}
-
-class Playlist {
-    private String name;
-    private ArrayList<Playable> playlistItems = new ArrayList<>();
-    private Playable currentItem;
-
-    Playlist(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void addItem(Playable item) {
-        playlistItems.add(item);
-    }
-
-    public void playNextItem() {
-        // if there's nothing to play, don't do anything
-        if (playlistItems.size() == 0) {
-            return;
-        }
-
-        // choose the first item the first time we start the playlist
-        if (currentItem == null) {
-            currentItem = playlistItems.get(0);
-        }
-        // otherwise choose the next song or the first if playing the last
-        else {
-            int currentIndex = playlistItems.indexOf(currentItem);
-            int newIndex = (currentIndex + 1) % playlistItems.size();
-            currentItem = playlistItems.get(newIndex);
-        }
-        currentItem.play();
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Song coolSong = new Song("song.mp3");
-        Video coolVideo = new Video("video.avi");
-
-        Playlist favorites = new Playlist("Favorites");
-        favorites.addItem(coolSong);
-        favorites.addItem(coolVideo);
-
-        favorites.playNextItem();
-        favorites.playNextItem();
-        favorites.playNextItem();
-
+                favorites.playNextItem();
+                favorites.playNextItem();
+                favorites.playNextItem();
+            }
+        });
     }
 }
 ```
 
-The output from this program is:
+---
 
+When we run the app and click the button, we should see output like this:
+
+``` text
+2021-01-10 09:45:23.467 5523-5523/com.myname.myfirstapplication I/Song: Playing a song.
+2021-01-10 09:45:23.467 5523-5523/com.myname.myfirstapplication I/Video: Playing a video.
+2021-01-10 09:45:23.467 5523-5523/com.myname.myfirstapplication I/Song: Playing a song.
 ```
-Playing a song.
-Playing a video.
-Playing a song.
-```
-
-
 
 ### Extending Interfaces
+
 Just like classes, we can extend interfaces and create subinterfaces.  This
 is also a form of interface inheritance.  For example, suppose we want
 to create an interface for things that can be printed.  We'll make the
@@ -1102,6 +1137,7 @@ Note that an interface cannot implement another interface since interfaces
 don't provide an implementation.
 
 ### Examples from the Standard Library
+
 The standard library contains many interfaces. We've already worked with some
 of them including List, Set, and Map.  If we were creating our own lists, sets,
 or maps, we might implement these interfaces.  In future classes, we'll
@@ -1112,11 +1148,12 @@ us to so sort collections of objects that implement the interface.
 Suppose we have a class for contact information and an ArrayList to store our
 contacts.
 
-``` java
-package com.myname.week_09_10;
+---
 
-import java.util.ArrayList;
-import java.util.List;
+Contact.java
+
+``` java
+package com.myname.myapplication;
 
 class Contact {
     String name;
@@ -1127,40 +1164,82 @@ class Contact {
         this.email = email;
     }
 
-    public void display() {
-        System.out.println("Name: " + name + ", Email:" + email);
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Contact bob = new Contact("Bob", "bob@bob.com");
-        Contact arthur = new Contact("Arthur", "aneuman1@cscc.edu");
-
-        List<Contact> contacts = new ArrayList<>();
-        contacts.add(bob);
-        contacts.add(arthur);
-
-        for(Contact contact: contacts) {
-            contact.display();
-        }
+    public String getDetails() {
+        return "Name: " + name + ", Email: " + email;
     }
 }
 ```
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Contact bob = new Contact("Bob", "bob@bob.com");
+                Contact arthur = new Contact("Arthur", "aneuman1@cscc.edu");
+
+                List<Contact> contacts = new ArrayList<>();
+                contacts.add(bob);
+                contacts.add(arthur);
+
+                for(Contact contact: contacts) {
+                    addText(builder, contact.getDetails());
+                }
+
+                output.setText(builder);
+            }
+        });
+    }
+}
+```
+
+---
 
 We'd like to be able to sort our contacts based on name and email address,
 relying on an alphabetic ordering defined on the String class.  In order to
 achieve this, the *Contact* class has to implement the *Comparable* interface.
 
+---
+
+Contact.java
 
 ``` java
-package com.myname.week_09_10;
+package com.myname.myapplication;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-class Contact implements Comparable<Contact> {
+class Contact implements Comparable<Contact>{
     String name;
     String email;
 
@@ -1169,49 +1248,93 @@ class Contact implements Comparable<Contact> {
         this.email = email;
     }
 
-    public void display() {
-        System.out.println("Name: " + name + ", Email:" + email);
+    public String getDetails() {
+        return "Name: " + name + ", Email: " + email;
     }
 
     @Override
-    public int compareTo(Contact o) {
-        if (!name.equals(o.name)) {
-            return name.compareTo(o.name);
+    public int compareTo(Contact otherCcontact) {
+        if (!name.equals(otherCcontact.name)) {
+            return name.compareTo(otherCcontact.name);
         }
         else {
-            return email.compareTo(o.email);
-        }
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Contact bob = new Contact("Bob", "bob@bob.com");
-        Contact arthur = new Contact("Arthur", "aneuman1@cscc.edu");
-
-        List<Contact> contacts = new ArrayList<>();
-        contacts.add(bob);
-        contacts.add(arthur);
-
-        Collections.sort(contacts);
-
-        for(Contact contact: contacts) {
-            contact.display();
+            return email.compareTo(otherCcontact.email);
         }
     }
 }
 ```
 
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Contact bob = new Contact("Bob", "bob@bob.com");
+                Contact arthur = new Contact("Arthur", "aneuman1@cscc.edu");
+
+                List<Contact> contacts = new ArrayList<>();
+                contacts.add(bob);
+                contacts.add(arthur);
+
+                Collections.sort(contacts);
+
+                for(Contact contact: contacts) {
+                    addText(builder, contact.getDetails());
+                }
+
+                output.setText(builder);
+            }
+        });
+    }
+}
+```
+
+---
+
 When implementing the *Comparable* interface, we also have to specify the types
-against which we will compare our objects.  In this case, we'll only compare
-contacts to other contacts so we implement *Comparable<Contact>*.
+against which we will compare our objects. In this case, we'll only compare
+contacts to other contacts so we implement *Comparable\<Contact\>*.
 
 When implementing the *Comparable* interface, we must implement the
-*compareTo()* method.  The method takes a single parameter - the object we
+*compareTo()* method. The method takes a single parameter - the object we
 are comparing with the current object.  The method returns an integer.  A
 negative return value means the current object is "less than" the other object,
- meaning the current object would appear before the other when sorted; a
- positive return value means the current object is "greater than" the other
+meaning the current object would appear before the other when sorted; a
+positive return value means the current object is "greater than" the other
 object, meaning that the current object would appear after the other object
 when sorted; and a return value of 0 means the two objects could appear in
 either order. Note that value returned by *compareTo()* is distinct from the
@@ -1226,12 +1349,13 @@ alphabetically before the string "Bob" even though the *bob* contact object was
 added to the list before the *arthur* contact object.
 
 ## Exercises
+
 1. Create an abstract class for contacts that stores a contact's name and
 defines an abstract method *contact()*.  Create one class that makes use of the
-abstract contact class that stores and email address and implements the
+abstract contact class that stores an email address and implements the
 *contact()* method using the email address and another class that stores a
 phone number and implements the *contact()* method using the phone number. The
-implementation of the *contact()* method should simply print a string
+implementation of the *contact()* method should simply display a string
 with the appropriate information like "Emailing aneuman1@cscc.edu" or
 "Calling 123-456-7890".
 
@@ -1239,4 +1363,4 @@ with the appropriate information like "Emailing aneuman1@cscc.edu" or
 email address.  Additionally, create a class to store a collection of contacts
 that implements the *Iterable* interface so that a for-each loop can be used
 with the the collection class.  Demonstrate this functionality with a for-each
-loop in the *Main.main()* method that displays contact information.
+loop that displays contact information.

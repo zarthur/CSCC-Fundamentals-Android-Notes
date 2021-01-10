@@ -19,14 +19,13 @@ following the links below.
 - [Week 4 - Collection Types](week_04/readme.md)
 - [Week 5 - Classes and Objects](week_05/readme.md)
 - [Weeks 6 and 7 - Inheritance and Polymorphism](week_06_07/readme.md)
-- [Week 8 - Exception Handling](week_08/readme.md)
-- [Week 9 - Interfaces and Abstract Classes](week_09/readme.md)
-- [Week 10 - Listeners and Anonymous Classes](week_10/readme.md)
-- [Week 11 - App and Material Design]()
-- [Week 12 - Generics](week_12/readme.md)
-- [Week 13 - Concurrency and Threading](week_13/readme.md)
-- [Week 14 - JSON and Objects](week_14/readme.md)
-- [Week 15 - HTTP and Networking](week_15/readme.md)
+- [Week 8 - Exception Handling and Logging](week_08/readme.md)
+- [Weeks 9 and 10 - Abstract Classes and Interfaces](week_09_10/readme.md)
+- [Week 11 - Listeners and Anonymous Classes](week_10/readme.md)
+- [Week 12 - Generics](week_11/readme.md)
+- [Week 13 - Concurrency and Threading](week_12/readme.md)
+- [Week 14 - JSON and Objects](week_13/readme.md)
+- [Week 15 - HTTP and Networking](week_14/readme.md)
 
 ## Projects
 
