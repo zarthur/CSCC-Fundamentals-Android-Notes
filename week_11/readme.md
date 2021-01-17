@@ -1,9 +1,11 @@
 # Week 11 - Listeners and Anonymous Classes
 
 ## Corresponding Text
+
 *Learn Java for Android Development*, pp. 197-203
 
 ## Nested Classes
+
 Classes that are declared outside of any other class are known as **top-level
 classes**.  Java allows us to declare classes within other classes; classes
 that are declared within other classes are known as **nested classes**.
@@ -18,6 +20,7 @@ While we're likely to see anonymous classes more often than the other kinds of
 nested classes, we'll look at all four.
 
 ### Static Member Classes
+
 A **static member class** is a static class enclosed in and a member of another
 class.  As it is enclosed in another class, it has access to the outer
 class's methods and fields but because it is static, it only has access to
@@ -28,8 +31,12 @@ of storing height and width as either *doubles* or *floats* depending on
 whether we need a lot of precision or if we don't need to waste memory storing
 a double.  We could use this code:
 
+---
+
+Rectangle.java
+
 ``` java
-package com.myname.week_11;
+package com.myname.myapplication;;
 
 abstract class Rectangle {
     abstract public double getWidth();
@@ -81,14 +88,56 @@ abstract class Rectangle {
         return getHeight() * getWidth();
     }
 }
+```
 
-public class Main {
-    public static void main(String[] args) {
-        Rectangle r1 = new Rectangle.DoubleRectangle(10.0, 20.0);
-        Rectangle r2 = new Rectangle.FloatRectangle(5.0f, 8.0f);
-        System.out.println("Area of first rectangle: " + r1.getWidth());
-        System.out.println("Area of second rectangle: " + r2.getWidth());
+---
 
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Rectangle r1 = new Rectangle.DoubleRectangle(10.0, 20.0);
+                Rectangle r2 = new Rectangle.FloatRectangle(5.0f, 8.0f);
+
+                addText(builder, "Area of the first rectangle: " + r1.getArea());
+                addText(builder, "Area of the second rectangle: " + r2.getArea());
+
+                output.setText(builder);
+            }
+        });
     }
 }
 ```
@@ -104,13 +153,18 @@ the default constructor and, because it is private, *Rectangle* cannot be
 subclassed by non-member classes.
 
 ### Nonstatic Member Classes
+
 A **nonstatic member class** is a non-static class enclosed in and a member of
 another class.  An instance of a nonstatic member class is implicitly
 associated with an instance of the enclosing class and is able to access the
 outer class's instance methods and fields.
 
+---
+
+AddressBook.java
+
 ``` java
-package com.myname.week_11;
+package com.myname.myapplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,17 +207,58 @@ class AddressBook {
         }
     }
 }
+```
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
 
 
-public class Main {
-    public static void main(String[] args) {
-        AddressBook personal = new AddressBook("Personal");
-        personal.addAddress("Bob", "123 Main St");
-        personal.addAddress("Sue", "456 High St");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddressBook personal = new AddressBook("Personal");
+                personal.addAddress("Bob", "123 Main St");
+                personal.addAddress("Sue", "456 High St");
 
-        for (String address: personal.getAddresses()) {
-            System.out.println(address);
-        }
+                for (String address: personal.getAddresses()) {
+                   addText(builder, address);
+                }
+
+                output.setText(builder);
+            }
+        });
     }
 }
 ```
@@ -175,18 +270,23 @@ method that creates an instance of the nonstatic member class, *Contact*, and
 adds the new instance to a list.
 
 ### Anonymous Classes
+
 An **anonymous class** is a class without a name.  It is also not a member of
 its enclosing class.  An anonymous class is simultaneously declared and
 instantiated in one place.  An anonymous class can be an extension of a class
 or an implementation of an interface.
 
+---
+
+WeatherApp.java
+
 ``` java
-package com.myname.week_11;
+package com.myname.myapplication;
 
 import java.util.Random;
 
 interface WeatherReport {
-    public void display(double value);
+    public String report(double value);
 }
 
 class WeatherApp {
@@ -197,234 +297,196 @@ class WeatherApp {
     }
 
     //anonymous class implementing WeatherReport
-    public void displayTemperatureReport() {
-        new WeatherReport() {
+    public String getTemperatureReport() {
+        return new WeatherReport() {
             @Override
-            public void display(double value) {
-                System.out.println("The current temperature is " + value + ".");
+            public String report(double value) {
+                return "The current temperature is " + value + ".";
             }
-        }.display(temperature);
+        }.report(temperature);
     }
 }
-public class Main {
-    public static void main(String[] args) {
-        WeatherApp weather = new WeatherApp();
-        weather.updateTemperature();
-        weather.displayTemperatureReport();
+
+```
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WeatherApp weather = new WeatherApp();
+                weather.updateTemperature();
+                String report = weather.getTemperatureReport();
+                addText(builder, report);
+                output.setText(builder);
+            }
+        });
     }
 }
 ```
 
 In this example, we have an interface for reporting weather conditions that
-declares a *display()* method.  Our *WeatherApp* class makes use of the
-*WeatherReport* interface in its *displayTemperatureReport()* method.  Rather
+declares a *report()* method.  Our *WeatherApp* class makes use of the
+*WeatherReport* interface in its *getTemperatureReport()* method.  Rather
 than creating a class that implements the interface, creating an instance of
 the class, and storing it in a local variable, we can use a anonymous class
-instead.  Notice that we can call the *display()* method of the anonymous
-class.
+instead.  Notice that we can call the *report()* method of the anonymous
+class and return its value in *getTemperatureReport()*.
 
-Let's look at another example using an anonymous class.  Suppose we have a
-class that stores people's names.  The class will make use of a list to store
-the names.  We'd like to be able to add functionality to the class that allows
-us to filter the list of names.  Rather than hard-coding a specific type of
-filter - do the names begin with a certain letter, do the names have certain
-length, etc - we can create an interface with a method used determine if a
-name string is what we want or not.  When we want to use the filtering method,
-we'll have to specify the filter using an anonymous class.
-
-``` java
-package com.myname.week_11;
-
-import java.util.ArrayList;
-import java.util.List;
-
-interface StringFilter {
-    public boolean accept(String candidate);
-}
-
-class Names {
-    private List<String> names = new ArrayList<>();
-
-    public void add(String name) {
-        names.add(name);
-    }
-
-    public List<String> filter(StringFilter filter) {
-        List<String> filteredNames = new ArrayList<>();
-        for (String name: names) {
-            if (filter.accept(name)) {
-                filteredNames.add(name);
-            }
-        }
-        return filteredNames;
-    }
-
-}
-
-public class Main {
-    public static void main(String[] args ) {
-        Names friends = new Names();
-        friends.add("arthur");
-        friends.add("bob");
-        friends.add("sue");
-
-        //anonymous class implementing StringFilter
-        List<String> bNames = friends.filter(new StringFilter() {
-            @Override
-            public boolean accept(String candidate) {
-                return candidate.startsWith("b");
-            }
-        });
-
-        for (String name: bNames) {
-            System.out.println(name);
-        }
-    }
-}
-```
-
-Here, the *Names* class has a *filter()* method that takes a single parameter,
-a *StringFilter* object that can be used to determine if each string in the
-list should be part of the new list or not.  In *Main.main()*, we use the
-*filter()* method but have to provide an implementation of the *StringFilter*
-instance.  We do this with an anonymous class in which we specify the details
-of the filter's *accept()* method.  Specifically, the filter looks for strings
-that begin with the letter 'b'.
-
-Note that instead of using an anonymous class, we could have created an
-class that implemented the *StringFilter* interface, created an instance, and
-used the instance with the *filter()* method.
-
-``` java
-package com.myname.week_11;
-
-import java.util.ArrayList;
-import java.util.List;
-
-interface StringFilter {
-    public boolean accept(String candidate);
-}
-
-class Names {
-    private List<String> names = new ArrayList<>();
-
-    public void add(String name) {
-        names.add(name);
-    }
-
-    public List<String> filter(StringFilter filter) {
-        List<String> filteredNames = new ArrayList<>();
-        for (String name: names) {
-            if (filter.accept(name)) {
-                filteredNames.add(name);
-            }
-        }
-        return filteredNames;
-    }
-
-}
-
-//alternative to anonymous class implementing StringFilter
-class BFilter implements StringFilter {
-    @Override
-    public boolean accept(String candidate) {
-        return candidate.startsWith("b");
-    }
-}
-
-public class Main {
-    public static void main(String[] args ) {
-        Names friends = new Names();
-        friends.add("arthur");
-        friends.add("bob");
-        friends.add("sue");
-        StringFilter bFilter = new BFilter();
-        List<String> bNames = friends.filter(bFilter);
-
-        for (String name: bNames) {
-            System.out.println(name);
-        }
-    }
-}
-```
-
-Notice that an anonymous class is much more convenient, especially if we never
-need to use the *BFilter* class again.
+Look carefully at the *MainActivity* class, specifically in the *onCreate()*
+method. When we call *button.setOnClickListener()*, we use an anonymous class
+based on *View.OnClickListener* interface.  Rather than defining a stand-alone
+class that implements the *onClick()* method and then creating an instance of
+that class, we've been using an anonymous class.  Generally, anonymous classes
+are used when only once instance of the class will be created.
 
 ### Local Classes
+
 A **local class** is a class declared anywhere that a local variable can be
 declared.  A local class has a name and can be reused.  A local class can
 access the variables in the surrounding scope but they must be declared final.
 
-Continuing with the last example, suppose we want to create a class that we
-could use to produce a variety of different filters - objects implementing
-the *StringFilter* interface.
+Consider this example based on an example at https://www.geeksforgeeks.org/local-inner-class-java/.
+
+---
+
+Divider.java
 
 ``` java
-package com.myname.week_11;
+package com.myname.myapplication;
+
+// adapted from https://www.geeksforgeeks.org/local-inner-class-java/
+public class Divider {
+    public String getValues() {
+        final int initialValue = 20;
+
+        // Local inner Class inside method
+        class Inner {
+            public int divisor;
+
+            public Inner() {
+                divisor = 4;
+            }
+
+            private int getDivisor() {
+                return divisor;
+            }
+
+            private int getRemainder() {
+                return initialValue % divisor;
+            }
+
+            private int getQuotient() {
+                return initialValue / divisor;
+            }
+        }
+
+        Inner inner = new Inner();
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("Divisor = ");
+        builder.append(inner.getDivisor());
+        builder.append(", Remainder = ");
+        builder.append(inner.getRemainder());
+        builder.append(", Quotient = ");
+        builder.append(inner.getQuotient());
+
+        return builder.toString();
+    }
+}
+
+```
+
+---
+
+MainActivity.java
+
+``` java
+package com.myname.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-interface StringFilter {
-    public boolean accept(String candidate);
-}
-
-class Names {
-    private List<String> names = new ArrayList<>();
-
-    public void add(String name) {
-        names.add(name);
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
     }
 
-    public List<String> filter(StringFilter filter) {
-        List<String> filteredNames = new ArrayList<>();
-        for (String name: names) {
-            if (filter.accept(name)) {
-                filteredNames.add(name);
-            }
-        }
-        return filteredNames;
-    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-}
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
 
-class FilterCreator{
-    public static StringFilter startsWtihFilter(String prefix) {
-        //local class
-        class StartsWithFilter implements StringFilter {
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean accept(String candidate) {
-                 return candidate.startsWith(prefix);
+            public void onClick(View view) {
+                Divider divider = new Divider();
+                addText(builder, divider.getValues());
+                output.setText(builder);
             }
-        }
-        return new StartsWithFilter();
-    }
-}
-
-public class Main {
-    public static void main(String[] args ) {
-        Names friends = new Names();
-        friends.add("arthur");
-        friends.add("bob");
-        friends.add("sue");
-        StringFilter bFilter = FilterCreator.startsWtihFilter("b");
-        List<String> bNames = friends.filter(bFilter);
-
-        for (String name: bNames) {
-            System.out.println(name);
-        }
+        });
     }
 }
 ```
 
-Here, the *FilterCreator.startsWtihFilter()* method declares a class that
-implements *StringFilter* within it's body, creates an instance, and returns
-the new instance.  Because the *StartsWithFilter* class is declared within
-a method and not within the *FilterCreator* class body, it is not a member
+Here, the *Divider.getValues()* method declares a class that
+implements the necessary code in its body, creates an instance, and returns
+data from the new instance.  Because the *Inner* class is declared within
+a method and not within the *Divider* class body, it is not a member
 class.
 
 ## Listeners
+
 Often in our programs, objects will depend on information from other objects.
 Suppose we are writing an app for a news app.  Two classes we might create
 are a *ConsoleViewer* that displays news items and a *NewsCollection* that
