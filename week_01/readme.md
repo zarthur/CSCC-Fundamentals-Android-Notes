@@ -1,4 +1,4 @@
-# Week 1 - Utilize Data
+# Week 1 - Android Studio and Utilizing Data
 
 This week we'll learn the basics of creating a project in *Android Studio* and
 how to write code and display output in an Android application. We'll also

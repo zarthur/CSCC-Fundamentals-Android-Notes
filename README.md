@@ -13,7 +13,7 @@ These notes are based on the book used in the course:
 Weekly lecture notes can be found in the various subdirectories or by
 following the links below.
 
-- [Week 1 - Utilize Data](week_01/readme.md)
+- [Week 1 - Android Studio and Utilizing Data](week_01/readme.md)
 - [Week 2 - Flow Control](week_02/readme.md)
 - [Week 3 - Introduction to Methods, Enumerations, and User Input](week_03/readme.md)
 - [Week 4 - Collection Types](week_04/readme.md)
@@ -34,5 +34,5 @@ can be found [here](projects/readme.md).
 
 ## Software Versions
 
-These notes make use of Android Studio 4.0.1 and the Java 8 JDK (1.8). These notes may
-not be accurate for other versions.
+These notes make use of Android Studio 4.0.1 and the Java 8 JDK (1.8).
+These notes may not be accurate for other versions.

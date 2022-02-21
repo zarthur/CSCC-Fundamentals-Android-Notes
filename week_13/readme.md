@@ -1,9 +1,11 @@
 # Week 13 - Concurrency and Threading
 
 ## Corresponding Text
+
 *Learn Java for Android Development*, pp. 324-354, 487-536
 
 ## Threads
+
 A **thread** is a path of execution through a program's code.  So far, all our
 programs have executed following one path in a single thread, the main thread.
 While this is fine for a lot of programs, it is sometimes necessary to allow
@@ -19,6 +21,7 @@ typically preferred for working with threads.  Before we look that those
 utilities, it's important to understand some low-level concepts.
 
 ### Runnable and Thread
+
 The *Runnable* interface is used to supply code for threads to execute.  The
 interface declares a single method, `void run()`, that takes no parameters and
 returns no value.  The following is an example of an creating a *Runnable*
@@ -46,10 +49,43 @@ the main thread, the two threads we create both execute code specified by the
 its *start()* method.
 
 ``` java
-package com.myname.week_13;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeExample(builder, output, input);
+                output.setText(builder);
+            }
+        });
+    }
+
+    void executeExample(final StringBuilder builder, TextView output, EditText input) {
         Runnable runnable = new Runnable()
         {
             @Override
@@ -57,13 +93,13 @@ public class Main {
                 String name = Thread.currentThread().getName();
                 int count = 0;
                 while (count < 10)
-                    System.out.println(name + ": " + count++);
+                    addText(builder, name + ": " + count++);
             }
         };
 
         Thread threadA = new Thread(runnable);
         Thread threadB = new Thread(runnable);
-        System.out.println("Starting threads");
+        addText(builder, "Starting threads");
         threadA.start();
         threadB.start();
         try {
@@ -72,96 +108,67 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("End of Main.main()");
+        addText(builder, "End of threads.");
     }
 }
 ```
 
-After starting the threads, we can call each thread's *join()* method to wait
-for the thread to complete execution before continuing with the rest of the
-code.  *Thread.join()* potentially throws an *InterruptedException* exception
-if the thread is interrupted so we have to handle it.
+![Threads](images/thread-output.png)
 
-Running the program will produce output similar to the following:
+Here we've created a new method named *executeExample()* for our code. We
+had to declare the *builder* parameter `final` to indicate that once a value
+is assigned, it will not change; this is required since we will be using the
+variable in different threads.  We'll learn about alternatives later in this
+class.
 
-```
-Starting threads
-Thread-1: 0
-Thread-1: 1
-Thread-0: 0
-Thread-0: 1
-Thread-0: 2
-Thread-0: 3
-Thread-0: 4
-Thread-0: 5
-Thread-0: 6
-Thread-0: 7
-Thread-0: 8
-Thread-0: 9
-Thread-1: 2
-Thread-1: 3
-Thread-1: 4
-Thread-1: 5
-Thread-1: 6
-Thread-1: 7
-Thread-1: 8
-Thread-1: 9
-End of Main.main()
-```
-
-The output indicates that both threads were running simultaneously. The order
-of output will likely change from one execution of the program to the next and
-is also dependent on the underlying operating system.  If we did not wait for
-the other threads to complete execution before resuming main by calling their
-*join()* methods, we would likely have seen the "End of Main.main(()" message
-earlier.
-
-Exceptions can occur within threads.  If an exception occurs and it is not
-handled, the thread will terminate.  While we can attempt to handle exceptions
-in the *Runnable.run()* method, we might wish to handle similar exceptions in
-the same way regardless of the code in *Runnable.run()*.  To do this, we can
-create an uncaught exception handler.  The following code will cause the thread
-to terminate.
-
-``` java
-public class Main {
-    public static void main(String[] args) {
-        Runnable runnable = new Runnable()
-        {
-            @Override
-            public void run() {
-                int quotient = 1 / 0;
-            }
-        };
-
-        Thread threadA = new Thread(runnable);
-        System.out.println("Starting threads");
-        threadA.start();
-        try {
-            threadA.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("End of Main.main()");
-    }
-}
-```
-
-Note that while the thread doing the calculation terminates, the main thread
+Notice that while the threads doing the calculations terminate, the main thread
 continues execution.  We can specify uncaught exception handlers by
 implementing the *UncaughtExceptionHandler* interface and associating with
 all threads or with specific threads individually.  The following code creates
 an uncaught exception handler and uses the
-*Thread.setDefaultUncaughtExceptionHandler()* method to associate it will all
+*Thread.setDefaultUncaughtExceptionHandler()* method to associate it with all
 instances of the *Thread* class.  Java offers finer control of setting
 uncaught exception handlers, for example we could have used the
 *setUncaughtExceptionHandler()* method on the thread instance.
 
 ``` java
-package com.myname.week_13;
+package com.myname.myapplication;
 
-public class Main {
-    public static void main(String[] args) {
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    public void addText(StringBuilder builder, String text){
+        builder.append(text);
+        builder.append(System.lineSeparator());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView output = (TextView) findViewById((R.id.output));
+        final EditText input = (EditText) findViewById(R.id.input);
+        final Button button = (Button) findViewById(R.id.button);
+        final StringBuilder builder = new StringBuilder();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeExample(builder, output, input);
+                output.setText(builder);
+            }
+        });
+    }
+
+    void executeExample(final StringBuilder builder, TextView output, EditText input) {
         Runnable runnable = new Runnable()
         {
             @Override
@@ -171,37 +178,36 @@ public class Main {
         };
 
         Thread.setDefaultUncaughtExceptionHandler(
-            new Thread.UncaughtExceptionHandler() {
-                @Override
-                public void uncaughtException(Thread t, Throwable e) {
-                    System.out.println("Caught throwable " + e + " for thread "
-                            + t);
-                }
-            });
+                new Thread.UncaughtExceptionHandler() {
+                    @Override
+                    public void uncaughtException(Thread t, Throwable e) {
+                        addText(
+                            builder,
+                        "Caught throwable " + e + " for thread " + t
+                        );
+                    }
+                });
 
         Thread threadA = new Thread(runnable);
 
-        System.out.println("Starting threads");
+        addText(builder, "Starting threads");
         threadA.start();
         try {
             threadA.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("End of Main.main()");
+        addText(builder, "End of thread.");
     }
 }
 ```
 
 The output is similar to the following:
 
-```
-Starting threads
-Caught throwable java.lang.ArithmeticException: / by zero for thread Thread[Thread-0,5,main]
-End of Main.main()
-```
+![Thread Exception](images/thread-exception.png)
 
 ### Synchronization
+
 While threads can execute independently from other other threads, they may not
 be completely isolated.  Often threads will access and modify shared data. Care
 must be taken to avoid problems due to this sharing of data.  The following
